@@ -2,22 +2,20 @@ schema: hugoblox/author/v1
 slug: me
 is_owner: true
 name:
-  display: Dr. Alex Johnson
-  given: Alex
-  family: Johnson
-  alternate: ''  # Example: 王伟
+  display: Hyangsuk Min
+  given: Hyangsuk
+  family: Min
+  alternate: '민향숙'  # Example: 王伟
   pronunciation: ''  # Example: Wáng Wěi
-  pronouns: he/him
+  pronouns: she/her
 postnominals:
   - PhD
-  - MIEEE
 status:
   icon: "☕️"
-role: Senior AI Research Scientist
+role: PhD Student / AI Research Scientist
 bio: |
-  Alex Johnson is a Senior AI Research Scientist at Meta AI. His research
-  has been published in top conferences like NeurIPS and ICML, with over
-  10,000 citations. Alex is passionate about pushing the boundaries of AI
+  Hyangsuk Min is a PhD Student / AI Research Scientist at KAIST. her research
+  has been published in top conferences like ACL. Alex is passionate about pushing the boundaries of AI
   while ensuring ethical development.
 
 affiliations:
