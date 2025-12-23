@@ -35,7 +35,7 @@ sections:
       # Avatar customization
       avatar:
         size: medium # Options: small (150px), medium (200px, default), large (320px), xl (400px), xxl (500px)
-        shape: circle # Options: circle (default), square, rounded
+        shape: square # Options: circle (default), square, rounded
   # - block: markdown
   #   content:
   #     title: '📚 My Research'
@@ -48,36 +48,36 @@ sections:
   #       Please reach out to collaborate 😃
   #   design:
   #     columns: '1'
-  - block: collection
-    id: papers
-    content:
-      title: Featured Publications
-      filters:
-        folders:
-          - publications
-        featured_only: true
-    design:
-      view: article-grid
-      columns: 1
-  - block: collection
-    content:
-      title: Recent Publications
-      text: ''
-      filters:
-        folders:
-          - publications
-        exclude_featured: false
-    design:
-      view: citation
-  - block: collection
-    id: experiences
-    content:
-      title: Experiences
-      filters:
-        folders:
-          - experiences
-    design:
-      view: card
+  # - block: collection
+  #   id: papers
+  #   content:
+  #     title: Featured Publications
+  #     filters:
+  #       folders:
+  #         - publications
+  #       featured_only: true
+  #   design:
+  #     view: article-grid
+  #     columns: 1
+  # - block: collection
+  #   content:
+  #     title: Recent Publications
+  #     text: ''
+  #     filters:
+  #       folders:
+  #         - publications
+  #       exclude_featured: false
+  #   design:
+  #     view: citation
+  # - block: collection
+  #   id: experiences
+  #   content:
+  #     title: Experiences
+  #     filters:
+  #       folders:
+  #         - experiences
+  #   design:
+  #     view: card
   # - block: collection
   #   id: news
   #   content:
