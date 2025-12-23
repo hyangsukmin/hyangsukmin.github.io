@@ -1,119 +1,96 @@
-schema: hugoblox/author/v1
-slug: me
+schema: "hugoblox/author/v1"
+slug: "me"
 is_owner: true
 name:
-  display: Hyangsuk Min
-  given: Hyangsuk
-  family: Min
-  alternate: '민향숙'  # Example: 王伟
-  pronunciation: ''  # Example: Wáng Wěi
-  pronouns: she/her
+  display: "Hyangsuk Min"
+  given: "Hyangsuk"
+  family: "Min"
+  alternate: "민향숙"
+  pronunciation: ""
+  pronouns: "she/her"
 postnominals:
-  - PhD
+  - "PhD"
 status:
   icon: "☕️"
-role: PhD Student / AI Research Scientist
-bio: |
-  Hyangsuk Min is a PhD Student / AI Research Scientist at KAIST. her research has been published in top conferences like ACL. 
-  Hyangsuk is passionate about building human-aligned and trustworthy long-context summarization and memory systems for large language models.
+role: "PhD Student / AI Research Scientist"
+bio: "Hyangsuk Min is a PhD Student / AI Research Scientist at KAIST. her research has been published in top conferences like ACL.\ 
 
+  Hyangsuk is passionate about building human-aligned and trustworthy long-context summarization and memory systems for large language models.\n"
 affiliations:
-  - name: KAIST
-    url: https://www.kaist.ac.kr/en/
-
+  - name: "KAIST"
+    url: "https://www.kaist.ac.kr/en/"
 links:
-  - icon: at-symbol
-    url: mailto:hyangsuk.min@kaist.ac.kr
-    label: E-mail Me
-  - icon: brands/github
-    url: https://github.com/hmin0503
-  - icon: brands/linkedin
-    url: https://www.linkedin.com/in/hyangsukmin/
-  - icon: academicons/google-scholar
-    url: https://scholar.google.com/citations?user=U24LXHAAAAAJ&hl=en
-  # - icon: academicons/orcid
-  #   url: https://orcid.org/0000-0002-1825-0097
-
+  - icon: "at-symbol"
+    url: "mailto:hyangsuk.min@kaist.ac.kr"
+    label: "E-mail Me"
+  - icon: "brands/github"
+    url: "https://github.com/hmin0503"
+  - icon: "brands/linkedin"
+    url: "https://www.linkedin.com/in/hyangsukmin/"
+  - icon: "academicons/google-scholar"
+    url: "https://scholar.google.com/citations?user=U24LXHAAAAAJ&hl=en"
 interests:
-  - Large Language Models
-  - Human AI Alignment
-  - Data-Centric AI
-  - Text Generation/Evaluation - Summarization
-  - Trustworthy AI
-
+  - "Large Language Models"
+  - "Human AI Alignment"
+  - "Data-Centric AI"
+  - "Text Generation/Evaluation - Summarization"
+  - "Trustworthy AI"
 education:
-  - degree: PhD Industrial Engineering
-    institution: Korea Advanced Institute of Science and Technology
-    start: 2024-09-01
-    end: ~
-    # summary: |
-    #   Thesis on scaling laws for neural language models. Published 5 papers in NeurIPS and ICML.
-    # button:
-      # text: Download dissertation
-      # url: /resume.pdf
-      # icon: hero/arrow-down-tray
-  - degree: MS Graduate School of Data Science
-    institution: Korea Advanced Institute of Science and Technology
-    start: 2020-03-01
-    end: 2022-08-31
+  - degree: "PhD Industrial Engineering"
+    institution: "Korea Advanced Institute of Science and Technology"
+    start: "2024-09-01"
+    end: null
+  - degree: "MS Graduate School of Data Science"
+    institution: "Korea Advanced Institute of Science and Technology"
+    start: "2020-03-01"
+    end: "2022-08-31"
     button:
-      text: Download dissertation
-      url: https://ieeexplore.ieee.org/abstract/document/10066661
-      icon: hero/arrow-down-tray
-  - degree: BS Bigdata Analysis and Statistics
-    institution: Kookmin University
-    start: 2015-03-01
-    end: 2019-08-31
-
+      text: "Download dissertation"
+      url: "https://ieeexplore.ieee.org/abstract/document/10066661"
+      icon: "hero/arrow-down-tray"
+  - degree: "BS Bigdata Analysis and Statistics"
+    institution: "Kookmin University"
+    start: "2015-03-01"
+    end: "2019-08-31"
 experience:
-  - role: AI Research Engineer
-    org: HL Mando
-    start: 2022-10-24
-    end: 2024-08-27
-    summary: |
-      Developed synthetic data generation methods under limited data settings and built CI/CD pipelines to deploy deep learning models for smart factory applications.
-    #   text: View portfolio
-    #   url: /
-    #   icon: hero/arrow-down-tray
-  - role: ASIC Engineering Inter
-    org: Uniquify
-    start: 2018-08-01
-    end: 2019-06-30
-    summary: |
-      Collaborated with global teams on physical design tasks, including PnR and ECO, and developed Perl scripts to automate timing reports and violation summaries.
-
+  - role: "AI Research Engineer"
+    org: "HL Mando"
+    start: "2022-10-24"
+    end: "2024-08-27"
+    summary: "Developed synthetic data generation methods under limited data settings and built CI/CD pipelines to deploy deep learning models for smart factory applications.\n"
+  - role: "ASIC Engineering Inter"
+    org: "Uniquify"
+    start: "2018-08-01"
+    end: "2019-06-30"
+    summary: "Collaborated with global teams on physical design tasks, including PnR and ECO, and developed Perl scripts to automate timing reports and violation summaries.\n"
 skills:
-  - name: Technical Skills
+  - name: "Technical Skills"
     items:
-      - label: Python
+      - label: "Python"
         level: 5
-      - label: Machine Learning
+      - label: "Machine Learning"
         level: 5
-      - label: Cloud Computing
+      - label: "Cloud Computing"
         level: 2
-  - name: Research & Communication
+  - name: "Research & Communication"
     items:
-      - label: Academic Writing
+      - label: "Academic Writing"
         level: 4
-      - label: Conference Presentations
+      - label: "Conference Presentations"
         level: 4
-      - label: Grant Proposals
+      - label: "Grant Proposals"
         level: 3
-
 languages:
-  - name: Korean
+  - name: "Korean"
     level: 5
-    label: Native
-  - name: English
+    label: "Native"
+  - name: "English"
     level: 3
-    label: Intermediate-Fluent
-  - name: Spanish
+    label: "Intermediate-Fluent"
+  - name: "Spanish"
     level: 1
-    label: Beginner
-
-# awards:
-#   - title: Best Paper Award
-#     awarder: NeurIPS
-#     date: "2022-12-01"
-#     summary: Awarded for groundbreaking work on efficient training of large models.
-#     icon: hero/trophy
+    label: "Beginner"
+ids:
+  semantic_scholar: "1891408783"
+  google_scholar: "U24LXHAAAAAJ"
+weight: null
