@@ -14,9 +14,8 @@ status:
   icon: "☕️"
 role: PhD Student / AI Research Scientist
 bio: |
-  Hyangsuk Min is a PhD Student / AI Research Scientist at KAIST. her research
-  has been published in top conferences like ACL. Alex is passionate about pushing the boundaries of AI
-  while ensuring ethical development.
+  Hyangsuk Min is a PhD Student / AI Research Scientist at KAIST. her research has been published in top conferences like ACL. 
+  Hyangsuk is passionate about building human-aligned and trustworthy long-context summarization and memory systems for large language models.
 
 affiliations:
   - name: KAIST
@@ -47,19 +46,19 @@ education:
     institution: Korea Advanced Institute of Science and Technology
     start: 2024-09-01
     end: ~
-    summary: |
-      Thesis on scaling laws for neural language models. Published 5 papers in NeurIPS and ICML.
-    button:
-      text: Download dissertation
-      url: /resume.pdf
-      icon: hero/arrow-down-tray
+    # summary: |
+    #   Thesis on scaling laws for neural language models. Published 5 papers in NeurIPS and ICML.
+    # button:
+      # text: Download dissertation
+      # url: /resume.pdf
+      # icon: hero/arrow-down-tray
   - degree: MS Graduate School of Data Science
     institution: Korea Advanced Institute of Science and Technology
     start: 2020-03-01
     end: 2022-08-31
     button:
       text: Download dissertation
-      url: /resume.pdf
+      url: https://ieeexplore.ieee.org/abstract/document/10066661
       icon: hero/arrow-down-tray
   - degree: BS Bigdata Analysis and Statistics
     institution: Kookmin University
@@ -70,18 +69,18 @@ experience:
   - role: AI Research Engineer
     org: HL Mando
     start: 2022-10-24
+    end: 2024-08-27
     summary: |
-      Leading research on multimodal AI systems. Contributed to Llama 2 and other open-source models.
-    button:
-      text: View portfolio
-      url: /
-      icon: hero/arrow-down-tray
+      Developed synthetic data generation methods under limited data settings and built CI/CD pipelines to deploy deep learning models for smart factory applications.
+    #   text: View portfolio
+    #   url: /
+    #   icon: hero/arrow-down-tray
   - role: ASIC Engineering Inter
     org: Uniquify
     start: 2018-08-01
     end: 2019-06-30
     summary: |
-      Worked on GPT-3 scaling. Co-authored paper on prompt engineering.
+      Collaborated with global teams on physical design tasks, including PnR and ECO, and developed Perl scripts to automate timing reports and violation summaries.
 
 skills:
   - name: Technical Skills
