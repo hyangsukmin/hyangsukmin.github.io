@@ -8,11 +8,11 @@ main:
     identifier: yN0l6_8W
     url: /
     weight: 10
-  - name: Papers
-    identifier: FrxAP8et
-    url: /#papers
-    weight: 20
-  - name: Experience
-    identifier: rLlv77_2
-    url: /experiences
-    weight: 30
+  # - name: Papers
+  #   identifier: FrxAP8et
+  #   url: /#papers
+  #   weight: 20
+  # - name: Experience
+  #   identifier: rLlv77_2
+  #   url: /experiences
+  #   weight: 30
