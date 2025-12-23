@@ -57,7 +57,7 @@ sections:
           - publications
         featured_only: true
     design:
-      view: citation
+      view: article-grid
       columns: 1
   - block: collection
     content:
