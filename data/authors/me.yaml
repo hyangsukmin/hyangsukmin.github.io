@@ -19,64 +19,67 @@ bio: |
   while ensuring ethical development.
 
 affiliations:
-  - name: Meta AI
-    url: https://ai.meta.com/
+  - name: KAIST
+    url: https://www.kaist.ac.kr/en/
 
 links:
   - icon: at-symbol
-    url: mailto:alex.johnson@example.com
+    url: mailto:hyangsuk.min@kaist.ac.kr
     label: E-mail Me
-  - icon: brands/x
-    url: https://x.com/example
   - icon: brands/github
-    url: https://github.com/example
+    url: https://github.com/hmin0503
   - icon: brands/linkedin
-    url: https://www.linkedin.com/in/example/
+    url: https://www.linkedin.com/in/hyangsukmin/
   - icon: academicons/google-scholar
-    url: https://scholar.google.com/citations?user=example
-  - icon: academicons/orcid
-    url: https://orcid.org/0000-0002-1825-0097
+    url: https://scholar.google.com/citations?user=U24LXHAAAAAJ&hl=en
+  # - icon: academicons/orcid
+  #   url: https://orcid.org/0000-0002-1825-0097
 
 interests:
   - Large Language Models
-  - Computer Vision
-  - Reinforcement Learning
-  - AI Ethics
+  - Human AI Alignment
+  - Data-Centric AI
+  - Text Generation/Evaluation - Summarization
+  - Trustworthy AI
 
 education:
-  - degree: PhD Computer Science
-    institution: Stanford University
-    start: 2015-09-01
-    end: 2019-06-30
+  - degree: PhD Industrial Engineering
+    institution: Korea Advanced Institute of Science and Technology
+    start: 2024-09-01
+    end: ~
     summary: |
       Thesis on scaling laws for neural language models. Published 5 papers in NeurIPS and ICML.
     button:
       text: Download dissertation
       url: /resume.pdf
       icon: hero/arrow-down-tray
-  - degree: MS Computer Science
-    institution: Carnegie Mellon University
-    start: 2013-09-01
-    end: 2015-05-31
-  - degree: BS Computer Science
-    institution: MIT
-    start: 2009-09-01
-    end: 2013-05-31
+  - degree: MS Graduate School of Data Science
+    institution: Korea Advanced Institute of Science and Technology
+    start: 2020-03-01
+    end: 2022-08-31
+    button:
+      text: Download dissertation
+      url: /resume.pdf
+      icon: hero/arrow-down-tray
+  - degree: BS Bigdata Analysis and Statistics
+    institution: Kookmin University
+    start: 2015-03-01
+    end: 2019-08-31
 
 experience:
-  - role: Senior AI Research Scientist
-    org: Meta AI
-    start: 2020-01-01
+  - role: AI Research Engineer
+    org: HL Mando
+    start: 2022-10-24
     summary: |
       Leading research on multimodal AI systems. Contributed to Llama 2 and other open-source models.
     button:
       text: View portfolio
       url: /
       icon: hero/arrow-down-tray
-  - role: AI Research Intern
-    org: OpenAI
-    start: 2019-06-01
-    end: 2019-12-31
+  - role: ASIC Engineering Inter
+    org: Uniquify
+    start: 2018-08-01
+    end: 2019-06-30
     summary: |
       Worked on GPT-3 scaling. Co-authored paper on prompt engineering.
 
@@ -88,23 +91,26 @@ skills:
       - label: Machine Learning
         level: 5
       - label: Cloud Computing
-        level: 4
+        level: 2
   - name: Research & Communication
     items:
       - label: Academic Writing
-        level: 5
+        level: 4
       - label: Conference Presentations
         level: 4
       - label: Grant Proposals
-        level: 4
+        level: 3
 
 languages:
-  - name: English
+  - name: Korean
     level: 5
     label: Native
+  - name: English
+    level: 3
+    label: Intermediate-Fluent
   - name: Spanish
-    level: 4
-    label: Fluent
+    level: 1
+    label: Beginner
 
 awards:
   - title: Best Paper Award
