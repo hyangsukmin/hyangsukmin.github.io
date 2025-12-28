@@ -12,9 +12,8 @@ postnominals:
   - "PhD"
 status:
   icon: "☕️"
-role: "PhD Student / AI Research Scientist"
-bio: "Hyangsuk Min is a PhD Student / AI Research Scientist at KAIST. her research has been published in top conferences like ACL.\ 
-
+role: "PhD Student"
+bio: "Hyangsuk Min is a PhD Student at KAIST. her research has been published in top conferences like ACL.\ 
   Hyangsuk is passionate about building human-aligned and trustworthy long-context summarization and memory systems for large language models.\n"
 affiliations:
   - name: "KAIST"
@@ -80,6 +79,9 @@ skills:
         level: 4
       - label: "Grant Proposals"
         level: 3
+awards:
+  - name: "Merit scholarship"
+    summary: "Awarded merit scholarships totaling approximately $11,000 across 7 semesters for academic excellence.\n2 full, 5 partial scholarships."
 languages:
   - name: "Korean"
     level: 5
