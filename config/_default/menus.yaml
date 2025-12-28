@@ -12,7 +12,7 @@ main:
   #   identifier: FrxAP8et
   #   url: /#papers
   #   weight: 20
-  # - name: Experience
-  #   identifier: rLlv77_2
-  #   url: /experiences
-  #   weight: 30
+  - name: Experience
+    identifier: rLlv77_2
+    url: /experiences
+    weight: 30
