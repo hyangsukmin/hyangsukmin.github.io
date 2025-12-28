@@ -14,5 +14,5 @@ main:
   #   weight: 20
   - name: Experience
     identifier: rLlv77_2
-    url: /experiences
+    url: /experience
     weight: 30

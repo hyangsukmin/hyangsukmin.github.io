@@ -79,6 +79,9 @@ skills:
         level: 4
       - label: "Grant Proposals"
         level: 3
+awards:
+  - name: "Merit scholarship"
+    summary: "Awarded merit scholarships totaling approximately $11,000 across 7 semesters for academic excellence.\n2 full, 5 partial scholarships."
 languages:
   - name: "Korean"
     level: 5
