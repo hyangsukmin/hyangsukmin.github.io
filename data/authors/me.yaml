@@ -13,8 +13,7 @@ postnominals:
 status:
   icon: "☕️"
 role: "PhD Student"
-bio: "Hyangsuk Min is a PhD Student at KAIST. her research has been published in top conferences like ACL.\ 
-  Hyangsuk is passionate about building human-aligned and trustworthy long-context summarization and memory systems for large language models.\n"
+bio: "Hyangsuk Min is a PhD Student at KAIST. She is passionate about building human-aligned and trustworthy long-context summarization and memory systems for large language models.\n"
 affiliations:
   - name: "KAIST"
     url: "https://www.kaist.ac.kr/en/"
