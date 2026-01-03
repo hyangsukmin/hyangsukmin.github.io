@@ -43,14 +43,16 @@ education:
     institution: "Korea Advanced Institute of Science and Technology"
     start: "2020-03-01"
     end: "2022-08-31"
+    gpa: "4.12/4.3"
     button:
       text: "Download dissertation"
       url: "https://ieeexplore.ieee.org/abstract/document/10066661"
       icon: "hero/arrow-down-tray"
-  - degree: "BS Bigdata Analysis and Statistics"
+  - degree: "BBA Bigdata Analysis and Statistics"
     institution: "Kookmin University"
     start: "2015-03-01"
     end: "2019-08-31"
+    gpa: "4.4/4.5"
 experience:
   - role: "AI Research Engineer"
     org: "HL Mando"
@@ -81,7 +83,7 @@ skills:
         level: 3
 awards:
   - name: "Merit scholarship"
-    summary: "Awarded merit scholarships totaling approximately $11,000 across 7 semesters for academic excellence.\n2 full, 5 partial scholarships."
+    summary: "Awarded merit scholarships totaling approximately $16,000 across 7 semesters for academic excellence: 2 full, 5 partial scholarships."
 languages:
   - name: "Korean"
     level: 5
