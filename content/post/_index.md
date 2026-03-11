@@ -1,4 +1,14 @@
 ---
 title: Paper Reviews
-view: compact
+type: landing
+sections:
+  - block: collection
+    content:
+      title: Paper Reviews
+      filters:
+        folders:
+          - post
+    design:
+      view: compact
+      columns: 1
 ---
