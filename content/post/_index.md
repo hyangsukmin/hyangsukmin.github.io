@@ -12,6 +12,6 @@ sections:
       sort_by: 'Date'
       sort_ascending: false
     design:
-      view: 2
+      view: community/paperlist
       columns: '1'
 ---
