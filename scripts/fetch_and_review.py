@@ -125,8 +125,22 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list[dict]:
         "max_results": limit * 3,  # 날짜 필터 후 줄어들 것을 감안
     }
 
-    resp = requests.get("https://export.arxiv.org/api/query", params=params, timeout=30)
-    resp.raise_for_status()
+    # 타임아웃 90초 + 실패시 3번 재시도
+    for attempt in range(5):
+        try:
+            resp = requests.get(
+                "https://export.arxiv.org/api/query",
+                params=params,
+                timeout=90
+            )
+            resp.raise_for_status()
+            break
+        except requests.exceptions.Timeout:
+            print(f"  ⏳ arxiv 응답 느림, 재시도 중... ({attempt + 1}/3)")
+            time.sleep(10)
+    else:
+        print(f"  ❌ arxiv 연결 실패, 이 카테고리 건너뜀")
+        return []
 
     ns = {"atom": "http://www.w3.org/2005/Atom"}
     root = ET.fromstring(resp.content)
