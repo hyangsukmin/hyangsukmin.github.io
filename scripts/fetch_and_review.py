@@ -47,26 +47,17 @@ CONFIG = {
 }
 
 TOP_INSTITUTIONS = [
-    # --- Global Big Tech & Labs ---
-    "DeepMind", "OpenAI", "Google", "Meta", "FAIR", "Microsoft", "Anthropic", 
+    "DeepMind", "OpenAI", "Google", "Meta", "FAIR", "Microsoft", "Anthropic",
     "NVIDIA", "Tesla", "Amazon Science", "Apple", "IBM Research", "X.AI", "AWS", "Amazon",
-    
-    # --- Elite Universities (US) ---
-    "Stanford", "MIT", "CMU", "Carnegie Mellon", "UC Berkeley", "BAIR", "Georgia Tech", 
+    "Stanford", "MIT", "CMU", "Carnegie Mellon", "UC Berkeley", "BAIR", "Georgia Tech",
     "Princeton", "Harvard", "Caltech", "UPenn", "Cornell", "UCLA", "UW", "University of Washington",
-    
-    # --- Elite Universities & Labs (Global) ---
-    "Oxford", "Cambridge", "ETH Zurich", "EPFL", "University of Toronto", "Vector Institute", 
+    "Oxford", "Cambridge", "ETH Zurich", "EPFL", "University of Toronto", "Vector Institute",
     "Mila", "McGill", "Max Planck", "TUM", "Technical University of Munich", "INRIA", "DFKI",
     "Tsinghua", "Peking University", "HKUST", "Nanyang Technological University", "NTU",
-    
-    # --- Robotics & Embodied AI Specialties ---
     "Boston Dynamics", "Agility Robotics", "Figure AI", "Sanctuary AI", "Intuitive Surgical",
     "Dyson Robotics", "TRI", "Toyota Research Institute", "Standard Bots",
-    
-    # --- Korean Powerhouses (AI & Robotics) ---
-    "Samsung Research", "NAVER", "SK Telecom", "LG AI Research", "Kakao Brain", 
-    "Hyundai Motor", "SNU", "Seoul National University", "KAIST", "POSTECH", 
+    "Samsung Research", "NAVER", "SK Telecom", "LG AI Research", "Kakao Brain",
+    "Hyundai Motor", "SNU", "Seoul National University", "KAIST", "POSTECH",
     "Yonsei", "Korea University", "KIST", "Upstage", "Lunit", "Rebellions", "FuriosaAI"
 ]
 VVIP_LABS = ["DeepMind", "OpenAI", "Stanford", "KAIST", "Google DeepMind", "AWS"]
@@ -104,7 +95,6 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
         "max_results": 40,
     }
 
-    # 타임아웃 90초 + 실패시 3번 재시도
     for attempt in range(3):
         try:
             resp = requests.get(
@@ -137,7 +127,6 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
         comment = entry.find("arxiv:comment", ns)
         comment_text = comment.text if comment is not None else ""
 
-        # 유망성 점수 계산
         score = 0
         if any(conf.lower() in comment_text.lower() for conf in TOP_CONFERENCES):
             score += 10
@@ -151,7 +140,6 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
         if any(kw.lower() in title.lower() for kw in keywords):
             score += 3
 
-        # 점수 0점 논문 제외
         if score == 0:
             continue
 
@@ -168,7 +156,6 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
             "score": score,
         })
 
-    # 점수 높은 순 정렬 후 개수 제한
     candidates.sort(key=lambda x: x["score"], reverse=True)
     return candidates[:limit]
 
@@ -200,41 +187,50 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
     today = datetime.now(timezone.utc).strftime("%Y년 %m월 %d일")
     total = sum(len(v) for v in sections.values())
 
-    # 목차 생성 (앵커 링크 없이 텍스트만 — Hugo 호환)
-    toc = []
+    # ── 목차: 표 형식 (줄바꿈 문제 완전 해결) ──
+    toc_rows = []
     paper_idx = 1
     for cat in CONFIG["categories"]:
         name = cat["name"]
         if not sections.get(name):
             continue
-        toc.append(f"\n**{name}**")
         for p in sections[name]:
-            short_title = p['title'][:60] + ("..." if len(p['title']) > 60 else "")
-            toc.append(f"  {paper_idx}. {short_title}")
+            short_title = p['title'][:55] + ("..." if len(p['title']) > 55 else "")
+            # 파이프(|) 문자가 표를 깨므로 제거
+            short_title = short_title.replace("|", "-")
+            toc_rows.append(f"| {paper_idx} | {name} | {short_title} |")
             paper_idx += 1
 
-    # 본문 생성
-    body = []
+    toc_str = "| # | 분야 | 제목 |\n|---|------|------|\n" + "\n".join(toc_rows)
+
+    # ── 본문 ──
+    body_parts = []
     paper_idx = 1
     for cat in CONFIG["categories"]:
         name = cat["name"]
         if not sections.get(name):
             continue
-        body.append(f"\n---\n\n# {name}\n")
+
+        body_parts.append(f"\n---\n\n# {name}\n")
+
         for p, r in zip(sections[name], reviews[name]):
             authors_str = ", ".join(p['authors'][:3])
             if len(p['authors']) > 3:
                 authors_str += " 외"
-            body.append(f"## {paper_idx}. {p['title']}\n")
-            body.append(f"> 👥 **저자**: {authors_str}  ")
-            body.append(f"> 📄 **원문**: [{p['abs_url']}]({p['abs_url']}) · [PDF]({p['pdf_url']})  ")
-            body.append(f"> ⭐ **유망점수**: {p['score']}점\n")
-            body.append(f"{r}\n")
+
+            # 제목의 특수문자 처리
+            safe_title = p['title'].replace("|", "-")
+
+            body_parts.append(f"## {paper_idx}. {safe_title}\n")
+            body_parts.append(
+                f"> 👥 **저자**: {authors_str} &nbsp;|&nbsp; "
+                f"📄 [원문]({p['abs_url']}) · [PDF]({p['pdf_url']}) &nbsp;|&nbsp; "
+                f"⭐ **유망점수**: {p['score']}점\n"
+            )
+            body_parts.append(f"{r}\n")
             paper_idx += 1
 
-    # f-string 안에 join 직접 쓰면 에러나므로 변수로 분리
-    toc_str = "\n".join(toc)
-    body_str = "\n".join(body)
+    body_str = "\n".join(body_parts)
 
     content = f"""---
 title: "📚 {today} 논문 Daily Digest ({total}편)"
@@ -245,6 +241,7 @@ summary: "Self-Evolving · Memory · Robotics · Reasoning 분야 유망 논문 
 ---
 
 ## 📋 목차
+
 {toc_str}
 
 {body_str}
@@ -265,7 +262,6 @@ def main():
     client = anthropic.Anthropic(api_key=api_key)
     cutoff = datetime.now(timezone.utc) - timedelta(days=CONFIG["days_back"])
 
-    # 중복 리뷰 방지
     history_path = Path("data/reviewed_ids.json")
     history_path.parent.mkdir(parents=True, exist_ok=True)
     reviewed_ids = set(json.loads(history_path.read_text())) if history_path.exists() else set()
