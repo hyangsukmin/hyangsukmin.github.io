@@ -1,17 +1,13 @@
 name: 📚 Daily arxiv Paper Review
-
 on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   review-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: 📥 저장소 체크아웃
         uses: actions/checkout@v4
@@ -32,14 +28,6 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/fetch_and_review.py
 
-      - name: 🚀 커밋 & 푸시
-        run: |
-          git config user.email "paperbot@github.com"
-          git config user.name "Paper Review Bot"
-          git add content/post/ data/
-          git diff --staged --quiet || git commit -m "📚 $(date '+%Y-%m-%d') 논문 리뷰 자동 업데이트"
-          git push
-
       - name: 🏗️ Hugo 설치
         uses: peaceiris/actions-hugo@v3
         with:
@@ -56,6 +44,17 @@ jobs:
 
       - name: 🔨 Hugo 빌드
         run: hugo --minify
+
+      - name: 🚀 커밋 & 푸시 (소스)
+        run: |
+          git config user.email "paperbot@github.com"
+          git config user.name "Paper Review Bot"
+          git add content/post/ data/
+          git diff --staged --quiet || (
+            git pull --rebase origin main &&
+            git commit -m "📚 $(date '+%Y-%m-%d') 논문 리뷰 자동 업데이트" &&
+            git push
+          )
 
       - name: 🌐 GitHub Pages 배포
         uses: peaceiris/actions-gh-pages@v4
