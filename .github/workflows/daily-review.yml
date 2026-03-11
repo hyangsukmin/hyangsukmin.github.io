@@ -1,0 +1,49 @@
+name: 📚 Daily arxiv Paper Review
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  review-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install anthropic requests
+
+      - name: 🔍 논문 검색 & AI 리뷰 생성
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/fetch_and_review.py
+
+      - name: 🚀 커밋 & 푸시
+        run: |
+          git config user.email "paperbot@github.com"
+          git config user.name "Paper Review Bot"
+          git add content/post/ data/
+          git diff --staged --quiet || git commit -m "📚 $(date '+%Y-%m-%d') 논문 리뷰 자동 업데이트"
+          git push
+
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      - run: hugo --minify
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
