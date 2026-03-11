@@ -1,0 +1,3 @@
+User-agent: *
+
+Sitemap: https://hyangsukmin.github.io/sitemap.xml
