@@ -1,4 +1,4 @@
 ---
 title: Paper Reviews
-view: 2
+view: compact
 ---
