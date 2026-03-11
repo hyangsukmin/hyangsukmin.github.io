@@ -11,17 +11,21 @@ permissions:
 jobs:
   review-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 저장소 체크아웃
+        uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: 🐍 Python 설정
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - run: pip install anthropic requests
+      - name: 📦 Python 패키지 설치
+        run: pip install anthropic requests
 
       - name: 🔍 논문 검색 & AI 리뷰 생성
         env:
@@ -36,14 +40,25 @@ jobs:
           git diff --staged --quiet || git commit -m "📚 $(date '+%Y-%m-%d') 논문 리뷰 자동 업데이트"
           git push
 
-      - uses: peaceiris/actions-hugo@v3
+      - name: 🏗️ Hugo 설치
+        uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: "latest"
           extended: true
 
-      - run: hugo --minify
+      - name: 📦 Node.js 설치
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-      - uses: peaceiris/actions-gh-pages@v4
+      - name: 📦 npm 패키지 설치 (TailwindCSS 포함)
+        run: npm install
+
+      - name: 🔨 Hugo 빌드
+        run: hugo --minify
+
+      - name: 🌐 GitHub Pages 배포
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
