@@ -1,0 +1,9 @@
+<div style="max-width: 800px; margin: 0 auto;">
+{{ range . }}
+<div style="padding: 8px 0; border-bottom: 1px solid #eee;">
+  <a href="{{ .RelPermalink }}" style="font-weight: 600; font-size: 1rem;">{{ .Title }}</a>
+  <span style="color: #888; font-size: 0.85rem; margin-left: 12px;">{{ .Date.Format "2006-01-02" }}</span>
+  {{ with .Params.summary }}<p style="margin: 2px 0 0; color: #555; font-size: 0.9rem;">{{ . }}</p>{{ end }}
+</div>
+{{ end }}
+</div>
