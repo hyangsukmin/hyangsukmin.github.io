@@ -1,17 +1,11 @@
 {{ $item := .item }}
-{{ $view := .view }}
 
 <div class="flex items-baseline justify-between py-3 border-b border-gray-100 dark:border-gray-800 gap-4">
-
-  {{/* 제목 */}}
   <a href="{{ $item.RelPermalink }}"
      class="text-base font-medium hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex-1 leading-snug">
     {{ $item.Title }}
   </a>
-
-  {{/* 날짜 */}}
   <span class="text-sm text-gray-400 dark:text-gray-500 whitespace-nowrap shrink-0">
     {{ $item.Date | time.Format "2006-01-02" }}
   </span>
-
 </div>
