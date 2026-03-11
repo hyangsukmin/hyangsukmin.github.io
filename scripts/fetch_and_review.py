@@ -2,7 +2,6 @@
 arxiv 논문 자동 크롤링 + AI 리뷰 생성기
 카테고리별로 각 3~5편씩 가져와서 하루 1페이지로 정리합니다.
 """
-
 import os
 import json
 import time
@@ -13,120 +12,99 @@ from pathlib import Path
 import anthropic
 
 # ════════════════════════════════════════════════════
-# ✏️  여기서 설정을 바꾸세요!
+# ✏️ [설정] 연구 카테고리 및 키워드 (유망 논문 필터링 포함)
 # ════════════════════════════════════════════════════
 CONFIG = {
-    # 카테고리별 설정
-    # name: 페이지에 표시될 이름
-    # category: arxiv 카테고리 코드
-    # papers_per_day: 하루에 가져올 논문 수
-    # keywords: 이 카테고리 안에서 추가 필터 키워드 (비우면 카테고리 전체)
     "categories": [
         {
-            "name": "🤖 Robotics",
-            "category": "cs.RO",
-            "papers_per_day": 4,
-            "keywords": ["robot", "robotic", "manipulation", "vla", "vision-language-action model", "memory management", "self-evolving", "experiment"],
-        },
-        {
-            "name": "🧠 AI / LLM",
+            "name": "🔄 Self-Evolving & Agents",
             "category": "cs.AI",
-            "papers_per_day": 4,
-            "keywords": ["large language model", "LLM", "agent", "reasoning", "memory"],
+            "papers_per_day": 3,
+            "keywords": ["self-evolving agent", "error correction reasoning", "reflexion", "iterative refinement", "adaptive agent", "learning from mistakes"],
         },
         {
-            "name": "💬 NLP",
-            "category": "cs.CL",
+            "name": "🧠 Lifelong & Long-range Memory",
+            "category": "cs.LG",
             "papers_per_day": 3,
-            "keywords": ["long horizon", "long-horizon", "episodic memory", "memory management", "LLM"],
+            "keywords": ["lifelong memory", "long-range memory", "memory management", "selective retrieval", "episodic memory", "hierarchical memory"],
         },
+        {
+            "name": "🦾 Robotics & Embodied AI",
+            "category": "cs.RO",
+            "papers_per_day": 3,
+            "keywords": ["Gemini Robotics", "embodied AI", "robotics memory", "learning from historic errors", "VLA model", "manipulation"],
+        },
+        {
+            "name": "⏳ Advanced Reasoning (Long-Think)",
+            "category": "cs.AI",
+            "papers_per_day": 2,
+            "keywords": ["system 2 thinking", "slow inference", "deliberative reasoning", "long-form reasoning", "chain of thought optimization"],
+        }
     ],
-
-    # 최근 며칠 이내 논문 (1 = 어제~오늘)
     "days_back": 7,
-
-    # 리뷰 언어
     "review_language": "Korean",
-
-    # 리뷰 스타일: "technical" / "beginner" / "practical"
     "review_style": "technical",
 }
-# ════════════════════════════════════════════════════
 
+TOP_INSTITUTIONS = [
+    # --- Global Big Tech & Labs ---
+    "DeepMind", "OpenAI", "Google", "Meta", "FAIR", "Microsoft", "Anthropic", 
+    "NVIDIA", "Tesla", "Amazon Science", "Apple", "IBM Research", "X.AI",
+    
+    # --- Elite Universities (US) ---
+    "Stanford", "MIT", "CMU", "Carnegie Mellon", "UC Berkeley", "BAIR", "Georgia Tech", 
+    "Princeton", "Harvard", "Caltech", "UPenn", "Cornell", "UCLA", "UW", "University of Washington",
+    
+    # --- Elite Universities & Labs (Global) ---
+    "Oxford", "Cambridge", "ETH Zurich", "EPFL", "University of Toronto", "Vector Institute", 
+    "Mila", "McGill", "Max Planck", "TUM", "Technical University of Munich", "INRIA", "DFKI",
+    "Tsinghua", "Peking University", "HKUST", "Nanyang Technological University", "NTU",
+    
+    # --- Robotics & Embodied AI Specialties ---
+    "Boston Dynamics", "Agility Robotics", "Figure AI", "Sanctuary AI", "Intuitive Surgical",
+    "Dyson Robotics", "TRI", "Toyota Research Institute", "Standard Bots",
+    
+    # --- Korean Powerhouses (AI & Robotics) ---
+    "Samsung Research", "NAVER", "SK Telecom", "LG AI Research", "Kakao Brain", 
+    "Hyundai Motor", "SNU", "Seoul National University", "KAIST", "POSTECH", 
+    "Yonsei", "Korea University", "KIST", "Upstage", "Lunit", "Rebellions", "FuriosaAI"
+]
+TOP_CONFERENCES = ["ICLR", "NeurIPS", "ICML", "CVPR", "ECCV", "ICRA", "RSS", "AAAI", "IJCAI", "ACL", "EMNLP", "NAACL", "COLM"]
+
+# ════════════════════════════════════════════════════
 
 STYLE_PROMPTS = {
     "technical": """다음 형식으로 **간결하게** 분석해주세요 (각 섹션 2~4줄):
-
 ## 핵심 기여
 기존 연구와 무엇이 다른가?
-
 ## 방법론
 핵심 아이디어를 직관적으로 설명
-
 ## 실험 결과
 주요 성능 수치와 의미
-
 ## 한계 및 향후 연구
 주요 한계점과 열어주는 방향
-
 **종합 평가**: ⭐(1~5) — 한 줄 평""",
-
-    "beginner": """다음 형식으로 **간결하게** 설명해주세요 (각 섹션 2~3줄):
-
-## 한 줄 요약
-10살도 이해할 수 있게
-
-## 핵심 아이디어
-비유를 들어 설명
-
-## 실생활 응용
-어디에 쓰일 수 있나?
-
-**흥미도**: ⭐(1~5) — 한 줄 평""",
-
-    "practical": """다음 형식으로 **간결하게** 분석해주세요 (각 섹션 2~3줄):
-
-## 즉시 활용 가능성
-코드/모델 공개 여부, 난이도
-
-## 적용 분야
-어느 산업에 유용한가?
-
-## 컴퓨팅 요구사항
-GPU 등 하드웨어 요구사항
-
-**실용성**: ⭐(1~5) — 한 줄 평""",
-}
-
-STYLE_LABELS = {
-    "technical": "기술 심층 분석",
-    "beginner": "입문자 리뷰",
-    "practical": "실용성 분석",
 }
 
 
-def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list[dict]:
-    """카테고리별로 논문 가져오기"""
+def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
+    """유망한 논문을 점수제로 필터링하여 가져오기"""
     category = cat_config["category"]
     keywords = cat_config.get("keywords", [])
     limit = cat_config["papers_per_day"]
 
-    # 쿼리 구성: 카테고리 필수 + 키워드는 있으면 OR 조건
-    if keywords:
-        kw_query = " OR ".join([f'all:"{kw}"' for kw in keywords])
-        query = f"cat:{category} AND ({kw_query})"
-    else:
-        query = f"cat:{category}"
+    kw_query = " OR ".join([f'all:"{kw}"' for kw in keywords])
+    query = f"cat:{category} AND ({kw_query})"
 
     params = {
         "search_query": query,
         "sortBy": "submittedDate",
         "sortOrder": "descending",
-        "max_results": limit * 3,  # 날짜 필터 후 줄어들 것을 감안
+        "max_results": 40,
     }
 
     # 타임아웃 90초 + 실패시 3번 재시도
-    for attempt in range(5):
+    for attempt in range(3):
         try:
             resp = requests.get(
                 "https://export.arxiv.org/api/query",
@@ -142,10 +120,10 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list[dict]:
         print(f"  ❌ arxiv 연결 실패, 이 카테고리 건너뜀")
         return []
 
-    ns = {"atom": "http://www.w3.org/2005/Atom"}
+    ns = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
     root = ET.fromstring(resp.content)
 
-    papers = []
+    candidates = []
     for entry in root.findall("atom:entry", ns):
         published_str = entry.find("atom:published", ns).text
         published = datetime.fromisoformat(published_str.replace("Z", "+00:00"))
@@ -153,56 +131,56 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list[dict]:
         if published < cutoff:
             continue
 
-        paper_id = entry.find("atom:id", ns).text.split("/abs/")[-1]
         title = entry.find("atom:title", ns).text.strip().replace("\n", " ")
         summary = entry.find("atom:summary", ns).text.strip().replace("\n", " ")
-        authors = [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)]
-        categories = [c.get("term") for c in entry.findall("atom:category", ns)]
+        comment = entry.find("arxiv:comment", ns)
+        comment_text = comment.text if comment is not None else ""
 
-        papers.append({
+        # 유망성 점수 계산
+        score = 0
+        if any(conf.lower() in comment_text.lower() for conf in TOP_CONFERENCES):
+            score += 10
+        if "github.com" in summary.lower() or "github.com" in comment_text.lower():
+            score += 7
+        if any(inst.lower() in summary.lower() or inst.lower() in comment_text.lower() for inst in TOP_INSTITUTIONS):
+            score += 5
+        if any(kw.lower() in title.lower() for kw in keywords):
+            score += 3
+
+        # 점수 0점 논문 제외
+        if score == 0:
+            continue
+
+        paper_id = entry.find("atom:id", ns).text.split("/abs/")[-1]
+        candidates.append({
             "id": paper_id,
             "title": title,
-            "authors": authors,
             "summary": summary,
+            "authors": [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)],
             "published": published.strftime("%Y-%m-%d"),
             "abs_url": f"https://arxiv.org/abs/{paper_id}",
             "pdf_url": f"https://arxiv.org/pdf/{paper_id}",
-            "categories": categories,
-            "section": cat_config["name"],  # 어느 섹션인지 표시
+            "categories": [c.get("term") for c in entry.findall("atom:category", ns)],
+            "score": score,
         })
 
-        if len(papers) >= limit:
-            break
-
-    return papers
-
-
-def load_reviewed_ids() -> set:
-    path = Path("data/reviewed_ids.json")
-    if path.exists():
-        return set(json.loads(path.read_text()))
-    return set()
-
-
-def save_reviewed_ids(ids: set):
-    path = Path("data/reviewed_ids.json")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(list(ids), indent=2))
+    # 점수 높은 순 정렬 후 개수 제한
+    candidates.sort(key=lambda x: x["score"], reverse=True)
+    return candidates[:limit]
 
 
 def review_paper(paper: dict, client: anthropic.Anthropic) -> str:
-    style_prompt = STYLE_PROMPTS[CONFIG["review_style"]]
+    """Claude AI를 사용해 논문 리뷰 생성"""
+    style_prompt = STYLE_PROMPTS.get(CONFIG["review_style"], STYLE_PROMPTS["technical"])
     lang = CONFIG["review_language"]
 
-    prompt = f"""다음 arxiv 논문을 {lang}로 리뷰해주세요.
+    prompt = f"""다음 arxiv 논문을 {lang}로 리뷰해주세요. 유망 점수 {paper['score']}점인 중요한 논문입니다.
 
 제목: {paper['title']}
-저자: {', '.join(paper['authors'][:5])}{'외' if len(paper['authors']) > 5 else ''}
-카테고리: {', '.join(paper['categories'][:3])}
+저자: {', '.join(paper['authors'][:5])}
 초록: {paper['summary']}
 
 {style_prompt}
-
 마크다운 형식으로 작성하고, 리뷰 내용만 바로 시작해주세요."""
 
     message = client.messages.create(
@@ -213,148 +191,114 @@ def review_paper(paper: dict, client: anthropic.Anthropic) -> str:
     return message.content[0].text
 
 
-def save_daily_digest(date_str: str, sections: dict[str, list], reviews: dict[str, list]):
-    """카테고리별로 묶어서 하루치 1페이지로 저장"""
-
+def save_daily_digest(date_str: str, sections: dict, reviews: dict):
+    """결과를 GitHub Pages용 마크다운으로 저장"""
     today = datetime.now(timezone.utc).strftime("%Y년 %m월 %d일")
-    style_label = STYLE_LABELS.get(CONFIG["review_style"], CONFIG["review_style"])
     total = sum(len(v) for v in sections.values())
 
-    # 전체 목차
-    toc_lines = []
-    paper_num = 1
-    for cat_config in CONFIG["categories"]:
-        section_name = cat_config["name"]
-        papers = sections.get(section_name, [])
-        if not papers:
+    # 목차 생성 (앵커 링크 없이 텍스트만 — Hugo 호환)
+    toc = []
+    paper_idx = 1
+    for cat in CONFIG["categories"]:
+        name = cat["name"]
+        if not sections.get(name):
             continue
-        toc_lines.append(f"\n**{section_name}**")
-        for paper in papers:
-            short_title = paper['title'][:55] + ("..." if len(paper['title']) > 55 else "")
-            toc_lines.append(f"  {paper_num}. [{short_title}](#paper-{paper_num})")
-            paper_num += 1
-    toc = "\n".join(toc_lines)
+        toc.append(f"\n**{name}**")
+        for p in sections[name]:
+            short_title = p['title'][:60] + ("..." if len(p['title']) > 60 else "")
+            toc.append(f"  {paper_idx}. {short_title}")
+            paper_idx += 1
 
-    # 카테고리별 섹션 본문
-    body_sections = []
-    paper_num = 1
-    for cat_config in CONFIG["categories"]:
-        section_name = cat_config["name"]
-        papers = sections.get(section_name, [])
-        review_list = reviews.get(section_name, [])
-        if not papers:
+    # 본문 생성
+    body = []
+    paper_idx = 1
+    for cat in CONFIG["categories"]:
+        name = cat["name"]
+        if not sections.get(name):
             continue
-
-        body_sections.append(f"\n---\n\n# {section_name}\n")
-
-        for paper, review in zip(papers, review_list):
-            authors_str = ", ".join(paper['authors'][:3])
-            if len(paper['authors']) > 3:
+        body.append(f"\n---\n\n# {name}\n")
+        for p, r in zip(sections[name], reviews[name]):
+            authors_str = ", ".join(p['authors'][:3])
+            if len(p['authors']) > 3:
                 authors_str += " 외"
-            cats_str = " · ".join(paper['categories'][:2])
+            body.append(f"## {paper_idx}. {p['title']}\n")
+            body.append(f"> 👥 **저자**: {authors_str}  ")
+            body.append(f"> 📄 **원문**: [{p['abs_url']}]({p['abs_url']}) · [PDF]({p['pdf_url']})  ")
+            body.append(f"> ⭐ **유망점수**: {p['score']}점\n")
+            body.append(f"{r}\n")
+            paper_idx += 1
 
-            section = f"""## {paper_num}. {paper['title']} {{#paper-{paper_num}}}
+    # f-string 안에 join 직접 쓰면 에러나므로 변수로 분리
+    toc_str = "\n".join(toc)
+    body_str = "\n".join(body)
 
-> 👥 **저자**: {authors_str}  
-> 🏷️ **분류**: {cats_str}  
-> 📄 **원문**: [{paper['abs_url']}]({paper['abs_url']}) · [PDF]({paper['pdf_url']})
-
-{review}
-
-"""
-            body_sections.append(section)
-            paper_num += 1
-
-    body = "\n".join(body_sections)
-
-    # 태그
-    cat_codes = [c["category"] for c in CONFIG["categories"]]
-    tags_yaml = "\n".join([f'  - "{t}"' for t in cat_codes])
-
-    front_matter = f"""---
+    content = f"""---
 title: "📚 {today} 논문 Daily Digest ({total}편)"
 date: {date_str}
-draft: false
-tags:
-{tags_yaml}
-  - "Daily Digest"
-categories:
-  - "Paper Review"
-summary: "Robotics · AI/LLM · NLP 최신 논문 {total}편 | {style_label}"
+categories: ["Paper Review"]
+tags: ["Daily", "AI", "Robotics", "Memory"]
+summary: "Self-Evolving · Memory · Robotics · Reasoning 분야 유망 논문 {total}편"
 ---
 
-> 🤖 **리뷰 방식**: {style_label}  
-> 📅 **수집 기준**: 최근 {CONFIG['days_back']}일 이내 최신 논문  
-> 📊 **총 {total}편** ({' / '.join([f"{c['name']} {len(sections.get(c['name'], []))}편" for c in CONFIG['categories']])})
-
 ## 📋 목차
-{toc}
+{toc_str}
 
-{body}
+{body_str}
 """
 
-    post_dir = Path(f"content/post/{date_str}-daily-digest")
+    post_dir = Path(f"content/post/{date_str}-digest")
     post_dir.mkdir(parents=True, exist_ok=True)
-    (post_dir / "index.md").write_text(front_matter, encoding="utf-8")
-    print(f"  💾 저장 완료: content/post/{date_str}-daily-digest/index.md")
+    (post_dir / "index.md").write_text(content, encoding="utf-8")
+    print(f"  💾 저장 완료: content/post/{date_str}-digest/index.md")
 
 
 def main():
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
-        raise EnvironmentError("❌ ANTHROPIC_API_KEY 환경변수가 없습니다!")
+        print("❌ ANTHROPIC_API_KEY 환경변수를 설정해주세요.")
+        return
 
     client = anthropic.Anthropic(api_key=api_key)
     cutoff = datetime.now(timezone.utc) - timedelta(days=CONFIG["days_back"])
-    reviewed_ids = load_reviewed_ids()
 
-    # 카테고리별로 논문 수집 & 리뷰
-    sections = {}   # section_name → [paper, ...]
-    reviews = {}    # section_name → [review_text, ...]
+    # 중복 리뷰 방지
+    history_path = Path("data/reviewed_ids.json")
+    history_path.parent.mkdir(parents=True, exist_ok=True)
+    reviewed_ids = set(json.loads(history_path.read_text())) if history_path.exists() else set()
+
+    sections, reviews_dict = {}, {}
 
     for cat_config in CONFIG["categories"]:
-        section_name = cat_config["name"]
-        print(f"\n📡 [{section_name}] 논문 검색 중...")
+        name = cat_config["name"]
+        print(f"\n📡 [{name}] 유망 논문 검색 중...")
 
         papers = fetch_papers_by_category(cat_config, cutoff)
         new_papers = [p for p in papers if p["id"] not in reviewed_ids]
         print(f"  → {len(new_papers)}편 새 논문 발견")
 
-        if not new_papers:
-            sections[section_name] = []
-            reviews[section_name] = []
-            continue
+        sections[name] = []
+        reviews_dict[name] = []
 
-        section_reviews = []
-        section_papers = []
         for i, paper in enumerate(new_papers, 1):
-            print(f"  [{i}/{len(new_papers)}] 리뷰 중: {paper['title'][:50]}...")
+            print(f"  [{i}/{len(new_papers)}] 리뷰 중: {paper['title'][:45]}...")
             try:
                 review = review_paper(paper, client)
-                section_reviews.append(review)
-                section_papers.append(paper)
+                sections[name].append(paper)
+                reviews_dict[name].append(review)
                 reviewed_ids.add(paper["id"])
                 time.sleep(2)
             except Exception as e:
                 print(f"  ⚠️ 오류: {e}")
-                continue
 
-        sections[section_name] = section_papers
-        reviews[section_name] = section_reviews
-        time.sleep(1)
-
-    # 하나라도 논문이 있으면 페이지 생성
     total = sum(len(v) for v in sections.values())
-    if total == 0:
-        print("\n📭 오늘 새 논문 없음. 종료합니다.")
-        return
-
-    date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    print(f"\n📝 Daily Digest 페이지 생성 중... (총 {total}편)")
-    save_daily_digest(date_str, sections, reviews)
-    save_reviewed_ids(reviewed_ids)
-
-    print(f"\n🎉 완료! 총 {total}편 → 하루 1페이지로 저장했습니다.")
+    if total > 0:
+        date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        print(f"\n📝 Daily Digest 생성 중... (총 {total}편)")
+        save_daily_digest(date_str, sections, reviews_dict)
+        history_path.write_text(json.dumps(list(reviewed_ids), indent=2))
+        print(f"🎉 완료! 총 {total}편 저장됨")
+    else:
+        print("\n📭 새로운 유망 논문이 없습니다.")
 
 
 if __name__ == "__main__":
