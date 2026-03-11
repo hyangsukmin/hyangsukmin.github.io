@@ -49,7 +49,7 @@ CONFIG = {
 TOP_INSTITUTIONS = [
     # --- Global Big Tech & Labs ---
     "DeepMind", "OpenAI", "Google", "Meta", "FAIR", "Microsoft", "Anthropic", 
-    "NVIDIA", "Tesla", "Amazon Science", "Apple", "IBM Research", "X.AI",
+    "NVIDIA", "Tesla", "Amazon Science", "Apple", "IBM Research", "X.AI", "AWS", "Amazon",
     
     # --- Elite Universities (US) ---
     "Stanford", "MIT", "CMU", "Carnegie Mellon", "UC Berkeley", "BAIR", "Georgia Tech", 
@@ -69,6 +69,7 @@ TOP_INSTITUTIONS = [
     "Hyundai Motor", "SNU", "Seoul National University", "KAIST", "POSTECH", 
     "Yonsei", "Korea University", "KIST", "Upstage", "Lunit", "Rebellions", "FuriosaAI"
 ]
+VVIP_LABS = ["DeepMind", "OpenAI", "Stanford", "KAIST", "Google DeepMind", "AWS"]
 TOP_CONFERENCES = ["ICLR", "NeurIPS", "ICML", "CVPR", "ECCV", "ICRA", "RSS", "AAAI", "IJCAI", "ACL", "EMNLP", "NAACL", "COLM"]
 
 # ════════════════════════════════════════════════════
@@ -144,6 +145,9 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
             score += 7
         if any(inst.lower() in summary.lower() or inst.lower() in comment_text.lower() for inst in TOP_INSTITUTIONS):
             score += 5
+        for inst in VVIP_LABS:
+            if inst.lower() in summary.lower() or inst.lower() in comment_text.lower():
+                score += 20
         if any(kw.lower() in title.lower() for kw in keywords):
             score += 3
 
