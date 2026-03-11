@@ -32,7 +32,7 @@ CONFIG = {
             "name": "🧠 AI / LLM",
             "category": "cs.AI",
             "papers_per_day": 4,
-            "keywords": ["large language model", "LLM", "agent", "reasoning", "memory", "long-context"],
+            "keywords": ["large language model", "LLM", "agent", "reasoning", "memory"],
         },
         {
             "name": "💬 NLP",
