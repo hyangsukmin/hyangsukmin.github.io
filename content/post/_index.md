@@ -12,6 +12,6 @@ sections:
       sort_by: 'Date'
       sort_ascending: false
     design:
-      view: compact
+      view: list
       columns: '1'
 ---
