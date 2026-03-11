@@ -75,8 +75,31 @@ STYLE_PROMPTS = {
 주요 성능 수치와 의미
 ## 한계 및 향후 연구
 주요 한계점과 열어주는 방향
-**종합 평가**: ⭐(1~5) — 한 줄 평""",
+**종합 평가**: 별점(1~5) -- 한 줄 평""",
 }
+
+
+def sanitize_for_hugo(text: str) -> str:
+    """Hugo 빌드를 깨뜨리는 문자열 제거/치환"""
+    if not text:
+        return ""
+    # Hugo shortcode 패턴 제거: {{< >}}, {{% %}}, {{ }}
+    text = re.sub(r'\{\{[<>%].*?[<>%]\}\}', '', text, flags=re.DOTALL)
+    text = re.sub(r'\{\{.*?\}\}', '', text, flags=re.DOTALL)
+    # YAML front matter를 깨는 문자 처리 (백틱 3개 연속 제거)
+    text = text.replace('```', '\n```\n')
+    return text
+
+
+def sanitize_title(title: str) -> str:
+    """YAML front matter용 제목 안전 처리"""
+    # 큰따옴표 escape
+    title = title.replace('"', '\\"')
+    # Hugo shortcode 패턴 제거
+    title = re.sub(r'\{.*?\}', '', title)
+    # 파이프, 줄바꿈 제거
+    title = title.replace("|", "-").replace("\n", " ").strip()
+    return title
 
 
 def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
@@ -172,14 +195,16 @@ def review_paper(paper: dict, client: anthropic.Anthropic) -> str:
 초록: {paper['summary']}
 
 {style_prompt}
-마크다운 형식으로 작성하고, 리뷰 내용만 바로 시작해주세요."""
+마크다운 형식으로 작성하고, 리뷰 내용만 바로 시작해주세요.
+주의: Hugo 정적 사이트 빌드에 사용되므로 {{{{, }}}}, {{{{< >}}}}, {{{{%  %}}}} 같은 Hugo shortcode 패턴은 절대 사용하지 마세요."""
 
     message = client.messages.create(
         model="claude-opus-4-5",
         max_tokens=1500,
         messages=[{"role": "user", "content": prompt}],
     )
-    return message.content[0].text
+    raw = message.content[0].text
+    return sanitize_for_hugo(raw)
 
 
 def save_daily_digest(date_str: str, sections: dict, reviews: dict):
@@ -187,7 +212,7 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
     today = datetime.now(timezone.utc).strftime("%Y년 %m월 %d일")
     total = sum(len(v) for v in sections.values())
 
-    # ── 목차: 표 형식 (줄바꿈 문제 완전 해결) ──
+    # ── 목차: 표 형식 ──
     toc_rows = []
     paper_idx = 1
     for cat in CONFIG["categories"]:
@@ -196,7 +221,6 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
             continue
         for p in sections[name]:
             short_title = p['title'][:55] + ("..." if len(p['title']) > 55 else "")
-            # 파이프(|) 문자가 표를 깨므로 제거
             short_title = short_title.replace("|", "-")
             toc_rows.append(f"| {paper_idx} | {name} | {short_title} |")
             paper_idx += 1
@@ -211,46 +235,50 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
         if not sections.get(name):
             continue
 
-        body_parts.append(f"\n---\n\n# {name}\n")
+        body_parts.append(f"\n---\n\n## {name}\n")
 
         for p, r in zip(sections[name], reviews[name]):
             authors_str = ", ".join(p['authors'][:3])
             if len(p['authors']) > 3:
                 authors_str += " 외"
 
-            # 제목의 특수문자 처리
-            safe_title = p['title'].replace("|", "-")
+            safe_title = sanitize_title(p['title'])
 
-            body_parts.append(f"## {paper_idx}. {safe_title}\n")
+            body_parts.append(f"### {paper_idx}. {safe_title}\n")
             body_parts.append(
-                f"> 👥 **저자**: {authors_str} &nbsp;|&nbsp; "
-                f"📄 [원문]({p['abs_url']}) · [PDF]({p['pdf_url']}) &nbsp;|&nbsp; "
-                f"⭐ **유망점수**: {p['score']}점\n"
+                f"**저자**: {authors_str} | "
+                f"[원문]({p['abs_url']}) | [PDF]({p['pdf_url']}) | "
+                f"**유망점수**: {p['score']}점\n"
             )
             body_parts.append(f"{r}\n")
             paper_idx += 1
 
     body_str = "\n".join(body_parts)
 
+    # YAML front matter — title을 큰따옴표로 감싸고 내부 따옴표 escape
+    digest_title = sanitize_title(f"논문 Daily Digest {today} ({total}편)")
+
     content = f"""---
-title: "📚 {today} 논문 Daily Digest ({total}편)"
-date: {date_str}
-categories: ["Paper Review"]
+title: "{digest_title}"
+date: {date_str}T00:00:00Z
+draft: false
 tags: ["Daily", "AI", "Robotics", "Memory"]
-summary: "Self-Evolving · Memory · Robotics · Reasoning 분야 유망 논문 {total}편"
+summary: "Self-Evolving, Memory, Robotics, Reasoning 분야 유망 논문 {total}편"
 ---
 
-## 📋 목차
+## 목차
 
 {toc_str}
 
 {body_str}
 """
 
+    # HugoBlox academic-cv의 블로그 포스트 경로
     post_dir = Path(f"content/post/{date_str}-digest")
     post_dir.mkdir(parents=True, exist_ok=True)
-    (post_dir / "index.md").write_text(content, encoding="utf-8")
-    print(f"  💾 저장 완료: content/post/{date_str}-digest/index.md")
+    output_path = post_dir / "index.md"
+    output_path.write_text(content, encoding="utf-8")
+    print(f"  💾 저장 완료: {output_path}")
 
 
 def main():
