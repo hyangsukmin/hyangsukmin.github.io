@@ -3,6 +3,7 @@ arxiv 논문 자동 크롤링 + AI 리뷰 생성기
 카테고리별로 각 3~5편씩 가져와서 하루 1페이지로 정리합니다.
 """
 import os
+import re
 import json
 import time
 import requests
