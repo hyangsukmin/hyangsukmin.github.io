@@ -54,8 +54,10 @@ jobs:
           git commit -m "📚 $(date '+%Y-%m-%d') 논문 리뷰 자동 업데이트"
           git push origin HEAD:main --force-with-lease
 
-      - name: 🌐 GitHub Pages 배포
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+      - name: 🌐 Deploy workflow 트리거
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/deploy.yml/dispatches \
+            -d '{"ref":"main"}'
