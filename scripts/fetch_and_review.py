@@ -71,9 +71,7 @@ STYLE_PROMPTS = {
 
 **한 줄 요약**: [15~30자. 동사 중심으로 핵심만]
 
-**Background**:
-[이 연구가 속한 AI 세부 분야(예: RLHF, RAG, VLA, Long-context LLM 등)와 최근 흐름.
-선행 연구 1~2개를 언급하며 기존 방법의 한계까지 2~3문장으로]
+**Background**: [이 연구가 속한 AI 세부 분야(예: RLHF, RAG, VLA, Long-context LLM 등)와 최근 흐름. 선행 연구 1~2개를 언급하며 기존 방법의 한계까지 2~3문장으로]
 
 **핵심 아이디어**:
 - [기존과 다른 구조적/알고리즘적 차별점]
@@ -86,12 +84,9 @@ STYLE_PROMPTS = {
 - [후속 연구나 응용에 미치는 영향]
 
 **Research Questions**:
-*Q1: [이 논문이 던지는 첫 번째 핵심 질문]*
-A1: [논문이 제시하는 답. 한 문장으로]
-*Q2: [두 번째 핵심 질문]*
-A2: [논문이 제시하는 답. 한 문장으로]
-*Q3: [세 번째 핵심 질문]*
-A3: [논문이 제시하는 답. 한 문장으로]
+*Q1: [이 논문이 던지는 첫 번째 핵심 질문]* A1: [논문이 제시하는 답. 한 문장으로]
+*Q2: [두 번째 핵심 질문]* A2: [논문이 제시하는 답. 한 문장으로]
+*Q3: [세 번째 핵심 질문]* A3: [논문이 제시하는 답. 한 문장으로]
 
 **실험 결과**: [사용 데이터셋 + 벤치마크명 + baseline 대비 수치 + 인상적인 ablation 1개. 없으면 "본문에서 확인 불가"]
 
@@ -99,12 +94,11 @@ A3: [논문이 제시하는 답. 한 문장으로]
 
 **재현성**: 코드 공개: O/X | [컴퓨팅 규모 언급 시만 추가]
 
-주의사항:
-- 위 포맷을 반드시 그대로 유지할 것
-- 마크다운 헤더(#, ##, ###)는 절대 사용하지 말 것 — 볼드(**)만 사용
+⚠️ 반드시 지켜야 할 규칙:
+- # ## ### 등 마크다운 헤더는 절대 사용 금지 — **볼드**만 허용
 - Hugo shortcode 패턴 금지
-- 본문에 없는 정보는 절대 지어내지 말고 "본문에서 확인 불가"로 표시
-- Q/A의 질문은 반드시 이탤릭(*Q1: ...*)으로""",
+- 본문에 없는 정보는 "본문에서 확인 불가"로 표시
+- Q/A 질문은 반드시 이탤릭(*Q1: ...*)으로""",
 }
 
 
@@ -119,6 +113,8 @@ def sanitize_for_hugo(text: str) -> str:
     text = re.sub(r'\{\{[<>%].*?[<>%]\}\}', '', text, flags=re.DOTALL)
     text = re.sub(r'\{\{.*?\}\}', '', text, flags=re.DOTALL)
     text = text.replace('```', '\n```\n')
+    # 혹시 Claude가 생성한 헤딩(# ## ###)을 볼드로 강제 치환
+    text = re.sub(r'^#{1,6}\s+(.+)$', r'**\1**', text, flags=re.MULTILINE)
     return text
 
 
@@ -304,20 +300,17 @@ def _parse_ar5iv(abs_url: str) -> dict:
 def fetch_paper_content(pdf_url: str, abs_url: str) -> dict:
     """PDF → ar5iv → abstract 순으로 폴백하며 본문 추출"""
 
-    # 1차: PDF 직접 파싱
     sections = _parse_pdf(pdf_url)
     if sections.get("introduction"):
         print(f"    ✅ PDF 파싱 성공")
         return sections
 
-    # 2차: ar5iv HTML 파싱
     print(f"    ⚠️ PDF 파싱 실패 → ar5iv 시도 중...")
     sections = _parse_ar5iv(abs_url)
     if sections.get("introduction"):
         print(f"    ✅ ar5iv 파싱 성공")
         return sections
 
-    # 3차: abstract만 사용 (Claude에게 명시적으로 알림)
     print(f"    ⚠️ ar5iv 실패 → abstract만 사용")
     return {}
 
@@ -333,14 +326,12 @@ def review_paper(paper: dict, client: anthropic.Anthropic) -> str:
     print(f"    📄 본문 파싱 중...")
     sections = fetch_paper_content(paper["pdf_url"], paper["abs_url"])
 
-    # 파싱된 섹션 로깅
     parsed = [k for k, v in sections.items() if v]
     if parsed:
         print(f"    📑 파싱 완료: {parsed}")
     else:
         print(f"    📑 파싱 실패 — abstract만 사용")
 
-    # 논문 콘텐츠 조립
     only_abstract = not any(sections.values())
     paper_content = f"""제목: {paper['title']}
 저자: {', '.join(paper['authors'][:5])}
@@ -359,7 +350,6 @@ def review_paper(paper: dict, client: anthropic.Anthropic) -> str:
         if sections.get(key):
             paper_content += f"\n[{label}]\n{sections[key]}\n"
 
-    # abstract만 있을 때 Claude에게 명시
     content_note = (
         "\n※ 주의: 본문 파싱에 실패하여 Abstract만 제공됩니다. "
         "본문에서 확인할 수 없는 항목은 반드시 '본문에서 확인 불가'로 표시하세요.\n"
@@ -413,7 +403,8 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
         if not sections.get(name):
             continue
 
-        body_parts.append(f"\n---\n\n## {name}\n")
+        # ## 대신 볼드 + 구분선으로 카테고리 표시
+        body_parts.append(f"\n---\n\n**{name}**\n")
 
         for p, r in zip(sections[name], reviews[name]):
             authors_str = ", ".join(p['authors'][:3])
@@ -422,10 +413,11 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
 
             safe_title = sanitize_title(p['title'])
 
-            body_parts.append(f"### {paper_idx}. {safe_title}\n")
+            # ### 대신 볼드로 논문 제목 표시
+            body_parts.append(f"\n**{paper_idx}. {safe_title}**\n")
             body_parts.append(
                 f"**저자**: {authors_str} | "
-                f"[원문]({p['abs_url']}) | [PDF]({p['pdf_url']}) \n"
+                f"[원문]({p['abs_url']}) | [PDF]({p['pdf_url']})\n\n"
             )
             body_parts.append(f"{r}\n")
             paper_idx += 1
@@ -442,7 +434,7 @@ tags: ["Daily", "AI", "Robotics", "Memory"]
 summary: "Self-Evolving, Memory, Robotics, Reasoning 분야 유망 논문 {total}편"
 ---
 
-## 목차
+**목차**
 
 {toc_str}
 
