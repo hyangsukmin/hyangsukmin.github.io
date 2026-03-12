@@ -21,7 +21,7 @@ CONFIG = {
             "name": "🔄 Self-Evolving & Agents",
             "category": "cs.AI",
             "papers_per_day": 3,
-            "keywords": ["self-evolving agent", "error correction reasoning", "reflexion", "iterative refinement", "adaptive agent", "learning from mistakes"],
+            "keywords": ["self-evolving agent", "error correction reasoning", "iterative refinement", "adaptive agent", "learning from mistakes"],
         },
         {
             "name": "🧠 Lifelong & Long-range Memory",
@@ -38,8 +38,8 @@ CONFIG = {
         {
             "name": "⏳ Advanced Reasoning (Long-Think)",
             "category": "cs.AI",
-            "papers_per_day": 2,
-            "keywords": ["system 2 thinking", "slow inference", "deliberative reasoning", "long-form reasoning", "chain of thought optimization"],
+            "papers_per_day": 3,
+            "keywords": ["slow inference", "deliberative reasoning", "long-form reasoning", "chain of thought optimization"],
         }
     ],
     "days_back": 60,
