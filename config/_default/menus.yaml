@@ -8,6 +8,9 @@ main:
     identifier: yN0l6_8W
     url: /
     weight: 10
+  - name: Publications      # ← 추가
+    url: /publication/
+    weight: 20
   # - name: Papers
   #   identifier: FrxAP8et
   #   url: /#papers
@@ -18,4 +21,4 @@ main:
     weight: 30
   - name: Paper Reviews
     url: /post/
-    weight: 50
+    weight: 40
