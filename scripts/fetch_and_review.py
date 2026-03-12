@@ -246,7 +246,6 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
             body_parts.append(
                 f"**저자**: {authors_str} | "
                 f"[원문]({p['abs_url']}) | [PDF]({p['pdf_url']}) | "
-                f"**유망점수**: {p['score']}점\n"
             )
             body_parts.append(f"{r}\n")
             paper_idx += 1
