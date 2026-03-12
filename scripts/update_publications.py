@@ -99,7 +99,7 @@ def guess_pub_type(venue: str) -> str:
     venue_lower = venue.lower()
     conferences = ["conference", "workshop", "symposium", "proceedings",
                    "acl", "emnlp", "naacl", "neurips", "icml", "iclr",
-                   "cvpr", "eccv", "aaai", "ijcai", "acl", "colm", "bigcomp"]
+                   "cvpr", "eccv", "aaai", "ijcai", "acl", "colm"]
     if any(c in venue_lower for c in conferences):
         return "1"   # Conference paper
     if venue:
@@ -108,20 +108,32 @@ def guess_pub_type(venue: str) -> str:
 
 
 def make_publication_md(paper: dict) -> str:
+    """Hugo Blox publication 마크다운 생성"""
 
-    # ... 기존 코드 동일 ...
+    # 저자 파싱: "A and B and C" → ["A", "B", "C"]
+    raw_authors = paper["authors"]
+    if " and " in raw_authors:
+        author_list = [a.strip() for a in raw_authors.split(" and ")]
+    else:
+        author_list = [a.strip() for a in raw_authors.split(",")]
+    authors_yaml = "\n".join(f'  - "{a}"' for a in author_list)
 
-    # [Paper] 링크 결정: arxiv > url 순서
-    paper_url = ""
-    if arxiv_id:
-        paper_url = f"https://arxiv.org/abs/{arxiv_id}"
-    elif paper.get("url"):
-        paper_url = paper["url"]
+    date_str = f"{paper['year']}-01-01"
+    pub_type = guess_pub_type(paper["venue"])
 
+    abstract = paper.get("abstract", "").replace('"', '\\"').replace("\n", " ")
+    venue = paper.get("venue", "").replace('"', '\\"')
+    title = paper.get("title", "").replace('"', '\\"')
+
+    # arxiv 링크 처리
+    arxiv_id = paper.get("eprint", "")
+    url_pdf = f"https://arxiv.org/pdf/{arxiv_id}" if arxiv_id else ""
+
+    # [Paper] 링크: arxiv > scholar url 순
+    paper_url = f"https://arxiv.org/abs/{arxiv_id}" if arxiv_id else paper.get("url", "")
     links_block = ""
     if paper_url:
-        links_block = f"""
-links:
+        links_block = f"""links:
   - name: Paper
     url: "{paper_url}"
 """
@@ -131,13 +143,22 @@ title: "{title}"
 authors:
 {authors_yaml}
 date: "{date_str}"
+publishDate: "{date_str}"
 publication_types: ["{pub_type}"]
 publication: "{venue}"
+publication_short: ""
 abstract: "{abstract}"
 featured: false
+tags: []
 {links_block}
-url_pdf: ""
+url_pdf: "{url_pdf}"
 url_code: ""
+url_dataset: ""
+url_poster: ""
+url_project: ""
+url_slides: ""
+url_source: "{paper.get('url', '')}"
+url_video: ""
 ---
 """
 
