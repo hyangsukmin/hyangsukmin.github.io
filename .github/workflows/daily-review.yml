@@ -5,9 +5,14 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  pages: write
+  id-token: write
+  actions: write
 jobs:
   review-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     steps:
       - name: 📥 저장소 체크아웃
         uses: actions/checkout@v4
@@ -28,24 +33,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/fetch_and_review.py
 
-      - name: 🏗️ Hugo 설치
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: "latest"
-          extended: true
-
-      - name: 📦 Node.js 설치
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: 📦 npm 패키지 설치 (TailwindCSS 포함)
-        run: npm install
-
-      - name: 🔨 Hugo 빌드
-        run: hugo --minify
-
-      - name: 🚀 커밋 & 푸시 (소스)
+      - name: 🚀 소스 커밋 & 푸시
         run: |
           git config user.email "paperbot@github.com"
           git config user.name "Paper Review Bot"
@@ -56,10 +44,27 @@ jobs:
           git rebase origin/main
           git push origin HEAD:main
 
-      - name: 🌐 Deploy workflow 트리거
-        run: |
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/actions/workflows/deploy.yml/dispatches \
-            -d '{"ref":"main"}'
+      - name: 🏗️ Hugo 설치
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      - name: 📦 Node.js & npm 설치
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 📦 npm 패키지 설치
+        run: npm install
+
+      - name: 🔨 Hugo 빌드
+        run: hugo --minify --baseURL "https://hyangsukmin.github.io/"
+
+      - name: 📤 Pages 아티팩트 업로드
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./public
+
+      - name: 🌐 GitHub Pages 배포
+        uses: actions/deploy-pages@v4
