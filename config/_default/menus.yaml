@@ -9,7 +9,7 @@ main:
     url: /
     weight: 10
   - name: Publications      # ← 추가
-    url: /publications/
+    url: /publication/
     weight: 20
   # - name: Papers
   #   identifier: FrxAP8et
