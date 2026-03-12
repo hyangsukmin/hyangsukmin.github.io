@@ -13,6 +13,7 @@ KST = timezone(timedelta(hours=9))
 # ════════════════════════════════════════════════════
 # ✏️ [설정] 연구 카테고리 및 기관 필터링
 # ════════════════════════════════════════════════════
+MODEL_NAME = "claude-sonnet-4-6"
 CONFIG = {
     "categories": [
         {
@@ -190,7 +191,7 @@ def review_paper_with_cache(paper: dict, category_id: str, client: anthropic.Ant
 
     try:
         message = client.messages.create(
-            model="claude-sonnet-4-6", # Haiku 4.5 (2026 기준 명칭 대응)
+            model=MODEL_NAME, # Haiku 4.5 (2026 기준 명칭 대응)
             max_tokens=1500,
             messages=[
                 {
@@ -221,7 +222,13 @@ def review_paper_with_cache(paper: dict, category_id: str, client: anthropic.Ant
 def save_daily_digest(date_str: str, sections: dict, reviews: dict):
     today_kst = datetime.now(KST).strftime("%Y년 %m월 %d일")
     total = sum(len(v) for v in sections.values())
-
+    
+    # 2. 소제목(Summary) 생성: 이 부분이 이미지 속 흐릿한 텍스트가 됩니다.
+    # 카테고리 이름에서 이모지 등을 떼고 핵심 단어만 추출 (예: Agents · Memory · Robotics)
+    cat_names = [cat['name'].split(' ')[-1] for cat in CONFIG["categories"] if sections.get(cat['name'])]
+    cat_str = " · ".join(cat_names)
+    summary_text = f"{cat_str} 분야 유망 논문 {total}편 | {MODEL_NAME} 자동 분석"
+    
     # 목차 생성
     toc_rows = []
     idx = 1
@@ -248,8 +255,9 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
     
     content = f"""---
 title: "논문 Daily Digest {today_kst} ({total}편)"
-date: {date_str}T00:00:00Z
+date: {date_str}T00:00:00+09:00
 draft: false
+summary: "{summary_text}"
 tags: ["Daily", "AI", "Research"]
 ---
 
@@ -264,7 +272,7 @@ tags: ["Daily", "AI", "Research"]
     post_dir = Path(f"content/post/{date_str}-digest")
     post_dir.mkdir(parents=True, exist_ok=True)
     (post_dir / "index.md").write_text(content, encoding="utf-8")
-    print(f"  💾 저장 완료: {post_dir / 'index.md'}")
+    print(f"  💾 KST 기준 저장 완료: {post_dir / 'index.md'}")
     
 # ════════════════════════════════════════════════════
 # 💾 실행 및 저장 (Main Flow)
