@@ -50,11 +50,9 @@ jobs:
           git config user.email "paperbot@github.com"
           git config user.name "Paper Review Bot"
           git add content/post/ data/
-          git diff --staged --quiet || (
-            git pull --rebase origin main &&
-            git commit -m "📚 $(date '+%Y-%m-%d') 논문 리뷰 자동 업데이트" &&
-            git push
-          )
+          git diff --staged --quiet && echo "변경사항 없음" && exit 0
+          git commit -m "📚 $(date '+%Y-%m-%d') 논문 리뷰 자동 업데이트"
+          git push origin HEAD:main --force-with-lease
 
       - name: 🌐 GitHub Pages 배포
         uses: peaceiris/actions-gh-pages@v4
