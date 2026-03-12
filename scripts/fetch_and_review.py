@@ -67,71 +67,72 @@ TOP_CONFERENCES = ["ICLR", "NeurIPS", "ICML", "CVPR", "ECCV", "ICRA", "RSS", "AA
 # ════════════════════════════════════════════════════
 
 STYLE_PROMPTS = {
-    "technical": """아래 구조로 AI 논문을 한국어로 리뷰해주세요.
+    "technical": """아래 포맷을 정확히 따라 AI 논문을 한국어로 리뷰해주세요.
 
-**🎯 한 줄 핵심** (30자 내외)
-해결한 문제를 동사 중심으로. 예: "sparse attention으로 O(n²) 복잡도 문제 해결"
+**한 줄 요약**: [15~30자. 동사 중심으로 핵심만]
 
-**📚 Background**
-- 이 연구가 속한 AI 세부 분야 (예: RLHF, RAG, VLA, Long-context LLM 등)
-- 최근 흐름과 왜 이 시점에 이 연구가 필요했는지
-- 선행 연구 1~2개를 언급하며 맥락 연결
+**Background**:
+[이 연구가 속한 AI 세부 분야(예: RLHF, RAG, VLA, Long-context LLM 등)와 최근 흐름.
+선행 연구 1~2개를 언급하며 기존 방법의 한계까지 2~3문장으로]
 
-**😤 기존 방법의 한계**
-- 기존 SOTA 또는 주류 방법이 가진 구체적 문제점
-- 수치나 사례로 "얼마나" 문제인지 표현
+**핵심 아이디어**:
+- [기존과 다른 구조적/알고리즘적 차별점]
+- [직관적 비유나 예시 포함]
+- [구현상의 핵심 설계 결정]
 
-**❓ Research Questions**
-Q1: [핵심 질문] → A1: [논문의 답]
-Q2: [핵심 질문] → A2: [논문의 답]
-Q3: [핵심 질문] → A3: [논문의 답]
+**왜 중요한가**:
+- [실용적 임팩트 — 어떤 문제가 실제로 해결되는가]
+- [이 분야 연구 흐름에서 갖는 위치]
+- [후속 연구나 응용에 미치는 영향]
 
-**💡 핵심 방법론**
-- 제안하는 모델/알고리즘의 구조를 3~4문장으로
-- 기존 방법과 구조적으로 다른 점을 명확히
-- 가능하면 직관적 비유 1개 포함
+**Research Questions**:
+*Q1: [이 논문이 던지는 첫 번째 핵심 질문]*
+A1: [논문이 제시하는 답. 한 문장으로]
+*Q2: [두 번째 핵심 질문]*
+A2: [논문이 제시하는 답. 한 문장으로]
+*Q3: [세 번째 핵심 질문]*
+A3: [논문이 제시하는 답. 한 문장으로]
 
-**📊 실험 및 결과**
-- 사용 데이터셋 및 평가 벤치마크
-- 주요 Baseline 대비 성능 향상 수치
-- 가장 인상적인 ablation study 결과 1개
+**실험 결과**: [사용 데이터셋 + 벤치마크명 + baseline 대비 수치 + 인상적인 ablation 1개. 없으면 "본문에서 확인 불가"]
 
-**⚠️ 한계 및 Future Work**
-- 저자가 인정한 한계
-- 이 방법이 실제 적용될 때 생길 수 있는 문제
-- 자연스럽게 이어지는 후속 연구 방향
+**한계**: [저자가 인정한 한계 또는 명확히 보이는 제약. 후속 연구 방향 포함. 2~3문장]
 
-**🔁 Reproducibility**
-- 코드/모델 공개 여부 (GitHub 링크 있으면 포함)
-- 재현에 필요한 컴퓨팅 규모 (GPU 수, 학습 시간 등 언급 시)
+**재현성**: 코드 공개: O/X | [컴퓨팅 규모 언급 시만 추가]
 
-주의: 마크다운 헤더(#, ##)는 사용하지 마세요. Hugo shortcode 패턴 금지.
-초록에 정보가 없는 항목은 "초록에서 확인 불가"로 표시하세요.""",
+주의사항:
+- 위 포맷을 반드시 그대로 유지할 것
+- 마크다운 헤더(#, ##, ###)는 절대 사용하지 말 것 — 볼드(**)만 사용
+- Hugo shortcode 패턴 금지
+- 본문에 없는 정보는 절대 지어내지 말고 "본문에서 확인 불가"로 표시
+- Q/A의 질문은 반드시 이탤릭(*Q1: ...*)으로""",
 }
 
+
+# ════════════════════════════════════════════════════
+# 유틸리티
+# ════════════════════════════════════════════════════
 
 def sanitize_for_hugo(text: str) -> str:
     """Hugo 빌드를 깨뜨리는 문자열 제거/치환"""
     if not text:
         return ""
-    # Hugo shortcode 패턴 제거: {{< >}}, {{% %}}, {{ }}
     text = re.sub(r'\{\{[<>%].*?[<>%]\}\}', '', text, flags=re.DOTALL)
     text = re.sub(r'\{\{.*?\}\}', '', text, flags=re.DOTALL)
-    # YAML front matter를 깨는 문자 처리 (백틱 3개 연속 제거)
     text = text.replace('```', '\n```\n')
     return text
 
 
 def sanitize_title(title: str) -> str:
     """YAML front matter용 제목 안전 처리"""
-    # 큰따옴표 escape
     title = title.replace('"', '\\"')
-    # Hugo shortcode 패턴 제거
     title = re.sub(r'\{.*?\}', '', title)
-    # 파이프, 줄바꿈 제거
     title = title.replace("|", "-").replace("\n", " ").strip()
     return title
 
+
+# ════════════════════════════════════════════════════
+# 논문 수집
+# ════════════════════════════════════════════════════
 
 def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
     """유망한 논문을 점수제로 필터링하여 가져오기"""
@@ -214,29 +215,175 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
     return candidates[:limit]
 
 
+# ════════════════════════════════════════════════════
+# 본문 파싱 (PDF → ar5iv → abstract 순 폴백)
+# ════════════════════════════════════════════════════
+
+def _extract_sections(full_text: str) -> dict:
+    """텍스트에서 섹션별로 분리 (PDF/HTML 공통)"""
+    patterns = {
+        "introduction": (
+            r'(Introduction|INTRODUCTION)',
+            r'(Related Work|Background|Preliminary|Method|Approach|RELATED|2\.)\s'
+        ),
+        "method": (
+            r'(Method|Methodology|Approach|Proposed|MODEL|METHOD)',
+            r'(Experiment|Evaluation|Result|EXPERIMENT)'
+        ),
+        "experiments": (
+            r'(Experiment|Evaluation|Result|EXPERIMENT)',
+            r'(Conclusion|Limitation|Discussion|CONCLUSION)'
+        ),
+        "limitation": (
+            r'(Limitation|Limitations|LIMITATION)',
+            r'(Conclusion|Future Work|Reference|CONCLUSION)'
+        ),
+    }
+    limits = {"introduction": 2000, "method": 2000, "experiments": 2000, "limitation": 500}
+
+    sections = {}
+    for key, (start_pat, end_pat) in patterns.items():
+        m = re.search(f'{start_pat}(.*?){end_pat}', full_text, re.DOTALL)
+        sections[key] = m.group(2)[:limits[key]].strip() if m else ""
+    return sections
+
+
+def _parse_pdf(pdf_url: str) -> dict:
+    """1차: PDF 직접 파싱"""
+    try:
+        import urllib.request, io
+        from pypdf import PdfReader
+
+        req = urllib.request.Request(pdf_url, headers={"User-Agent": "Mozilla/5.0"})
+        pdf_bytes = io.BytesIO(urllib.request.urlopen(req, timeout=30).read())
+        reader = PdfReader(pdf_bytes)
+        full_text = "\n".join(p.extract_text() or "" for p in reader.pages[:8])
+        return _extract_sections(full_text)
+    except Exception as e:
+        print(f"    ❌ PDF 파싱 오류: {e}")
+        return {}
+
+
+def _parse_ar5iv(abs_url: str) -> dict:
+    """2차 폴백: ar5iv HTML 버전 파싱 (PDF보다 텍스트 품질 우수)"""
+    try:
+        import urllib.request
+        from html.parser import HTMLParser
+
+        ar5iv_url = abs_url.replace("arxiv.org", "ar5iv.org")
+
+        class TextExtractor(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.text = []
+                self.skip = False
+
+            def handle_starttag(self, tag, attrs):
+                if tag in ("script", "style", "nav", "footer"):
+                    self.skip = True
+
+            def handle_endtag(self, tag):
+                if tag in ("script", "style", "nav", "footer"):
+                    self.skip = False
+
+            def handle_data(self, data):
+                if not self.skip:
+                    self.text.append(data)
+
+        req = urllib.request.Request(ar5iv_url, headers={"User-Agent": "Mozilla/5.0"})
+        html = urllib.request.urlopen(req, timeout=30).read().decode("utf-8", errors="ignore")
+        parser = TextExtractor()
+        parser.feed(html)
+        full_text = "\n".join(parser.text)
+        return _extract_sections(full_text)
+    except Exception as e:
+        print(f"    ❌ ar5iv 파싱 오류: {e}")
+        return {}
+
+
+def fetch_paper_content(pdf_url: str, abs_url: str) -> dict:
+    """PDF → ar5iv → abstract 순으로 폴백하며 본문 추출"""
+
+    # 1차: PDF 직접 파싱
+    sections = _parse_pdf(pdf_url)
+    if sections.get("introduction"):
+        print(f"    ✅ PDF 파싱 성공")
+        return sections
+
+    # 2차: ar5iv HTML 파싱
+    print(f"    ⚠️ PDF 파싱 실패 → ar5iv 시도 중...")
+    sections = _parse_ar5iv(abs_url)
+    if sections.get("introduction"):
+        print(f"    ✅ ar5iv 파싱 성공")
+        return sections
+
+    # 3차: abstract만 사용 (Claude에게 명시적으로 알림)
+    print(f"    ⚠️ ar5iv 실패 → abstract만 사용")
+    return {}
+
+
+# ════════════════════════════════════════════════════
+# 리뷰 생성
+# ════════════════════════════════════════════════════
+
 def review_paper(paper: dict, client: anthropic.Anthropic) -> str:
     """Claude AI를 사용해 논문 리뷰 생성"""
     style_prompt = STYLE_PROMPTS.get(CONFIG["review_style"], STYLE_PROMPTS["technical"])
-    lang = CONFIG["review_language"]
 
-    prompt = f"""다음 arxiv 논문을 {lang}로 리뷰해주세요. 유망 점수 {paper['score']}점인 중요한 논문입니다.
+    print(f"    📄 본문 파싱 중...")
+    sections = fetch_paper_content(paper["pdf_url"], paper["abs_url"])
 
-제목: {paper['title']}
+    # 파싱된 섹션 로깅
+    parsed = [k for k, v in sections.items() if v]
+    if parsed:
+        print(f"    📑 파싱 완료: {parsed}")
+    else:
+        print(f"    📑 파싱 실패 — abstract만 사용")
+
+    # 논문 콘텐츠 조립
+    only_abstract = not any(sections.values())
+    paper_content = f"""제목: {paper['title']}
 저자: {', '.join(paper['authors'][:5])}
-초록: {paper['summary']}
+유망 점수: {paper['score']}점
+
+[Abstract]
+{paper['summary']}
+"""
+    section_labels = {
+        "introduction": "Introduction",
+        "method":       "Method",
+        "experiments":  "Experiments & Results",
+        "limitation":   "Limitations",
+    }
+    for key, label in section_labels.items():
+        if sections.get(key):
+            paper_content += f"\n[{label}]\n{sections[key]}\n"
+
+    # abstract만 있을 때 Claude에게 명시
+    content_note = (
+        "\n※ 주의: 본문 파싱에 실패하여 Abstract만 제공됩니다. "
+        "본문에서 확인할 수 없는 항목은 반드시 '본문에서 확인 불가'로 표시하세요.\n"
+        if only_abstract else ""
+    )
+
+    prompt = f"""다음 arxiv 논문을 한국어로 리뷰해주세요.
+{content_note}
+{paper_content}
 
 {style_prompt}
-마크다운 형식으로 작성하고, 리뷰 내용만 바로 시작해주세요.
-주의: Hugo 정적 사이트 빌드에 사용되므로 {{{{, }}}}, {{{{< >}}}}, {{{{%  %}}}} 같은 Hugo shortcode 패턴은 절대 사용하지 마세요."""
+리뷰 내용만 바로 시작하세요."""
 
     message = client.messages.create(
         model="claude-opus-4-5",
         max_tokens=1500,
         messages=[{"role": "user", "content": prompt}],
     )
-    raw = message.content[0].text
-    return sanitize_for_hugo(raw)
+    return sanitize_for_hugo(message.content[0].text)
 
+
+# ════════════════════════════════════════════════════
+# 저장
+# ════════════════════════════════════════════════════
 
 def save_daily_digest(date_str: str, sections: dict, reviews: dict):
     """결과를 GitHub Pages용 마크다운으로 저장"""
@@ -285,7 +432,6 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
 
     body_str = "\n".join(body_parts)
 
-    # YAML front matter — title을 큰따옴표로 감싸고 내부 따옴표 escape
     digest_title = sanitize_title(f"논문 Daily Digest {today} ({total}편)")
 
     content = f"""---
@@ -303,13 +449,16 @@ summary: "Self-Evolving, Memory, Robotics, Reasoning 분야 유망 논문 {total
 {body_str}
 """
 
-    # HugoBlox academic-cv의 블로그 포스트 경로
     post_dir = Path(f"content/post/{date_str}-digest")
     post_dir.mkdir(parents=True, exist_ok=True)
     output_path = post_dir / "index.md"
     output_path.write_text(content, encoding="utf-8")
     print(f"  💾 저장 완료: {output_path}")
 
+
+# ════════════════════════════════════════════════════
+# 메인
+# ════════════════════════════════════════════════════
 
 def main():
     api_key = os.environ.get("ANTHROPIC_API_KEY")
