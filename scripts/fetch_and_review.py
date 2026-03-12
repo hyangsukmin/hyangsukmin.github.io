@@ -8,6 +8,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import anthropic
 
+KST = timezone(timedelta(hours=9))
+
 # ════════════════════════════════════════════════════
 # ✏️ [설정] 연구 카테고리 및 기관 필터링
 # ════════════════════════════════════════════════════
@@ -217,7 +219,7 @@ def review_paper_with_cache(paper: dict, category_id: str, client: anthropic.Ant
 # ════════════════════════════════════════════════════
 
 def save_daily_digest(date_str: str, sections: dict, reviews: dict):
-    today = datetime.now(timezone.utc).strftime("%Y년 %m월 %d일")
+    today_kst = datetime.now(KST).strftime("%Y년 %m월 %d일")
     total = sum(len(v) for v in sections.values())
 
     # 목차 생성
@@ -245,7 +247,7 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
     ai_model_notice = "\n\n---\n\n*본 리포트의 논문 리뷰는 Anthropic의 **Claude 4.6 Sonnet** 모델을 사용하여 자동 생성되었습니다.*"
     
     content = f"""---
-title: "논문 Daily Digest {today} ({total}편)"
+title: "논문 Daily Digest {today_kst} ({total}편)"
 date: {date_str}T00:00:00Z
 draft: false
 tags: ["Daily", "AI", "Research"]
@@ -272,7 +274,8 @@ def main():
     if not api_key: return print("❌ API Key missing")
     
     client = anthropic.Anthropic(api_key=api_key)
-    cutoff = datetime.now(timezone.utc) - timedelta(days=CONFIG["days_back"])
+    now_kst = datetime.now(KST)
+    cutoff = now_kst - timedelta(days=CONFIG["days_back"])
     history_path = Path("data/reviewed_ids.json")
     history_path.parent.mkdir(parents=True, exist_ok=True)
     reviewed_ids = set(json.loads(history_path.read_text())) if history_path.exists() else set()
@@ -296,7 +299,7 @@ def main():
             time.sleep(1) # API Rate Limit 방지
 
     if sum(len(v) for v in sections.values()) > 0:
-        date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        date_str = now_kst.strftime("%Y-%m-%d")
         save_daily_digest(date_str, sections, reviews_dict)
         history_path.write_text(json.dumps(list(reviewed_ids), indent=2))
         print("🎉 모든 작업 완료!")
