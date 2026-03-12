@@ -20,27 +20,27 @@ CONFIG = {
         {
             "name": "🔄 Self-Evolving & Agents",
             "category": "cs.AI",
-            "papers_per_day": 3,
+            "papers_per_day": 2,
             "keywords": ["self-evolving agent", "error correction reasoning", "iterative refinement", "adaptive agent", "learning from mistakes"],
         },
         {
             "name": "🧠 Lifelong & Long-range Memory",
             "category": "cs.LG",
-            "papers_per_day": 3,
+            "papers_per_day": 2,
             "keywords": ["lifelong memory", "long-range memory", "memory management", "selective retrieval", "episodic memory", "hierarchical memory"],
         },
         {
             "name": "🦾 Robotics & Embodied AI",
             "category": "cs.RO",
-            "papers_per_day": 3,
+            "papers_per_day": 2,
             "keywords": ["Gemini Robotics", "embodied AI", "robotics memory", "learning from historic errors", "VLA model", "manipulation"],
         },
-        {
-            "name": "⏳ Advanced Reasoning (Long-Think)",
-            "category": "cs.AI",
-            "papers_per_day": 3,
-            "keywords": ["slow inference", "deliberative reasoning", "long-form reasoning", "chain of thought optimization"],
-        }
+        # {
+        #     "name": "⏳ Advanced Reasoning (Long-Think)",
+        #     "category": "cs.AI",
+        #     "papers_per_day": 2,
+        #     "keywords": ["slow inference", "deliberative reasoning", "long-form reasoning", "chain of thought optimization"],
+        # }
     ],
     "days_back": 60,
     "review_language": "Korean",
