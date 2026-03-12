@@ -221,9 +221,9 @@ Powered by Hugo Blox Builder - https://github.com/HugoBlox/hugo-blox-builder
 &lt;div class="p-6 space-y-4"&gt;
 &lt;div class="mb-4 overflow-hidden rounded-lg"&gt;
 &lt;img class="w-full h-auto transition-transform duration-500 ease-out group-hover:scale-105"
-srcset="https://hyangsukmin.github.io/photo-1551288049-bebda4e38f71_10164962980614054447_hu_d26b7632a46eece4.webp 400w, https://hyangsukmin.github.io/photo-1551288049-bebda4e38f71_10164962980614054447_hu_146b4bc2a05ac341.webp 600w, https://hyangsukmin.github.io/photo-1551288049-bebda4e38f71_10164962980614054447_hu_f8c35a9d2b2aeed.webp 600w"
+srcset="https://hyangsukmin.github.io/photo-1551288049-bebda4e38f71_10164962980614054447_hu_57b09d239a98fa3e.webp 400w, https://hyangsukmin.github.io/photo-1551288049-bebda4e38f71_10164962980614054447_hu_c8dc855a23876ee0.webp 600w, https://hyangsukmin.github.io/photo-1551288049-bebda4e38f71_10164962980614054447_hu_e954403c57038f5.webp 600w"
 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-src="https://hyangsukmin.github.io/photo-1551288049-bebda4e38f71_10164962980614054447_hu_d26b7632a46eece4.webp"
+src="https://hyangsukmin.github.io/photo-1551288049-bebda4e38f71_10164962980614054447_hu_57b09d239a98fa3e.webp"
 width="400"
 height="267"
 loading="lazy"
@@ -254,7 +254,7 @@ Powered by Hugo Blox Builder - https://github.com/HugoBlox/hugo-blox-builder
 format for interactive data visualizations. With Plotly, you can design almost any kind of visualization you can imagine!&lt;/p&gt;
 &lt;p&gt;Save your Plotly JSON in your page folder, for example &lt;code&gt;line-chart.json&lt;/code&gt;, and then add the &lt;code&gt;{{&amp;lt; chart data=&amp;quot;line-chart&amp;quot; &amp;gt;}}&lt;/code&gt; shortcode where you would like the chart to appear.&lt;/p&gt;
 &lt;p&gt;Demo:&lt;/p&gt;
-&lt;div id="chart-913748562" class="chart"&gt;&lt;/div&gt;
+&lt;div id="chart-145798236" class="chart"&gt;&lt;/div&gt;
 &lt;script&gt;
 (function() {
 async function fetchChartJSON() {
@@ -270,7 +270,7 @@ return;
 clearInterval( a );
 fetchChartJSON().then(chart =&gt; {
 console.debug('Plotting chart...')
-window.Plotly.newPlot('chart-913748562', chart.data, chart.layout, {responsive: true});
+window.Plotly.newPlot('chart-145798236', chart.data, chart.layout, {responsive: true});
 });
 }, 500 );
 })();
