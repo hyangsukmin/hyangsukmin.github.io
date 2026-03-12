@@ -18,7 +18,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
-
+  actions: write
 concurrency:
   group: 'pages'
   cancel-in-progress: false
@@ -114,10 +114,8 @@ jobs:
     needs: build
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      contents: read
       pages: write
       id-token: write
-      actions: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
