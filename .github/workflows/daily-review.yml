@@ -52,7 +52,9 @@ jobs:
           git add content/post/ data/
           git diff --staged --quiet && echo "변경사항 없음" && exit 0
           git commit -m "📚 $(date '+%Y-%m-%d') 논문 리뷰 자동 업데이트"
-          git push origin HEAD:main --force-with-lease
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
 
       - name: 🌐 Deploy workflow 트리거
         run: |
