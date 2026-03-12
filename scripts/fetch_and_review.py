@@ -17,6 +17,12 @@ MODEL_NAME = "claude-sonnet-4-6"
 CONFIG = {
     "categories": [
         {
+            "name": "💬 Dialogue Summarization",
+            "category": "cs.CL",
+            "papers_per_day": 2,
+            "keywords": ["dialogue summarization", "streaming dialogue", "conversation summarization"],
+        },
+        {
             "name": "🔄 Self-Evolving & Agents",
             "category": "cs.AI",
             "papers_per_day": 2,
@@ -35,7 +41,7 @@ CONFIG = {
             "keywords": ["Gemini Robotics", "embodied AI", "robotics memory", "learning from historic errors", "VLA model", "manipulation"],
         },
     ],
-    "days_back": 7, # 보통 데일리용이므로 기간을 좁혔습니다.
+    "days_back": 90, # 보통 데일리용이므로 기간을 좁혔습니다.
     "review_language": "Korean",
     "review_style": "technical",
 }
