@@ -1,0 +1,15 @@
+/* assets/scss/custom.scss */
+
+.article-style {
+  font-size: 0.85rem;
+
+  h2 { font-size: 1.1rem; }
+  h3 { font-size: 0.95rem; }
+  h4, h5, h6 { font-size: 0.85rem; }
+
+  p, li, td, th { font-size: 0.85rem; }
+
+  table {
+    font-size: 0.8rem;
+  }
+}
