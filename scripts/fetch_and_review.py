@@ -76,18 +76,19 @@ STYLE_PROMPTS = {
 1. # 헤더 절대 사용 금지. 오직 **볼드**만 사용.
 2. 각 논문의 전문 분야(Category)에 특화된 깊이 있는 분석을 제공할 것.
 3. 제공된 '기관 명성'과 '유망 점수'를 참고하여 이 연구의 위상을 서두에 언급할 것.
+4. 줄바꿈 주의.
 
 **한 줄 요약**: [20자 내외, 핵심 동작 원리 중심]
 
 **Background**: [분야의 흐름 + 기존 연구의 한계점 2~3문장]
 
-**핵심 아이디어**:
+**핵심 아이디어**
 - **구조적 차별점**: [기존과 다른 알고리즘/아키텍처 설계]
 - **직관적 비유**: [이 논문의 핵심 원리를 쉬운 예시로 설명]
 
 **왜 중요한가**: [실용적 임팩트 및 연구 트렌드에서의 위치]
 
-**Research Questions**:
+**Research Questions**
 *Q1: [핵심 질문]* A1: [답변]
 *Q2: [실험 질문]* A2: [답변]
 *Q3: [확장성 질문]* A3: [답변]
@@ -236,9 +237,12 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
         body_parts.append(f"\n---\n\n**{cat_name}**\n")
         for p, r in zip(papers, reviews[cat_name]):
             body_parts.append(f"\n**{idx}. {sanitize_title(p['title'])}**\n")
-            body_parts.append(f"**저자**: {', '.join(p['authors'][:3])} | [원문]({p['abs_url']}) | [PDF]({p['pdf_url']})\n\n{r}\n")
+            body_parts.append(f"\n**저자**: {', '.join(p['authors'][:3])} | [원문]({p['abs_url']}) | [PDF]({p['pdf_url']})\n\n{r}\n")
             idx += 1
-
+    
+    # ── 하단 고지 문구 생성 ──
+    ai_model_notice = "\n\n---\n\n*본 리포트의 논문 리뷰는 Anthropic의 **Claude 4.6 Sonnet** 모델을 사용하여 자동 생성되었습니다.*"
+    
     content = f"""---
 title: "논문 Daily Digest {today} ({total}편)"
 date: {date_str}T00:00:00Z
@@ -251,6 +255,8 @@ tags: ["Daily", "AI", "Research"]
 {toc_str}
 
 {"".join(body_parts)}
+
+{ai_model_notice}
 """
     post_dir = Path(f"content/post/{date_str}-digest")
     post_dir.mkdir(parents=True, exist_ok=True)
