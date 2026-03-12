@@ -42,7 +42,7 @@ CONFIG = {
             "keywords": ["system 2 thinking", "slow inference", "deliberative reasoning", "long-form reasoning", "chain of thought optimization"],
         }
     ],
-    "days_back": 7,
+    "days_back": 60,
     "review_language": "Korean",
     "review_style": "technical",
 }
@@ -67,16 +67,13 @@ TOP_CONFERENCES = ["ICLR", "NeurIPS", "ICML", "CVPR", "ECCV", "ICRA", "RSS", "AA
 # ════════════════════════════════════════════════════
 
 STYLE_PROMPTS = {
-    "technical": """다음 형식으로 **간결하게** 분석해주세요 (각 섹션 2~4줄):
-## 핵심 기여
-기존 연구와 무엇이 다른가?
-## 방법론
-핵심 아이디어를 직관적으로 설명
-## 실험 결과
-주요 성능 수치와 의미
-## 한계 및 향후 연구
-주요 한계점과 열어주는 방향
-**종합 평가**: 별점(1~5) -- 한 줄 평""",
+    "technical": """딱 3줄로만 답해주세요:
+1 **한 줄 요약**: 이 논문이 뭘 하는 논문인지 15자 이내로
+2 **핵심 아이디어**: 기존과 다른 점 세 문장 리스트 형식
+3 **왜 중요한가**: 실용적 임팩트 세 문장 리스트 형식
+4 **Research Questions**: 질문과 답변 두문장 이내로 구분하여.
+
+주의: 마크다운 헤더(#, ##, ###)는 절대 사용하지 마세요.""",
 }
 
 
