@@ -6,43 +6,51 @@ import requests
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from difflib import SequenceMatcher
 import anthropic
 
 KST = timezone(timedelta(hours=9))
 
-# ════════════════════════════════════════════════════
-# ✏️ [설정] 연구 카테고리 및 기관 필터링
-# ════════════════════════════════════════════════════
 MODEL_NAME = "Haiku"
 MODEL_API = {"Haiku": "claude-haiku-4-5-20251001", "Sonnet": "claude-sonnet-4-6"}
+
 CONFIG = {
     "categories": [
         {
             "name": "💬 Dialogue Summarization",
             "category": "cs.CL",
             "papers_per_day": 4,
-            "keywords": ["dialogue summarization", "streaming dialogue", "conversation summarization", "long-term"],
+            "keywords": ["dialogue", "conversation", "streaming", "summarization", "llm", "long-term", "memory"],
         },
         {
             "name": "🔄 Self-Evolving & Agents",
             "category": "cs.AI",
             "papers_per_day": 2,
-            "keywords": ["self-evolving agent", "error correction reasoning", "iterative refinement", "adaptive agent", "learning from mistakes"],
+            "keywords": ["self-evolving", "self-improvement", "self-reflection", "self-correction",
+                         "error correction reasoning", "iterative refinement", "adaptive agent", "learning from mistakes",
+                         "continual learning", "agent", "self-training"],
         },
         {
             "name": "🧠 Lifelong & Long-range Memory",
             "category": "cs.LG",
-            "papers_per_day": 2,
-            "keywords": ["lifelong memory", "long-range memory", "memory management", "selective retrieval", "episodic memory", "hierarchical memory"],
+            "papers_per_day": 4,
+            "keywords": [
+                "lifelong learning", "continual learning", "long-horizon",
+                "long-horizon reasoning", "long-horizon planning", "long-term memory",
+                "episodic memory", "memory retrieval", "memory consolidation",
+                "memory management", "hierarchical memory", "agent memory",
+                "memory bank", "dynamic memory", "memory dynamic"
+            ],
         },
         {
             "name": "🦾 Robotics & Embodied AI",
             "category": "cs.RO",
             "papers_per_day": 2,
-            "keywords": ["Gemini Robotics", "embodied AI", "robotics memory", "learning from historic errors", "VLA model", "manipulation"],
+            "keywords": ["robotics", "embodied AI", "robotics memory", "learning from historic errors",
+                         "VLA", "manipulation", "benchmark", "vision-language-action"],
         },
     ],
-    "days_back": 90, # 보통 데일리용이므로 기간을 좁혔습니다.
+    "days_back": 90,
     "review_language": "Korean",
     "review_style": "technical",
 }
@@ -65,17 +73,303 @@ VVIP_LABS = ["DeepMind", "OpenAI", "Stanford", "KAIST", "Google DeepMind", "AWS"
 TOP_CONFERENCES = ["ICLR", "NeurIPS", "ICML", "CVPR", "ECCV", "ICRA", "RSS", "AAAI", "IJCAI", "ACL", "EMNLP", "NAACL", "COLM"]
 
 # ════════════════════════════════════════════════════
-# 🤖 [프롬프트] 도메인별 특화 가이드
+# 🔤 유연한 키워드 매칭 유틸리티
 # ════════════════════════════════════════════════════
+
+# 키워드 유사어/변형 사전
+KEYWORD_SYNONYMS = {
+    "dialogue":         ["dialog", "dialogues", "dialogs", "conversational"],
+    "conversation":     ["conversations", "conversational", "chat", "discourse"],
+    "summarization":    ["summarizing", "summarize", "summary", "summaries", "abstractive"],
+    "llm":              ["large language model", "language model", "gpt", "bert", "transformer"],
+    "memory":           ["memorization", "memorize", "memories", "memoization"],
+    "agent":            ["agents", "agentic", "autonomous agent", "multi-agent"],
+    "self-evolving":    ["self-evolution", "self-evolved", "self evolving"],
+    "self-improvement": ["self-improve", "self-improved", "self improving"],
+    "self-reflection":  ["self-reflect", "self-reflected", "self reflecting"],
+    "self-correction":  ["self-correct", "self-corrected", "self correcting", "error correction"],
+    "continual learning": ["continuous learning", "incremental learning", "online learning"],
+    "lifelong learning":  ["lifelong", "life-long learning", "perpetual learning"],
+    "long-horizon":     ["long horizon", "long-term planning", "extended horizon"],
+    "long-term memory": ["long term memory", "persistent memory", "long-range memory"],
+    "episodic memory":  ["episodic", "episode memory", "experience replay"],
+    "memory retrieval": ["retrieval memory", "memory recall", "retrieve memory"],
+    "embodied AI":      ["embodied intelligence", "embodied agent", "physical AI"],
+    "manipulation":     ["grasping", "robotic manipulation", "dexterous manipulation"],
+    "vision-language-action": ["VLA model", "vision language action"],
+    "benchmark":        ["benchmarks", "benchmarking", "evaluation suite", "leaderboard"],
+}
+
+def fuzzy_match(word: str, keyword: str, threshold: float = 0.82) -> bool:
+    """SequenceMatcher 기반 퍼지 매칭 (짧은 단어는 정확 매칭 강제)"""
+    if len(keyword) <= 4:
+        return word == keyword
+    ratio = SequenceMatcher(None, word, keyword).ratio()
+    return ratio >= threshold
+
+def flexible_keyword_match(text: str, keywords: list, min_match: int = 2) -> int:
+    """
+    유연한 키워드 매칭:
+    1. 정확한 문자열 포함 여부 (멀티워드 키워드 포함)
+    2. 유사어 사전 확장 매칭
+    3. 단일 단어 퍼지 매칭 (임계값 0.82)
+    """
+    text_lower = text.lower()
+    words = re.findall(r'[a-z0-9]+(?:-[a-z0-9]+)*', text_lower)  # 하이픈 포함 토크나이징
+    matched = 0
+
+    for kw in keywords:
+        kw_lower = kw.lower()
+        found = False
+
+        # 1) 정확한 포함 (멀티워드 키워드는 이걸로 커버)
+        if kw_lower in text_lower:
+            found = True
+
+        # 2) 유사어 사전 확장
+        if not found:
+            for synonym in KEYWORD_SYNONYMS.get(kw_lower, []):
+                if synonym.lower() in text_lower:
+                    found = True
+                    break
+
+        # 3) 단일 단어 퍼지 매칭 (멀티워드 키워드는 제외)
+        if not found and ' ' not in kw_lower and '-' not in kw_lower:
+            for word in words:
+                if fuzzy_match(word, kw_lower):
+                    found = True
+                    break
+
+        if found:
+            matched += 1
+
+    return matched
+
+
+# ════════════════════════════════════════════════════
+# 🏛️ Semantic Scholar API로 기관 정보 조회
+# ════════════════════════════════════════════════════
+
+def fetch_institutions_from_semantic_scholar(arxiv_id: str) -> list[str]:
+    """
+    Semantic Scholar API를 통해 저자 소속 기관 목록 반환.
+    arXiv API는 affiliation을 제공하지 않으므로 외부 API 활용.
+    Rate limit: 100 req/5min (unauthenticated) → sleep으로 처리.
+    """
+    url = f"https://api.semanticscholar.org/graph/v1/paper/arXiv:{arxiv_id}"
+    params = {"fields": "authors.affiliations"}
+    try:
+        resp = requests.get(url, params=params, timeout=15)
+        if resp.status_code == 429:
+            print("    ⚠️  Semantic Scholar rate limit, 10초 대기...")
+            time.sleep(10)
+            resp = requests.get(url, params=params, timeout=15)
+        resp.raise_for_status()
+        data = resp.json()
+        institutions = []
+        for author in data.get("authors", []):
+            for aff in author.get("affiliations", []):
+                if aff and aff not in institutions:
+                    institutions.append(aff)
+        return institutions
+    except Exception as e:
+        print(f"    ⚠️  Semantic Scholar 조회 실패 ({arxiv_id}): {e}")
+        return []
+
+
+def detect_institution_from_list(institution_list: list[str]) -> tuple[str, bool]:
+    """
+    기관 목록에서 TOP_INSTITUTIONS / VVIP_LABS 매칭.
+    Returns: (기관명, is_vvip)
+    """
+    joined = " ".join(institution_list).lower()
+
+    for inst in VVIP_LABS:
+        if inst.lower() in joined:
+            return inst, True
+
+    for inst in TOP_INSTITUTIONS:
+        if inst.lower() in joined:
+            return inst, False
+
+    return "", False
+
+
+# ════════════════════════════════════════════════════
+# 📄 arXiv HTML에서 Intro 파싱
+# ════════════════════════════════════════════════════
+
+def fetch_intro_from_arxiv_html(arxiv_id: str, max_chars: int = 1500) -> str:
+    """
+    arXiv HTML 버전(ar5iv)에서 Introduction 섹션 텍스트 추출.
+    ar5iv: https://ar5iv.labs.arxiv.org/html/{id}
+    실패 시 빈 문자열 반환 (Abstract로 대체).
+    """
+    url = f"https://ar5iv.labs.arxiv.org/html/{arxiv_id}"
+    try:
+        resp = requests.get(url, timeout=20, headers={"User-Agent": "Mozilla/5.0"})
+        if resp.status_code != 200:
+            return ""
+
+        # Introduction 섹션 추출 (정규식으로 태그 파싱 최소화)
+        html = resp.text
+
+        # <section> 또는 <div> 안에 "Introduction" 헤더를 찾아 텍스트 추출
+        # ar5iv 구조: <section id="S1"> <h2>1 Introduction</h2> ...
+        pattern = re.compile(
+            r'<(?:section|div)[^>]*?(?:id=["\']S1["\']|class=["\'][^"\']*introduction[^"\']*["\'])[^>]*?>'
+            r'(.*?)</(?:section|div)>',
+            re.IGNORECASE | re.DOTALL
+        )
+        match = pattern.search(html)
+
+        if not match:
+            # 폴백: "Introduction" 텍스트 직후 단락들
+            idx = html.lower().find("introduction")
+            if idx == -1:
+                return ""
+            snippet = html[idx:idx + 8000]
+        else:
+            snippet = match.group(1)
+
+        # HTML 태그 제거
+        clean = re.sub(r'<[^>]+>', ' ', snippet)
+        clean = re.sub(r'\s+', ' ', clean).strip()
+
+        return clean[:max_chars]
+
+    except Exception as e:
+        print(f"    ⚠️  Intro 파싱 실패 ({arxiv_id}): {e}")
+        return ""
+
+
+# ════════════════════════════════════════════════════
+# 📡 논문 수집
+# ════════════════════════════════════════════════════
+
+def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
+    category = cat_config["category"]
+    keywords = cat_config.get("keywords", [])
+    limit = cat_config["papers_per_day"]
+
+    terms = [f'(ti:"{kw}" OR abs:"{kw}")' for kw in keywords]
+    query = f"cat:{category} AND ({' OR '.join(terms)})"
+
+    params = {
+        "search_query": query,
+        "sortBy": "submittedDate",
+        "sortOrder": "descending",
+        "max_results": 150,  # 버퍼를 넉넉히 (필터링 후 limit 적용)
+    }
+
+    try:
+        resp = requests.get("https://export.arxiv.org/api/query", params=params, timeout=60)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"❌ arXiv API 요청 실패: {e}")
+        return []
+
+    ns = {
+        "atom": "http://www.w3.org/2005/Atom",
+        "arxiv": "http://arxiv.org/schemas/atom"
+    }
+
+    root = ET.fromstring(resp.content)
+    candidates = []
+    seen_titles = set()
+
+    for entry in root.findall("atom:entry", ns):
+        published_el = entry.find("atom:published", ns)
+        if published_el is None:
+            continue
+        published = datetime.fromisoformat(published_el.text.replace("Z", "+00:00"))
+        if published < cutoff:
+            continue
+
+        title_el = entry.find("atom:title", ns)
+        summary_el = entry.find("atom:summary", ns)
+        if title_el is None or summary_el is None:
+            continue
+
+        title = title_el.text.strip().replace("\n", " ")
+        summary = summary_el.text.strip().replace("\n", " ")
+
+        if title in seen_titles:
+            continue
+        seen_titles.add(title)
+
+        comment_el = entry.find("arxiv:comment", ns)
+        comment_text = comment_el.text.lower() if comment_el is not None else ""
+
+        full_text = title.lower() + " " + summary.lower()
+
+        # ✅ 유연한 키워드 매칭 (min_match=2)
+        kw_count = flexible_keyword_match(full_text, keywords, min_match=2)
+        if kw_count < 2:
+            continue
+
+        score = kw_count * 5
+
+        # 코드/구현 공개 여부
+        if any(x in full_text for x in ["github.com", "code available", "project page", "implementation", "huggingface"]):
+            score += 10
+
+        # 컨퍼런스 언급
+        if any(conf.lower() in comment_text for conf in TOP_CONFERENCES):
+            score += 20
+
+        paper_id = entry.find("atom:id", ns).text.split("/abs/")[-1]
+
+        # ✅ Semantic Scholar로 기관 정보 조회 (arXiv API에는 없음)
+        print(f"    🔍 기관 조회: {paper_id}")
+        raw_institutions = fetch_institutions_from_semantic_scholar(paper_id)
+        institution_found, is_vvip = detect_institution_from_list(raw_institutions)
+
+        if is_vvip:
+            score += 15
+        elif institution_found:
+            score += 5
+
+        if score < 10:
+            continue
+
+        # ✅ Intro 텍스트 수집
+        print(f"    📄 Intro 파싱: {paper_id}")
+        intro_text = fetch_intro_from_arxiv_html(paper_id)
+        time.sleep(1)  # ar5iv rate limit 방지
+
+        candidates.append({
+            "id": paper_id,
+            "title": title,
+            "summary": summary,
+            "intro": intro_text,  # NEW: intro 텍스트
+            "authors": [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)],
+            "abs_url": f"https://arxiv.org/abs/{paper_id}",
+            "pdf_url": f"https://arxiv.org/pdf/{paper_id}",
+            "score": score,
+            "is_vvip": is_vvip,
+            "institution": institution_found,
+            "raw_institutions": raw_institutions,  # 디버깅용
+        })
+        time.sleep(1)  # Semantic Scholar rate limit 방지
+
+    candidates.sort(key=lambda x: x["score"], reverse=True)
+    return candidates[:limit]
+
+
+# ════════════════════════════════════════════════════
+# ✏️ 프롬프트 정의
+# ════════════════════════════════════════════════════
+
 DOMAIN_GUIDES = {
     "cs.AI": """[Focus: Agent Autonomy & Reasoning]
 - 에이전트의 '자가 수정(Self-correction)' 및 '추론 루프'의 구조적 혁신을 분석하세요.
 - 단순히 성능이 좋은지가 아니라, 에이전트가 오류를 어떻게 감지하고 진화하는지에 집중하세요.""",
-    
+
     "cs.LG": """[Focus: Memory & Learning Efficiency]
 - 방대한 정보를 어떻게 압축하고(Compression), 필요한 시점에 어떻게 검색하는지(Retrieval) 분석하세요.
 - '장기 기억' 유지 시 발생하는 정보 오염이나 망각 문제를 해결했는지 확인하세요.""",
-    
+
     "cs.RO": """[Focus: Embodiment & Action]
 - 고수준 명령(언어)이 물리적 행동(Action)으로 변환되는 VLA(Vision-Language-Action) 정렬 방식을 분석하세요.
 - 시뮬레이션과 실제 환경(Sim-to-Real) 간의 간극을 어떻게 줄였는지 주목하세요."""
@@ -109,132 +403,26 @@ STYLE_PROMPTS = {
 **재현성**: 코드 공개: [O/X] | [컴퓨팅 자원 정보]"""
 }
 
-# ════════════════════════════════════════════════════
-# 🛠️ 유틸리티 및 수집 로직 (기존 유지/강화)
-# ════════════════════════════════════════════════════
-
-def sanitize_for_hugo(text: str) -> str:
-    if not text: return ""
-    text = re.sub(r'\{\{.*?\}\}', '', text, flags=re.DOTALL)
-    text = re.sub(r'^#{1,6}\s+(.+)$', r'**\1**', text, flags=re.MULTILINE)
-    return text
-
-def sanitize_title(title: str) -> str:
-    return re.sub(r'\{.*?\}', '', title).replace('"', '\\"').replace("|", "-").strip()
 
 # ════════════════════════════════════════════════════
-# 📡 논문 수집 (기존 유지/점수 산정 포함)
-# ════════════════════════════════════════════════════
-def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
-    category = cat_config["category"]
-    keywords = cat_config.get("keywords", [])
-    limit = cat_config["papers_per_day"]
-
-    # 3번 전략: 키워드 2개 이상 조합 쿼리 (Intersection)
-    # 한 카테고리의 키워드 중 2개가 동시에 포함된 경우를 찾습니다.
-    # 예: (ti:"agent" AND ti:"reasoning") OR (ti:"agent" AND abs:"reasoning") ...
-    combinations = []
-    for i in range(len(keywords)):
-        for j in range(i + 1, len(keywords)):
-            kw1, kw2 = keywords[i], keywords[j]
-            # 제목이나 초록에서 두 키워드가 모두 발견되는 조합 생성
-            term = f'((ti:"{kw1}" OR abs:"{kw1}") AND (ti:"{kw2}" OR abs:"{kw2}"))'
-            combinations.append(term)
-    
-    if not combinations: # 키워드가 1개뿐인 예외 상황 대응
-        query = f"cat:{category} AND (ti:\"{keywords[0]}\" OR abs:\"{keywords[0]}\")"
-    else:
-        query = f"cat:{category} AND ({' OR '.join(combinations)})"
-    
-    params = {
-        "search_query": query,
-        "sortBy": "submittedDate",
-        "sortOrder": "descending",
-        "max_results": 60 
-    }
-    
-    try:
-        resp = requests.get("https://export.arxiv.org/api/query", params=params, timeout=60)
-        resp.raise_for_status()
-    except Exception as e:
-        print(f"  ❌ API 요청 실패: {e}")
-        return []
-
-    ns = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
-    root = ET.fromstring(resp.content)
-    candidates = []
-
-    for entry in root.findall("atom:entry", ns):
-        published = datetime.fromisoformat(entry.find("atom:published", ns).text.replace("Z", "+00:00"))
-        if published < cutoff: continue
-
-        title = entry.find("atom:title", ns).text.strip().replace("\n", " ")
-        summary = entry.find("atom:summary", ns).text.strip().replace("\n", " ")
-        comment = entry.find("arxiv:comment", ns)
-        comment_text = comment.text.lower() if comment is not None else ""
-        
-        title_lower = title.lower()
-        summary_lower = summary.lower()
-
-        # 1번 전략 기반 정교한 필터링 (트렌드 키워드 가점 제거)
-        score = 0
-        is_vvip = False
-        institution_found = ""
-
-        # [가점 1] 메이저 컨퍼런스 채택 (가장 명확한 품질 보증)
-        if any(conf.lower() in comment_text for conf in TOP_CONFERENCES):
-            score += 45 # 가중치 상향
-            
-        # [가점 2] 소스 코드 공개 (실무 및 재현성 가치)
-        if "github.com" in summary_lower or "github.com" in comment_text:
-            score += 20
-            
-        # [가점 3] 연구 기관 신뢰도
-        for inst in VVIP_LABS:
-            if inst.lower() in summary_lower or inst.lower() in comment_text:
-                score += 35 # 가중치 상향
-                is_vvip = True
-                institution_found = inst
-                break
-        
-        if not is_vvip:
-            for inst in TOP_INSTITUTIONS:
-                if inst.lower() in summary_lower or inst.lower() in comment_text:
-                    score += 15
-                    institution_found = inst
-                    break
-
-        # [최소 컷오프] 
-        # 기관 점수나 컨퍼런스 점수 중 최소 하나는 만족해야 함 (예: 30점)
-        if score < 30: continue 
-
-        paper_id = entry.find("atom:id", ns).text.split("/abs/")[-1]
-        candidates.append({
-            "id": paper_id, "title": title, "summary": summary,
-            "authors": [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)],
-            "abs_url": f"https://arxiv.org/abs/{paper_id}",
-            "pdf_url": f"https://arxiv.org/pdf/{paper_id}",
-            "score": score, "is_vvip": is_vvip, "institution": institution_found
-        })
-
-    # 고득점 순으로 정렬 후 요청 개수만큼 반환
-    candidates.sort(key=lambda x: x["score"], reverse=True)
-    return candidates[:limit]
-
-# ════════════════════════════════════════════════════
-# 🧠 AI 리뷰 생성 (Sonnet 4.6 + Prompt Caching)
+# 🧠 AI 리뷰 생성
 # ════════════════════════════════════════════════════
 
 def review_paper_with_cache(paper: dict, category_id: str, client: anthropic.Anthropic) -> str:
     domain_guide = DOMAIN_GUIDES.get(category_id, "일반적인 AI 기술 분석에 집중하세요.")
-    
-    # AI용 맥락 정보 (결과물에는 노출 안 함)
+
     inst_info = f"기관: {paper['institution']}" if paper['institution'] else "기관 정보 없음"
-    if paper['is_vvip']: inst_info += " (업계 최고 권위 연구소)"
+    if paper['is_vvip']:
+        inst_info += " (업계 최고 권위 연구소)"
+
+    # ✅ Abstract + Intro 모두 활용
+    abstract_text = paper['summary'][:1500]
+    intro_text = paper.get('intro', '')
+    intro_section = f"\nIntroduction (요약):\n{intro_text[:800]}" if intro_text else ""
 
     try:
         message = client.messages.create(
-            model=MODEL_API[MODEL_NAME], # Haiku 4.5 (2026 기준 명칭 대응)
+            model=MODEL_API[MODEL_NAME],
             max_tokens=1500,
             messages=[
                 {
@@ -242,13 +430,19 @@ def review_paper_with_cache(paper: dict, category_id: str, client: anthropic.Ant
                     "content": [
                         {
                             "type": "text",
-                            "text": f"{STYLE_PROMPTS}\n\n[Domain Guide]\n{domain_guide}",
-                            # ⭐️ 카테고리별 공통 지침 캐싱 (비용 절감 핵심)
-                            "cache_control": {"type": "ephemeral"} 
+                            "text": f"{STYLE_PROMPTS['technical']}\n\n[Domain Guide]\n{domain_guide}",
+                            "cache_control": {"type": "ephemeral"}
                         },
                         {
                             "type": "text",
-                            "text": f"\n\n[Input Paper Context]\n{inst_info}\nTitle: {paper['title']}\nAbstract: {paper['summary'][:2000]}\n\n리뷰 시작:"
+                            "text": (
+                                f"\n\n[Input Paper Context]\n"
+                                f"{inst_info}\n"
+                                f"Title: {paper['title']}\n"
+                                f"Abstract:\n{abstract_text}"
+                                f"{intro_section}\n\n"
+                                f"리뷰 시작:"
+                            )
                         }
                     ]
                 }
@@ -258,44 +452,64 @@ def review_paper_with_cache(paper: dict, category_id: str, client: anthropic.Ant
     except Exception as e:
         print(f"  ❌ Claude API 에러: {e}")
         return "리뷰 생성 실패"
+
+
 # ════════════════════════════════════════════════════
-# 💾 저장 및 메인 로직
+# 🛠️ 공통 유틸리티
+# ════════════════════════════════════════════════════
+
+def sanitize_for_hugo(text: str) -> str:
+    if not text:
+        return ""
+    text = re.sub(r'\{\{.*?\}\}', '', text, flags=re.DOTALL)
+    text = re.sub(r'^#{1,6}\s+(.+)$', r'**\1**', text, flags=re.MULTILINE)
+    return text
+
+
+def sanitize_title(title: str) -> str:
+    return re.sub(r'\{.*?\}', '', title).replace('"', '\\"').replace("|", "-").strip()
+
+
+# ════════════════════════════════════════════════════
+# 💾 저장
 # ════════════════════════════════════════════════════
 
 def save_daily_digest(date_str: str, sections: dict, reviews: dict):
     today_kst = datetime.now(KST).strftime("%Y년 %m월 %d일")
     total = sum(len(v) for v in sections.values())
-    
-    # 2. 소제목(Summary) 생성: 이 부분이 이미지 속 흐릿한 텍스트가 됩니다.
-    # 카테고리 이름에서 이모지 등을 떼고 핵심 단어만 추출 (예: Agents · Memory · Robotics)
+
     cat_names = [cat['name'].split(' ')[-1] for cat in CONFIG["categories"] if sections.get(cat['name'])]
     cat_str = " · ".join(cat_names)
     summary_text = f"{cat_str} 분야 유망 논문 {total}편 | {MODEL_NAME} 자동 분석"
-    
-    # 목차 생성
+
     toc_rows = []
     idx = 1
     for cat_name, papers in sections.items():
         for p in papers:
             title = p['title'][:55] + "..." if len(p['title']) > 55 else p['title']
-            toc_rows.append(f"| {idx} | {cat_name} | {title.replace('|','-')} |")
+            toc_rows.append(f"| {idx} | {cat_name} | {title.replace('|', '-')} |")
             idx += 1
     toc_str = "| # | 분야 | 제목 |\n|---|------|------|\n" + "\n".join(toc_rows)
 
-    # 본문 생성
     body_parts = []
     idx = 1
     for cat_name, papers in sections.items():
-        if not papers: continue
+        if not papers:
+            continue
         body_parts.append(f"\n---\n\n**{cat_name}**\n")
         for p, r in zip(papers, reviews[cat_name]):
             body_parts.append(f"\n**{idx}. {sanitize_title(p['title'])}**\n")
-            body_parts.append(f"\n**저자**: {', '.join(p['authors'][:3])} | [원문]({p['abs_url']}) | [PDF]({p['pdf_url']})\n\n{r}\n")
+            body_parts.append(
+                f"\n**저자**: {', '.join(p['authors'][:3])} | "
+                f"[원문]({p['abs_url']}) | [PDF]({p['pdf_url']})\n\n{r}\n"
+            )
             idx += 1
-    
-    # ── 하단 고지 문구 생성 ──
-    ai_model_notice = f"\n\n---\n\n*본 리포트의 논문 리뷰는 Anthropic의 **{MODEL_NAME}** 모델을 사용하여 자동 생성되었습니다.*"
-    
+
+    ai_model_notice = (
+        f"\n\n---\n\n"
+        f"*본 리포트의 논문 리뷰는 Anthropic의 **{MODEL_NAME}** 모델을 사용하여 자동 생성되었습니다.*"
+    )
+
     content = f"""---
 title: "논문 Daily Digest {today_kst} ({total}편)"
 date: {date_str}T00:00:00+09:00
@@ -312,50 +526,64 @@ tags: ["Daily", "AI", "Research"]
 
 {ai_model_notice}
 """
+
     post_dir = Path(f"content/post/{date_str}-digest")
     post_dir.mkdir(parents=True, exist_ok=True)
     (post_dir / "index.md").write_text(content, encoding="utf-8")
-    print(f"  💾 KST 기준 저장 완료: {post_dir / 'index.md'}")
-    
+    print(f"  💾 저장 완료: {post_dir / 'index.md'}")
+
+
 # ════════════════════════════════════════════════════
-# 💾 실행 및 저장 (Main Flow)
+# 🚀 Main
 # ════════════════════════════════════════════════════
+
 def main():
     api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key: return print("❌ API Key missing")
-    
+    if not api_key:
+        print("❌ ANTHROPIC_API_KEY 환경변수 없음")
+        return
+
     client = anthropic.Anthropic(api_key=api_key)
     now_kst = datetime.now(KST)
     cutoff = now_kst - timedelta(days=CONFIG["days_back"])
+
     history_path = Path("data/reviewed_ids.json")
     history_path.parent.mkdir(parents=True, exist_ok=True)
-    reviewed_ids = set(json.loads(history_path.read_text())) if history_path.exists() else set()
+    reviewed_ids: set = set(json.loads(history_path.read_text())) if history_path.exists() else set()
 
-    sections, reviews_dict = {}, {}
+    sections: dict = {}
+    reviews_dict: dict = {}
 
     for cat_config in CONFIG["categories"]:
         name = cat_config["name"]
-        print(f"📡 {name} 검색 중...")
+        print(f"\n📡 [{name}] 검색 중...")
+
+        # ✅ fetch 단계에서는 reviewed_ids 필터 없이 전체 후보 수집
         all_papers = fetch_papers_by_category(cat_config, cutoff)
+
+        # ✅ reviewed_ids 필터는 fetch 이후에 적용 (papers_per_day 제한 전)
         new_papers = [p for p in all_papers if p["id"] not in reviewed_ids]
-        
-        sections[name], reviews_dict[name] = [], []
+
+        sections[name] = []
+        reviews_dict[name] = []
 
         for paper in new_papers:
-            print(f"  📝 리뷰 생성 (Caching): {paper['title'][:50]}...")
+            print(f"  📝 리뷰 생성: {paper['title'][:55]}...")
             review = review_paper_with_cache(paper, cat_config["category"], client)
             sections[name].append(paper)
             reviews_dict[name].append(review)
             reviewed_ids.add(paper["id"])
-            time.sleep(1) # API Rate Limit 방지
+            time.sleep(1)
 
-    if sum(len(v) for v in sections.values()) > 0:
+    total = sum(len(v) for v in sections.values())
+    if total > 0:
         date_str = now_kst.strftime("%Y-%m-%d")
         save_daily_digest(date_str, sections, reviews_dict)
         history_path.write_text(json.dumps(list(reviewed_ids), indent=2))
-        print("🎉 모든 작업 완료!")
+        print(f"\n🎉 완료! 총 {total}편 처리.")
     else:
-        print("📭 오늘 업데이트할 새 논문이 없습니다.")
+        print("\n📭 오늘 업데이트할 새 논문이 없습니다.")
+
 
 if __name__ == "__main__":
     main()
