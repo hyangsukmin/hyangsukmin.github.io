@@ -291,14 +291,16 @@ def fetch_papers_by_category(cat_config, cutoff):
     keywords = cat_config.get("keywords", [])
     limit = cat_config["papers_per_day"]
 
-    terms = ['(ti:"' + kw + '" OR abs:"' + kw + '")' for kw in keywords]
+    # 큰따옴표 없이 토큰 매칭 → arXiv API 레벨에서 더 많은 후보 확보
+    # 정밀 필터링은 로컬 flexible_keyword_match에서 담당
+    terms = ["(ti:" + kw + " OR abs:" + kw + ")" for kw in keywords]
     query = "cat:" + category + " AND (" + " OR ".join(terms) + ")"
 
     params = {
         "search_query": query,
         "sortBy": "submittedDate",
         "sortOrder": "descending",
-        "max_results": 150,
+        "max_results": 300,
     }
 
     try:
@@ -343,8 +345,8 @@ def fetch_papers_by_category(cat_config, cutoff):
 
         full_text = title.lower() + " " + summary.lower()
 
-        kw_count = flexible_keyword_match(full_text, keywords, min_match=2)
-        if kw_count < 2:
+        kw_count = flexible_keyword_match(full_text, keywords, min_match=1)
+        if kw_count < 1:
             continue
 
         score = kw_count * 5
@@ -388,9 +390,6 @@ def fetch_papers_by_category(cat_config, cutoff):
         elif institution_found:
             score += 5
 
-        if score < 10:
-            continue
-
         entry_data = dict(paper)
         entry_data["score"] = score
         entry_data["is_vvip"] = is_vvip
@@ -415,14 +414,14 @@ def review_paper_with_cache(paper, category_id, client):
     if paper["is_vvip"]:
         inst_info += " (업계 최고 권위 연구소)"
 
-    abstract_text = paper["summary"][:]
+    abstract_text = paper["summary"][:1500]
     intro_text = paper.get("intro", "")
-    intro_section = "\nIntroduction (요약):\n" + intro_text[:3000] if intro_text else ""
+    intro_section = "\nIntroduction (요약):\n" + intro_text[:800] if intro_text else ""
 
     try:
         message = client.messages.create(
             model=MODEL_API[MODEL_NAME],
-            max_tokens=4096,
+            max_tokens=1500,
             messages=[
                 {
                     "role": "user",
