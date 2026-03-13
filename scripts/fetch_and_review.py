@@ -415,14 +415,14 @@ def review_paper_with_cache(paper, category_id, client):
     if paper["is_vvip"]:
         inst_info += " (업계 최고 권위 연구소)"
 
-    abstract_text = paper["summary"][:1500]
+    abstract_text = paper["summary"][:]
     intro_text = paper.get("intro", "")
-    intro_section = "\nIntroduction (요약):\n" + intro_text[:800] if intro_text else ""
+    intro_section = "\nIntroduction (요약):\n" + intro_text[:3000] if intro_text else ""
 
     try:
         message = client.messages.create(
             model=MODEL_API[MODEL_NAME],
-            max_tokens=1500,
+            max_tokens=4096,
             messages=[
                 {
                     "role": "user",
