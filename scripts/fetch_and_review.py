@@ -13,14 +13,15 @@ KST = timezone(timedelta(hours=9))
 # ════════════════════════════════════════════════════
 # ✏️ [설정] 연구 카테고리 및 기관 필터링
 # ════════════════════════════════════════════════════
-MODEL_NAME = "claude-sonnet-4-6"
+MODEL_NAME = "Haiku"
+MODEL_API = {"Haiku": "claude-haiku-4-5-20251001", "Sonnet": "claude-sonnet-4-6"}
 CONFIG = {
     "categories": [
         {
             "name": "💬 Dialogue Summarization",
             "category": "cs.CL",
-            "papers_per_day": 2,
-            "keywords": ["dialogue summarization", "streaming dialogue", "conversation summarization"],
+            "papers_per_day": 4,
+            "keywords": ["dialogue summarization", "streaming dialogue", "conversation summarization", "long-term"],
         },
         {
             "name": "🔄 Self-Evolving & Agents",
@@ -129,15 +130,35 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
     keywords = cat_config.get("keywords", [])
     limit = cat_config["papers_per_day"]
 
-    kw_query = " OR ".join([f'all:"{kw}"' for kw in keywords])
-    query = f"cat:{category} AND ({kw_query})"
+    # 3번 전략: 키워드 2개 이상 조합 쿼리 (Intersection)
+    # 한 카테고리의 키워드 중 2개가 동시에 포함된 경우를 찾습니다.
+    # 예: (ti:"agent" AND ti:"reasoning") OR (ti:"agent" AND abs:"reasoning") ...
+    combinations = []
+    for i in range(len(keywords)):
+        for j in range(i + 1, len(keywords)):
+            kw1, kw2 = keywords[i], keywords[j]
+            # 제목이나 초록에서 두 키워드가 모두 발견되는 조합 생성
+            term = f'((ti:"{kw1}" OR abs:"{kw1}") AND (ti:"{kw2}" OR abs:"{kw2}"))'
+            combinations.append(term)
     
-    params = {"search_query": query, "sortBy": "submittedDate", "sortOrder": "descending", "max_results": 30}
+    if not combinations: # 키워드가 1개뿐인 예외 상황 대응
+        query = f"cat:{category} AND (ti:\"{keywords[0]}\" OR abs:\"{keywords[0]}\")"
+    else:
+        query = f"cat:{category} AND ({' OR '.join(combinations)})"
+    
+    params = {
+        "search_query": query,
+        "sortBy": "submittedDate",
+        "sortOrder": "descending",
+        "max_results": 60 
+    }
     
     try:
         resp = requests.get("https://export.arxiv.org/api/query", params=params, timeout=60)
         resp.raise_for_status()
-    except: return []
+    except Exception as e:
+        print(f"  ❌ API 요청 실패: {e}")
+        return []
 
     ns = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
     root = ET.fromstring(resp.content)
@@ -150,28 +171,42 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
         title = entry.find("atom:title", ns).text.strip().replace("\n", " ")
         summary = entry.find("atom:summary", ns).text.strip().replace("\n", " ")
         comment = entry.find("arxiv:comment", ns)
-        comment_text = comment.text if comment is not None else ""
+        comment_text = comment.text.lower() if comment is not None else ""
+        
+        title_lower = title.lower()
+        summary_lower = summary.lower()
 
-        # ⭐️ 기관 점수제 로직
+        # 1번 전략 기반 정교한 필터링 (트렌드 키워드 가점 제거)
         score = 0
         is_vvip = False
         institution_found = ""
 
-        if any(conf.lower() in comment_text.lower() for conf in TOP_CONFERENCES): score += 15
-        if "github.com" in summary.lower() or "github.com" in comment_text.lower(): score += 10
-        
-        for inst in TOP_INSTITUTIONS:
-            if inst.lower() in summary.lower() or inst.lower() in comment_text.lower():
-                score += 10
+        # [가점 1] 메이저 컨퍼런스 채택 (가장 명확한 품질 보증)
+        if any(conf.lower() in comment_text for conf in TOP_CONFERENCES):
+            score += 45 # 가중치 상향
+            
+        # [가점 2] 소스 코드 공개 (실무 및 재현성 가치)
+        if "github.com" in summary_lower or "github.com" in comment_text:
+            score += 20
+            
+        # [가점 3] 연구 기관 신뢰도
+        for inst in VVIP_LABS:
+            if inst.lower() in summary_lower or inst.lower() in comment_text:
+                score += 35 # 가중치 상향
+                is_vvip = True
                 institution_found = inst
                 break
-        for inst in VVIP_LABS:
-            if inst.lower() in summary.lower() or inst.lower() in comment_text.lower():
-                score += 25
-                is_vvip = True
-                break
+        
+        if not is_vvip:
+            for inst in TOP_INSTITUTIONS:
+                if inst.lower() in summary_lower or inst.lower() in comment_text:
+                    score += 15
+                    institution_found = inst
+                    break
 
-        if score < 10: continue # 낮은 점수 논문 필터링
+        # [최소 컷오프] 
+        # 기관 점수나 컨퍼런스 점수 중 최소 하나는 만족해야 함 (예: 30점)
+        if score < 30: continue 
 
         paper_id = entry.find("atom:id", ns).text.split("/abs/")[-1]
         candidates.append({
@@ -182,8 +217,10 @@ def fetch_papers_by_category(cat_config: dict, cutoff: datetime) -> list:
             "score": score, "is_vvip": is_vvip, "institution": institution_found
         })
 
+    # 고득점 순으로 정렬 후 요청 개수만큼 반환
     candidates.sort(key=lambda x: x["score"], reverse=True)
     return candidates[:limit]
+
 # ════════════════════════════════════════════════════
 # 🧠 AI 리뷰 생성 (Sonnet 4.6 + Prompt Caching)
 # ════════════════════════════════════════════════════
@@ -197,7 +234,7 @@ def review_paper_with_cache(paper: dict, category_id: str, client: anthropic.Ant
 
     try:
         message = client.messages.create(
-            model=MODEL_NAME, # Haiku 4.5 (2026 기준 명칭 대응)
+            model=MODEL_API[MODEL_NAME], # Haiku 4.5 (2026 기준 명칭 대응)
             max_tokens=1500,
             messages=[
                 {
@@ -257,7 +294,7 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict):
             idx += 1
     
     # ── 하단 고지 문구 생성 ──
-    ai_model_notice = "\n\n---\n\n*본 리포트의 논문 리뷰는 Anthropic의 **Claude 4.6 Sonnet** 모델을 사용하여 자동 생성되었습니다.*"
+    ai_model_notice = f"\n\n---\n\n*본 리포트의 논문 리뷰는 Anthropic의 **{MODEL_NAME}** 모델을 사용하여 자동 생성되었습니다.*"
     
     content = f"""---
 title: "논문 Daily Digest {today_kst} ({total}편)"
