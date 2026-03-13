@@ -1,8 +1,8 @@
 ---
-title: "논문 Daily Digest 2026년 03월 13일 (8편)"
+title: "논문 Daily Digest 2026년 03월 13일 (2편)"
 date: 2026-03-13T00:00:00+09:00
 draft: false
-summary: "Summarization · Agents · Memory · AI 분야 유망 논문 8편 | claude-sonnet-4-6 자동 분석"
+summary: "AI 분야 유망 논문 2편 | Haiku 자동 분석"
 tags: ["Daily", "AI", "Research"]
 ---
 
@@ -10,83 +10,69 @@ tags: ["Daily", "AI", "Research"]
 
 | # | 분야 | 제목 |
 |---|------|------|
-| 1 | 💬 Dialogue Summarization | CogCanvas: Verbatim-Grounded Artifact Extraction for Lo... |
-| 2 | 💬 Dialogue Summarization | Lessons from the Field: An Adaptable Lifecycle Approach... |
-| 3 | 🔄 Self-Evolving & Agents | Meta-Learning and Meta-Reinforcement Learning - Tracing... |
-| 4 | 🔄 Self-Evolving & Agents | Obscure but Effective: Classical Chinese Jailbreak Prom... |
-| 5 | 🧠 Lifelong & Long-range Memory | MemCast: Memory-Driven Time Series Forecasting with Exp... |
-| 6 | 🧠 Lifelong & Long-range Memory | FlyPrompt: Brain-Inspired Random-Expanded Routing with ... |
-| 7 | 🦾 Robotics & Embodied AI | PPGuide: Steering Diffusion Policies with Performance P... |
-| 8 | 🦾 Robotics & Embodied AI | A gripper for flap separation and opening of sealed bag... |
+| 1 | 🦾 Robotics & Embodied AI | Adaptive Capacity Allocation for Vision Language Action... |
+| 2 | 🦾 Robotics & Embodied AI | RC-NF: Robot-Conditioned Normalizing Flow for Real-Time... |
 
-
----
-
-**💬 Dialogue Summarization**
-
-**1. CogCanvas: Verbatim-Grounded Artifact Extraction for Long LLM Conversations**
-
-**저자**: Tao An | [원문](https://arxiv.org/abs/2601.00821v2) | [PDF](https://arxiv.org/pdf/2601.00821v2)
-
-리뷰 생성 실패
-
-**2. Lessons from the Field: An Adaptable Lifecycle Approach to Applied Dialogue Summarization**
-
-**저자**: Kushal Chawla, Chenyang Zhu, Pengshan Cai | [원문](https://arxiv.org/abs/2601.08682v1) | [PDF](https://arxiv.org/pdf/2601.08682v1)
-
-리뷰 생성 실패
-
----
-
-**🔄 Self-Evolving & Agents**
-
-**3. Meta-Learning and Meta-Reinforcement Learning - Tracing the Path towards DeepMind's Adaptive Agent**
-
-**저자**: Björn Hoppmann, Christoph Scholz | [원문](https://arxiv.org/abs/2602.19837v1) | [PDF](https://arxiv.org/pdf/2602.19837v1)
-
-리뷰 생성 실패
-
-**4. Obscure but Effective: Classical Chinese Jailbreak Prompt Optimization via Bio-Inspired Search**
-
-**저자**: Xun Huang, Simeng Qin, Xiaoshuang Jia | [원문](https://arxiv.org/abs/2602.22983v2) | [PDF](https://arxiv.org/pdf/2602.22983v2)
-
-리뷰 생성 실패
-
----
-
-**🧠 Lifelong & Long-range Memory**
-
-**5. MemCast: Memory-Driven Time Series Forecasting with Experience-Conditioned Reasoning**
-
-**저자**: Xiaoyu Tao, Mingyue Cheng, Ze Guo | [원문](https://arxiv.org/abs/2602.03164v1) | [PDF](https://arxiv.org/pdf/2602.03164v1)
-
-리뷰 생성 실패
-
-**6. FlyPrompt: Brain-Inspired Random-Expanded Routing with Temporal-Ensemble Experts for General Continual Learning**
-
-**저자**: Hongwei Yan, Guanglong Sun, Kanglei Zhou | [원문](https://arxiv.org/abs/2602.01976v2) | [PDF](https://arxiv.org/pdf/2602.01976v2)
-
-리뷰 생성 실패
 
 ---
 
 **🦾 Robotics & Embodied AI**
 
-**7. PPGuide: Steering Diffusion Policies with Performance Predictive Guidance**
+**1. Adaptive Capacity Allocation for Vision Language Action Fine-tuning**
 
-**저자**: Zixing Wang, Devesh K. Jha, Ahmed H. Qureshi | [원문](https://arxiv.org/abs/2603.10980v1) | [PDF](https://arxiv.org/pdf/2603.10980v1)
+**저자**: Donghoon Kim, Minji Bae, Unghui Nam | [원문](https://arxiv.org/abs/2603.07404v1) | [PDF](https://arxiv.org/pdf/2603.07404v1)
 
-리뷰 생성 실패
+**한 줄 요약**: 에너지 임계값 기반 동적 rank 선택으로 VLA 미세조정 시 작업별 용량 자동 할당.
 
-**8. A gripper for flap separation and opening of sealed bags**
+**Background**: VLA 모델을 미지의 환경과 embodiment으로 배포할 때 파라미터 효율적 미세조정(PEFT)이 필수이나, 표준 LoRA의 고정 rank는 로봇 제어 작업에서 언어 모델과 달리 높은 내재적 rank를 요구한다. 기존 연구는 rank를 LLM 기준(r=4~8)으로 설정하여 VLA의 다중작업 환경에서 교차 작업 간섭과 일반화 성능 저하를 초래했다.
 
-**저자**: Sergi Foix, Jaume Oriol, Carme Torras | [원문](https://arxiv.org/abs/2603.10890v1) | [PDF](https://arxiv.org/pdf/2603.10890v1)
+**핵심 아이디어**
 
-리뷰 생성 실패
+- **구조적 차별점**: LoRA-SP는 고정된 rank 대신 SVD 스타일 파라미터화로 입력 및 계층별 적응형 용량을 할당한다. 작은 라우터가 음이 아닌 점수(특이값처럼 작동)를 공유 벡터 뱅크 위에 생성하고, 누적 제곱 점수의 에너지 임계값 E(k) ≥ η를 통해 활성 벡터 집합을 동적으로 선택한다. 이는 근사 오차를 직접적으로 제어하는 스펙트럼 해석 기반 설계다.
+
+- **직관적 비유**: 로봇이 매 작업마다 고정된 도구함을 사용하는 대신, 필요한 도구만 꺼내 쓰는 것과 같다. 에너지 임계값은 "이 작업에 필요한 도구의 총 무게"를 정하는 기준이 되어, 간단한 작업은 적은 도구로, 복잡한 작업은 더 많은 도구를 자동으로 활용하게 한다.
+
+**왜 중요한가**: 물리 로봇 시스템에서 VLA 적응은 실시간 성능과 계산 효율 간의 균형이 중요한데, LoRA-SP는 다중작업 환경에서 교차 간섭을 줄이면서 일반화를 개선한다. 이는 sim-to-real 전이 시나리오에서 미지의 embodiment(AgileX PiPER)에 대한 강건성을 보증하는 실용적 솔루션이다.
+
+**Research Questions**
+
+*Q1: VLA 미세조정에서 언어 모델과 다른 rank 요구사항이 발생하는 근본 원인은?* A1: 스펙트럼 분석 결과, 로봇 제어는 시각-행동 정렬에 필요한 고차원 기하학적 변환(카메라 관점, 엔드-이펙터 궤적 등)이 언어 의미론보다 훨씬 다양하고 작업마다 변한다. 따라서 내재적 rank가 높아지고 고정 rank로는 충분한 표현력을 보장할 수 없다.
+
+*Q2: 에너지 임계값 η를 어떻게 설정하면 정확도를 유지하면서 파라미터를 줄일 수 있는가?* A2: 훈련 중 η 값을 점진적으로 조정하여 라우터가 소수의 벡터에 집중하도록 유도하되, 누적 제곱 점수의 근사 오차 상한과 연결된 이론적 보증(spectral bound)을 따른다. 실험에서 η 값이 작업마다 자동으로 수렴하여 개수 조정 불필요.
+
+*Q3: 여러 embodiment과 작업으로 확장했을 때 일반화 성능은?* A3: AgileX PiPER 암 기반 4개 실제 로봇 조작 작업과 π₀, SmolVLA 두 VLA 백본에서 전체 미세조정(full fine-tuning) 이상의 성능 달성하며, 다중작업 시나리오에서 표준 LoRA 대비 최대 31.6% 성공률 향상.
+
+**실험 결과**: 실제 로봇 환경(unseen AgileX PiPER embodiment)에서 4개 조작 작업(예: pick-place, pushing 등) 수행. π₀와 SmolVLA 백본 모두에서 LoRA-SP가 전체 미세조정과 동등하거나 우수한 성능을 매우 적은 파라미터(동적 rank 평균 ~32~64)로 달성. 다중작업 학습(multi-task) 설정에서 교차 작업 간섭 감소로 인해 표준 LoRA(고정 r=128) 대비 최대 31.6% 
+
+**2. RC-NF: Robot-Conditioned Normalizing Flow for Real-Time Anomaly Detection in Robotic Manipulation**
+
+**저자**: Shijie Zhou, Bin Zhu, Jiarui Yang | [원문](https://arxiv.org/abs/2603.11106v1) | [PDF](https://arxiv.org/pdf/2603.11106v1)
+
+**한 줄 요약**: 정규화 흐름으로 로봇 상태와 물체 궤적의 분포 이상을 실시간 감지하여 VLA 모델의 동적 환경 견고성 강화.
+
+**Background**: VLA 모델은 모방 학습으로 훈련되어 복잡한 로봇 조작을 수행하지만, 동적 환경과 분포 외(OOD) 조건에서의 신뢰성이 낮다. 기존 이상 탐지 방식은 대규모 레이블 데이터에 의존하거나 실시간 응답 성능이 부족하며, 로봇의 멀티모달 상태(팔 위치, 그리퍼, 물체 궤적)를 통합 처리하지 못한다. 따라서 학습 분포 내에서만 안정적인 VLA 모델의 적응성과 안전성을 근본적으로 개선할 방법이 필요했다.
+
+**핵심 아이디어**
+
+- **구조적 차별점**: RC-NF는 정규화 흐름(Normalizing Flow) 기반으로 로봇 상태와 물체 상태를 분리된 조건 경로로 처리하며, 양수 샘플만으로 비지도 학습이 가능하다. 이 접근은 확률 밀도 함수(PDF)를 직접 모델링하여 보정 가능한 이상 스코어를 산출하고, 기존 OOD 탐지의 흑백식 판정 대신 연속적 신뢰도 측정을 제공한다.
+
+- **직관적 비유**: 로봇 작업을 교통 흐름에 비유하면, RC-NF는 차량(로봇 팔)과 도로(물체 궤적)의 움직임을 독립적으로 모니터하는 센서 시스템이다. 정상 상황의 패턴을 학습한 후, 예상 범위 밖의 움직임(추돌 위험, 경로 이탈)을 실시간으로 감지하고 신호를 보낸다. 이를 통해 운전자(VLA 모델)는 필요할 때 즉시 개입하거나 경로를 재계획할 수 있다.
+
+**왜 중요한가**: VLA 기반 로보틱스는 산업 자동화와 자율 조작의 핵심 기술인데, 현장의 불확실성에서 실패할 때마다 비용과 시간이 급증한다. RC-NF는 100ms 이하의 응답 지연으로 플러그 앤 플레이 방식의 안전 장치를 제공하여, 기존 VLA 모델의 구조 변경 없이 동적 환경 견고성을 즉시 확보할 수 있게 한다. 이는 Sim-to-Real 격차 축소와 함께 현실 배포 가능성을 획기적으로 높인다.
+
+**Research Questions**
+
+*Q1: 로봇과 물체 상태의 분리 처리가 통합 처리보다 이상 탐지 정확도를 향상시키는 이유는?* A1: 로봇 팔의 기구학적 제약(관절 범위, 속도 제한)과 물체의 동역학(충돌, 미끄러짐)은 통계적 분포 특성이 다르기 때문에, 조건부 경로를 분리하면 각 모달리티의 특이성을 더 정밀하게 포착할 수 있다.
+
+*Q2: LIBERO-Anomaly-10 벤치마크에서 세 가지 이상 범주(로봇 오작동, 물체 상태 오류, 환경 간섭)에 대해 RC-NF가 기존 방법을 얼마나 능가하는가?* A2: 구체적 정량 수치는 논문 결과 섹션에 제시되어 있으나, 모든 이상 유형에서 최첨단 성능을 달성했으며 특히 물체 궤적 기반 이상에서 두드러진 개선을 보였다.
+
+*Q3: 다른 VLA 모델(pi0 외 DROID, Open X-Embodiment 등)로의 일반화 가능성은?* A3: RC-NF는 VLA의 출력(로봇 상태 + 물체 추적)만 입력받으므로 아키텍처 독립적이지만, 각 모델의 상태 표현 형식과 센서 환경에 따라 재학습이 필요할 수 있다.
+
+**실험 결과**: LIBERO-Anomaly-10 벤치마크(시뮬레이션)에서 이상 탐지 정확도와 F1 스코어에서 기존 One-Class SVM, Isolation Forest
 
 
 
 
 ---
 
-*본 리포트의 논문 리뷰는 Anthropic의 **Claude 4.6 Sonnet** 모델을 사용하여 자동 생성되었습니다.*
+*본 리포트의 논문 리뷰는 Anthropic의 **Haiku** 모델을 사용하여 자동 생성되었습니다.*
