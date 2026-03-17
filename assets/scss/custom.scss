@@ -13,3 +13,19 @@
     font-size: 0.8rem;
   }
 }
+
+/* 테이블 내부 글자가 잘리지 않고 자동으로 줄바꿈 되도록 설정 */
+table {
+    width: 100%;
+    table-layout: auto;
+    word-break: keep-all; /* 단어 단위로 줄바꿈 */
+    overflow-wrap: break-word;
+}
+
+/* 모바일 등 좁은 화면에서 가로 스크롤 허용 */
+.post-content table, .markdown table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
