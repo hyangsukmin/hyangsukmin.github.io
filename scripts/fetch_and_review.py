@@ -465,22 +465,30 @@ def save_daily_digest(date_str, sections, reviews):
     for cat_name, papers in sections.items():
         for p in papers:
             t = p["title"] # if len(p["title"]) > 55 else p["title"]
-            toc_rows.append("| " + str(idx) + " | " + cat_name + " | " + t.replace("|", "-") + " |")
+            anchor = f"paper{idx}"
+            toc_rows.append(f"| {idx} | {cat_name} | [{t.replace('|', '-') }](#{anchor}) |")
+            # toc_rows.append("| " + str(idx) + " | " + cat_name + " | " + t.replace("|", "-") + " |")
             idx += 1
-    toc_str = '<div style="overflow-x: auto;">\n\n' + \
-          "| # | 분야 | 제목 |\n|---|------|------|\n" + "\n".join(toc_rows) + \
-          '\n\n</div>'
+    toc_str = (
+        '<div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">\n\n'
+        "| # | 분야 | 제목 |\n|---|------|------|\n" 
+        + "\n".join(toc_rows) + 
+        '\n\n</div>'
+    )
     body_parts = []
     idx = 1
     for cat_name, papers in sections.items():
         if not papers:
             continue
-        body_parts.append("\n---\n\n**" + cat_name + "**\n")
+        body_parts.append(f"\n---\n\n**{cat_name}**\n")
         for p, r in zip(papers, reviews[cat_name]):
-            body_parts.append("\n**" + str(idx) + ". " + sanitize_title(p["title"]) + "**\n")
+            anchor = f"paper{idx}"
+            # <a id="..."></a> 를 넣어 해당 위치를 북마크로 지정
+            # 글자 크기는 커지지 않게 **볼드**만 사용
+            body_parts.append(f'\n<a id="{anchor}"></a>\n**{idx}. {sanitize_title(p["title"])}**\n')
             body_parts.append(
-                "\n**저자**: " + ", ".join(p["authors"][:3]) +
-                " | [원문](" + p["abs_url"] + ") | [PDF](" + p["pdf_url"] + ")\n\n" + r + "\n"
+                f"\n**저자**: {', '.join(p['authors'][:3])}"
+                f" | [원문]({p['abs_url']}) | [PDF]({p['pdf_url']})\n\n{r}\n"
             )
             idx += 1
 
