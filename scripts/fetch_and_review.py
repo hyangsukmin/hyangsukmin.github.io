@@ -53,6 +53,13 @@ CONFIG = {
                 "VLA", "manipulation", "benchmark", "vision-language-action",
             ],
         },
+        {
+            "name": "🌟 VVIP Intelligence (Global Top Labs)",
+            "category": "cs.AI",
+            "papers_per_day": 3,
+            "keywords": [], # 키워드 제한 없음
+            "is_vvip_only": True # 로직 구분을 위한 플래그
+        },
     ],
     "days_back": 90,
     "review_language": "Korean",
@@ -73,7 +80,8 @@ TOP_INSTITUTIONS = [
     "Hyundai Motor", "SNU", "Seoul National University", "KAIST", "POSTECH",
     "Yonsei", "Korea University", "KIST", "Upstage", "Lunit", "Rebellions", "FuriosaAI",
 ]
-VVIP_LABS = ["DeepMind", "OpenAI", "Stanford", "KAIST", "Google DeepMind", "AWS"]
+# VVIP_LABS = ["DeepMind", "OpenAI", "Stanford", "KAIST", "Google DeepMind", "AWS"]
+VVIP_LABS = ["OpenAI", "DeepMind", "Google DeepMind", "Kimi Team", "Moonshot AI", "Meta", "FAIR", "NVIDIA", "Anthropic"]
 TOP_CONFERENCES = [
     "ICLR", "NeurIPS", "ICML", "CVPR", "ECCV", "ICRA", "RSS",
     "AAAI", "IJCAI", "ACL", "EMNLP", "NAACL", "COLM",
@@ -285,22 +293,26 @@ def sanitize_title(title):
 # ════════════════════════════════════════════════════
 # 📡 논문 수집
 # ════════════════════════════════════════════════════
-
 def fetch_papers_by_category(cat_config, cutoff):
     category = cat_config["category"]
     keywords = cat_config.get("keywords", [])
     limit = cat_config["papers_per_day"]
+    is_vvip_only = cat_config.get("is_vvip_only", False) # 신규 플래그 확인
 
-    # 큰따옴표 없이 토큰 매칭 → arXiv API 레벨에서 더 많은 후보 확보
-    # 정밀 필터링은 로컬 flexible_keyword_match에서 담당
-    terms = ["(ti:" + kw + " OR abs:" + kw + ")" for kw in keywords]
-    query = "cat:" + category + " AND (" + " OR ".join(terms) + ")"
+    # 1. arXiv API 쿼리 생성
+    if is_vvip_only:
+        # 키워드 없이 해당 분야(cs.AI) 전체 최신 논문 호출
+        query = f"cat:{category}"
+    else:
+        # 기존처럼 키워드 기반 쿼리
+        terms = ["(ti:" + kw + " OR abs:" + kw + ")" for kw in keywords]
+        query = "cat:" + category + " AND (" + " OR ".join(terms) + ")"
 
     params = {
         "search_query": query,
         "sortBy": "submittedDate",
         "sortOrder": "descending",
-        "max_results": 300,
+        "max_results": 300 if is_vvip_only else 100, # VVIP 카테고리는 더 넓게 훑음
     }
 
     try:
@@ -310,99 +322,78 @@ def fetch_papers_by_category(cat_config, cutoff):
         print("arXiv API 요청 실패: " + str(e))
         return []
 
-    ns = {
-        "atom": "http://www.w3.org/2005/Atom",
-        "arxiv": "http://arxiv.org/schemas/atom",
-    }
-
+    ns = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
     root = ET.fromstring(resp.content)
     pre_candidates = []
     seen_titles = set()
 
-    # Step 1: arXiv 파싱 + 키워드/컨퍼런스 기반 1차 필터
     for entry in root.findall("atom:entry", ns):
+        # 날짜 및 기본 정보 파싱 (기존 로직 동일)
         published_el = entry.find("atom:published", ns)
-        if published_el is None:
-            continue
+        if published_el is None: continue
         published = datetime.fromisoformat(published_el.text.replace("Z", "+00:00"))
-        if published < cutoff:
-            continue
+        if published < cutoff: continue
 
-        title_el = entry.find("atom:title", ns)
-        summary_el = entry.find("atom:summary", ns)
-        if title_el is None or summary_el is None:
-            continue
-
-        title = title_el.text.strip().replace("\n", " ")
-        summary = summary_el.text.strip().replace("\n", " ")
-
-        if title in seen_titles:
-            continue
+        title = entry.find("atom:title", ns).text.strip().replace("\n", " ")
+        summary = entry.find("atom:summary", ns).text.strip().replace("\n", " ")
+        if title in seen_titles: continue
         seen_titles.add(title)
 
-        comment_el = entry.find("arxiv:comment", ns)
-        comment_text = comment_el.text.lower() if comment_el is not None else ""
-
         full_text = title.lower() + " " + summary.lower()
+        
+        # [중요] 키워드 점수 계산 로직
+        if is_vvip_only:
+            score = 0 # 키워드 점수는 0점부터 시작
+        else:
+            kw_count = flexible_keyword_match(full_text, keywords, min_match=1)
+            if kw_count < 1: continue # 키워드 없으면 탈락
+            score = kw_count * 5
 
-        kw_count = flexible_keyword_match(full_text, keywords, min_match=1)
-        if kw_count < 1:
-            continue
-
-        score = kw_count * 5
-
-        code_signals = ["github.com", "code available", "project page", "implementation", "huggingface"]
-        if any(x in full_text for x in code_signals):
+        # 공통 가산점 (코드 공개 등)
+        if any(x in full_text for x in ["github.com", "code available", "project page"]):
             score += 10
 
-        if any(conf.lower() in comment_text for conf in TOP_CONFERENCES):
-            score += 20
-
         paper_id = entry.find("atom:id", ns).text.split("/abs/")[-1]
-
         pre_candidates.append({
-            "id": paper_id,
-            "title": title,
-            "summary": summary,
+            "id": paper_id, "title": title, "summary": summary,
             "authors": [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)],
             "abs_url": "https://arxiv.org/abs/" + paper_id,
             "pdf_url": "https://arxiv.org/pdf/" + paper_id,
             "score": score,
         })
 
-    if not pre_candidates:
-        return []
+    if not pre_candidates: return []
 
-    # 1차 점수 정렬 후 3배 버퍼만 ar5iv 조회
+    # 상위 후보들에 대해 ar5iv 기관 파싱 수행
     pre_candidates.sort(key=lambda x: x["score"], reverse=True)
-    top_pre = pre_candidates[: limit * 3]
+    top_pre = pre_candidates[: limit * 5] # VVIP 필터링을 위해 조금 넉넉히 검사
 
-    # Step 2: ar5iv HTML에서 기관 + Intro 동시 파싱
     candidates = []
     for paper in top_pre:
-        print("    ar5iv 파싱 (기관+Intro): " + paper["id"])
         raw_institutions, intro_text = fetch_affiliation_and_intro(paper["id"])
         institution_found, is_vvip = detect_institution_from_list(raw_institutions)
 
-        score = paper["score"]
-        if is_vvip:
-            score += 15
-        elif institution_found:
-            score += 5
+        final_score = paper["score"]
+        
+        # [핵심 로직] 기관 기반 필터링 및 가중치
+        if is_vvip_only:
+            if not is_vvip: 
+                continue # VVIP 카테고리인데 VVIP 기관이 아니면 버림
+            final_score += 100 # VVIP 기관이면 점수 대폭 상승
+        elif is_vvip:
+            final_score += 30 # 일반 키워드 카테고리에서도 VVIP는 가산점
 
         entry_data = dict(paper)
-        entry_data["score"] = score
-        entry_data["is_vvip"] = is_vvip
-        entry_data["institution"] = institution_found
-        entry_data["raw_institutions"] = raw_institutions
-        entry_data["intro"] = intro_text
+        entry_data.update({
+            "score": final_score, "is_vvip": is_vvip, 
+            "institution": institution_found, "intro": intro_text
+        })
         candidates.append(entry_data)
-        time.sleep(1.5)
+        time.sleep(1.2)
 
     candidates.sort(key=lambda x: x["score"], reverse=True)
     return candidates[:limit]
-
-
+    
 # ════════════════════════════════════════════════════
 # 🧠 AI 리뷰 생성
 # ════════════════════════════════════════════════════
@@ -501,12 +492,25 @@ def save_daily_digest(date_str, sections, reviews):
         + "".join(body_parts)
         + ai_notice + "\n"
     )
-
-    post_dir = Path("content/post/" + date_str + "-digest")
-    post_dir.mkdir(parents=True, exist_ok=True)
-    (post_dir / "index.md").write_text(content, encoding="utf-8")
-    print("  저장 완료: " + str(post_dir / "index.md"))
-
+    
+    # [수정] 파일 저장 경로 로직: 중복 방지 번호 추가
+    base_dir = Path("content/post")
+    post_dir = base_dir / f"{date_str}-digest"
+    
+    # 만약 오늘 이미 생성된 폴더가 있다면 번호를 붙임
+    counter = 0
+    final_post_dir = post_dir
+    while final_post_dir.exists():
+        counter += 1
+        final_post_dir = base_dir / f"{date_str}-digest_{counter}"
+    
+    final_post_dir.mkdir(parents=True, exist_ok=True)
+    
+    # 파일 저장
+    file_path = final_post_dir / "index.md"
+    file_path.write_text(content, encoding="utf-8")
+    
+    print(f"✅ 저장 완료: {file_path}")
 
 # ════════════════════════════════════════════════════
 # 🚀 Main
