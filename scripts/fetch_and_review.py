@@ -464,11 +464,12 @@ def save_daily_digest(date_str, sections, reviews):
     idx = 1
     for cat_name, papers in sections.items():
         for p in papers:
-            t = p["title"][:55] + "..." if len(p["title"]) > 55 else p["title"]
+            t = p["title"] # if len(p["title"]) > 55 else p["title"]
             toc_rows.append("| " + str(idx) + " | " + cat_name + " | " + t.replace("|", "-") + " |")
             idx += 1
-    toc_str = "| # | 분야 | 제목 |\n|---|------|------|\n" + "\n".join(toc_rows)
-
+    toc_str = '<div style="overflow-x: auto;">\n\n' + \
+          "| # | 분야 | 제목 |\n|---|------|------|\n" + "\n".join(toc_rows) + \
+          '\n\n</div>'
     body_parts = []
     idx = 1
     for cat_name, papers in sections.items():
