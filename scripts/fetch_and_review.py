@@ -18,13 +18,13 @@ CONFIG = {
     "categories": [
         {
             "name": "💬 Dialogue Summarization",
-            "category": "cs.CL",
+            "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
             "papers_per_day": 4,
             "keywords": ["dialogue", "conversation", "streaming", "summarization", "llm", "long-term", "memory"],
         },
         {
             "name": "🔄 Self-Evolving & Agents",
-            "category": "cs.AI",
+            "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
             "papers_per_day": 2,
             "keywords": [
                 "self-evolving", "self-improvement", "self-reflection", "self-correction",
@@ -34,7 +34,7 @@ CONFIG = {
         },
         {
             "name": "🧠 Lifelong & Long-range Memory",
-            "category": "cs.LG",
+            "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
             "papers_per_day": 4,
             "keywords": [
                 "lifelong learning", "continual learning", "long-horizon",
@@ -46,7 +46,7 @@ CONFIG = {
         },
         {
             "name": "🦾 Robotics & Embodied AI",
-            "category": "cs.RO",
+            "category": "cs.RO OR cat:cs.AI OR cat:cs.CL OR cat:cs.LG",
             "papers_per_day": 2,
             "keywords": [
                 "robotics", "embodied AI", "robotics memory", "learning from historic errors",
@@ -55,7 +55,7 @@ CONFIG = {
         },
         {
             "name": "🌟 VVIP Intelligence (Global Top Labs)",
-            "category": "cs.AI",
+            "category": "cs.AI OR cat:cs.CL",
             "papers_per_day": 3,
             "keywords": [], # 키워드 제한 없음
             "is_vvip_only": True # 로직 구분을 위한 플래그
@@ -65,6 +65,7 @@ CONFIG = {
     "review_language": "Korean",
     "review_style": "technical",
 }
+
 
 TOP_INSTITUTIONS = [
     "DeepMind", "OpenAI", "Google", "Meta", "FAIR", "Microsoft", "Anthropic",
@@ -299,20 +300,18 @@ def fetch_papers_by_category(cat_config, cutoff):
     limit = cat_config["papers_per_day"]
     is_vvip_only = cat_config.get("is_vvip_only", False) # 신규 플래그 확인
 
-    # 1. arXiv API 쿼리 생성
+    # 1. arXiv API 쿼리 (수정하신 확장 쿼리 사용)
     if is_vvip_only:
-        # 키워드 없이 해당 분야(cs.AI) 전체 최신 논문 호출
         query = f"cat:{category}"
     else:
-        # 기존처럼 키워드 기반 쿼리
         terms = ["(ti:" + kw + " OR abs:" + kw + ")" for kw in keywords]
-        query = "cat:" + category + " AND (" + " OR ".join(terms) + ")"
+        query = "(" + " OR ".join(terms) + ") AND (cat:cs.AI OR cat:cs.CL OR cat:cs.LG)"
 
     params = {
         "search_query": query,
         "sortBy": "submittedDate",
         "sortOrder": "descending",
-        "max_results": 300 if is_vvip_only else 100, # VVIP 카테고리는 더 넓게 훑음
+        "max_results": 300 if is_vvip_only else 150, # VVIP 카테고리는 더 넓게 훑음
     }
 
     try:
@@ -340,15 +339,19 @@ def fetch_papers_by_category(cat_config, cutoff):
         seen_titles.add(title)
 
         full_text = title.lower() + " " + summary.lower()
+
+        # [수정] 키워드 매칭 점수 로직 강화
+        kw_match_count = flexible_keyword_match(full_text, keywords, min_match=1)
         
         # [중요] 키워드 점수 계산 로직
         if is_vvip_only:
-            score = 0 # 키워드 점수는 0점부터 시작
+            # VVIP 섹션은 키워드가 없어도 되지만, 있으면 점수를 더 줌
+            score = kw_match_count * 10
         else:
-            kw_count = flexible_keyword_match(full_text, keywords, min_match=1)
-            if kw_count < 1: continue # 키워드 없으면 탈락
-            score = kw_count * 5
-
+            # 일반 섹션은 키워드가 최소 1개는 있어야 함
+            if kw_match_count < 1: continue 
+            score = kw_match_count * 10  # 매칭된 키워드 1개당 10점
+            
         # 공통 가산점 (코드 공개 등)
         if any(x in full_text for x in ["github.com", "code available", "project page"]):
             score += 10
@@ -379,10 +382,13 @@ def fetch_papers_by_category(cat_config, cutoff):
         if is_vvip_only:
             if not is_vvip: 
                 continue # VVIP 카테고리인데 VVIP 기관이 아니면 버림
-            final_score += 100 # VVIP 기관이면 점수 대폭 상승
+            final_score += 500 # VVIP 기관이면 점수 대폭 상승
         elif is_vvip:
-            final_score += 30 # 일반 키워드 카테고리에서도 VVIP는 가산점
-
+            final_score += 50 # 일반 키워드 카테고리에서도 VVIP는 가산점
+        
+        if is_vvip_only and not is_vvip:
+            continue # VVIP 전용 카테고리인데 기관이 아니면 탈락
+        
         entry_data = dict(paper)
         entry_data.update({
             "score": final_score, "is_vvip": is_vvip, 
