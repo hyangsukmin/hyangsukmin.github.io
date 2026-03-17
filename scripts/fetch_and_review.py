@@ -61,7 +61,7 @@ CONFIG = {
             "is_vvip_only": True # 로직 구분을 위한 플래그
         },
     ],
-    "days_back": 90,
+    "days_back": 180,
     "review_language": "Korean",
     "review_style": "technical",
 }
