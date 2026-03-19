@@ -394,7 +394,7 @@ def fetch_papers_by_category(cat_config, cutoff):
     
     for paper in pre_candidates[:limit * 3]:
         raw_inst, intro = fetch_affiliation_and_intro(paper["id"])
-        inst_name, is_vvip_lab = detect_institution(raw_inst)
+        inst_name, is_vvip_lab = detect_institution_from_list(raw_inst)
         
         # 기관 가산점
         if is_vvip_lab: paper["score"] += 500
