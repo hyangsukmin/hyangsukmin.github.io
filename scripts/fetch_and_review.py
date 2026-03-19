@@ -32,7 +32,6 @@ CONFIG = {
         #         "learning from mistakes", "continual learning", "agent", "self-training",
         #     ],
         # },
-        },
         {
             "name": "🔄 Long-horizon",
             "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
