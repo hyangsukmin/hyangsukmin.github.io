@@ -327,7 +327,6 @@ def sanitize_title(title):
 # ════════════════════════════════════════════════════
 # 📡 데이터 수집 및 스코어링 (Core Logic)
 # ════════════════════════════════════════════════════
-
 def fetch_papers_by_category(cat_config, cutoff):
     category = cat_config["category"]
     keywords = cat_config.get("keywords", [])
@@ -335,14 +334,25 @@ def fetch_papers_by_category(cat_config, cutoff):
     is_vvip_only = cat_config.get("is_vvip_only", False)
     is_vip_author_only = cat_config.get("is_vip_author_only", False)
 
-    # 1. arXiv API Query 생성
-    if is_vvip_only or is_vip_author_only:
-        query = f"cat:{category}"
+    # 1. 쿼리 생성 로직 통합
+    if is_vip_author_only:
+        # VIP 저자 검색 강화: 이름을 쿼리에 직접 포함
+        author_queries = [f"au:{auth.replace(' ', '_')}" for auth in VIP_AUTHORS[:15]]
+        query = f"({ ' OR '.join(author_queries) }) AND ({category})"
+    elif is_vvip_only:
+        # VVIP 기관 전용은 일단 해당 카테고리 전체를 넓게 가져옴
+        query = f"({category})"
     else:
+        # 일반 키워드 매칭
         terms = [f"(ti:{kw} OR abs:{kw})" for kw in keywords]
         query = "(" + " OR ".join(terms) + ") AND (" + category + ")"
 
-    params = {"search_query": query, "sortBy": "submittedDate", "sortOrder": "descending", "max_results": 150}
+    params = {
+        "search_query": query,
+        "sortBy": "submittedDate",
+        "sortOrder": "descending",
+        "max_results": 200 if (is_vvip_only or is_vip_author_only) else 100
+    }
     
     try:
         resp = requests.get("https://export.arxiv.org/api/query", params=params, timeout=60)
@@ -356,6 +366,7 @@ def fetch_papers_by_category(cat_config, cutoff):
     pre_candidates = []
 
     for entry in root.findall("atom:entry", ns):
+        # 기본 정보 추출
         published_el = entry.find("atom:published", ns)
         published = datetime.fromisoformat(published_el.text.replace("Z", "+00:00"))
         if published < cutoff: continue
@@ -364,21 +375,21 @@ def fetch_papers_by_category(cat_config, cutoff):
         summary = entry.find("atom:summary", ns).text.strip().replace("\n", " ")
         authors = [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)]
         
-        # [핵심] VIP 저자 탐지 및 점수 부여
+        # 2. 저자 매칭 및 기본 스코어링
         matched_vips = detect_vip_author(authors)
         is_vip_author = len(matched_vips) > 0
         
-        # 키워드 매칭 점수 (Fuzzy Match는 기존 코드 활용 가능하나 여기선 단순 포함으로 예시)
-        kw_score = sum(1 for kw in keywords if kw.lower() in (title + summary).lower()) * 10
-        
-        # [스코어 가중치 전략]
-        score = kw_score
-        if is_vip_author: score += 2000 # 저자 매칭 시 최우선
-        if any(x in (title + summary).lower() for x in ["github.com", "code available"]): score += 20
+        # 저자 전용 모드인데 해당 저자가 없으면 필터링
+        if is_vip_author_only and not is_vip_author:
+            continue
 
-        # 카테고리별 필터링
-        if is_vip_author_only and not is_vip_author: continue
-        if not is_vip_author_only and not is_vvip_only and kw_score == 0: continue
+        kw_score = flexible_keyword_match(title + " " + summary, keywords) if keywords else 0
+        
+        # 스코어 계산 (VIP 저자에게 매우 높은 가중치)
+        score = kw_score * 10
+        if is_vip_author: score += 5000 
+        if any(x in (title + summary).lower() for x in ["github.com", "code available"]): 
+            score += 50
 
         paper_id = entry.find("atom:id", ns).text.split("/abs/")[-1]
         pre_candidates.append({
@@ -388,25 +399,36 @@ def fetch_papers_by_category(cat_config, cutoff):
             "pdf_url": f"https://arxiv.org/pdf/{paper_id}"
         })
 
-    # 상위 후보에 대해 상세 정보(기관/Intro) 파싱
+    # 3. 상위 후보에 대해 상세 정보(기관/Intro) 파싱 및 최종 필터링
     pre_candidates.sort(key=lambda x: x["score"], reverse=True)
     final_candidates = []
     
-    for paper in pre_candidates[:limit * 3]:
+    # 상위 20개 정도만 ar5iv 확인 (성능 및 매너 대기)
+    for paper in pre_candidates[:20]:
         raw_inst, intro = fetch_affiliation_and_intro(paper["id"])
         inst_name, is_vvip_lab = detect_institution_from_list(raw_inst)
         
-        # 기관 가산점
-        if is_vvip_lab: paper["score"] += 500
-        if is_vvip_only and not is_vvip_lab: continue
+        # VVIP 기관 전용 모드일 때의 필터링 (기관이 없으면 텍스트에서라도 찾음)
+        if is_vvip_only:
+            inst_in_text = any(lab.lower() in (paper["title"] + paper["summary"]).lower() for lab in VVIP_LABS)
+            if not (is_vvip_lab or inst_in_text):
+                continue
         
-        paper.update({"institution": inst_name, "is_vvip": is_vvip_lab, "intro": intro})
+        # 데이터 업데이트
+        paper.update({
+            "institution": inst_name, 
+            "is_vvip": is_vvip_lab, 
+            "intro": intro
+        })
         final_candidates.append(paper)
+        
         if len(final_candidates) >= limit: break
-        time.sleep(1.2) # ar5iv 매너 대기
+        time.sleep(1.2) 
 
     return final_candidates
-    
+
+# review_paper_with_cache 등 나머지 함수는 논리적 흐름이 맞으므로 그대로 유지 가능합니다.
+
 # ════════════════════════════════════════════════════
 # 🧠 AI 리뷰 생성
 # ════════════════════════════════════════════════════
