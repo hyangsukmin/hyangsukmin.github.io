@@ -22,14 +22,23 @@ CONFIG = {
             "papers_per_day": 4,
             "keywords": ["dialogue", "conversation", "streaming", "summarization", "llm", "long-term", "memory"],
         },
+        # {
+        #     "name": "🔄 Self-Evolving & Agents",
+        #     "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
+        #     "papers_per_day": 2,
+        #     "keywords": [
+        #         "self-evolving", "self-improvement", "self-reflection", "self-correction",
+        #         "error correction reasoning", "iterative refinement", "adaptive agent",
+        #         "learning from mistakes", "continual learning", "agent", "self-training",
+        #     ],
+        # },
+        },
         {
-            "name": "🔄 Self-Evolving & Agents",
+            "name": "🔄 Long-horizon",
             "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
-            "papers_per_day": 2,
+            "papers_per_day": 4,
             "keywords": [
-                "self-evolving", "self-improvement", "self-reflection", "self-correction",
-                "error correction reasoning", "iterative refinement", "adaptive agent",
-                "learning from mistakes", "continual learning", "agent", "self-training",
+                "long-horizon", "memory", "llm", "large language model", "agent", "reasoning"
             ],
         },
         {
@@ -55,13 +64,20 @@ CONFIG = {
         },
         {
             "name": "🌟 VVIP Intelligence (Global Top Labs)",
-            "category": "cs.AI OR cat:cs.CL",
+            "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
             "papers_per_day": 3,
             "keywords": [], # 키워드 제한 없음
             "is_vvip_only": True # 로직 구분을 위한 플래그
         },
+        {
+            "name": "👤 VIP Authors Track",
+            "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
+            "papers_per_day": 5,
+            "keywords": [], 
+            "is_vip_author_only": True # 저자 기반 필터링 플래그
+        }
     ],
-    "days_back": 365,
+    "days_back": 720,
     "review_language": "Korean",
     "review_style": "technical",
 }
@@ -86,6 +102,12 @@ VVIP_LABS = ["OpenAI", "DeepMind", "Google DeepMind", "Kimi Team", "Moonshot AI"
 TOP_CONFERENCES = [
     "ICLR", "NeurIPS", "ICML", "CVPR", "ECCV", "ICRA", "RSS",
     "AAAI", "IJCAI", "ACL", "EMNLP", "NAACL", "COLM",
+]
+
+VIP_AUTHORS = [
+    "Andrej Karpathy", "Noam Shazeer", "Ilya Sutskever", "Yann LeCun", 
+    "Geoffrey Hinton", "Yoshua Bengio", "Andrew Ng", "Jim Fan",
+    "Sergey Levine", "Chelsea Finn", "Joon Sung Park" # 예시
 ]
 
 DOMAIN_GUIDES = {
@@ -199,7 +221,19 @@ def flexible_keyword_match(text, keywords, min_match=2):
 
     return matched
 
-
+def detect_vip_author(paper_authors):
+    """
+    논문 저자 목록 중 VIP_AUTHORS에 해당되는 사람이 있는지 확인
+    """
+    found_authors = []
+    for paper_auth in paper_authors:
+        for vip_auth in VIP_AUTHORS:
+            # 단순 포함 관계 혹은 소문자 비교
+            if vip_auth.lower() in paper_auth.lower():
+                found_authors.append(vip_auth)
+    
+    return list(set(found_authors)) # 중복 제거 후 반환
+    
 # ════════════════════════════════════════════════════
 # 🏛️ ar5iv HTML에서 기관 정보 + Intro 동시 파싱
 # ════════════════════════════════════════════════════
@@ -292,113 +326,87 @@ def sanitize_title(title):
 
 
 # ════════════════════════════════════════════════════
-# 📡 논문 수집
+# 📡 데이터 수집 및 스코어링 (Core Logic)
 # ════════════════════════════════════════════════════
+
 def fetch_papers_by_category(cat_config, cutoff):
     category = cat_config["category"]
     keywords = cat_config.get("keywords", [])
     limit = cat_config["papers_per_day"]
-    is_vvip_only = cat_config.get("is_vvip_only", False) # 신규 플래그 확인
+    is_vvip_only = cat_config.get("is_vvip_only", False)
+    is_vip_author_only = cat_config.get("is_vip_author_only", False)
 
-    # 1. arXiv API 쿼리 (수정하신 확장 쿼리 사용)
-    if is_vvip_only:
+    # 1. arXiv API Query 생성
+    if is_vvip_only or is_vip_author_only:
         query = f"cat:{category}"
     else:
-        terms = ["(ti:" + kw + " OR abs:" + kw + ")" for kw in keywords]
-        query = "(" + " OR ".join(terms) + ") AND (cat:cs.AI OR cat:cs.CL OR cat:cs.LG)"
+        terms = [f"(ti:{kw} OR abs:{kw})" for kw in keywords]
+        query = "(" + " OR ".join(terms) + ") AND (" + category + ")"
 
-    params = {
-        "search_query": query,
-        "sortBy": "submittedDate",
-        "sortOrder": "descending",
-        "max_results": 300 if is_vvip_only else 150, # VVIP 카테고리는 더 넓게 훑음
-    }
-
+    params = {"search_query": query, "sortBy": "submittedDate", "sortOrder": "descending", "max_results": 150}
+    
     try:
         resp = requests.get("https://export.arxiv.org/api/query", params=params, timeout=60)
         resp.raise_for_status()
     except Exception as e:
-        print("arXiv API 요청 실패: " + str(e))
+        print(f"arXiv API Error: {e}")
         return []
 
-    ns = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
+    ns = {"atom": "http://www.w3.org/2005/Atom"}
     root = ET.fromstring(resp.content)
     pre_candidates = []
-    seen_titles = set()
 
     for entry in root.findall("atom:entry", ns):
-        # 날짜 및 기본 정보 파싱 (기존 로직 동일)
         published_el = entry.find("atom:published", ns)
-        if published_el is None: continue
         published = datetime.fromisoformat(published_el.text.replace("Z", "+00:00"))
         if published < cutoff: continue
 
         title = entry.find("atom:title", ns).text.strip().replace("\n", " ")
         summary = entry.find("atom:summary", ns).text.strip().replace("\n", " ")
-        if title in seen_titles: continue
-        seen_titles.add(title)
-
-        full_text = title.lower() + " " + summary.lower()
-
-        # [수정] 키워드 매칭 점수 로직 강화
-        kw_match_count = flexible_keyword_match(full_text, keywords, min_match=1)
+        authors = [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)]
         
-        # [중요] 키워드 점수 계산 로직
-        if is_vvip_only:
-            # VVIP 섹션은 키워드가 없어도 되지만, 있으면 점수를 더 줌
-            score = kw_match_count * 10
-        else:
-            # 일반 섹션은 키워드가 최소 1개는 있어야 함
-            if kw_match_count < 1: continue 
-            score = kw_match_count * 10  # 매칭된 키워드 1개당 10점
-            
-        # 공통 가산점 (코드 공개 등)
-        if any(x in full_text for x in ["github.com", "code available", "project page"]):
-            score += 10
+        # [핵심] VIP 저자 탐지 및 점수 부여
+        matched_vips = detect_vip_author(authors)
+        is_vip_author = len(matched_vips) > 0
+        
+        # 키워드 매칭 점수 (Fuzzy Match는 기존 코드 활용 가능하나 여기선 단순 포함으로 예시)
+        kw_score = sum(1 for kw in keywords if kw.lower() in (title + summary).lower()) * 10
+        
+        # [스코어 가중치 전략]
+        score = kw_score
+        if is_vip_author: score += 2000 # 저자 매칭 시 최우선
+        if any(x in (title + summary).lower() for x in ["github.com", "code available"]): score += 20
+
+        # 카테고리별 필터링
+        if is_vip_author_only and not is_vip_author: continue
+        if not is_vip_author_only and not is_vvip_only and kw_score == 0: continue
 
         paper_id = entry.find("atom:id", ns).text.split("/abs/")[-1]
         pre_candidates.append({
-            "id": paper_id, "title": title, "summary": summary,
-            "authors": [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)],
-            "abs_url": "https://arxiv.org/abs/" + paper_id,
-            "pdf_url": "https://arxiv.org/pdf/" + paper_id,
-            "score": score,
+            "id": paper_id, "title": title, "summary": summary, "authors": authors,
+            "matched_vips": matched_vips, "score": score,
+            "abs_url": f"https://arxiv.org/abs/{paper_id}",
+            "pdf_url": f"https://arxiv.org/pdf/{paper_id}"
         })
 
-    if not pre_candidates: return []
-
-    # 상위 후보들에 대해 ar5iv 기관 파싱 수행
+    # 상위 후보에 대해 상세 정보(기관/Intro) 파싱
     pre_candidates.sort(key=lambda x: x["score"], reverse=True)
-    top_pre = pre_candidates[: limit * 5] # VVIP 필터링을 위해 조금 넉넉히 검사
-
-    candidates = []
-    for paper in top_pre:
-        raw_institutions, intro_text = fetch_affiliation_and_intro(paper["id"])
-        institution_found, is_vvip = detect_institution_from_list(raw_institutions)
-
-        final_score = paper["score"]
+    final_candidates = []
+    
+    for paper in pre_candidates[:limit * 3]:
+        raw_inst, intro = fetch_affiliation_and_intro(paper["id"])
+        inst_name, is_vvip_lab = detect_institution(raw_inst)
         
-        # [핵심 로직] 기관 기반 필터링 및 가중치
-        if is_vvip_only:
-            if not is_vvip: 
-                continue # VVIP 카테고리인데 VVIP 기관이 아니면 버림
-            final_score += 500 # VVIP 기관이면 점수 대폭 상승
-        elif is_vvip:
-            final_score += 50 # 일반 키워드 카테고리에서도 VVIP는 가산점
+        # 기관 가산점
+        if is_vvip_lab: paper["score"] += 500
+        if is_vvip_only and not is_vvip_lab: continue
         
-        if is_vvip_only and not is_vvip:
-            continue # VVIP 전용 카테고리인데 기관이 아니면 탈락
-        
-        entry_data = dict(paper)
-        entry_data.update({
-            "score": final_score, "is_vvip": is_vvip, 
-            "institution": institution_found, "intro": intro_text
-        })
-        candidates.append(entry_data)
-        time.sleep(1.2)
+        paper.update({"institution": inst_name, "is_vvip": is_vvip_lab, "intro": intro})
+        final_candidates.append(paper)
+        if len(final_candidates) >= limit: break
+        time.sleep(1.2) # ar5iv 매너 대기
 
-    candidates.sort(key=lambda x: x["score"], reverse=True)
-    return candidates[:limit]
+    return final_candidates
     
 # ════════════════════════════════════════════════════
 # 🧠 AI 리뷰 생성
@@ -410,7 +418,11 @@ def review_paper_with_cache(paper, category_id, client):
     inst_info = "기관: " + paper["institution"] if paper["institution"] else "기관 정보 없음"
     if paper["is_vvip"]:
         inst_info += " (업계 최고 권위 연구소)"
-
+    
+    vip_info = ""
+    if paper.get("matched_vips"):
+        vip_info = f"\n[Special Note] This paper is authored by: {', '.join(paper['matched_vips'])}"
+        
     abstract_text = paper["summary"]
     intro_text = paper.get("intro", "")
     intro_section = "\nIntroduction (요약):\n" + intro_text if intro_text else ""
@@ -433,6 +445,7 @@ def review_paper_with_cache(paper, category_id, client):
                             "text": (
                                 "\n\n[Input Paper Context]\n"
                                 + inst_info + "\n"
+                                + vip_info + "\n"
                                 + "Title: " + paper["title"] + "\n"
                                 + "Abstract:\n" + abstract_text
                                 + intro_section + "\n\n리뷰 시작:"
