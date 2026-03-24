@@ -662,7 +662,7 @@ def main():
     total = sum(len(v) for v in sections.values())
     if total > 0:
         date_str = now_kst.strftime("%Y-%m-%d")
-        save_daily_digest(date_str, sections, reviews_dict)
+        save_daily_digest(date_str, sections, reviews_dict, category_summaries)
         history_path.write_text(json.dumps(list(reviewed_ids), indent=2))
         print("\n완료! 총 " + str(total) + "편 처리.")
     else:
