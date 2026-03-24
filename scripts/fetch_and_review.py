@@ -480,7 +480,54 @@ def review_paper_with_cache(paper, category_id, client):
     except Exception as e:
         print("  Claude API 에러: " + str(e))
         return "리뷰 생성 실패"
+# ════════════════════════════════════════════════════
+# 📝 카테고리별 요약 생성
+# ════════════════════════════════════════════════════
 
+CATEGORY_SUMMARY_PROMPT = """당신은 AI 연구를 일반 독자에게 쉽게 전달하는 과학 커뮤니케이터입니다.
+
+아래는 오늘 [{category_name}] 분야에서 주목할 논문들입니다.
+이 논문들을 바탕으로, 전문가가 아닌 독자도 이해할 수 있는 오늘의 핵심 인사이트를 구어체로 작성해주세요.
+
+작성 규칙:
+- 마치 친한 선배가 "오늘 이런 연구들이 나왔는데 말이야~" 하고 설명해주는 톤
+- 전문 용어는 반드시 쉬운 말로 풀어서 설명
+- 각 논문을 개별 나열하지 말고, 오늘의 공통 흐름을 하나의 이야기로 엮어서 설명
+- **3~5문장으로 짧고 임팩트 있게** 작성
+- "오늘은", "이번에", "흥미롭게도" 같은 자연스러운 연결어 사용
+- 마지막 문장은 이 흐름이 왜 중요한지 한 줄 전망으로 마무리
+- # 헤더 절대 사용 금지, **볼드**는 핵심 키워드에만 최소한으로 사용
+
+논문 목록:
+{papers_text}
+
+오늘의 핵심 인사이트 (3~5문장):"""
+
+
+def generate_category_summary(cat_name, papers, client):
+    """카테고리 내 논문들을 바탕으로 독자 친화적 요약 생성 (3~5문장)"""
+    if not papers:
+        return ""
+
+    papers_text = ""
+    for i, p in enumerate(papers, 1):
+        papers_text += f"{i}. 제목: {p['title']}\n   요약: {p['summary'][:300]}\n\n"
+
+    prompt = CATEGORY_SUMMARY_PROMPT.format(
+        category_name=cat_name,
+        papers_text=papers_text,
+    )
+
+    try:
+        message = client.messages.create(
+            model=MODEL_API[MODEL_NAME],
+            max_tokens=512,  # 짧은 요약이므로 512로 충분
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return sanitize_for_hugo(message.content[0].text)
+    except Exception as e:
+        print(f"  카테고리 요약 생성 실패 ({cat_name}): {e}")
+        return ""
 
 # ════════════════════════════════════════════════════
 # 💾 저장
@@ -515,10 +562,14 @@ def save_daily_digest(date_str, sections, reviews):
         if not papers:
             continue
         body_parts.append(f"\n---\n\n**{cat_name}**\n")
+
+        # ✅ 카테고리 요약을 논문 목록 바로 앞에 삽입
+        summary = category_summaries.get(cat_name, "")
+        if summary:
+            body_parts.append(f"\n> 💡 {summary}\n")  # blockquote로 시각적으로 구분
+
         for p, r in zip(papers, reviews[cat_name]):
             anchor = f"paper{idx}"
-            # <a id="..."></a> 를 넣어 해당 위치를 북마크로 지정
-            # 글자 크기는 커지지 않게 **볼드**만 사용
             body_parts.append(f'\n<a id="{anchor}"></a>\n**{idx}. {sanitize_title(p["title"])}**\n')
             body_parts.append(
                 f"\n**저자**: {', '.join(p['authors'][:3])}"
@@ -581,6 +632,7 @@ def main():
 
     sections = {}
     reviews_dict = {}
+    category_summaries = {}  # ✅ 추가
 
     for cat_config in CONFIG["categories"]:
         name = cat_config["name"]
@@ -600,6 +652,13 @@ def main():
             reviewed_ids.add(paper["id"])
             time.sleep(1)
 
+        # ✅ 개별 논문 리뷰 완료 후 카테고리 요약 생성
+        if sections[name]:
+            print(f"  카테고리 요약 생성 중: {name}")
+            category_summaries[name] = generate_category_summary(name, sections[name], client)
+        else:
+            category_summaries[name] = ""
+            
     total = sum(len(v) for v in sections.values())
     if total > 0:
         date_str = now_kst.strftime("%Y-%m-%d")
