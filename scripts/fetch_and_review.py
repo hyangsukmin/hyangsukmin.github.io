@@ -533,7 +533,7 @@ def generate_category_summary(cat_name, papers, client):
 # 💾 저장
 # ════════════════════════════════════════════════════
 
-def save_daily_digest(date_str, sections, reviews):
+def save_daily_digest(date_str, sections, reviews, category_summaries):
     today_kst = datetime.now(KST).strftime("%Y년 %m월 %d일")
     total = sum(len(v) for v in sections.values())
 
