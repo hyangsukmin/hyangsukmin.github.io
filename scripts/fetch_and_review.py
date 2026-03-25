@@ -737,9 +737,12 @@ def save_daily_digest(date_str: str, sections: dict, reviews: dict,
 
         for p, r in zip(papers, reviews[cat_name]):
             anchor = f"paper{idx}"
+            # 발행 날짜 포맷팅 (YYYY-MM-DD)
+            pub_date = p['published'].strftime("%Y-%m-%d")
             body_parts.append(f'\n<a id="{anchor}"></a>\n**{idx}. {sanitize_title(p["title"])}**\n')
             body_parts.append(
                 f"\n**저자**: {', '.join(p['authors'][:3])}"
+                f"| **날짜**: {pub_date} " # <--- 날짜 추가된 부분
                 f" | [원문]({p['abs_url']}) | [PDF]({p['pdf_url']})\n\n{r}\n"
             )
             idx += 1
