@@ -20,7 +20,7 @@ CONFIG = {
             "name": "💬 Dialogue Summarization",
             "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
             "papers_per_day": 4,
-            "keywords": ["dialogue", "conversation", "streaming", "summarization", "llm", "long-term", "memory"],
+            "keywords": ["dialogue summarization", "conversation summarization", "streaming", "summarization", "llm", "long-term", "memory", "long-term dialogue system", "dialogue system", "collaborative dialogues", "multi-turn dialogue", "long-horizon memory"],
         },
         {
             "name": "🔄 Long-horizon",
