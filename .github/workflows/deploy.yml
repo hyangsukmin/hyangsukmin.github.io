@@ -1,7 +1,7 @@
 name: Deploy website to GitHub Pages
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '22'
 
 on:
   # Trigger the workflow every time you push to the `main` branch
