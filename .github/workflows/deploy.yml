@@ -42,9 +42,10 @@ jobs:
 
     - name: Check Node version
       run: |
-        which node
+        command -v node
         node -v
         npm -v
+        echo "NODE_BIN=$(dirname $(command -v node))" >> $GITHUB_ENV
         
     - name: Setup pnpm
       if: hashFiles('package.json') != ''
@@ -99,7 +100,7 @@ jobs:
       env:
         HUGO_ENVIRONMENT: production
       run: |
-        export PATH="$(dirname $(command -v node)):$PATH"
+        export PATH="${NODE_BIN}:$PATH"
         command -v node
         node -v
         echo "Hugo Cache Dir: $(hugo config | grep cachedir)"
