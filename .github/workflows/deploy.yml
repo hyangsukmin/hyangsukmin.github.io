@@ -40,6 +40,12 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
 
+    - name: Check Node version
+      run: |
+        which node
+        node -v
+        npm -v
+        
     - name: Setup pnpm
       if: hashFiles('package.json') != ''
       uses: pnpm/action-setup@v4
@@ -92,7 +98,10 @@ jobs:
     - name: Build with Hugo
       env:
         HUGO_ENVIRONMENT: production
+        PATH: /opt/hostedtoolcache/node/22.*/x64/bin:${{ env.PATH }}
       run: |
+        which node
+        node -v
         echo "Hugo Cache Dir: $(hugo config | grep cachedir)"
         hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
