@@ -17,62 +17,128 @@ MODEL_API = {"Haiku": "claude-haiku-4-5-20251001", "Sonnet": "claude-sonnet-4-6"
 CONFIG = {
     "categories": [
         {
-            "name": "💬 Dialogue Summarization",
-            "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
-            "papers_per_day": 4,
-            "keywords": ["dialogue summarization", "conversation summarization", "streaming", "summarization", "llm", "long-term", "memory", "long-term dialogue system", "dialogue system", "collaborative dialogues", "multi-turn dialogue", "long-horizon memory"],
-        },
-        {
-            "name": "🔄 Long-horizon",
-            "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
-            "papers_per_day": 4,
+            "name": " Dynamic Memory Reliability",
+            "category": "cat:cs.AI OR cat:cs.CL OR cat:cs.LG",
+            "papers_per_day": 5,
             "keywords": [
-                "long-horizon", "memory", "llm", "large language model", "agent", "reasoning"
+                "dynamic memory",
+                "adaptive memory",
+                "memory-augmented agents",
+                "agent memory",
+                "memory reliability",
+                "memory management",
+                "memory update",
+                "memory consolidation",
+                "memory retrieval",
+                "memory utilization",
+                "memory interference",
+                "long-term memory",
+                "episodic memory",
+                "experience memory",
             ],
         },
         {
-            "name": "🧠 Lifelong & Long-range Memory",
-            "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
+            "name": " Long-Horizon Agents",
+            "category": "cat:cs.AI OR cat:cs.CL OR cat:cs.LG",
+            "papers_per_day": 5,
+            "keywords": [
+                "long-horizon agents",
+                "long-horizon tasks",
+                "long-horizon planning",
+                "long-horizon reasoning",
+                "multi-step reasoning",
+                "multi-step decision making",
+                "LLM agents",
+                "language agents",
+                "autonomous agents",
+                "agent planning",
+                "tool-use agents",
+                "web agents",
+                "task success",
+            ],
+        },
+        {
+            "name": " Agent Reliability and Evaluation",
+            "category": "cat:cs.AI OR cat:cs.CL OR cat:cs.LG",
+            "papers_per_day": 5,
+            "keywords": [
+                "agent evaluation",
+                "agent reliability",
+                "LLM agent evaluation",
+                "failure attribution",
+                "failure analysis",
+                "error attribution",
+                "agent benchmark",
+                "long-horizon evaluation",
+                "reliability evaluation",
+                "robustness evaluation",
+                "action faithfulness",
+                "grounded action",
+                "memory-grounded action",
+            ],
+        },
+        {
+            "name": " Experience-Based Adaptation",
+            "category": "cat:cs.AI OR cat:cs.CL OR cat:cs.LG",
             "papers_per_day": 4,
             "keywords": [
-                "lifelong learning", "continual learning", "long-horizon",
-                "long-horizon reasoning", "long-horizon planning", "long-term memory",
-                "episodic memory", "memory retrieval", "memory consolidation",
-                "memory management", "hierarchical memory", "agent memory",
-                "memory bank", "dynamic memory", "memory dynamic",
+                "experience-based adaptation",
+                "experience replay",
+                "experience memory",
+                "lifelong learning",
+                "continual learning",
+                "self-evolving agents",
+                "self-improving agents",
+                "reflection",
+                "self-reflection",
+                "trial and error",
+                "learning from mistakes",
+                "experience-driven learning",
+                "adaptive agents",
             ],
         },
         {
-            "name": "🦾 Robotics & Embodied AI",
-            "category": "cs.RO OR cat:cs.AI OR cat:cs.CL OR cat:cs.LG",
-            "papers_per_day": 2,
+            "name": " Embodied Agent Memory",
+            "category": "cat:cs.RO OR cat:cs.AI OR cat:cs.CL OR cat:cs.LG",
+            "papers_per_day": 4,
             "keywords": [
-                "robotics", "embodied AI", "robotics memory", "learning from historic errors",
-                "VLA", "manipulation", "benchmark", "vision-language-action",
+                "embodied agent memory",
+                "embodied AI",
+                "embodied agents",
+                "robot memory",
+                "robot learning",
+                "long-horizon embodied agents",
+                "vision-language-action",
+                "VLA",
+                "robot manipulation",
+                "navigation",
+                "world model",
+                "environment adaptation",
+                "memory utilization",
             ],
         },
         {
-            "name": "🌟 VVIP Intelligence (Global Top Labs)",
-            "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
+            "name": " VVIP Intelligence (Global Top Labs)",
+            "category": "cat:cs.AI OR cat:cs.CL OR cat:cs.LG OR cat:cs.RO",
             "papers_per_day": 3,
             "keywords": [],
             "is_vvip_only": True,
         },
         {
-            "name": "👤 VIP Authors Track",
-            "category": "cs.AI OR cat:cs.CL OR cat:cs.LG",
+            "name": " VIP Authors Track",
+            "category": "cat:cs.AI OR cat:cs.CL OR cat:cs.LG OR cat:cs.RO",
             "papers_per_day": 5,
             "keywords": [],
             "is_vip_author_only": True,
         },
     ],
+
     # days_back은 페이지네이션 중단 조건으로만 사용
     # 실제로는 cutoff 이전 논문이 나오면 수집 중단
     "days_back": 720,
     "review_language": "Korean",
     "review_style": "technical",
 }
-
 TOP_INSTITUTIONS = [
     "DeepMind", "OpenAI", "Google", "Meta", "FAIR", "Microsoft", "Anthropic",
     "NVIDIA", "Tesla", "Amazon Science", "Apple", "IBM Research", "X.AI", "AWS", "Amazon",
@@ -182,28 +248,245 @@ CATEGORY_SUMMARY_PROMPT = """당신은 AI 연구를 깊이 있게 전달하는 �
 # ════════════════════════════════════════════════════
 # 🔤 유연한 키워드 매칭
 # ════════════════════════════════════════════════════
-
 KEYWORD_SYNONYMS = {
-    "dialogue":               ["dialog", "dialogues", "dialogs", "conversational"],
-    "conversation":           ["conversations", "conversational", "chat", "discourse"],
-    "summarization":          ["summarizing", "summarize", "summary", "summaries", "abstractive"],
-    "llm":                    ["large language model", "language model", "gpt", "bert", "transformer"],
-    "memory":                 ["memorization", "memorize", "memories", "memoization"],
-    "agent":                  ["agents", "agentic", "autonomous agent", "multi-agent"],
-    "self-evolving":          ["self-evolution", "self-evolved", "self evolving"],
-    "self-improvement":       ["self-improve", "self-improved", "self improving"],
-    "self-reflection":        ["self-reflect", "self-reflected", "self reflecting"],
-    "self-correction":        ["self-correct", "self-corrected", "self correcting", "error correction"],
-    "continual learning":     ["continuous learning", "incremental learning", "online learning"],
-    "lifelong learning":      ["lifelong", "life-long learning", "perpetual learning"],
-    "long-horizon":           ["long horizon", "long-term planning", "extended horizon"],
-    "long-term memory":       ["long term memory", "persistent memory", "long-range memory"],
-    "episodic memory":        ["episodic", "episode memory", "experience replay"],
-    "memory retrieval":       ["retrieval memory", "memory recall", "retrieve memory"],
-    "embodied AI":            ["embodied intelligence", "embodied agent", "physical AI"],
-    "manipulation":           ["grasping", "robotic manipulation", "dexterous manipulation"],
-    "vision-language-action": ["VLA model", "vision language action"],
-    "benchmark":              ["benchmarks", "benchmarking", "evaluation suite", "leaderboard"],
+    "llm": [
+        "large language model",
+        "large language models",
+        "language model",
+        "language models",
+        "gpt",
+        "transformer",
+    ],
+
+    "agent": [
+        "agents",
+        "agentic",
+        "autonomous agent",
+        "autonomous agents",
+        "language agent",
+        "language agents",
+        "LLM agent",
+        "LLM agents",
+    ],
+
+    "memory": [
+        "memories",
+        "memorization",
+        "memorize",
+        "memory bank",
+        "memory module",
+        "memory system",
+    ],
+
+    "dynamic memory": [
+        "adaptive memory",
+        "evolving memory",
+        "updatable memory",
+        "memory update",
+        "memory updating",
+        "memory management",
+    ],
+
+    "memory-augmented agents": [
+        "memory augmented agents",
+        "memory-augmented agent",
+        "memory augmented agent",
+        "agents with memory",
+        "LLM agents with memory",
+        "memory-based agents",
+    ],
+
+    "agent memory": [
+        "memory for agents",
+        "agentic memory",
+        "LLM agent memory",
+        "language agent memory",
+        "memory module for agents",
+    ],
+
+    "memory reliability": [
+        "reliable memory",
+        "memory robustness",
+        "memory faithfulness",
+        "memory grounding",
+        "trustworthy memory",
+    ],
+
+    "memory retrieval": [
+        "retrieval memory",
+        "memory recall",
+        "retrieve memory",
+        "retrieving memories",
+        "episodic retrieval",
+    ],
+
+    "memory utilization": [
+        "memory use",
+        "memory usage",
+        "using memory",
+        "utilizing memory",
+        "memory grounding",
+    ],
+
+    "memory interference": [
+        "irrelevant memory",
+        "outdated memory",
+        "stale memory",
+        "memory conflict",
+        "memory contamination",
+        "negative transfer",
+    ],
+
+    "long-term memory": [
+        "long term memory",
+        "persistent memory",
+        "long-range memory",
+        "long range memory",
+    ],
+
+    "episodic memory": [
+        "episodic",
+        "episode memory",
+        "experience memory",
+        "experience replay",
+        "trajectory memory",
+    ],
+
+    "long-horizon": [
+        "long horizon",
+        "long-term planning",
+        "extended horizon",
+        "multi-step",
+        "multi step",
+        "long-duration",
+        "long duration",
+    ],
+
+    "long-horizon agents": [
+        "long horizon agents",
+        "long-horizon agent",
+        "long horizon agent",
+        "long-term agents",
+        "long-running agents",
+    ],
+
+    "long-horizon tasks": [
+        "long horizon tasks",
+        "long-horizon task",
+        "long horizon task",
+        "multi-step tasks",
+        "complex tasks",
+    ],
+
+    "agent evaluation": [
+        "agent benchmark",
+        "agent benchmarking",
+        "LLM agent evaluation",
+        "language agent evaluation",
+        "evaluation of agents",
+    ],
+
+    "agent reliability": [
+        "reliable agents",
+        "trustworthy agents",
+        "robust agents",
+        "agent robustness",
+        "agent trustworthiness",
+    ],
+
+    "failure attribution": [
+        "failure analysis",
+        "error attribution",
+        "error analysis",
+        "failure diagnosis",
+        "fault localization",
+    ],
+
+    "action faithfulness": [
+        "faithful action",
+        "grounded action",
+        "action grounding",
+        "memory-grounded action",
+        "evidence-grounded action",
+    ],
+
+    "experience-based adaptation": [
+        "experience based adaptation",
+        "experience-driven adaptation",
+        "experience driven adaptation",
+        "adaptive agents",
+        "adaptation from experience",
+    ],
+
+    "lifelong learning": [
+        "lifelong",
+        "life-long learning",
+        "perpetual learning",
+        "continual learning",
+        "online learning",
+    ],
+
+    "continual learning": [
+        "continuous learning",
+        "incremental learning",
+        "online learning",
+        "lifelong learning",
+    ],
+
+    "self-evolving agents": [
+        "self evolving agents",
+        "self-evolution",
+        "self-evolved",
+        "self-improving agents",
+        "self improving agents",
+    ],
+
+    "self-reflection": [
+        "self reflect",
+        "self-reflect",
+        "self-reflecting",
+        "reflection",
+        "reflexion",
+        "verbal reflection",
+    ],
+
+    "embodied AI": [
+        "embodied intelligence",
+        "embodied agent",
+        "embodied agents",
+        "physical AI",
+        "robotic agent",
+    ],
+
+    "embodied agent memory": [
+        "embodied memory",
+        "memory for embodied agents",
+        "robot memory",
+        "robotic memory",
+        "memory in embodied agents",
+    ],
+
+    "vision-language-action": [
+        "VLA",
+        "VLA model",
+        "vision language action",
+        "vision-language-action model",
+        "vision-language-action models",
+    ],
+
+    "robot manipulation": [
+        "manipulation",
+        "robotic manipulation",
+        "grasping",
+        "dexterous manipulation",
+    ],
+
+    "benchmark": [
+        "benchmarks",
+        "benchmarking",
+        "evaluation suite",
+        "leaderboard",
+    ],
 }
 
 
