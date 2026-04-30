@@ -1,4 +1,9 @@
 name: 📚 Daily arxiv Paper Review
+
+env:
+  NODE_VERSION: '22'
+  HUGO_VERSION: '0.152.2'
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 on:
   schedule:
     - cron: "0 21 * * *"
@@ -47,19 +52,27 @@ jobs:
       - name: 🏗️ Hugo 설치
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: "latest"
+          hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
 
       - name: 📦 Node.js & npm 설치
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
-
+          node-version: ${{ env.NODE_VERSION }}
+    
+      - name: 🔍 Node 경로 저장
+        run: echo "NODE_BIN=$(dirname $(command -v node))" >> $GITHUB_ENV
+        
       - name: 📦 npm 패키지 설치
         run: npm install
 
-      - name: 🔨 Hugo 빌드
-        run: hugo --minify --baseURL "https://hyangsukmin.github.io/"
+    - name: 🔨 Hugo 빌드
+      run: |
+        export PATH="${NODE_BIN}:$PATH"
+        command -v node
+        node -v
+        hugo version
+        hugo --minify --baseURL "https://hyangsukmin.github.io/"
 
       - name: 📤 Pages 아티팩트 업로드
         uses: actions/upload-pages-artifact@v4
