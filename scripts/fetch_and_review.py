@@ -458,6 +458,12 @@ CONFIG = {
     # 상세 affiliation 조회 전에 relevance 기준으로 볼 후보 수입니다.
     "detail_check_count_general": 40,
     "detail_check_count_vip": 80,
+    # Method-to-Code Map을 위해 논문 본문에서 공개 코드 링크를 찾고,
+    # GitHub 저장소가 있으면 일부 파일 경로와 내용을 리뷰 컨텍스트에 추가합니다.
+    "enable_code_repo_lookup": True,
+    "max_code_repos_per_paper": 2,
+    "max_code_files_per_repo": 8,
+    "max_code_chars_per_file": 1800,
 }
 
 TOP_INSTITUTIONS = [
@@ -508,41 +514,54 @@ DOMAIN_GUIDES = {
 # =============================================================================
 
 STYLE_PROMPTS = {
-    "technical": """당신은 AI/ML 연구를 깊이 있게 분석하는 리서치 커뮤니케이터입니다.
-아래 논문을 다음 6개 섹션으로 작성하세요.
-각 섹션은 비전공자가 읽어도 맥락을 이해할 수 있고, 전공자가 읽어도 깊이가 충분해야 합니다.
+    "technical": """당신은 AI/ML 논문을 비판적으로 읽는 연구 파트너입니다.
+아래 논문을 사용자가 바로 페이퍼 리뷰 노트로 쓸 수 있도록 작성하세요.
+
+가장 중요한 원칙:
+- 제공된 Title, Abstract, Paper Context, Code Repository Snapshot 안에서 확인되는 정보만 사용하세요.
+- figure/table/paragraph 번호나 코드 파일 경로를 확실히 알 수 없으면 절대 지어내지 말고 "확인 불가"라고 쓰세요.
+- Claim–Evidence Table은 논문 주장을 근거 위치와 연결하는 섹션입니다. 근거가 abstract/introduction 수준이면 그렇게 명시하세요.
+- Method-to-Code Map은 공개 코드 링크와 저장소 스냅샷이 있을 때만 파일 경로를 연결하세요. 코드가 없거나 스냅샷에 없는 구현은 "공개 코드 기준 확인 불가"라고 쓰세요.
+- 과장된 praise보다, main claim이 성립하려면 무엇이 더 필요했는지를 분명히 쓰세요.
+- # 헤더는 사용하지 말고, 오직 **볼드** 헤더만 사용하세요.
+- 각 bullet은 1~2문장으로 짧게 쓰세요.
+- 전문 용어는 유지하되, 첫 등장 시 필요한 경우 괄호로 짧게 풀이하세요.
+
+반드시 아래 4개 섹션만 출력하세요.
+
+**Paper Map**
+- **문제**: 이 논문이 풀려는 문제를 한 문장으로 정의하고, 기존 연구와 달라지는 지점을 함께 쓰세요.
+- **방법**: 핵심 방법을 구성요소 단위로 3~5개 bullet로 분해하세요.
+- **실험**: 데이터셋, baseline, evaluation metric, 비교 설정을 확인 가능한 범위에서 요약하세요.
+- **핵심 결과**: 가장 중요한 결과를 2~4개 bullet로 쓰세요. 수치가 있으면 반드시 맥락과 함께 쓰고, 없으면 "수치 확인 불가"라고 쓰세요.
+- **한계**: 논문 내부에서 드러난 한계와 리뷰어 관점의 한계를 구분해 쓰세요.
+
+**Claim–Evidence Table**
+| Claim | Evidence Location | Evidence Type | Strength | Caveat |
+|---|---|---|---|---|
+| 논문의 핵심 주장 | Table/Figure/Section/Paragraph/Abstract 중 확인 가능한 위치 | 정량 결과/ablation/분석/문제정의/사례 | Strong/Medium/Weak | 왜 충분하거나 부족한지 |
 
 작성 규칙:
-- # 헤더 절대 사용 금지. 오직 **볼드**만 사용.
-- 전문 용어는 유지하되, 첫 등장 시 괄호 안에 한 줄 설명 추가.
-  예: 대조학습(contrastive learning: 유사한 샘플은 가깝게, 다른 샘플은 멀게 표현을 학습하는 방법)
-- 수치는 반드시 맥락과 함께: "ICC 86%" → "5명 환자 데이터만으로 전문가 일치도 ICC 86% 달성"
-- 각 섹션은 bullet 3~5개. 각 bullet은 1~2문장.
+- Claim은 3~6개만 고르세요.
+- Evidence Location에는 "Table 1", "Figure 3", "Section 4.2", "Abstract", "Introduction"처럼 확인 가능한 위치만 쓰세요.
+- 위치가 확인되지 않으면 "확인 불가"라고 쓰고, Evidence Type과 Caveat에 이유를 쓰세요.
 
-**한 줄 요약**: [핵심 기여를 20자 내외로. 동작 원리 중심.]
+**Method-to-Code Map**
+| Method Component | Expected Implementation | Code Location | Confidence | Note |
+|---|---|---|---|---|
+| 논문 방법의 구성요소 | 구현되어야 하는 함수/모듈 역할 | repo/path.py 또는 확인 불가 | High/Medium/Low/Unavailable | 연결 근거 또는 확인 불가 이유 |
 
-**[왜 어려운 문제인가]**: 이 연구가 해결하려는 현실적 병목을 서술하세요.
-비전공자는 "이게 왜 어렵고 중요한지"를 납득할 수 있어야 하고,
-전공자는 research gap과 기존 접근의 한계를 정확히 파악할 수 있어야 합니다. (3~4문장)
+작성 규칙:
+- 공개 코드 링크가 없으면 첫 줄에 "공개 코드 링크 확인 불가"라고 명시하고, 방법론 기준의 expected implementation만 제시하세요.
+- 공개 코드가 있더라도 저장소 스냅샷에서 확인되지 않은 파일은 추측하지 마세요.
+- README, config, training, evaluation, model, data processing, retrieval/memory/agent loop 파일을 우선 연결하세요.
 
-**[선행 연구와의 관계]**: 이 논문이 어떤 연구 흐름 위에 있는지,
-기존 방법들(논문명 또는 방법명 명시)이 왜 불충분했는지를 서술하세요.
-전공자가 이 논문의 포지셔닝을 즉시 파악할 수 있어야 합니다. (2~3문장)
-
-**[핵심 기여]**
-- **직관**: 비유 하나로 핵심 원리를 설명. 비유는 반드시 "왜 기존보다 나은지"까지 연결될 것.
-- **기술적 delta**: 기존 방법과 이 논문의 차이를 한 문장으로 명시.
-
-**[설계 선택과 tradeoff]**: 왜 이 방법을 선택했는지, 그 선택이 만드는 한계를 함께 서술.
-"이 방법이 강력한 조건"과 "이 방법이 실패하는 조건"을 명시하세요. (2~3문장)
-
-**[실험]**: 데이터셋, baseline, 핵심 수치를 맥락과 함께 서술.
-ablation이 있다면 어떤 설계 요소의 기여를 분리 검증했는지 한 줄로 설명하세요.
-
-**[이 분야에서의 위치]**: 성능 수치가 아닌, 이 논문이 해당 분야의 방향을 어떻게 바꾸는지.
-어떤 후속 연구나 실용화 경로로 이어질 수 있는지를 마지막 문장으로 마무리하세요.
-
-**재현성**: 코드 공개: [O/X] | [컴퓨팅 자원 정보]"""
+**Research Gap Note**
+- **가정**: main claim이 성립하려면 필요한 핵심 assumptions를 2~4개 쓰세요.
+- **Alternative explanation**: 실험 결과가 방법 자체가 아니라 다른 요인으로 설명될 수 있는 가능성을 2~4개 쓰세요.
+- **부족한 ablation**: 추가되어야 할 ablation 또는 diagnostic experiment를 2~4개 쓰세요.
+- **내가 이어서 할 질문**: 사용자가 후속 연구로 이어갈 수 있는 research question을 3~5개 쓰세요. 질문은 논문화 가능한 수준으로 구체화하세요.
+"""
 }
 
 CATEGORY_SUMMARY_PROMPT = """당신은 AI 연구를 깊이 있게 전달하는 과학 커뮤니케이터입니다.
@@ -639,6 +658,266 @@ def detect_vip_author(paper_authors: list[str]) -> list[str]:
                 found_authors.append(vip_auth)
     return sorted(set(found_authors))
 
+
+# =============================================================================
+# Paper/code context helpers for review grounding
+# =============================================================================
+
+CODE_HOST_PATTERNS = (
+    "github.com",
+    "gitlab.com",
+    "bitbucket.org",
+    "huggingface.co",
+    "paperswithcode.com",
+)
+
+CODE_EXTENSIONS = (
+    ".py", ".md", ".yaml", ".yml", ".json", ".toml", ".sh",
+    ".js", ".ts", ".ipynb", ".txt",
+)
+
+CODE_PATH_KEYWORDS = {
+    "readme": 8,
+    "model": 7,
+    "agent": 7,
+    "memory": 7,
+    "retriev": 7,
+    "planner": 7,
+    "plan": 5,
+    "reflect": 6,
+    "train": 6,
+    "eval": 6,
+    "benchmark": 6,
+    "experiment": 5,
+    "dataset": 5,
+    "data": 4,
+    "inference": 5,
+    "generate": 4,
+    "run": 4,
+    "main": 4,
+    "config": 3,
+    "src/": 2,
+}
+
+
+def extract_urls(text: str) -> list[str]:
+    if not text:
+        return []
+    urls = re.findall(r"https?://[^\s<>'\"\\)\\]\\}]+", text)
+    cleaned = []
+    for url in urls:
+        url = url.rstrip(".,;:)]}'\"")
+        if url and url not in cleaned:
+            cleaned.append(url)
+    return cleaned
+
+
+def extract_code_urls(text: str) -> list[str]:
+    urls = extract_urls(text)
+    code_urls = []
+    for url in urls:
+        url_lower = url.lower()
+        if any(host in url_lower for host in CODE_HOST_PATTERNS):
+            code_urls.append(url)
+    return list(dict.fromkeys(code_urls))
+
+
+def parse_github_repo_url(url: str) -> tuple[str, str] | None:
+    match = re.search(r"github\.com/([^/\s?#]+)/([^/\s?#]+)", url, flags=re.IGNORECASE)
+    if not match:
+        return None
+    owner = match.group(1)
+    repo = match.group(2).replace(".git", "").strip("/")
+    if not owner or not repo:
+        return None
+    return owner, repo
+
+
+def github_headers() -> dict[str, str]:
+    headers = {"User-Agent": "daily-digest-paper-review-bot/1.0"}
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    return headers
+
+
+def score_code_path(path: str) -> int:
+    lower = path.lower()
+    score = 0
+    for keyword, weight in CODE_PATH_KEYWORDS.items():
+        if keyword in lower:
+            score += weight
+    if lower.endswith("readme.md"):
+        score += 10
+    if lower.startswith((".github/", "docs/", "assets/", "figures/", "images/")):
+        score -= 6
+    if "test" in lower or "example" in lower:
+        score -= 2
+    return score
+
+
+def clean_code_snippet(text: str, max_chars: int) -> str:
+    text = re.sub(r"\r\n?", "\n", text)
+    text = re.sub(r"\n{4,}", "\n\n\n", text)
+    return text[:max_chars].strip()
+
+
+def fetch_github_repo_snapshot(repo_url: str) -> str:
+    parsed = parse_github_repo_url(repo_url)
+    if not parsed:
+        return ""
+    owner, repo = parsed
+    headers = github_headers()
+
+    try:
+        repo_resp = requests.get(
+            f"https://api.github.com/repos/{owner}/{repo}",
+            headers=headers,
+            timeout=15,
+        )
+        if repo_resp.status_code != 200:
+            return f"[GitHub repo] {owner}/{repo}: metadata 조회 실패(status={repo_resp.status_code})"
+        repo_meta = repo_resp.json()
+        default_branch = repo_meta.get("default_branch") or "main"
+
+        tree_resp = requests.get(
+            f"https://api.github.com/repos/{owner}/{repo}/git/trees/{default_branch}?recursive=1",
+            headers=headers,
+            timeout=20,
+        )
+        if tree_resp.status_code != 200:
+            return f"[GitHub repo] {owner}/{repo}: file tree 조회 실패(status={tree_resp.status_code})"
+
+        tree = tree_resp.json().get("tree", [])
+        candidate_files = []
+        for item in tree:
+            path = item.get("path", "")
+            if item.get("type") != "blob":
+                continue
+            if not path.lower().endswith(CODE_EXTENSIONS):
+                continue
+            if item.get("size", 0) > 300_000:
+                continue
+            score = score_code_path(path)
+            if score <= 0:
+                continue
+            candidate_files.append((score, path))
+
+        candidate_files.sort(key=lambda x: (-x[0], x[1]))
+        selected_paths = [path for _, path in candidate_files[:CONFIG["max_code_files_per_repo"]]]
+
+        parts = [
+            f"[GitHub repo] {owner}/{repo}",
+            f"Default branch: {default_branch}",
+            "Selected files:",
+        ]
+        parts.extend(f"- {path}" for path in selected_paths)
+
+        for path in selected_paths:
+            raw_url = f"https://raw.githubusercontent.com/{owner}/{repo}/{default_branch}/{path}"
+            raw_resp = requests.get(raw_url, headers=headers, timeout=20)
+            if raw_resp.status_code != 200:
+                continue
+            snippet = clean_code_snippet(raw_resp.text, CONFIG["max_code_chars_per_file"])
+            if snippet:
+                parts.append(f"\n--- FILE: {path} ---\n{snippet}")
+
+        return "\n".join(parts)
+    except Exception as e:
+        return f"[GitHub repo] {owner}/{repo}: 조회 실패({e})"
+
+
+def build_code_context(code_urls: list[str]) -> str:
+    if not code_urls or not CONFIG.get("enable_code_repo_lookup", True):
+        return ""
+
+    github_repos = []
+    for url in code_urls:
+        parsed = parse_github_repo_url(url)
+        if parsed and parsed not in github_repos:
+            github_repos.append(parsed)
+
+    if not github_repos:
+        return "\n".join(f"- {url}" for url in code_urls)
+
+    contexts = []
+    max_repos = CONFIG.get("max_code_repos_per_paper", 2)
+    for owner, repo in github_repos[:max_repos]:
+        contexts.append(fetch_github_repo_snapshot(f"https://github.com/{owner}/{repo}"))
+        time.sleep(0.5)
+    return "\n\n".join(c for c in contexts if c)
+
+
+def strip_html_to_text(html: str) -> str:
+    html = re.sub(r"<script.*?</script>", " ", html, flags=re.IGNORECASE | re.DOTALL)
+    html = re.sub(r"<style.*?</style>", " ", html, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r"<[^>]+>", " ", html)
+    text = re.sub(r"&nbsp;", " ", text)
+    text = re.sub(r"&amp;", "&", text)
+    text = re.sub(r"&lt;", "<", text)
+    text = re.sub(r"&gt;", ">", text)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
+
+
+def extract_relevant_paper_context(clean_text: str, max_chars: int = 24000) -> str:
+    """Collect broad paper snippets useful for paper map and claim-evidence review."""
+    if not clean_text:
+        return ""
+
+    patterns = [
+        r"\babstract\b",
+        r"\bintroduction\b",
+        r"\bmethod\b",
+        r"\bapproach\b",
+        r"\balgorithm\b",
+        r"\bexperiment",
+        r"\bresult",
+        r"\bablation\b",
+        r"\banalysis\b",
+        r"\blimitation",
+        r"\bconclusion\b",
+        r"\btable\s+\d+",
+        r"\bfigure\s+\d+",
+    ]
+
+    windows = []
+    lower = clean_text.lower()
+    for pattern in patterns:
+        for match in re.finditer(pattern, lower):
+            start = max(0, match.start() - 1200)
+            end = min(len(clean_text), match.end() + 2200)
+            snippet = clean_text[start:end].strip()
+            if snippet:
+                windows.append(snippet)
+            if len(windows) >= 16:
+                break
+
+    # Always include the beginning because title/abstract often appear there.
+    windows.insert(0, clean_text[:4000])
+
+    merged = []
+    seen = set()
+    total = 0
+    for snippet in windows:
+        key = snippet[:300]
+        if key in seen:
+            continue
+        seen.add(key)
+        block = snippet.strip()
+        if not block:
+            continue
+        if total + len(block) > max_chars:
+            remaining = max_chars - total
+            if remaining > 800:
+                merged.append(block[:remaining])
+            break
+        merged.append(block)
+        total += len(block)
+
+    return "\n\n---\n\n".join(merged).strip()
+
+
 # =============================================================================
 # arXiv query builder
 # =============================================================================
@@ -722,18 +1001,20 @@ def fetch_affiliations_from_s2(arxiv_id: str) -> list[str]:
         return []
 
 
-def fetch_affiliation_and_intro_ar5iv(arxiv_id: str, max_intro_chars: int = 1500) -> tuple[list[str], str]:
-    """Fallback parser for affiliation + introduction from ar5iv HTML."""
+def fetch_affiliation_and_intro_ar5iv(arxiv_id: str, max_context_chars: int = 24000) -> tuple[list[str], str, list[str]]:
+    """Fallback parser for affiliation + paper context + public code links from ar5iv HTML."""
     arxiv_id = canonical_arxiv_id(arxiv_id)
     url = f"https://ar5iv.labs.arxiv.org/html/{arxiv_id}"
     try:
         resp = requests.get(url, timeout=20, headers={"User-Agent": "Mozilla/5.0"})
         if resp.status_code != 200:
-            return [], ""
+            return [], "", []
         html = resp.text
     except Exception as e:
         print(f"    [ar5iv] 요청 실패 ({arxiv_id}): {e}")
-        return [], ""
+        return [], "", []
+
+    code_urls = extract_code_urls(html)
 
     aff_pattern = re.compile(
         r'<(?:span|div)[^>]*?class="[^"]*(?:ltx_role_affiliation|ltx_affiliation)[^"]*"[^>]*?>'
@@ -748,32 +1029,18 @@ def fetch_affiliation_and_intro_ar5iv(arxiv_id: str, max_intro_chars: int = 1500
         if clean_aff and clean_aff not in institutions and len(clean_aff) > 3:
             institutions.append(clean_aff)
 
-    intro_text = ""
-    intro_pattern = re.compile(
-        r'<section[^>]*?id=["\']S1["\'][^>]*?>(.*?)</section>',
-        re.IGNORECASE | re.DOTALL,
-    )
-    match = intro_pattern.search(html)
-    if match:
-        snippet = match.group(1)
-    else:
-        idx = html.lower().find(">introduction<")
-        snippet = html[idx:idx + 8000] if idx != -1 else ""
+    clean_text = strip_html_to_text(html)
+    paper_context = extract_relevant_paper_context(clean_text, max_chars=max_context_chars)
 
-    if snippet:
-        intro_text = re.sub(r"<[^>]+>", " ", snippet)
-        intro_text = re.sub(r"\s+", " ", intro_text).strip()
-        intro_text = intro_text[:max_intro_chars]
-
-    return institutions, intro_text
+    return institutions, paper_context, code_urls
 
 
-def get_affiliations_with_fallback(arxiv_id: str) -> tuple[list[str], str]:
+def get_affiliations_with_fallback(arxiv_id: str) -> tuple[list[str], str, list[str]]:
     s2_affiliations = fetch_affiliations_from_s2(arxiv_id)
     time.sleep(0.5)
-    ar5iv_affiliations, intro_text = fetch_affiliation_and_intro_ar5iv(arxiv_id)
+    ar5iv_affiliations, paper_context, code_urls = fetch_affiliation_and_intro_ar5iv(arxiv_id)
     affiliations = s2_affiliations if s2_affiliations else ar5iv_affiliations
-    return affiliations, intro_text
+    return affiliations, paper_context, code_urls
 
 
 def detect_institution_from_list(institution_list: list[str]) -> tuple[str, bool]:
@@ -1087,7 +1354,7 @@ def fetch_papers_by_category(cat_config: dict[str, Any], cutoff: datetime) -> li
         inst_from_text, is_vvip_text = detect_vvip_from_abstract(paper["title"], paper["summary"])
         inst_from_inline, is_vvip_inline = detect_institution_from_list(paper.get("inline_affiliations", []))
 
-        affiliations, intro_text = get_affiliations_with_fallback(paper["id"])
+        affiliations, paper_context, ar5iv_code_urls = get_affiliations_with_fallback(paper["id"])
         inst_from_api, is_vvip_api = detect_institution_from_list(affiliations)
 
         if inst_from_api:
@@ -1104,10 +1371,18 @@ def fetch_papers_by_category(cat_config: dict[str, Any], cutoff: datetime) -> li
             time.sleep(0.3)
             continue
 
+        code_urls = extract_code_urls(
+            paper.get("title", "") + "\n" + paper.get("summary", "") + "\n" + paper_context
+        )
+        code_urls = list(dict.fromkeys(code_urls + ar5iv_code_urls))
+        code_context = build_code_context(code_urls)
+
         paper.update({
             "institution": inst_name,
             "is_vvip": is_vvip,
-            "intro": intro_text,
+            "intro": paper_context,
+            "code_urls": code_urls,
+            "code_context": code_context,
         })
         final_candidates.append(paper)
 
@@ -1144,7 +1419,21 @@ def review_paper_with_cache(paper: dict[str, Any], cat_config: dict[str, Any], c
     if paper.get("matched_vips"):
         vip_info = f"\n[Special Note] This paper is authored by: {', '.join(paper['matched_vips'])}"
 
-    intro_section = "\nIntroduction (요약):\n" + paper["intro"] if paper.get("intro") else ""
+    paper_context_section = ""
+    if paper.get("intro"):
+        paper_context_section = "\n[Paper Context from ar5iv]\n" + paper["intro"]
+
+    code_urls_section = ""
+    if paper.get("code_urls"):
+        code_urls_section = "\n[Public Code URLs]\n" + "\n".join(f"- {url}" for url in paper["code_urls"])
+    else:
+        code_urls_section = "\n[Public Code URLs]\n확인된 공개 코드 링크 없음"
+
+    code_context_section = ""
+    if paper.get("code_context"):
+        code_context_section = "\n[Code Repository Snapshot]\n" + paper["code_context"]
+    else:
+        code_context_section = "\n[Code Repository Snapshot]\n확인된 저장소 스냅샷 없음"
 
     relevance_section = ""
     debug = paper.get("relevance_debug", {})
@@ -1165,7 +1454,7 @@ def review_paper_with_cache(paper: dict[str, Any], cat_config: dict[str, Any], c
     try:
         message = client.messages.create(
             model=MODEL_API[MODEL_NAME],
-            max_tokens=4096,
+            max_tokens=6144,
             messages=[
                 {
                     "role": "user",
@@ -1184,7 +1473,10 @@ def review_paper_with_cache(paper: dict[str, Any], cat_config: dict[str, Any], c
                                 + relevance_section
                                 + "Title: " + paper["title"] + "\n"
                                 + "Abstract:\n" + paper["summary"]
-                                + intro_section + "\n\n리뷰 시작:"
+                                + paper_context_section
+                                + code_urls_section
+                                + code_context_section
+                                + "\n\n리뷰 시작:"
                             ),
                         },
                     ],
