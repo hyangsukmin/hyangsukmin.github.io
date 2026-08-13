@@ -44,6 +44,7 @@ node_modules/
 # Pagefind search index
 pagefind/
 static/pagefind/
+assets/papers/*
 
 # ============================================================================
 # Operating System
@@ -67,3 +68,6 @@ Desktop.ini
 
 *.log
 npm-debug.log*
+
+# Paper PDFs / drafts (do not publish)
+assets/papers/

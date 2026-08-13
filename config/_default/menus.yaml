@@ -8,6 +8,9 @@ main:
     identifier: yN0l6_8W
     url: /
     weight: 10
+  - name: Research
+    url: /research/
+    weight: 15
   - name: Publications      # ← 추가
     url: /publication/
     weight: 20
@@ -19,6 +22,6 @@ main:
     identifier: rLlv77_2
     url: /experience
     weight: 30
-  - name: Paper Reviews
+  - name: Daily Update
     url: /post/
     weight: 40

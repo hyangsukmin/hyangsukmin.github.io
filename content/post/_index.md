@@ -1,3 +1,3 @@
 ---
-title: Paper Reviews
+title: Daily Update
 ---
