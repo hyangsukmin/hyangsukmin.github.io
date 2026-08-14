@@ -7,7 +7,7 @@ Merge the current Research and Publications pages into one chronological Publica
 ## Scope
 
 - Use `/publication/` as the canonical page.
-- Show nine unique papers after deduplicating the existing Research and Publications entries.
+- Show eight unique papers after deduplicating the existing Research and Publications entries. The anonymous CHI submission is omitted entirely (see below).
 - Remove the Research item from the main navigation.
 - Preserve `/research/` and `/publications/` as redirects to `/publication/`.
 - Keep the existing Daily Update, Bio, and Experience pages unchanged.
@@ -15,6 +15,8 @@ Merge the current Research and Publications pages into one chronological Publica
 ## Page Structure
 
 The page keeps the current Publications page's year-grouped reading order. Each year has a divider followed by publication entries in reverse chronological order.
+
+The anonymous CHI submission is not represented on the page at all — no title, badges, description, or keywords. It stays unpublished until it has a public identity.
 
 Each publication entry contains:
 
@@ -36,11 +38,8 @@ The one-sentence descriptions and keywords must be grounded in each paper's abst
   - Visual: the paper's main framework or pipeline figure.
   - Public link: OpenReview PDF.
 - **Don't Scroll Back: Missing-Evidence Memory for Streaming Dialogue Summarization**
-  - Visual: the existing interactive ReMEMBER animation at `/uploads/research/remember-loop.html`.
+  - Visual: the existing interactive ReMEMBER animation at `/uploads/research/remember-loop.html`, embedded at 20:9 in the visual column.
   - Public link: arXiv.
-- **Designing Human-Multi-Agent Collaboration for Fact-checking in Crowdsourced Annotation Workflows**
-  - Visual: none. This entry is text-only.
-  - Public link: omitted until a public paper URL is available.
 
 ### 2025
 
@@ -70,24 +69,20 @@ The one-sentence descriptions and keywords must be grounded in each paper's abst
 
 ### Static-figure entries
 
-On desktop, each entry is a two-column row:
+Each entry is a single stacked column, capped at 380px wide and centered:
 
-- Left: a bounded figure panel occupying approximately one third of the row.
-- Right: publication metadata, one-line explanation, keywords, and links.
+- Top: a bounded figure panel.
+- Below: publication metadata, one-line explanation, keywords, and links (full entry width).
 
 Figures use `object-fit: contain` so labels and axes are not cropped. A short caption identifies the source figure. The original figure aspect ratio is preserved inside a neutral panel.
 
 ### ReMEMBER entry
 
-ReMEMBER uses the same metadata structure, followed by the existing 16:9 animation at full entry width. The animation is not reduced to a left-column thumbnail because its multi-panel text would become unreadable.
-
-### CHI entry
-
-The CHI submission uses the metadata structure without an image, empty placeholder, or animation. Its text column uses the full available width.
+ReMEMBER uses a 20:9 landscape animation above its metadata. Its three-column internal layout shows chat, unresolved gaps, and retrieved history side by side, with the final summary below the two right columns. The animation may expand to 800px wide and must fit its complete narrative without internal scrolling or clipped panels.
 
 ### Responsive behavior
 
-Below the desktop breakpoint, static figures stack above their metadata. Keyword chips wrap naturally. The ReMEMBER iframe remains 16:9 and fills the available width.
+Keyword chips wrap naturally. The stacked figure/animation-then-metadata order already matches the mobile layout, so no column reflow is needed at narrower widths.
 
 ## Name Emphasis
 
@@ -97,7 +92,7 @@ Every occurrence of `Hyangsuk Min` in an author list remains bold and receives a
 
 - Extract figures from public or locally supplied paper PDFs at readable resolution.
 - Do not publish source PDFs stored under `assets/papers/`.
-- Do not add a CHI figure or the generated CHI animation.
+- Do not add the CHI entry, its figure, or the generated CHI animation.
 - Do not use paper first pages as final visuals when a meaningful framework or architecture figure is available.
 - Use descriptive `alt` text for each static figure.
 - Give the ReMEMBER iframe a descriptive `title` and lazy loading.
@@ -112,7 +107,7 @@ Every occurrence of `Hyangsuk Min` in an author list remains bold and receives a
 - `assets/scss/custom.scss` defines reusable publication-entry, figure, keyword, and author-highlight classes, including responsive and dark-theme behavior.
 - `static/uploads/publications/` stores extracted public figure assets.
 - `content/research/_index.md` and `content/publications/_index.md` are removed after their routes are represented as aliases on the canonical Publications page.
-- Existing untracked animations for MSumBench, Completing Missing Annotation, and CHI remain outside the merged page and are not added by this feature.
+- Existing untracked animations for MSumBench and Completing Missing Annotation remain outside the merged page and are not added by this feature. The untracked CHI animation is orphaned entirely, since the CHI entry itself is omitted.
 
 ## Error and Fallback Behavior
 
@@ -124,11 +119,11 @@ Every occurrence of `Hyangsuk Min` in an author list remains bold and receives a
 ## Verification
 
 - Build the full Hugo site without warnings or errors.
-- Confirm `/publication/` renders nine unique entries in the intended year groups.
+- Confirm `/publication/` renders eight unique entries in the intended year groups, with no CHI entry present.
 - Confirm `/research/` and `/publications/` redirect to `/publication/`.
 - Confirm the main navigation contains Publications but not Research.
-- Confirm seven static figure entries, one ReMEMBER animation entry, and one text-only CHI entry.
-- Confirm every author-list occurrence of `Hyangsuk Min` is bold and green-highlighted.
+- Confirm seven static figure entries and one ReMEMBER animation entry.
+- Confirm all eight author-list occurrences of `Hyangsuk Min` are bold and green-highlighted.
 - Confirm every entry has one core-description sentence and three to five keyword chips.
 - Confirm figure assets load locally, preserve aspect ratios, and have descriptive alternative text.
 - Confirm the ReMEMBER iframe loads and remains readable on desktop and mobile layouts.
@@ -136,4 +131,4 @@ Every occurrence of `Hyangsuk Min` in an author list remains bold and receives a
 
 ## Risk Boundary
 
-The CHI submission remains identifiable by title and description on the public site, but this change adds no figure, animation, PDF, or public paper link for it. This reduces additional disclosure while preserving the user-approved publication entry.
+The CHI submission is not represented on the public site at all — no title, badges, description, keywords, figure, animation, PDF, or link. This avoids any disclosure of the anonymous submission until it has a public identity.

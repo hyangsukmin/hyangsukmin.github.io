@@ -8,10 +8,7 @@ main:
     identifier: yN0l6_8W
     url: /
     weight: 10
-  - name: Research
-    url: /research/
-    weight: 15
-  - name: Publications      # ← 추가
+  - name: Publications
     url: /publication/
     weight: 20
   # - name: Papers

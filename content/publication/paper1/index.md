@@ -1,5 +1,7 @@
 ---
 title: 'Towards Multi-dimensional Evaluation of LLM Summarization across Domains and Languages'
+aliases:
+  - /publications/paper1/
 
 # Authors
 # If you created a profile for a user (e.g. the default `me` user), write the username (folder name) here
