@@ -57,12 +57,12 @@ experience:
     org: "HL Mando"
     start: "2022-10-24"
     end: "2024-08-27"
-    summary: "Developed synthetic data generation methods under limited data settings and built CI/CD pipelines to deploy deep learning models for smart factory applications.\n"
-  - role: "ASIC Engineering Inter"
+    summary: "Designed synthetic data generation techniques to address data scarcity and engineered CI/CD pipelines that deployed deep learning models into smart factory production lines.\n"
+  - role: "ASIC Engineering Intern"
     org: "Uniquify"
     start: "2018-08-01"
     end: "2019-06-30"
-    summary: "Collaborated with global teams on physical design tasks, including PnR and ECO, and developed Perl scripts to automate timing reports and violation summaries.\n"
+    summary: "Collaborated with global teams on physical design tasks, including place-and-route (PnR) and engineering change orders (ECO), and automated timing and violation reporting with custom Perl scripts.\n"
 skills:
   - name: "Technical Skills"
     items:
