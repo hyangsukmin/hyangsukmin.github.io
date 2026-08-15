@@ -13,7 +13,7 @@ postnominals:
 status:
   icon: "☕️"
 role: "PhD Student"
-bio: "Hyangsuk Min is a PhD Student at KAIST. She is passionate about building human-aligned and trustworthy long-context summarization and memory systems for large language models.\n"
+bio: "Hyangsuk Min is a PhD student at KAIST, advised by Prof. Hwanjun Song. Her research asks how AI agents stay trustworthy when the information they receive is incomplete, noisy, evolving, or spread across contexts — through data-centric evaluations of how models perceive, structure, remember, and use information, and through memory-enabled agents that reuse past interactions without losing faithfulness. She also studies AI co-scientist systems, testing whether LLMs show researcher-level understanding when reading, comparing, and synthesizing scientific literature.\n"
 affiliations:
   - name: "KAIST"
     url: "https://www.kaist.ac.kr/en/"
