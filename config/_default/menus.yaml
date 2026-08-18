@@ -22,3 +22,6 @@ main:
   - name: Daily Update
     url: /post/
     weight: 40
+  - name: Notes
+    url: /notes/
+    weight: 50
