@@ -1,16 +1,31 @@
 {{ define "main" }}
 <div style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
   <h1>Daily Update</h1>
-  <a href="https://claude.ai/code/artifact/02db3738-fa2d-4b2f-b840-6ad1efe76d95" target="_blank" rel="noopener" style="display:block;border:1px solid #ddd;border-radius:8px;padding:12px 16px;margin:16px 0 24px;text-decoration:none;">
-    <span style="font-weight:600;font-size:1rem;">🛰 AI Scientist Radar</span>
-    <span style="color:#888;font-size:0.85rem;margin-left:12px;">매일 자동 업데이트되는 리서치 레이더 ↗</span>
-  </a>
-  {{ range .Pages.ByDate.Reverse }}
-  <div style="padding: 8px 0; border-bottom: 1px solid #eee;">
-    <a href="{{ .RelPermalink }}" style="font-weight: 600; font-size: 1rem;">{{ .Title }}</a>
-    <span style="color: #888; font-size: 0.85rem; margin-left: 12px;">{{ .Date.Format "2006-01-02" }}</span>
-    {{ with .Params.summary }}<p style="margin: 2px 0 0; color: #555; font-size: 0.9rem;">{{ . }}</p>{{ end }}
+
+  {{ $artifacts := sort (.Site.Data.daily_artifacts | default (slice)) "date" "desc" }}
+  {{ if $artifacts }}
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 16px;">
+    {{ range $i, $a := $artifacts }}
+    <button type="button" class="daily-artifact-btn" data-src="{{ $a.file | relURL }}"
+      style="border:1px solid #ddd;border-radius:8px;padding:8px 14px;background:{{ if eq $i 0 }}#f5f5f5{{ else }}#fff{{ end }};cursor:pointer;font-size:0.85rem;">
+      {{ dateFormat "2006-01-02" $a.date }}{{ with $a.title }} · {{ . }}{{ end }}
+    </button>
+    {{ end }}
   </div>
+  <div style="border:1px solid #ddd;border-radius:8px;overflow:hidden;">
+    <iframe id="daily-artifact-frame" src="{{ (index $artifacts 0).file | relURL }}" style="width:100%;height:80vh;border:0;display:block;"></iframe>
+  </div>
+  <script>
+    document.querySelectorAll('.daily-artifact-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.daily-artifact-btn').forEach(function (b) { b.style.background = '#fff'; });
+        btn.style.background = '#f5f5f5';
+        document.getElementById('daily-artifact-frame').src = btn.getAttribute('data-src');
+      });
+    });
+  </script>
+  {{ else }}
+  <p style="color:#888;">아직 등록된 Daily update가 없습니다.</p>
   {{ end }}
 </div>
 {{ end }}

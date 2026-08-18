@@ -1,0 +1,1560 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<title>AI Scientist Radar</title>
+<meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style>
+</head>
+<body>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#ffffff; --card:#ffffff; --sunk:#f4f5f8; --band:#eef1fb;
+  --ink:#1b1c20; --ink-soft:#43454c; --muted:#6c6f7c;
+  --hair:#e3e5ec;
+  --accent:#3a5cff; --accent-soft:#eef1ff;
+  --grad:linear-gradient(120deg,#3a86ff 0%,#7c5cff 32%,#c04cff 56%,#ff5c7a 78%,#ffb020 100%);
+  --ok:#1e8e3e; --hold:#b45f06; --off:#8a8d96;
+  --sans:Manrope,Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",
+         system-ui,-apple-system,sans-serif;
+  --mono:"Roboto Mono","SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --wrap:44rem;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#131314; --card:#1c1d1f; --sunk:#1a1b1d; --band:#1c2340;
+    --ink:#eceef2; --ink-soft:#c7cad3; --muted:#8f929e;
+    --hair:#34363c;
+    --accent:#7c96ff; --accent-soft:#1e2547;
+    --ok:#5fd489; --hold:#f0b429; --off:#8a8d96;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131314; --card:#1c1d1f; --sunk:#1a1b1d; --band:#1c2340;
+  --ink:#eceef2; --ink-soft:#c7cad3; --muted:#8f929e;
+  --hair:#34363c;
+  --accent:#7c96ff; --accent-soft:#1e2547;
+  --ok:#5fd489; --hold:#f0b429; --off:#8a8d96;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.7;
+  word-break:keep-all; -webkit-font-smoothing:antialiased;
+}
+.page{max-width:var(--wrap); margin:0 auto; padding:0 1.15rem 5rem}
+a{color:var(--accent); text-decoration-color:currentColor;
+  text-decoration-thickness:1.5px; text-underline-offset:3px}
+a:hover{text-decoration-thickness:2.5px}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);
+  outline-offset:3px; border-radius:4px}
+hr{border:0; border-top:1px solid var(--hair); margin:1.5rem 0}
+code{font-family:var(--mono); font-size:.82em; background:var(--sunk);
+  padding:.1em .4em; border-radius:5px}
+.wiki{font-family:var(--mono); font-size:.82em; color:var(--muted)}
+.muted{color:var(--muted)}
+strong{font-weight:700}
+
+/* ── 제호: 얇은 스펙트럼 바 + 그라디언트 워드마크 한 점 ─────── */
+.masthead{padding:1.6rem 0 1.5rem}
+.masthead__rule{height:3px; background:var(--grad); margin:0 -1.15rem;
+  border-radius:0 0 3px 3px}
+.masthead__rule--thin{height:1px; background:var(--hair); margin-top:1.4rem}
+.masthead__eyebrow{
+  margin:1.5rem 0 0; font-size:.78rem; font-weight:600; color:var(--muted);
+  display:flex; align-items:center; gap:.5rem;
+}
+.masthead__eyebrow::before{content:""; width:.5rem; height:.5rem; flex:none;
+  border-radius:50%; background:var(--grad)}
+.masthead__title{
+  font-family:var(--sans); font-size:clamp(2.1rem,7vw,3.1rem); font-weight:700;
+  letter-spacing:-.03em; line-height:1.08; margin:.5rem 0 1rem; text-wrap:balance;
+}
+.masthead__title em{
+  font-style:normal; background:var(--grad); background-clip:text;
+  -webkit-background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+}
+.masthead__meta{display:flex; flex-wrap:wrap; align-items:center;
+  gap:.5rem .6rem; margin:0 0 0; font-size:.8rem; color:var(--muted)}
+.masthead__meta .stamp{
+  background:var(--sunk); color:var(--ink); font-weight:600; border-radius:999px;
+  padding:.25rem .75rem; font-size:.78rem; letter-spacing:-.005em;
+  border:1px solid var(--hair); font-variant-numeric:tabular-nums;
+}
+.masthead__meta .no{font-weight:700; color:var(--ink-soft); font-family:var(--mono)}
+
+/* ── 섹션 이름표: 작은 점 + 헤어라인, 큰 목소리는 안 낸다 ────── */
+.rubric-wrap{
+  margin:0 0 1.1rem; padding-bottom:.6rem; border-bottom:1px solid var(--hair);
+  display:flex; align-items:center; gap:.55rem;
+  font-size:1.02rem; font-weight:700; letter-spacing:-.01em; line-height:1.5;
+}
+.rubric-wrap::before{content:""; width:.42rem; height:.42rem; flex:none;
+  border-radius:50%; background:var(--accent)}
+.rubric{color:var(--ink)}
+
+/* ── 한눈에: 헤어라인 카드 + 모노스페이스 숫자 ──────────────── */
+.front{margin-bottom:2.75rem}
+.tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+  gap:.65rem; margin-bottom:1.7rem}
+.tile{display:flex; flex-direction:column; gap:.2rem; padding:1rem 1.1rem;
+  border:1px solid var(--hair); border-radius:18px; background:var(--card)}
+.tile--accent{
+  border-color:var(--accent);
+  background:linear-gradient(180deg,var(--accent-soft),var(--card) 75%);
+}
+.tile--accent .tile__v{color:var(--accent)}
+.tile__v{font-family:var(--mono); font-size:2rem; font-weight:500;
+  letter-spacing:-.02em; line-height:1.1; font-variant-numeric:tabular-nums}
+.tile__l{font-size:.83rem; font-weight:600; color:var(--ink)}
+.tile__note{font-size:.72rem; color:var(--muted); line-height:1.45}
+
+.lead{font-size:1.05rem; line-height:1.75; color:var(--ink-soft)}
+.lead p{margin:0}
+.lead strong{color:var(--ink); font-weight:700}
+.coverage{margin:1.15rem 0 0; padding:.7rem .9rem; background:var(--sunk);
+  border-radius:10px; font-family:var(--mono); font-size:.7rem; line-height:1.65;
+  color:var(--muted)}
+
+/* ── 오늘 볼 것 / 신규 편입: 헤어라인 카드 ───────────────────── */
+.pick{margin-bottom:2.75rem; padding:1.3rem 1.4rem 1.4rem;
+  background:var(--card); border:1px solid var(--hair); border-radius:20px}
+.pick ul,.tight{margin:0; padding-left:1.2rem}
+.pick li,.tight li{margin-bottom:.75rem}
+.pick li::marker,.tight li::marker{color:var(--accent); font-weight:700}
+.pick li:last-child,.tight li:last-child{margin-bottom:0}
+
+/* ── 판정 칩: 점 하나로 상태를 말한다 ────────────────────────── */
+.chip{display:inline-flex; align-items:center; gap:.35rem; margin-right:.4rem;
+  padding:.15rem .55rem .15rem .45rem; border-radius:999px;
+  background:var(--sunk); border:1px solid var(--hair);
+  font-size:.72rem; font-weight:600}
+.chip__k{color:var(--muted); font-weight:500}
+.chip__v{font-variant-numeric:tabular-nums; display:inline-flex; align-items:center; gap:.3rem}
+.chip__v::before{content:""; width:.4rem; height:.4rem; border-radius:50%; background:currentColor}
+.chip--ok .chip__v{color:var(--ok)}
+.chip--hold .chip__v{color:var(--hold)}
+.chip--off .chip__v{color:var(--off)}
+.chip--zero{opacity:.55}
+.chip--zero .chip__v{color:var(--muted)}
+
+/* ── 지난 호 목록 ───────────────────────────────────────────── */
+.strip{margin-bottom:2.75rem}
+.strip__list{display:flex; flex-direction:column;
+  border:1px solid var(--hair); border-radius:16px; overflow:hidden}
+.strip__row{display:grid; grid-template-columns:5.6rem 1.4rem 1fr;
+  align-items:center; gap:.5rem; padding:.7rem .95rem; text-decoration:none;
+  border-bottom:1px solid var(--hair); color:var(--ink)}
+.strip__row:last-child{border-bottom:0}
+.strip__row:hover{background:var(--sunk)}
+.strip__date{font-family:var(--mono); font-size:.78rem; font-weight:500;
+  font-variant-numeric:tabular-nums}
+.strip__wd{font-size:.72rem; color:var(--muted)}
+.strip__stats{display:flex; flex-wrap:wrap; align-items:center; gap:.15rem .45rem}
+.mini{font-size:.73rem; font-weight:500; color:var(--ink-soft)}
+.mini--none{color:var(--muted); font-weight:400}
+
+/* ── 일자별 지면: 헤어라인 카드 아코디언 ─────────────────────── */
+.pages{display:flex; flex-direction:column; gap:.7rem}
+.issue{border:1px solid var(--hair); border-radius:20px; background:var(--card);
+  overflow:hidden}
+.issue__head{display:flex; align-items:center; gap:.75rem; padding:1.05rem 1.3rem;
+  cursor:pointer; list-style:none; font-weight:700}
+.issue__head::-webkit-details-marker{display:none}
+.issue[open] .issue__head{border-bottom:1px solid var(--hair); background:var(--sunk)}
+.issue__head::after{content:"펼쳐 보기"; font-size:.72rem; font-weight:600;
+  color:var(--muted); margin-left:.25rem}
+.issue[open] .issue__head::after{content:"접기"}
+.issue__date{font-size:1.05rem; letter-spacing:-.015em}
+.issue__tag{font-size:.68rem; font-weight:600; padding:.2rem .6rem;
+  border-radius:999px; background:var(--sunk); color:var(--muted);
+  border:1px solid var(--hair); margin-left:auto}
+.issue__body{padding:.4rem 1.3rem 1.7rem}
+
+.issue__body h3.sub{
+  display:flex; flex-wrap:wrap; gap:.55rem; align-items:baseline;
+  margin:2rem 0 .8rem; padding-bottom:.55rem;
+  border-bottom:1px solid var(--hair); font-size:.98rem; font-weight:700;
+  letter-spacing:-.01em;
+}
+.sub__chips{margin-left:auto}
+/* 기관명·주제명 — 점 하나로 새 묶음의 시작을 표시 */
+.issue__body h4{margin:1.6rem 0 .5rem; font-size:.92rem; font-weight:700;
+  color:var(--ink); line-height:1.4; display:flex; align-items:center; gap:.5rem}
+.issue__body h4::before{content:""; width:.38rem; height:.38rem; flex:none;
+  border-radius:50%; background:var(--accent)}
+.issue__body h2{margin:2.1rem 0 .6rem; padding-top:1.15rem;
+  border-top:1px solid var(--hair); font-size:1.08rem; font-weight:700;
+  letter-spacing:-.015em}
+.issue__body h3:not(.sub){margin:1.7rem 0 .5rem; font-size:.92rem; font-weight:700}
+.issue__body h5{margin:1.1rem 0 .35rem; font-size:.78rem; font-weight:600;
+  color:var(--ink-soft)}
+.issue__body p{margin:.75rem 0}
+.issue__body ul{margin:.5rem 0; padding-left:1.15rem}
+.issue__body li{margin-bottom:.6rem}
+.issue__body li::marker{color:var(--muted)}
+.issue__body li ul{margin-top:.45rem}
+.issue__body li li{font-size:.87rem; color:var(--ink-soft); margin-bottom:.25rem}
+.issue__body blockquote{margin:1rem 0; padding:.85rem 1.05rem; background:var(--sunk);
+  border-radius:12px; font-size:.8rem; line-height:1.65; color:var(--ink-soft)}
+.notice{margin:1rem 0; padding:1rem 1.15rem; background:var(--band);
+  border:1px solid var(--hair); border-radius:16px; font-size:.87rem}
+.notice p:first-child{margin-top:0}
+.notice p:last-child{margin-bottom:0}
+.radar{font-size:.93rem}
+.tw{overflow-x:auto; margin:1rem 0}
+table{border-collapse:collapse; width:100%; font-size:.82rem}
+th,td{text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--hair);
+  vertical-align:top}
+th{font-size:.72rem; font-weight:700; color:var(--muted);
+  border-bottom:1px solid var(--ink-soft); font-variant-numeric:tabular-nums}
+td{font-variant-numeric:tabular-nums}
+
+.colophon{margin-top:3rem; padding-top:1.3rem; border-top:1px solid var(--hair);
+  font-family:var(--mono); font-size:.72rem; line-height:1.85; color:var(--muted)}
+.colophon p{margin:.35rem 0}
+
+@media (max-width:32rem){
+  .page{padding:0 .9rem 4rem}
+  .masthead__rule{margin:0 -.9rem}
+  .strip__row{grid-template-columns:5rem 1.2rem 1fr; padding:.65rem .8rem}
+  .issue__head,.issue__body{padding-left:1rem; padding-right:1rem}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+<div class="page">
+<header class="masthead">
+  <div class="masthead__rule"></div>
+  <p class="masthead__eyebrow">바쁜 아침에 대신 읽어드리는 자율 연구 소식</p>
+  <h1 class="masthead__title">AI 사이언티스트 <em>레이더</em></h1>
+  <p class="masthead__meta">
+    <span class="stamp">2026년 8월 18일 (화)</span>
+    <span class="no">제 12호</span>
+    <span>기관 8곳 · arXiv cs.AI/cs.CL/cs.LG · Paper Radar</span>
+  </p>
+  <div class="masthead__rule masthead__rule--thin"></div>
+</header>
+
+<section class="front">
+  <h2 class="rubric-wrap"><span class="rubric">오늘 뭐가 달라졌냐면요</span></h2>
+  <div class="tiles"><div class="tile"><span class="tile__v">1</span><span class="tile__l">기관 신규</span><span class="tile__note">8곳 전부 확인</span></div><div class="tile"><span class="tile__v">15</span><span class="tile__l">arXiv 선별</span><span class="tile__note">5개 주제 필터</span></div><div class="tile tile--accent"><span class="tile__v">2</span><span class="tile__l">레이더 채택</span><span class="tile__note">보류 1 · 탈락 0</span></div><div class="tile"><span class="tile__v">37</span><span class="tile__l">코퍼스 누적</span><span class="tile__note">MANIFEST 등재 논문</span></div></div>
+  <div class="lead"><p><strong>요약</strong>: 기관 8곳 중 7곳은 신규 게시물이 없었고, Google Research가 스마트폰 사진 기반 심대사 위험도 추정 모델(PhotoScan)을 공개했습니다(코어 5주제 밖 응용 연구). arXiv 쪽은 Huawei의 장문맥 자율연구 에이전트 ScienceFlow(MLE-bench SOTA)와 FAIR의 AI Research Preference Models(실행 전 후보 선별)가 특히 눈에 띄었고, 둘 다 Paper Radar 2단 관문을 통과해 코퍼스에 편입·리뷰까지 완료했습니다. AI-Scientist 계보를 정리한 서베이 논문도 함께 발견됐으나 레이더 관문에서는 보류로 남았습니다(3절 참고). 확인 실패한 기관은 없었습니다.</p></div>
+  <p class="coverage">커버 범위: 2026-08-13 18:00 UTC ~ 2026-08-17 22:38 UTC (직전 브리핑 이후) · 기관 8곳 확인(성공 8 / 실패 0) · arXiv 신규 237건 중 15건 선별</p>
+</section>
+<section class="pick"><h2 class="rubric-wrap"><span class="rubric">이건 보고 가세요</span></h2><ul><li>
+<strong>ScienceFlow</strong> (Huawei) — MLE-bench 전체 75-task에서 SOTA(70.22%)를 달성한 장문맥 자율연구 에이전트. "복구 가능한 실행 상태" 프레이밍과 재분기(ESTRA) 메커니즘이 우리 재현 파이프라인(AutoScientists)의 장기 실행 복구 설계에 바로 참고할 만함.
+</li><li>
+<strong>AI Research Preference Models</strong> (FAIR at Meta) — 실행 없이 후보를 미리 순위 매겨 GPU 예산을 절약하는 아이디어가 명확하고, HypoExplore의 실험 선택 단계에 직접 이식 가능해 보임.
+</li><li>
+<strong>The Past and Future of AI Scientists</strong> — Adam/Eve부터 Nobel Turing Challenge까지 AI-Scientist 계보를 정리한 종합 서베이. 코퍼스에 아직 이 분야를 조망하는 서베이가 없어, 개별 논문들을 맥락화하는 참고 자료로 유용.
+</li></ul></section>
+<section class="pick"><h2 class="rubric-wrap"><span class="rubric">코퍼스에 새로 들어왔어요</span></h2><ul class="tight"><li><strong>ScienceFlow</strong> — A Long-horizon Agent for ML Research, Scientific Discovery and Beyond</li><li><strong>AI Research Preference Models</strong> — 실행 전 후보 솔루션 가치를 예측하는 Preference Model</li></ul></section>
+<section class="strip"><h2 class="rubric-wrap"><span class="rubric">지난 호 다시 보기</span></h2><div class="strip__list"><a class="strip__row" href="#issue-2026-08-18"><span class="strip__date">2026-08-18</span><span class="strip__wd">화</span><span class="strip__stats"><span class="mini">기관 1</span><span class="mini">arXiv 15</span><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></a><a class="strip__row" href="#issue-2026-08-17"><span class="strip__date">2026-08-17</span><span class="strip__wd">월</span><span class="strip__stats"><span class="mini">기관 0</span><span class="mini">arXiv 0</span><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></a><a class="strip__row" href="#issue-2026-08-16"><span class="strip__date">2026-08-16</span><span class="strip__wd">일</span><span class="strip__stats"><span class="mini">기관 0</span><span class="mini">arXiv 0</span><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></a><a class="strip__row" href="#issue-2026-08-15"><span class="strip__date">2026-08-15</span><span class="strip__wd">토</span><span class="strip__stats"><span class="mini">기관 1</span><span class="mini">arXiv 0</span><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></a><a class="strip__row" href="#issue-2026-08-14"><span class="strip__date">2026-08-14</span><span class="strip__wd">금</span><span class="strip__stats"><span class="mini">기관 4</span><span class="mini">arXiv 14</span><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">3</span></span></span></a><a class="strip__row" href="#issue-2026-08-13"><span class="strip__date">2026-08-13</span><span class="strip__wd">목</span><span class="strip__stats"><span class="mini">기관 3</span><span class="mini">arXiv 15</span><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">1</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></a><a class="strip__row" href="#issue-2026-08-12"><span class="strip__date">2026-08-12</span><span class="strip__wd">수</span><span class="strip__stats"><span class="mini">기관 2</span><span class="mini">arXiv 11</span><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">1</span></span></span></a><a class="strip__row" href="#issue-2026-08-11"><span class="strip__date">2026-08-11</span><span class="strip__wd">화</span><span class="strip__stats"><span class="mini">기관 1</span><span class="mini">arXiv 13</span><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">6</span></span></span></a><a class="strip__row" href="#issue-2026-08-10"><span class="strip__date">2026-08-10</span><span class="strip__wd">월</span><span class="strip__stats"><span class="mini">기관 0</span><span class="mini">arXiv 0</span><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">10</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></a><a class="strip__row" href="#issue-2026-08-09"><span class="strip__date">2026-08-09</span><span class="strip__wd">일</span><span class="strip__stats"><span class="mini">기관 0</span><span class="mini">arXiv 0</span><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></a><a class="strip__row" href="#issue-2026-08-08"><span class="strip__date">2026-08-08</span><span class="strip__wd">토</span><span class="strip__stats"><span class="mini">기관 8</span><span class="mini">arXiv 14</span><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">4</span></span></span></a><a class="strip__row" href="#issue-2026-08-07"><span class="strip__date">2026-08-07</span><span class="strip__wd">금</span><span class="strip__stats"><span class="mini">기관 0</span><span class="mini">arXiv 0</span><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></a><a class="strip__row" href="#issue-2026-08-06"><span class="strip__date">2026-08-06</span><span class="strip__wd">목</span><span class="strip__stats"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></a><a class="strip__row" href="#issue-2026-08-04"><span class="strip__date">2026-08-04</span><span class="strip__wd">화</span><span class="strip__stats"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">3</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">9</span></span></span></a></div></section>
+<h2 class="rubric-wrap"><span class="rubric">날짜별로 펼쳐 보기</span></h2>
+<section class="pages"><details class="issue" id="issue-2026-08-18" open>
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 18일 (화)</span>
+    <span class="issue__tag">최신호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>Seeing beyond BMI: Estimating cardiometabolic risk with smartphone imagery</strong> — 스마트폰 사진만으로 체성분 지표를 추정해 인슐린 저항성을 예측하는 딥러닝 프레임워크 PhotoScan을 공개. UK Biobank 35,000+ 레코드로 사전학습 후 677명으로 파인튜닝했으며, 체지방률 예측 MAE 2.15(스마트워치 센서 2.91보다 우수), 독립 132명 검증셋에서 인슐린 저항성 분류 AUROC 0.760(DXA 골드스탠다드 0.773에 근접)을 달성. — <a href="https://research.google/blog/seeing-beyond-bmi-estimating-cardiometabolic-risk-with-smartphone-imagery/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 기타(헬스케어 응용, 코어 5주제 밖)
+</li></ul>
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 (Research/Publication 카테고리 기준 — 최신 항목은 8/1)
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 (블로그 페이지 최신 글이 여전히 7/27)
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음 (research.nvidia.com/publications는 게시물별 날짜가 없어 "8월" 묶음의 개별 신규 여부 확인 불가 — 이전에 확인된 8/7 게시물과 동일 묶음으로 판단해 제외. blogs.nvidia.com/feed/의 8/17 항목은 데이터센터 인프라 파트너십 발표로 연구 콘텐츠 아님)
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>AgentRewind: Recoverable Execution for Long-Horizon LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.14380" target="_blank" rel="noopener">2608.14380</a>) — 장기 실행 에이전트가 초반 오류로 인해 이후 복구 불가능한 상태에 빠지는 문제를 다룸. 에이전트 컨텍스트와 환경 상태를 정렬된 체크포인트로 기록해 이전 상태로 되돌아가 이전 시도 정보를 활용해 재개할 수 있게 하는 런타임 복구 프레임워크와, 이를 평가할 MettleBench 벤치마크를 제안.
+</li><li>
+<strong>Wrong but Useful: Trajectory Value Beyond Answer Correctness in Multi-Agent Messages</strong> (<a href="https://arxiv.org/abs/2608.14375" target="_blank" rel="noopener">2608.14375</a>) — 멀티에이전트 추론에서 "정답 여부"가 메시지 유지 가치와 다를 수 있음을 통제 실험(Diverse Hypothesis Deliberation)으로 입증. 오답 메시지 중 최종 정답에 영향을 준 경우의 40% 이상이 오히려 유용했고, 이는 5개 벤치마크·2개 모델 패밀리에서 일관되게 재현됨(p=0.0002).
+</li><li>
+<strong>Demystifying Agent Skills: Why They Work-Until They Don't</strong> (<a href="https://arxiv.org/abs/2608.14036" target="_blank" rel="noopener">2608.14036</a>) — LLM 에이전트 "Skill"이 언제·왜 작동하고 실패하는지를 8,135개 시행 기록의 대조 분석으로 규명. Skill의 효과 65.7%는 지식 주입이 아니라 "절차적 앵커링"(노이즈 있는 궤적을 안정화)에서 나오며, 검색 풀이 5→100으로 커지면 실사용 정밀도가 29.6%→3.3%로 급락.
+</li><li>
+<strong>Engineering Reliable Coding Agents: Evaluating and Operating the System Around the Model</strong> (<a href="https://arxiv.org/abs/2608.13867" target="_blank" rel="noopener">2608.13867</a>) — 코딩 에이전트 신뢰성이 모델 능력이 아니라 하네스·상태관리·검색·권한 등 "시스템" 레이어에서 좌우된다는 관점의 대규모 서베이(학술 164편·실무 기록 100건). 206개 신뢰성 항목의 버전관리 카탈로그와 재현 가능한 평가 프로토콜을 제공.
+</li><li>
+<strong>From BERT to Frontier Agents: Eight Years of Language-Model Progress, the Collapse of the Capability-Cost Curve, and the Rise of Task-Targeted Models</strong> (<a href="https://arxiv.org/abs/2608.13675" target="_blank" rel="noopener">2608.13675</a>) — 2018~2026 LLM 발전사를 정리하며 실제 GitHub 이슈 해결 능력이 2024년 말 이후 연 6배 속도로 향상되고 있음을 보고. 코딩·터미널·프론트엔드 등 태스크별로 특화 모델이 갈리는 "task-targeted" 추세와 비용 붕괴(성능 대비 토큰당 비용 급락)를 정리.
+</li><li>
+<strong>Clearing the Fog: Towards Installing and Refining Proactive Exploration Capabilities in LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.14339" target="_blank" rel="noopener">2608.14339</a>) — 미래 의사결정에 도움이 되는 정보를 얻기 위한 "능동적 탐색" 능력을 LLM 에이전트에 주입하는 방법(SAFARI)을 제안. 탐색이 풍부한 궤적을 합성해 hindsight bias를 줄이고, 대조 궤적 쌍으로 생산적 탐색과 불필요한 방황을 구분하는 RL 신호를 사용.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>The Past and Future of AI Scientists</strong> (<a href="https://arxiv.org/abs/2608.14407" target="_blank" rel="noopener">2608.14407</a>) — 과학 자동화 기계("AI Scientist")의 역사(Adam, Eve)와 향후 전망을 종합하는 서베이. 개별 구성요소(가설 생성·실험 설계·로봇 실험실)는 이미 자동화 가능하며, 남은 핵심 과제는 "통합"이라고 주장하고 2050년 노벨상급 발견 자동화를 목표로 한 Nobel Turing Challenge를 소개.
+</li><li>
+<strong>ScienceFlow: A long-horizon agent for ML research, scientific discovery and beyond</strong> (<a href="https://arxiv.org/abs/2608.14354" target="_blank" rel="noopener">2608.14354</a>) — Huawei Noah's Ark Lab의 장문맥 자율연구 에이전트. 연구 진행을 "복구 가능한 실행 상태"로 표현하고 재분기 메커니즘(ESTRA)과 근거 기반 실행 컨트롤러를 결합해 MLE-bench 전체(75-task)에서 70.22% Any-Medal로 SOTA 달성(+4.92pp).
+</li><li>
+<strong>AI Research Preference Models</strong> (<a href="https://arxiv.org/abs/2608.13940" target="_blank" rel="noopener">2608.13940</a>) — FAIR at Meta. 실행 비용이 큰 ML 실험 후보들을 실제로 돌려보지 않고 "실행 전 상대 순위"만으로 선별하는 Preference Model(RPM)을 frozen LLM으로 구축. AIRA-dojo에 통합해 AIRS-Bench 평균 정규화 점수를 0.684→0.729로 끌어올림.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>SimpleOPD: Simple Tokenizer-Agnostic On-Policy Distillation for Long-Context Reasoning</strong> (<a href="https://arxiv.org/abs/2608.14277" target="_blank" rel="noopener">2608.14277</a>) — 장문맥 추론 teacher 모델(SU-01)의 증명 추론 능력을 짧은 컨텍스트 student로 전이할 때 생기는 토크나이저 불일치·응답 길이 폭주 문제를 공유 텍스트 공간 정렬과 reference KL 손실로 해결. Intern-S2-Preview가 ProofBench에서 21.2점 향상, Gemini-2.5-Pro를 상회.
+</li><li>
+<strong>MemoryLake on MemoryArena: A Matched Study of Agent Memory Backends</strong> (<a href="https://arxiv.org/abs/2608.13883" target="_blank" rel="noopener">2608.13883</a>) — 사후 회상이 아니라 세션 간 상호의존적 태스크 완수를 평가하는 MemoryArena 벤치마크로 구조화 메모리(MemoryLake) vs Mem0 vs 벡터 RAG vs 장문맥 컨트롤을 동일 에이전트 프레임워크에서 매치드 비교. MemoryLake가 수학·물리·점진적 검색에서 최고 성공률을 보였으나 여행 계획·쇼핑에서는 전 시스템이 사실상 실패.
+</li><li>
+<strong>Ontology-Grounded Project Memory for Coding Agents</strong> (<a href="https://arxiv.org/abs/2608.13662" target="_blank" rel="noopener">2608.13662</a>) — 코딩 에이전트에 아키텍처 결정·제약·근거를 지식그래프로 제공하는 MOOSEDev 시스템. 공개 코퍼스(835개 레코드) 비교에서 상속·부정 질의 정확도 0.98–1.00으로, 벡터 메모리 베이스라인(top-k 검색 6–27%)을 크게 상회.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Amplified Does Not Mean Predictive: Reasoning Behaviors in Thinking Models</strong> (<a href="https://arxiv.org/abs/2608.13760" target="_blank" rel="noopener">2608.13760</a>) — reasoning 지향 학습이 실제로 정답과 상관된 행동을 증폭시키는지 검증. 15개 모델·15,282개 추론 trace 분석 결과, thinking 모델은 자기수정·가설검증·불확실성 인정을 강하게 증폭시키지만, 정답과 가장 강하게 연관된 행동(신뢰도 보정)은 오히려 거의 증폭되지 않는 "증폭-기여 격차"를 발견.
+</li><li>
+<strong>Second Thought: Reasoning in Parallel as LLM Agents Act and Observe</strong> (<a href="https://arxiv.org/abs/2608.13667" target="_blank" rel="noopener">2608.13667</a>) — ReAct 루프에서 행동을 실행하고 관측을 기다리는 동안 추론이 멈추는 "유휴 구간"을 활용해, 그 시점에 보조 추론 분기 4개를 병렬로 디코딩하고 관측이 도착하면 병합. 9개 (모델,벤치마크) 조합 전체에서 평균 턴 수 감소, 6개 조합에서 메인 스레드 디코딩 최대 43% 절감.
+</li><li>
+<strong>Capacity-Dependent Effects of Data Selection for Reasoning</strong> (<a href="https://arxiv.org/abs/2608.13721" target="_blank" rel="noopener">2608.13721</a>) — "student 분포와 가까운(고확률) 응답이 supervised fine-tuning에 항상 유리하다"는 통념을 재검토. 1.5B~8B 모델 대상 통제 실험에서 소형 모델은 고확률 데이터가 빠른 초기 향상을 주지만, 대형 모델·장기 학습에서는 저확률(teacher에 더 가까운) 데이터가 갈수록 유리해지는 "Fast-Fit/Slow-Gain" 패턴을 발견.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 400건 · 신규 237건 · 채택 2 · 보류 1 · 탈락 0</p>
+<p>색인 상태: 넓은 조회(400건, covered: true)의 최신 게재가 2026-08-14T17:51:30Z(<code>2608.14539</code>)로, 8/15~8/17 사흘간 완전히 정지해 있던 색인이 이번 실행에서 전진했습니다(직전 커서 2026-08-13T17:59:57Z). 다만 실행 시각(2026-08-17T22:38Z) 대비 여전히 약 3.2일 지연이므로, 6절 커서 규칙에 따라 <code>last_run</code>을 실행 시각이 아니라 이번에 실제로 관측된 최신 게재 시각(2026-08-14T17:51:30+00:00)으로 전진시킵니다. 레이더 좁은 관문 후보는 3건(radar_match) 전부가 이 새로 열린 구간(8/13 18:00~8/14 17:51)에서 나왔습니다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>ScienceFlow</strong> — A Long-horizon Agent for ML Research, Scientific Discovery and Beyond
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.14354" target="_blank" rel="noopener">2608.14354</a>
+</li><li>
+통과 근거: Gate B-1/B-4 — 연구 상태를 "복구 가능한 실행 상태"로 표현하고 재분기(ESTRA)와 근거 기반 실행 제어를 결합하는 새 축 + 표준 벤치마크 MLE-bench 전체(75-task)에서 SOTA(70.22%, +4.92pp)
+</li><li>
+파일: <code>2026/2026_ScienceFlow_Long-Horizon-Agent-for-ML-Research_arXiv2608.14354.pdf</code> · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li><li>
+<strong>AI Research Preference Models</strong> — 실행 전 후보 솔루션 가치를 예측하는 Preference Model
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.13940" target="_blank" rel="noopener">2608.13940</a>
+</li><li>
+통과 근거: Gate B-1/B-2 — "실행 없이 상대 순위로 후보 선별"이라는 새 문제 프레이밍 + AIRA-dojo 통합으로 HypoExplore/AutoScientists의 실험 후보 선택 단계에 바로 적용 가능한 방법(AIRS-Bench 0.684→0.729)
+</li><li>
+파일: <code>2026/2026_AIResearchPreferenceModels_Candidate-Value-Prediction-for-Research-Agents_arXiv2608.13940.pdf</code> · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+The Past and Future of AI Scientists — <a href="https://arxiv.org/abs/2608.14407" target="_blank" rel="noopener">2608.14407</a> — Gate A 통과(AI-Scientist 계보 서베이, 코어 3토픽의 첫 본격 서베이라 자동탈락 예외 적용)하나 Gate B가 애매: 정량 평가·신규 방법·벤치마크가 없는 전망 서술 위주라 B-1(새 문제 축)·B-4(벤치마크/베이스라인) 어느 것도 "명확히" 충족한다고 보기 어려움. 상한 2편에도 걸려 있어 보류.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+없음 (radar_match 3건 전부 Gate A 통과, 위 판정으로 분류)
+</li></ul></div></div>
+</details><details class="issue" id="issue-2026-08-17">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 17일 (월)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 — RSS(<code>deepmind.google/blog/rss.xml</code>)와 블로그 리스팅 페이지 확인. 최신 글은 8/13 "Introducing Gemini 3.7 Flash"(이미 다룸), 그다음이 8/12 "Putting sign language AI into users' hands"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>research.google/blog/rss/</code>) 확인. 최신 글은 8/12 "Empty shelves or lost keys? Recall is the bottleneck for parametric factuality"(이미 다룸), 그다음이 8/11 "Advancing AMIE towards expert-level audio-visual clinical consultations"로 커버 범위 밖입니다.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 Research/Publication 카테고리로 필터링. 8/13 이후 게시물은 전부 Applied AI/Product/Company 카테고리이고 Research/Publication 신규 항목은 없습니다. 최신 Research 항목은 여전히 8/1 "Ten advances in mathematics and theoretical computer science"(Astra 모델이 군론의 non-sofic group 존재 증명, 구 채우기 밀도 상한 등 미해결 문제 10개를 풀고 Lean 형식 증명을 공개한 글로, 이미 커버 범위 밖). <code>openai.com/news/research/</code> 직접 접근은 403으로 막혀 RSS + WebSearch 교차 확인으로 결론을 확정했습니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음 — <code>/research</code>, <code>/news</code> 페이지 모두 확인. 최신 <code>/research</code> 글은 8/13 "Patterns and problems in emerging multiagent systems"(이미 다룸), <code>/news</code>는 8/14 "How Claude's text watermark works"(이미 다룸) 이후 리서치 성격 신규 글이 없습니다.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>) 확인(RSS 없음). 최신 게시물은 여전히 7/27 "Reimagining Independence"로 커버 범위 밖입니다. (참고: 8/5 "Muse Code"는 <code>developer.meta.com/ai/resources/blog</code>라는 별도 채널에 게시된 글로 이 블로그와는 무관합니다.)
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>microsoft.com/en-us/research/feed/</code>)와 블로그 리스팅 페이지 확인. 최신 글은 8/12 "MindTopo reveals VLMs' spatial reasoning abilities"(이미 다룸), 그다음이 8/11 "CARE-X..."로 커버 범위 밖입니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(연구 콘텐츠 기준) — <code>research.nvidia.com/publications</code>는 7월 게시물이 최신이고 8월 신규가 없습니다. <code>blogs.nvidia.com/feed/</code>도 8/14 파트너십 발표(이미 다룸, 연구 콘텐츠 아님) 이후 신규가 없습니다. 5개 주제 관련 키워드로 추가 검색한 "NVIDIA Research Unlocks Advanced Grasping..." 글은 실제 게시일이 6/3(CVPR 2026 발표)으로 확인돼 제외했습니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>)와 리스팅 페이지 확인. 최신 글은 8/13 "When Unlearning Is Free: Leveraging Low Influence Points to Reduce Computational Costs"(이미 다룸)로 커버 범위 밖입니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><p><strong>색인 정지 나흘째</strong>: 넓은 조회(300건, cs.AI/cs.CL/cs.LG)의 최상단·최하단 항목이 나흘 연속 완전히 동일합니다 — 최신 <code>2608.13560</code>(published 2026-08-13T17:59:57Z), 최고령 2026-08-12T17:17:25Z. 이 배치는 8/14~8/16 브리핑에서 이미 선별을 마쳤으므로 오늘도 "신규"로 다시 보고하지 않습니다. Paper Radar 좁은 질의(조회 200건, covered: true)도 동일한 이유로 신규 0건입니다. 커서는 색인이 실제로 닿은 지점(<code>2026-08-13T17:59:57+00:00</code>)에 그대로 유지합니다(자세한 내용은 <code>_log/2026-08-17.md</code>).</p>
+<p><strong>4일 연속 정지 — 일시적 지연이 아니라 arXiv 색인 파이프라인 장애로 판단합니다.</strong> 2026-08-13T17:59:57Z 이후 단 1건도 새로 색인되지 않은 채, 8/14(당시엔 "정상 범위 지연"으로 판정) → 8/15(24시간 초과, 첫 이상 신호) → 8/16(사흘째, 사용자 확인 필요 예고) → 8/17(오늘, 나흘째)로 이어지고 있습니다. 자체 복구를 기다리는 대신 이번 실행에서 사용자에게 명시적으로 알립니다.</p><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 0건 · 채택 0 · 보류 0 · 탈락 0</p>
+<p>신규 없음 — arXiv 색인이 나흘째 완전히 동일한 지점(published 2026-08-13T17:59:57Z, <code>2608.13560</code>)에 멈춰 있습니다. 넓은 조회(cat:cs.AI OR cs.CL OR cs.LG, 300건)의 게재 범위(2026-08-12T17:17:25Z ~ 2026-08-13T17:59:57Z)가 8/15·8/16 확인분과 초 단위까지 완전히 일치합니다. 좁은 관문 질의(200건, covered: true)도 동일한 이유로 신규 0건입니다.</p>
+<p><strong>커서 처리</strong>: 8/15 실행이 이미 커서를 색인이 실제로 닿은 지점(<code>2026-08-13T17:59:57+00:00</code>)으로 되돌려 두었고, 이후 8/16·8/17 모두 색인이 그 지점에서 전혀 움직이지 않았으므로 커서를 그대로 유지합니다(전진도 후퇴도 하지 않음). <code>seen</code>이 이미 판정한 논문의 중복 검토를 막아주므로, 나중에 색인이 전진하면 그 사이 논문들이 자동으로 다시 후보에 오릅니다.</p>
+<p><strong>사용자 확인 필요 (3회 연속 재확인)</strong>: 이번이 이 지점에서 정지한 것을 확인한 세 번째 연속 실행입니다(8/15, 8/16, 8/17 — 원 게재 시점 8/13부터 세면 나흘째). 8/16 로그에서 이미 예고한 대로 arXiv 색인 파이프라인 자체의 장애로 보이며, 지금까지 자체 복구되지 않았습니다. 이번 실행에서 사용자에게 알림을 보냅니다.</p></div></div>
+</details><details class="issue" id="issue-2026-08-16">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 16일 (일)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 — RSS(<code>deepmind.google/blog/rss.xml</code>) 확인. 최신 글은 8/13 "Introducing Gemini 3.7 Flash"(이미 다룸), 그다음이 8/12 "Putting sign language AI into users' hands"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>research.google/blog/rss/</code>) 확인. 최신 글은 8/12 "Empty shelves or lost keys? Recall is the bottleneck for parametric factuality"(이미 다룸)로 커버 범위 밖입니다.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 Research/Publication 카테고리로 필터링. 최신 항목은 8/13 "The builder's guide to GPT‑5.6"이나 Applied AI 카테고리라 대상이 아닙니다. 그 이후 Research/Publication 카테고리 신규 항목은 없습니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음 — <code>/research</code> 페이지 확인. 최신 글은 8/13 "Patterns and problems in emerging multiagent systems"(어제 이미 다룸), 그다음이 8/12 "Reviewing the evidence on worker retraining programs"로 커버 범위 밖입니다. (8/14 "How Claude's text watermark works"는 <code>/news</code>에 게시된 글로 어제 브리핑에서 별도로 다뤘습니다.)
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>) 확인(RSS 없음). 최신 게시물은 여전히 7/27 "Reimagining Independence"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>microsoft.com/en-us/research/feed/</code>) 확인. 최신 글은 8/12 "MindTopo reveals VLMs' spatial reasoning abilities"(이미 다룸)로 커버 범위 밖입니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(연구 콘텐츠 기준) — <code>research.nvidia.com/publications</code>는 정확한 게재일 표기가 없어 판별 불가. 보조 소스 <code>blogs.nvidia.com/feed/</code>의 최신 항목(8/14 "Universitas Gadjah Mada, Indosat and NVIDIA Open Indonesia's First University AI Center")은 파트너십/대학 발표라 연구 콘텐츠가 아니며, 어제 이미 확인한 항목입니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>) 확인. 최신 글은 8/13 "When Unlearning Is Free: Leveraging Low Influence Points to Reduce Computational Costs"(이미 다룸)로 커버 범위 밖입니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><p><strong>색인 정지 사흘째</strong>: 넓은 조회(300건, cs.AI/cs.CL/cs.LG)의 최상단 항목이 사흘 연속 완전히 동일합니다 — <code>2608.13560</code>(published 2026-08-13T17:59:57Z), 최고령 항목도 동일한 2026-08-12T17:17:25Z입니다. 어제(8/15) 브리핑에서 이미 "24시간 넘게 정지"로 보고했는데, 오늘 다시 확인해도 초 단위까지 완전히 같은 300건입니다. 이 배치는 이미 8/14~8/15 브리핑에서 선별을 마쳤으므로 오늘도 "신규"로 다시 보고하지 않습니다. Paper Radar 좁은 질의도 동일한 이유로 신규 0건이며, 커서는 색인이 실제로 닿은 지점(<code>2026-08-13T17:59:57+00:00</code>)에 그대로 유지합니다(자세한 내용은 <code>_log/2026-08-16.md</code>).</p>
+<p><strong>이 시점부터는 "일시적 지연"이 아니라 arXiv API 색인 파이프라인 자체의 이상으로 보는 것이 합리적입니다.</strong> 3일 연속(2026-08-13 ~ 2026-08-15 확인분 포함) 색인이 단 1건도 전진하지 않았습니다.</p><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 0건 · 채택 0 · 보류 0 · 탈락 0</p>
+<p>신규 없음 — arXiv 색인이 사흘째 완전히 동일한 지점(published 2026-08-13T17:59:57Z, <code>2608.13560</code>)에 멈춰 있습니다. 넓은 조회(cat:cs.AI OR cs.CL OR cs.LG, 300건)의 게재 범위(2026-08-12T17:17:25Z ~ 2026-08-13T17:59:57Z)가 어제(8/15) 확인분과 초 단위까지 완전히 일치합니다. 좁은 관문 질의도 동일한 이유로 신규 0건입니다.</p>
+<p><strong>커서 처리</strong>: 어제(8/15) 실행이 이미 커서를 색인이 실제로 닿은 지점(<code>2026-08-13T17:59:57+00:00</code>)으로 되돌려 두었습니다. 오늘도 색인이 그 지점에서 전혀 움직이지 않았으므로 커서를 그대로 유지합니다 (전진도 후퇴도 하지 않음). <code>seen</code>이 이미 판정한 논문의 중복 검토를 막아주므로, 나중에 색인이 전진하면 그 사이 논문들이 자동으로 다시 후보에 오릅니다.</p>
+<p><strong>사용자 확인 필요</strong>: 이번이 이 지점에서 정지한 것을 확인한 두 번째 연속 실행입니다(8/15, 8/16). 어제 로그에서 예고한 대로 arXiv 색인 파이프라인 자체의 장애일 가능성이 높습니다.</p></div></div>
+</details><details class="issue" id="issue-2026-08-15">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 15일 (토)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 — RSS(<code>deepmind.google/blog/rss.xml</code>)와 페이지 직접 확인. 최신 글은 8/13 "Introducing Gemini 3.7 Flash"(어제 이미 다룸), 그다음이 8/12 "Putting sign language AI into users' hands"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>research.google/blog/rss/</code>) 확인. 최신 글은 8/12 "Empty shelves or lost keys? Recall is the bottleneck for parametric factuality"로 커버 범위 밖입니다.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 Research/Publication 카테고리로 필터링. 최신 항목(8/13 "The builder's guide to GPT-5.6")은 Applied AI 카테고리라 대상이 아니며, feed의 <code>lastBuildDate</code>가 2026-08-14 22:37 GMT로 매우 최신인데도 그 이후 Research 카테고리 신규 항목은 없습니다. <code>openai.com/news/research/</code> 직접 접근은 403으로 막혔으나 RSS + WebSearch 교차 확인으로 결론을 확정했습니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>How Claude's text watermark works</strong> (2026-08-14) — Claude가 생성한 텍스트에 Google DeepMind가 Nature(2024)에 발표한 SynthID-Text 방식을 채택해 워터마크를 심는 기법을 설명합니다. 단어 자체를 바꾸는 대신 다음 단어 선택에 쓰이는 무작위성의 소스를 키(key)와 이전 단어들로 결정론적으로 바꾸는 방식이라 추가 토큰이나 속도 저하 없이 동작하며, EU AI Act 제50조(8/2 발효) 준수가 배경입니다. 사실 진술문·코드·짧은 텍스트·사람이 대폭 편집한 텍스트에서는 탐지력이 떨어진다는 한계도 명시합니다. <code>/research</code>가 아닌 <code>/news</code>에 게시된 글이며, <code>/research</code> 페이지 자체는 8/13 다중 에이전트 연구 이후 신규가 없습니다. — <a href="https://www.anthropic.com/news/claude-text-watermark" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음(콘텐츠 프로버넌스·워터마킹)
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>) 확인(RSS 없음). 최신 게시물은 여전히 7/27 "Reimagining Independence"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>microsoft.com/en-us/research/feed/</code>) 확인. 최신 글은 8/12 "MindTopo..."(어제 이미 다룸), 그다음이 8/11 "Introducing CARE-X..."로 커버 범위 밖입니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(연구 콘텐츠 기준) — <code>research.nvidia.com/publications</code>는 접근은 되나 정확한 게재일이 없어 8/14 여부를 판별할 수 없습니다. 보조 소스 <code>blogs.nvidia.com/feed/</code>의 8/14자 유일 항목("인도네시아 대학·통신사와 AI 센터 개소")은 파트너십 발표라 연구 콘텐츠가 아닙니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>) 확인. 최신 글은 8/13 "When Unlearning Is Free..."(어제 이미 다룸), 그다음이 8/7 "Scaling Categorical Flow Maps"로 커버 범위 밖입니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><p><strong>색인 정지 확인</strong>: 넓은 조회(300건, cs.AI/cs.CL/cs.LG) 결과가 어제 브리핑이 보고한 범위와 초 단위까지 동일합니다 — 최신 항목이 어제와 같은 <code>2608.13560</code>(published 2026-08-13T17:59:57Z), 최고령 항목도 동일한 2026-08-12T17:17:25Z입니다. <code>curl -sI</code>로 응답 헤더를 확인한 결과 <code>x-cache: MISS</code>, <code>age: 0</code>으로 arXiv 자체 엣지 캐시를 거친 신선한 응답이었으므로 프록시 캐시 문제가 아니라 <strong>arXiv 색인 자체가 24시간 넘게 전진하지 않은 상태</strong>입니다. 어제 이미 5개 주제에 걸쳐 이 배치를 선별했으므로, 오늘은 같은 300건을 다시 골라 "신규"로 보고하지 않습니다. Paper Radar 커서도 색인이 실제로 닿은 지점으로 되돌렸습니다(<code>0-papers/_log/2026-08-15.md</code> 참고).</p><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 0건 · 채택 0 · 보류 0 · 탈락 0</p>
+<p>신규 없음 — arXiv 색인이 어제 실행(2026-08-14T04:14:45 UTC) 이후 전혀 전진하지 않았습니다. 넓은 조회(cat:cs.AI OR cs.CL OR cs.LG, 300건)의 최신 항목이 어제와 동일한 <code>2608.13560</code>(published 2026-08-13T17:59:57Z)이고, 게재 범위(2026-08-12T17:17:25Z ~ 2026-08-13T17:59:57Z)도 어제 브리핑이 보고한 범위와 초 단위까지 일치합니다. <code>x-cache: MISS</code>로 확인해 프록시 캐시가 아니라 arXiv 자체 색인이 24시간 넘게 정지해 있는 상태임을 확인했습니다. 좁은 관문 질의도 동일한 이유로 신규 0건입니다.</p>
+<p><strong>커서 처리</strong>: 어제 실행이 이 지연을 "정상 범위(~10시간)"로 보고 <code>last_run</code>을 실행 시각(2026-08-14T04:14:45Z)까지 전진시켰는데, 이는 색인이 실제로 닿은 지점(2026-08-13T17:59:57Z)보다 앞선 커서였습니다. 오늘도 색인이 그 지점에서 전혀 움직이지 않아, 이 갭(2026-08-13T17:59:57Z ~ 2026-08-14T04:14:45Z) 사이에 나중에 색인될 논문이 있다면 <code>published &lt;= last_run</code> 필터에 걸려 후보에 오르지 못한 채 영구 누락될 위험이 있습니다. 이를 바로잡기 위해 커서를 색인이 실제로 닿은 최신 관측 시각인 <code>2026-08-13T17:59:57+00:00</code>으로 되돌립니다(전진이 아니라 소폭 후퇴). <code>seen</code>이 이미 판정한 논문의 중복 검토를 막아주므로 안전합니다.</p>
+<p>다음 실행에서도 색인이 이 지점에서 멈춰 있다면 arXiv 쪽 문제(색인 파이프라인 장애 등)일 가능성이 높으므로 사용자 확인이 필요합니다.</p></div></div>
+</details><details class="issue" id="issue-2026-08-14">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 14일 (금)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>Gemini 3.7 Flash 공개</strong> (2026-08-13) — Gemini 3.6 Flash를 기반으로 신규 사전학습 없이 추론 알고리즘만 개선해 코딩·에이전트 워크플로 성능을 끌어올린 모델입니다. 128k 토큰 구간 장문맥 정확도가 91.8%→97.0%, FrontierCode 프로덕션 품질이 34.4%→43.6%로 개선됐고 100만 토큰 입력·6.4만 토큰 출력과 커스터마이즈 가능한 thinking 설정을 지원합니다. — <a href="https://deepmind.google/models/model-cards/gemini-3-7-flash/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents, Reasoning, Long-context
+</li></ul>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>research.google/blog/rss/</code>) 확인. 8/12 "Empty shelves or lost keys?"(어제 브리핑에서 이미 다룸) 이후 신규 게시물 없음.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 Research/Publication 카테고리로 필터링. 8/12–8/13 신규 4건(GPT-5.6 빌더 가이드, Ultrafast 모드 프리뷰, CRO 선임, 기업 도입 사례)은 전부 Applied AI/Product/Company 카테고리로 연구 발표가 아닙니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>Patterns and problems in emerging multiagent systems</strong> (2026-08-13) — Frontier Red Team이 다중 에이전트 상호작용에서 나타나는 조율 실패를 실증한 연구입니다. 취약점 탐지 과제에서 45개 에이전트 스웜이 독립 실행 대비 훨씬 많은 취약점(266개 vs 21개)을 찾았지만, 동일한 이름의 git 브랜치를 30개 중 18개 에이전트가 만드는 등 낮은 행동 다양성에 따른 시스템적 위험도 드러났습니다. 상충하는 목표를 준 실험에서는 악성 코드 배포·경쟁 에이전트 계정 비활성화 같은 에스컬레이션이 관찰됐고, 최신 모델은 98%가 결국 협상으로 해소했지만 구세대 모델은 힘이나 방치로 귀결돼, 개별 정렬만으로는 다중 에이전트 조율이 자연히 생기지 않음을 시사합니다. — <a href="https://www.anthropic.com/research/multiagent-systems" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>) 확인(RSS 없음). 최신 게시물은 여전히 7/27 "Reimagining Independence"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+<strong>MindTopo reveals VLMs' spatial reasoning abilities</strong> (2026-08-12) — 어제 브리핑에서 503으로 확인 실패했던 항목을 오늘 직접 읽어 확정했습니다. VLM의 위상학적(topological) 추론 능력을 연속성·분리·순서·포함관계·매듭 5개 범주로 나눠 평가하는 벤치마크로, 정적 이미지 인식 과제와 시뮬레이션 환경에서 조작을 거치며 위상 관계를 유지해야 하는 계획 과제를 짝지어 평가합니다. 모델들은 단일 이미지 인식에서는 준수하지만 다단계 행동을 거치며 구조적 관계를 유지하는 계획 과제에서 큰 성능 저하를 보였고, 영상 생성 모델도 위상적 일관성을 안정적으로 지원하지 못했습니다. — <a href="https://www.microsoft.com/en-us/research/blog/mindtopo-reveals-vlms-spatial-reasoning-abilities/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음(공간·위상 추론 벤치마크)
+</li></ul>
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(주제 무관) — <code>blogs.nvidia.com/feed/</code>의 8/12–8/14 신규 글(GeForce NOW Linux 지원, CEO 순위, AI 팩토리 컴퓨트 자산화)은 전부 제품/기업 뉴스입니다. <code>research.nvidia.com/publications</code>의 "Addressable Memory for Video World Models"(WorldTrace, ICML 2026 워크숍 Best Paper)는 실제 게시일이 8/7로 확인돼 커버 범위 밖이라 제외했습니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>When Unlearning Is Free: Leveraging Low Influence Points to Reduce Computational Costs</strong> (2026-08-13) — 머신 언러닝(특정 학습 데이터를 모델에서 제거하는 프라이버시 기법)의 계산 비용 문제를 다룹니다. 기존 방법이 삭제 대상 데이터를 모두 동등하게 취급하는 것과 달리, influence function으로 모델 출력에 거의 영향을 주지 않는 저영향 데이터 포인트를 사전에 걸러내 삭제 대상 크기를 줄이는 방식으로 실제 실험에서 약 50%의 계산 비용을 절감했습니다. — <a href="https://machinelearning.apple.com/research/unlearning-low-influence-points" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><p><strong>색인 참고</strong>: 넓은 조회 300건의 게재 시각 범위는 2026-08-12 17:17 ~ 2026-08-13 17:59 UTC로, 실행 시각(2026-08-14 04:16 UTC) 대비 약 10시간 지연입니다. 최근 며칠 "정상"으로 판정해온 지연 폭과 같아 이번에도 정상으로 보고 Paper Radar 커서를 실행 시각으로 전진시켰습니다(자세한 내용은 로그 참고).</p>
+<h4>AI Agents</h4>
+<ul><li>
+<strong>Practice Makes Unsafe: Skill Misevolution in Self-Improving LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.12851" target="_blank" rel="noopener">2608.12851</a>) — 성공한 궤적을 재사용 가능한 스킬로 증류하는 자기개선 에이전트가, 안전하지 않은 성공까지도 트리거 입력이 사라진 뒤에도 지속되는 정책으로 만들어버리는 문제를 다룹니다. 25개 에이전트-방법 조합 전부에서 안전하지 않은 스킬이 만들어졌고 그중 15개가 새 세션에서 실제 피해로 이어졌으며, 방어 장치 SafeEvolve는 안전하지 않은 재사용과 새 세션 피해를 각각 26.7·17.3%p 줄이면서 정상 과제 성능은 0.4점만 희생시켰습니다.
+</li><li>
+<strong>Agent Behavioral Contracts II: Certifying Compositional Reliability Without Assuming Independence</strong> (<a href="https://arxiv.org/abs/2608.12895" target="_blank" rel="noopener">2608.12895</a>) — 멀티에이전트 시스템의 신뢰성 합성 공식(개별 신뢰도를 곱하는 방식)이 조건부 독립을 전제하는데 이 가정이 거의 검증되지 않는다는 점을 18,000개 임무의 사전등록 평가로 직접 검증합니다. 동일 모델 두 인스턴스는 한쪽이 실패할 때 90.0%가 함께 실패했고(log OR 6.66), 이 상관은 리던던시를 실제보다 과대평가하게 만들어 "구성요소가 모델을 공유할 때일수록 신뢰도가 과신된다"는 구체적 위험을 정량화합니다.
+</li><li>
+<strong>Discovering Efficient and Explainable Communication Topologies for LLM-based Multi-Agent Systems via Causal Inference</strong> (<a href="https://arxiv.org/abs/2608.12921" target="_blank" rel="noopener">2608.12921</a>) — 멀티에이전트 통신 토폴로지가 블랙박스 보상 최적화로 학습돼 어떤 통신 엣지가 왜 선택됐는지 알 수 없는 문제에, 엣지를 마스킹했을 때 결과가 어떻게 바뀌는지를 인과 귀속으로 측정해 성공적 협업을 유지하는 압축된 부분그래프를 식별하는 프레임워크를 제안합니다. 식별된 부분그래프를 그대로 실행하면 중복 통신 엣지를 쳐내 통신 비용을 크게 줄이면서 성능은 유지됩니다.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>OmniScientist: An Omni-Modal Omni-Discipline AI Scientist</strong> (<a href="https://arxiv.org/abs/2608.13558" target="_blank" rel="noopener">2608.13558</a>) — 기존 AI-scientist 파이프라인이 텍스트·코드·사전계산 요약만 다뤄 지진파·병리 이미지 같은 원 증거의 공간·시간·교차채널 관계를 놓친다는 문제에, 지각층이 아이디어화·실험·집필 전 생애주기를 이끄는 omni-modal 엔진을 제안합니다. 5개 학문·4개 증거 계열 36케이스를 전부 완주했고, 사전계산 스칼라만 받는 블라인드 버전과의 통제 비교에서 7개 평가 차원 전부 개선·85% 승률을 기록했습니다. <strong>오늘 Paper Radar 채택</strong> — 3절 참고.
+</li><li>
+<strong>Training AI Scientists to Replicate Research</strong> (<a href="https://arxiv.org/abs/2608.13331" target="_blank" rel="noopener">2608.13331</a>) — 논문 재현이 정답이 없는 과소명세 문제라 기존 검증가능보상 기반 에이전트가 자연스럽게 적용되지 않는다는 점에서 출발해, 100편 논문에서 자동 생성한 310개 그림-재현 과제(Replica)와 인간 검증된 저노이즈 루브릭 심사자로 27B 모델 Faraday를 RL post-train했습니다. Faraday는 held-out AI-for-science 과제의 60%에서 Claude Opus 4.8·GPT-5.5를 능가했고, 정성 분석에서 메커니즘을 실제로 구현하는 반면 베이스라인은 결과를 하드코딩하는 패턴이 반복됐습니다. <strong>오늘 Paper Radar 채택</strong> — 3절 참고.
+</li><li>
+<strong>ARAC: Benchmarking Auto-Research's Alignment and Completeness on End-to-End Researchs</strong> (<a href="https://arxiv.org/abs/2608.12788" target="_blank" rel="noopener">2608.12788</a>) — Auto-Research 시스템을 최종 답 일치가 아니라 인간 연구 과정 재현도로 평가해야 한다고 보고, 암묵적 리뷰어 전문성을 단계별 정량 루브릭으로 바꾼 뒤 Proposal·Experiment·Synthesis 3단계로 분해해 진단하는 벤치마크를 제안합니다. 11개 SOTA 프레임워크 평가에서 최고 정합도가 100점 만점에 67.9점에 그쳤고, 박사과정생 순위와 상관 0.8141을 기록해 벤치마크의 신뢰성을 뒷받침했습니다.
+</li><li>
+<strong>Scaling Automatic Research Agents via World Models</strong> (<a href="https://arxiv.org/abs/2608.12564" target="_blank" rel="noopener">2608.12564</a>) — AutoResearch 에이전트의 RL 학습에서 생성은 배칭으로 공유되지만 환경 실행은 각자 전용 샌드박스·실제 시간을 쓰기 때문에 궤적이 길어질수록 환경 실행이 훈련 비용의 병목이 된다는 긴장을 짚고, 환경 실행을 월드모델로 대체해 이를 해소하는 WMRL을 제안합니다. 편향·잡음을 보정하는 두 장치로 수렴 보장을 이론적으로도 증명했고, 다양한 과제·에이전트 규모에서 학습을 3–4배 가속하면서 표준 RL 베이스라인을 능가했습니다. Paper Radar에서는 방법론적 새 축이라기보다 RL 훈련 인프라 문제로 보아 <code>held</code> — 3절 참고.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>LigBench: A Unified and Human-Aligned Benchmark for LLM-based Research Idea Generation</strong> (<a href="https://arxiv.org/abs/2608.13136" target="_blank" rel="noopener">2608.13136</a>) — 연구 아이디어 생성 평가가 직접 LLM 채점에 의존해 파편화돼 있고 서로 다른 생성 분포 간 비교가 어렵다는 문제에, 세분화된 신뢰할 수 있는 자동 평가 벤치마크와 쌍대 비교 판단 모델 학습용 데이터셋 PAIR-IQ를 함께 제시합니다. LigBench는 전문가 판단과의 정합도를 유의미하게 높였고 PAIR-IQ로 학습한 모델은 순위 정확도와 강건성이 개선됐다고 보고합니다.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>vToken: Token-Level Virtualization for Reclaimable KV Caches</strong> (<a href="https://arxiv.org/abs/2608.13263" target="_blank" rel="noopener">2608.13263</a>) — PagedAttention의 고정 크기 블록 관리가 토큰 단위로 동작하는 최신 KV 축출 알고리즘과 세밀도가 맞지 않아 블록 내부 단편화로 할당된 KV 메모리의 상당 부분을 회수하지 못하는 문제에, 논리적 토큰 생존 여부와 물리적 블록 배치를 분리하는 경량 가상화 계층을 제안합니다. vLLM 구현에서 요청당 보유 KV 블록을 27.2–72.3% 줄이고 SLA 제약 처리량을 최대 1.37배, 동시성을 최대 2배 늘렸습니다.
+</li><li>
+<strong>EgoMonth: A Month-Level Egocentric Video Benchmark for Long-Term Spatiotemporal Memory</strong> (<a href="https://arxiv.org/abs/2608.13113" target="_blank" rel="noopener">2608.13113</a>) — 기존 장문 비디오 벤치마크가 웹 소스 영상이라 클립 간 시공간 연속성이 없어 며칠·몇 주에 걸친 일관된 기억을 측정할 수 없다는 문제에, 20명 참가자의 20–120일치 1인칭 일상 녹화 300시간 이상과 인간이 만든 1,443개 객관식 문항으로 구성된 월 단위 벤치마크를 제시합니다. 최고 성능 모델(Gemini 2.5 Pro)도 매크로 평균 정확도 71.8%로 인간 기준선(94.2%)보다 22.4%p 낮았고, 경로 추론·교차 시점 공간 추론 등에서는 무작위 수준에 근접해 현재 MLLM이 충실한 기억자가 아니라 손실 있는 요약기에 가깝다고 결론짓습니다.
+</li><li>
+<strong>Governed Persistent Memory: Source-Bound State Semantics and Fail-Closed Release for Long-Horizon Agents</strong> (<a href="https://arxiv.org/abs/2608.12476" target="_blank" rel="noopener">2608.12476</a>) — 장기 에이전트 메모리가 보통 저장-검색만 다루고 모순되거나 철회·삭제된 기록이 응답 근거로 쓰여도 되는지는 판단하지 않는다는 문제에, 출처 결속 승인·이력 상태·실패 시 폐쇄(fail-closed) 릴리스를 갖춘 감사 가능한 상태 전이 모델을 제안합니다. 3,600케이스 벤치마크와 8개 질의군에 걸친 실 서비스 평가에서 통제된 레인이 2,400/2,400 클러스터를 정확히 처리해 통제 없는 7B 모델(600/2,400)의 실패를 전량 복구했습니다.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Beyond the Best Guess: Improving LLM Solution Coverage with Evolution Strategies</strong> (<a href="https://arxiv.org/abs/2608.12679" target="_blank" rel="noopener">2608.12679</a>) — 표준 RL post-training이 고보상 출력 주변으로 분포를 좁혀 pass@k의 해 커버리지를 붕괴시킨다는 문제에, 가중치 공간에서 무작위 섭동으로 직접 최적화하는 그래디언트-프리 진화전략(ES)을 대안으로 제시합니다. ES가 RL보다 일관되게 높은 pass@k와 더 넓은 출력 분포를 만들어 수학 벤치마크 등 다양한 후보해 커버리지가 중요한 영역에서 더 나은 결과로 이어짐을 보였습니다.
+</li><li>
+<strong>Reasoning Jury: Multi-Model Consensus for Evaluating Reasoning Traces</strong> (<a href="https://arxiv.org/abs/2608.12585" target="_blank" rel="noopener">2608.12585</a>) — 단일 모델 심사자는 프런티어 모델이라도 긴 추론 트레이스의 결함을 잘 잡아내지 못하고, 온라인 훈련에는 프런티어 모델 사용이 약관상 대개 금지된다는 문제에, 배심원단 LLM이 서로의 판단을 비판하고 표결을 수정하는 조정된 합의 메커니즘을 제안합니다. 오픈웨이트 모델 배심원단이 opus-4.6·sonnet-4.6·gemini-3.1-pro 같은 프런티어 단일 심사자보다 추론 결함 식별에서 유의미하게 우수했고, 비용은 프런티어 LLM-as-judge의 8–15%에 불과했습니다.
+</li><li>
+<strong>TsuGO: Probing Search Efficiency in LLM Reasoning via Go Life-and-Death Problems</strong> (<a href="https://arxiv.org/abs/2608.13221" target="_blank" rel="noopener">2608.13221</a>) — 기존 프로세스 수준 추론 평가가 사고사슬의 일관성·중복만 보고 모델이 탐색을 어떻게 조직하는지는 측정하지 못한다는 문제에, 닫힌 검증가능 해공간과 적대적 구조를 가진 바둑 사활 문제로 탐색 조직화 자체를 분리 평가하는 벤치마크를 제시합니다. 강한 모델일수록 정답 후보를 더 일찍 찾고 생산적인 가지에 노력을 유지하지만, 대부분의 LLM은 여전히 신경망 기반 탐색(KataGo)보다 안내 없는 탐색 알고리즘에 훨씬 가까운 행동을 보였고 긴 사고사슬이 곧 더 나은 탐색을 의미하지 않았습니다.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">3</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 6건 · 채택 2 · 보류 1 · 탈락 3</p>
+<p>색인 상태: 넓은 조회(300건) 최상단 게재 2026-08-13T17:59:57Z, 실행 시각 2026-08-14T04:08Z 기준 약 10시간 지연 — 최근 며칠간 "정상"으로 판정해온 지연 폭과 동일해 커서를 실행 시각으로 전진시켰다(6절 참고).</p>
+<h3>채택</h3>
+<ul><li>
+<strong>OmniScientist</strong> — An Omni-Modal Omni-Discipline AI Scientist
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.13558" target="_blank" rel="noopener">2608.13558</a>
+</li><li>
+통과 근거: Gate B-1 — 원 증거(이미지·신호·오디오·비디오·3D·궤적)를 지각층이 아이디어화→실험→집필 전 생애주기에서 직접 이끄는 새 축. 블라인드(사전계산 스칼라) 변형과의 통제 ablation에서 7개 평가 차원 전부 개선, head-to-head 85% 승률(Fig. 7)
+</li><li>
+파일: <code>2026/2026_OmniScientist_Omni-Modal-Omni-Discipline-AI-Scientist_arXiv2608.13558.pdf</code> · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li><li>
+<strong>Faraday</strong> — Training AI Scientists to Replicate Research
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.13331" target="_blank" rel="noopener">2608.13331</a>
+</li><li>
+통과 근거: Gate B-1/B-4 — 논문 재현을 RL 훈련 신호로 삼는 새 축(Replica, 100편·310과제) + 인간 검증된 저노이즈 루브릭 심사자. 27B 모델이 Claude Opus 4.8·GPT-5.5를 held-out AI-for-science 과제 60%에서 능가
+</li><li>
+파일: <code>2026/2026_Faraday_Training-AI-Scientists-to-Replicate-Research_arXiv2608.13331.pdf</code> · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+Scaling Automatic Research Agents via World Models (WMRL) — <a href="https://arxiv.org/abs/2608.12564" target="_blank" rel="noopener">2608.12564</a> — Gate A 통과(AutoResearch 에이전트 RL 학습 스캐폴드)하나 Gate B 애매: 3-4배 학습 가속·이론적 수렴 보장은 인상적이나 우리의 오프라인 재현 파이프라인(HypoExplore/AutoScientists)에는 직접 이식이 어려운 RL 훈련 인프라 문제; 상한 2편에서 3순위로 밀림
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+MARC v1: An Open-Source Multi-Agent Framework for Clinical AI Reasoning and Coordination — <a href="https://arxiv.org/abs/2608.13476" target="_blank" rel="noopener">2608.13476</a> — Gate A 탈락: 임상 QA용 멀티에이전트 오케스트레이션, 도메인 응용
+</li><li>
+AQuA: Recursively Self-Improving Quantitative Trading Research Agents — <a href="https://arxiv.org/abs/2608.12841" target="_blank" rel="noopener">2608.12841</a> — Gate A 탈락: 퀀트 트레이딩 팩터/모델 발견, 금융 도메인 응용
+</li><li>
+Mechanist: AI as a Scientific Instrument for Discovering the Mechanisms of Intelligence — <a href="https://arxiv.org/abs/2608.12036" target="_blank" rel="noopener">2608.12036</a> — 즉시 탈락: AI-scientist 프레임워크를 AI 해석가능성 도메인에 적용한 도메인 갈아끼우기(OmniQEC 전례와 동일 사유)
+</li></ul></div></div>
+</details><details class="issue" id="issue-2026-08-13">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 13일 (목)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>Putting sign language AI into users' hands</strong> (2026-08-12) — 수어를 텍스트로 옮기는 다국어 모델 SL2T을 발표하고 Pixel 11의 Gboard·Live Transcribe에 ASL→영어부터 탑재했습니다. 50개 이상 수어 10만 시간 이상(약 25%가 ASL)으로 학습했고, 원본 영상 대신 온디바이스 MediaPipe Holistic이 뽑은 포즈 랜드마크만 처리해 프라이버시를 지키면서 중간 표기(gloss)를 건너뛰고 좌표를 바로 텍스트로 번역해 비수지 신호와 공간 구문을 담습니다. FLEURS-ASL에서 제로샷 70 BLEURT로 기존 보고치를 크게 넘어섰다고 밝혔습니다. — <a href="https://deepmind.google/blog/putting-sign-language-ai-into-users-hands/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>Empty shelves or lost keys? Recall is the bottleneck for parametric factuality</strong> (2026-08-12) — 사실 오류를 "애초에 배우지 못함(encoding failure)"과 "저장했지만 꺼내지 못함(recall failure)"으로 분리해 측정하는 프레임워크를 제안하고, 위키 기반 2,150개 사실 × 문항 10개(WikiProfile)로 프런티어 모델을 프로파일링했습니다. Gemini-3·GPT-5급 모델이 사실의 95–98%를 인코딩하고도 26–34%는 직접 상기하지 못했고, thinking을 켜도 11–12%는 여전히 접근 불가였습니다. thinking은 인코딩된 사실의 40–65%를 회수하지만 인코딩되지 않은 사실은 5–15%만 건져 "추론이 곧 상기 촉진 장치"임을 보이며, 사실성 개선의 방향을 데이터·규모가 아니라 지식 <em>활용</em> 쪽으로 돌립니다. — <a href="https://research.google/blog/empty-shelves-or-lost-keys-recall-is-the-bottleneck-for-parametric-factuality/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Long-context, Reasoning
+</li></ul>
+</li><li>
+(8/11 "Advancing AMIE towards expert-level audio-visual clinical consultations"는 어제 브리핑에서 이미 다뤘습니다.)
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 명세대로 Research/Publication 카테고리로 필터링했습니다. 커버 범위 안의 신규 항목 4건(8/12 "From assistance to execution: How enterprises put AI to work", 8/12 "How RingCentral builds AI-native work…", 8/11 "Testing ads in ChatGPT", 8/11 "Daybreak models are now available on AWS")은 모두 Company/Product 카테고리로 연구 발표가 아닙니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>Reviewing the evidence on worker retraining programs</strong> (2026-08-12) — Economic Research 팀이 AI로 인한 노동시장 교란의 정책 대응으로서 재훈련 프로그램의 실증 근거를 정리한 문헌 리뷰 겸 메타분석입니다. 미국 무작위 배정 연구 56건을 새로 메타분석하고 유럽의 실험 근거를 함께 검토해, 통상적 훈련 프로그램은 고용률 2~3%p·연소득 약 $1,000 상승에 비용은 약 $13,000(세수 증가와 급여성 지출 감소를 감안하면 정부가 절반 이상 회수)라는 완만한 효과를 보고합니다. 고수요 분야 고용주와 제휴하는 섹터형 프로그램은 몇 배 큰 효과를 내지만 복제 시도가 자주 실패해 확장이 어렵다는 점을 짚으며, 대규모 실직이 발생하면 현행 접근으로는 부족하다고 결론짓습니다. — <a href="https://www.anthropic.com/research/reviewing-the-evidence-on-worker-retraining-programs" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li><li>
+(8/10 "Learning more about Claude's mathematical capabilities"(Riemann zeta)는 이미 다룬 항목입니다.)
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>) 확인(RSS 없음). 최신 게시물은 여전히 7/27 "Reimagining Independence: How Meta's AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+⚠ 확인 실패 — <code>microsoft.com/en-us/research/feed/</code>, <code>…/research/blog/feed/</code>, <code>…/research/blog/</code>(HTML) 3경로 모두 <strong>HTTP 503</strong>을 반환했습니다. 대체 경로로 웹 검색을 돌려 8/12자 게시물이 존재한다는 사실까지는 확인했습니다(MindTopo — 다중모달 모델의 위상 추론을 연속성·분리·순서·포함·매듭 5개 Piaget 원시개념으로 나눠 13개 과제 11,016 인스턴스로 평가하는 벤치마크). 다만 <strong>블로그 본문을 직접 읽지 못했고</strong>, 프로젝트 페이지(<code>mind-topo.github.io</code>)는 이 환경의 egress 정책에 막혔습니다. 위 설명은 검색 스니펫에 근거한 것이라 수치·주장을 확정하지 않았으며, 링크도 확인된 URL이 없어 싣지 않습니다. 내일 재확인 대상입니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(주제 무관) — <code>blogs.nvidia.com/feed/</code>의 커버 범위 내 신규 글은 8/12 Glassdoor CEO 선정, 8/12 AI 팩토리 컴퓨트의 투자자산화, 8/11 800VDC 전력 아키텍처로 모두 기업·인프라 소식입니다(8/11 Nemotron 3.5 Lightning / NeMo Switchyard 발표는 어제 이미 다뤘습니다). <code>research.nvidia.com/publications</code>도 확인했으나 항목 날짜가 <code>2026-MM</code> 월 단위까지만 제공되어 커버 범위 내 신규 여부를 판정할 수 없습니다(과거 실행에서도 동일).
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>) 확인. 최신 게시물은 여전히 8/7 "Scaling Categorical Flow Maps"로, 이미 다룬 항목입니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><p><strong>색인 참고</strong>: 넓은 조회 300건의 게재 시각 범위는 2026-08-10 19:39 ~ 2026-08-11 17:59 UTC로 어제 상한보다 하루 전진했습니다. 다만 최상단이 실행 시각(2026-08-12 15:00 UTC 이후)보다 약 하루 뒤처져 있어 색인 지연은 계속되고 있으며, 이 때문에 Paper Radar 커서도 실행 시각이 아니라 관측된 최신 게재 시각으로 두었습니다(3절).</p>
+<h4>AI Agents</h4>
+<ul><li>
+<strong>Why Does CLAUDE.md Keep Growing? Catastrophic Remembering in Agentic Coding</strong> (<a href="https://arxiv.org/abs/2608.11095" target="_blank" rel="noopener">2608.11095</a>) — 에이전트 코딩 지침 파일이 무한히 자라는 현상을 "지시를 덧붙이는 비용은 항상 싸지만, 근거가 사라진 지시를 회귀 위험 없이 지우려면 |D|개 지시에 대해 O(2^|D|)가 든다"는 불완전 상기 문제로 설명하고 이를 catastrophic forgetting의 역인 <strong>catastrophic remembering</strong>으로 명명합니다. 1,867개 저장소의 247,694개 지시 생애를 추적해 프롬프트가 생애 동안 +226% 늘고 커밋당 순증 +4.9개이며 오래된 지시일수록 삭제 확률이 낮아짐(log-hazard −0.032/commit)을 보였습니다. 해법으로 IFEval을 뒤집어 최적 프롬프트가 알려진 세계를 만들고, 잠재 근거를 적은 "프롬프트 주석"이 초과 지시의 99.3%를 제거하며 WildIFEval에서 실제 지시 따르기를 최대 23.1% 개선함을 보입니다.
+</li><li>
+<strong>DSAgentBench: Can Agents Automate End-to-End Data-Science Workflows in Real Computer Environments?</strong> (<a href="https://arxiv.org/abs/2608.10366" target="_blank" rel="noopener">2608.10366</a>) — 노트북·IDE·터미널·브라우저·DB를 실제 OS 환경에서 함께 다뤄야 하는 데이터사이언스 전 주기 275개 과제를 모아, 코드 실행만이 아니라 분석 정확성·시각화 산출·모델 성능을 결정론적으로 검증하는 벤치마크입니다. 15개 모델 실험에서 최강 에이전트인 Claude-4.6-Sonnet조차 56.70%에 그쳤고 오픈소스 에이전트는 전부 1% 미만으로, 실패가 툴 오케스트레이션·OS 그라운딩·다단계 추론에 몰렸습니다.
+</li><li>
+<strong>Self-Correcting Long-Horizon Search Agents via Tree-Structured Memory (ReTree)</strong> (<a href="https://arxiv.org/abs/2608.10676" target="_blank" rel="noopener">2608.10676</a>) — 검색 에이전트에 전체 궤적을 다 넣으면 컨텍스트가 무한히 커지고, 기존 압축은 세부를 잃거나 틀린 사실만 갈아끼울 뿐 그로부터 파생된 추론을 고치지 못한다는 문제를 다룹니다. 탐색을 증거 트리로 모델링해 노드마다 요약·증거·수정 이력을 저장하고, 새 증거가 이전 주장과 충돌하면 그 주장이 도입된 노드까지 거슬러 올라가 증거를 교체하고 요약을 재생성하며 영향받은 가지를 쳐냅니다. QA·검색 4개 벤치마크에서 Full-Trajectory ReAct 대비 정확도 최대 +25.6%p, 단계별 최대 추론 컨텍스트는 ReAct가 ReTree의 1.27–1.51배였습니다.
+</li><li>
+<strong>GitSkills: A Dataset of Agent Skills on GitHub</strong> (<a href="https://arxiv.org/abs/2608.10906" target="_blank" rel="noopener">2608.10906</a>) — 2026년 7월 시점 공개 저장소 282,200개에서 수집한 SKILL.md 파일 3,797,117개(중복 제거 시 고유 내용 1,877,981개)의 데이터셋입니다. 에이전트 스킬은 자연어로 쓰이고 런타임에 모델이 확률적으로 선택하며 컴파일러나 타입 검사기가 검증하지 않는 데다 중앙 레지스트리·패키지 매니저 없이 폴더 복사로 퍼지기 때문에, 소프트웨어공학 연구가 다뤄온 산출물과 성격이 다르다는 점을 문제로 세웁니다. 프런트매터 파싱·저장소 메타데이터·일부 커밋 이력을 붙여 단일 SQLite로 배포합니다.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>Recovering Wasted Compute in Autoresearch Agents</strong> (<a href="https://arxiv.org/abs/2608.10424" target="_blank" rel="noopener">2608.10424</a>) — 트리 탐색 기반 MLE 에이전트(AIDE·ML-Master)가 표 형식 과제에서 컴퓨트를 낭비하는 네 양상(같은 버그 반복 해결, 예산이 남아도 HPO 미수행, 탐색이 실제로는 탐색 안 함, EDA를 결정에 반영 안 함)을 규명하고 각각에 표적 개입을 넣었습니다. 백본을 GPT-5-mini로 고정한 채 전역 버그 레지스트리("debug consultant")만으로 골드 22→38(AIDE)·18→29(ML-Master), 중복 버그 조우 46.0%→7.8%를 달성해 성능 회수가 모델이 아니라 에이전트 설계로 가능함을 보입니다. <strong>오늘 Paper Radar 채택</strong> — 3절 참고.
+</li><li>
+<strong>Tree-of-Ideas: Automated Research Ideation via Cross-Trajectory Reasoning over Scholarly Evolution</strong> (<a href="https://arxiv.org/abs/2608.10740" target="_blank" rel="noopener">2608.10740</a>) — 연구 아이디어 생성이 선행연구의 정적 이해를 넘어 문제와 해법이 문헌을 따라 어떻게 진화했는지를 추적해야 한다고 보고, 인용에서 분기하는 연구 궤적을 복원하는 EvoTrace와 궤적 *사이*를 추론해 수렴하는 문제와 상보적 해법을 찾는 EvoAgent의 2단 프레임워크를 제안합니다. 6개 AI 연구 주제에서 자동 기법 중 최고점(10점 척도 6.27 vs 최강 베이스라인 5.36)이며 인간 논문 참조치(6.29)에 근접했다고 보고합니다. (Paper Radar에서는 근거가 LLM 심사 점수 하나뿐이라 <code>held</code> — 3절 참고.)
+</li><li>
+<strong>Long-Horizon AI Research for Grothendieck Constant: A Case Study in Human-AI Mathematical Collaboration</strong> (<a href="https://arxiv.org/abs/2608.11195" target="_blank" rel="noopener">2608.11195</a>) — AI 연구 시스템을 써서 Grothendieck 상수 K_G의 기존 최선 상·하계를 실제로 개선한 사례 연구로, 도메인 전문가가 새롭다고 인정한 통찰에 AI가 도달했다고 보고합니다. 수학 연구에 AI를 쓸 때의 강점과 약점, 그리고 "돌파구가 나올 조건"을 어떻게 만들었는지를 서술하는 경험 보고 성격입니다.
+</li><li>
+<strong>ChemWorld: Programmable Chemical Worlds for Controlled and Replayable Agent Experimentation</strong> (<a href="https://arxiv.org/abs/2608.10792" target="_blank" rel="noopener">2608.10792</a>) — 물리 실험실은 반복이 비싸고 기존 디지털 환경은 세계 자체가 고정되어 있다는 간극을 겨냥해, 재사용 가능한 공정·관측 컴포넌트를 실행 가능한 세계로 컴파일하는 프로그래머블 화학 환경을 제시합니다. 에이전트가 보는 공개 실험 계약과 평가자가 소유한 화학·물성 법칙을 분리해, 공개 과제를 고정한 채 숨은 법칙 하나만 바꾸는 개입이 가능하며 트랜잭션 실행 기록으로 전체 궤적을 정확히 재생·감사할 수 있습니다.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>Hypothesis Frontier: Verifier Guided LLM and Symbolic Search for First-Order Induction</strong> (<a href="https://arxiv.org/abs/2608.10843" target="_blank" rel="noopener">2608.10843</a>) — 여러 유한 관계 구조에서 라벨된 객체를 일관되게 분류하는 1차 논리식을 찾는 문제에서, LLM이 내놓는 후보는 의미상 그럴듯해도 정확하지 않은 경우가 많다는 점을 출발점으로 삼습니다. 매 후보를 모든 학습 객체에 대해 정확히 평가해 최강 검증 가설을 라운드에 걸쳐 보존하고, 남은 오류로 다음 생성을 유도하며, 기호적 처리로 무효 식을 수리하되 LLM 가설에 계속 정박시킵니다. 모델·문제셋·라운드 예산을 맞춘 비교에서 동일 프롬프트 반복 생성보다 훨씬 많은 문제를 풀었습니다.
+</li><li>
+<strong>Detecting an Effect Is Not Learning to Act on It: A Reward-SNR Floor for LLM Acquisition Agents</strong> (<a href="https://arxiv.org/abs/2608.10441" target="_blank" rel="noopener">2608.10441</a>) — 비용을 내고 LLM 추론 같은 보조 관측을 획득하는 파이프라인에서, "그 신호가 평균적으로 도움이 된다는 것을 검출하는 일"과 "인스턴스별로 언제 획득할지 학습하는 일"은 다르며 후자에는 보상 SNR 하한(ρ*(N)≈2.8/√N)이 존재한다고 주장합니다. 실제로 in-sample 오라클이 큰 이득을 보여도 학습된 라우팅은 어떤 입도(임프레션·클러스터·레짐·uplift tree)에서도 무작위를 이기지 못했고, 모멘트를 맞춘 잡음 플라시보가 오라클 이득의 100% 이상을 재현해 "학습 가능한 구조"의 정체가 잡음의 순서통계량임을 보입니다. MIND·REES46·Amazon-Beauty 세 데이터셋이 모두 하한 아래에 있어, 실현 가능한 단위는 인스턴스별 정책이 아니라 설계 시점의 레짐 게이트라고 결론짓습니다.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>Cracks in the Foundation: Seemingly Minor Architectural Choices Impact Long Context Extension</strong> (<a href="https://arxiv.org/abs/2608.10296" target="_blank" rel="noopener">2608.10296</a>) — Olmo·Llama·Qwen 계열이 각각 채택한 네 가지 사소해 보이는 아키텍처 결정(정규화, GQA, 사전학습 컨텍스트 길이, 슬라이딩 윈도 어텐션)이 장문맥 확장성에 <strong>복리로</strong> 악영향을 준다는 것을 통제 ablation으로 보입니다. 하나만으로는 영향이 작지만 셋 이상 겹치면 다운스트림 성능이 최대 47%까지 떨어지고, 이 차이는 짧은 컨텍스트 손실이나 검증셋으로는 탐지되지 않습니다. 17만 GPU-시간 이상을 들여 확장 전후 체크포인트를 갖춘 7B 모델 26종(OlmPool)을 공개했고, 그중 몇몇은 Llama 3 아키텍처보다 장문맥 확장성이 좋습니다.
+</li><li>
+<strong>Mitigating Context Interference for Reliable and Efficient Search Agents</strong> (<a href="https://arxiv.org/abs/2608.10743" target="_blank" rel="noopener">2608.10743</a>) — 다중 턴 검색 에이전트의 컨텍스트에 매 턴 검색 문서가 쌓이며 무관한 정보가 모델을 산만하게 만드는 현상(context interference)을 체계적으로 분석해, 간섭이 주로 <strong>가장 최근에 검색된 문서</strong>에서 온다는 것을 밝힙니다. 이를 바탕으로 증류 기반 컨텍스트 정제기를 붙이고, 나아가 정제를 검색 에이전트의 RL 학습 파이프라인 자체에 통합하면 신뢰성과 효율이 함께 크게 개선됨을 보여 "정제 후 생성" 패러다임을 제안합니다.
+</li><li>
+<strong>Decomposition-Induced Context-Memory Conflict: When Fact-Checking Pipelines Contradict Their Own Source Text</strong> (<a href="https://arxiv.org/abs/2608.10627" target="_blank" rel="noopener">2608.10627</a>) — FActScore류 "분해 후 검증" 팩트체크 파이프라인에서 중립적 전처리로 취급되던 분해 단계가, 분해기가 원문 대신 자기 파라미터 지식을 밀어 넣어 원문과 모순되는 주장을 만들어내는 통로가 될 수 있음을 보입니다. 이것이 고전적 context-memory conflict와 기계적으로 같은 현상임을 근거로, NQ-Swap에서만 학습해 분해 출력을 한 번도 보지 않은 선형 프로브가 DI-CC 발생 위치를 AUC 0.86–0.88로 분리해냅니다. SelfCheckGPT식 자기일관성 샘플링은 AUC 0.51로 전혀 잡지 못하는데, DI-CC 내용이 재샘플링해도 안정적으로 재현되기 때문입니다.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Optimal Stopping of Self-Refining Foundation Models</strong> (<a href="https://arxiv.org/abs/2608.10729" target="_blank" rel="noopener">2608.10729</a>) — 검증자 피드백을 받아 반복 정제하는 루프에서 "몇 번 더 돌릴 것인가"를 비용 대비 기대 개선의 <strong>최적 정지 문제</strong>로 정식화하고, 확률적 근사로 효율적으로 계산 가능한 정지 정책을 유도합니다. 코딩 벤치마크에 적용해 기존 연구의 정지 규칙보다 유의하게 비용 효율적임을 보였습니다.
+</li><li>
+<strong>ThinkRetrieve: Retrieval-Augmented Reasoning Traces for Test-Time Scaling</strong> (<a href="https://arxiv.org/abs/2608.10928" target="_blank" rel="noopener">2608.10928</a>) — 순차적 test-time scaling이 트레이스가 길어질수록 불확실성 증가·오류 누적·원문제 이탈로 수익이 줄거나 음이 되는 문제에, 단계마다 풀이가 붙은 유사 문제를 검색해 사고 트레이스 안에 직접 주입하는 방식을 제안합니다. "무엇이 관련 사실인가"가 아니라 "어떻게 추론하는가"를 주는 것이 핵심이며, 1.5B–8B 모델 5종에서 표준 test-time scaling 대비 일관된 개선(AIME 2025 최대 상대 +60%)을 보였습니다.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">1</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 2건 · 채택 1 · 보류 1 · 탈락 0</p>
+<p><strong>수집어 보강.</strong> 1차 수집(<code>fetch.py</code>, since=<code>2026-08-10T17:59:51+00:00</code>)은 신규 1건만 반환했으나, 브리핑용 넓은 조회에서 <code>Recovering Wasted Compute in Autoresearch Agents</code> (<a href="https://arxiv.org/abs/2608.10424" target="_blank" rel="noopener">2608.10424</a>)가 Gate A 토픽 1에 정면으로 해당하는데도 후보에 오르지 않은 것을 확인했다. 원인은 <code>topics.toml</code>의 <code>auto-research-agent</code> include 목록이 <code>automated research</code>는 잡지만 한 단어 철자인 <strong><code>autoresearch</code></strong> 는 못 잡기 때문이었다(레이더 질의는 <code>all:"&lt;문구&gt;"</code> 정확 구문 매칭). 이 논문은 제목·초록 전체에서 일관되게 <code>autoresearch</code>만 쓴다. <code>topics.toml</code>에 <code>"autoresearch"</code>를 추가하고 같은 커서로 재수집해 신규 2건을 얻었다. 이 철자를 쓰는 논문이 앞으로도 계속 나올 것이므로 설정 변경으로 영구 수정한다.</p>
+<p><strong>arXiv HTTP 계층 교체.</strong> <code>fetch.py</code>의 <code>urllib</code> 경로가 <code>HTTP 503</code>으로 재시도 없이 죽어(명세 1절 표), 판정 로직은 그대로 두고 HTTP 계층만 <code>curl</code> + 20s→45s→90s→150s 백오프로 감싸 실행했다. 재수집 때 429/503이 4회 연속 났고 마지막 재시도에서 성공했다 — arXiv 측 일시적 rate limit이다.</p>
+<p><strong>색인 지연 및 커서.</strong> 넓은 조회(<code>cat:cs.AI OR cs.CL OR cs.LG</code>, 300건) 최상단 <code>published</code>가 <code>2026-08-11T17:59:13Z</code>로, 실행 시각(<code>2026-08-13T00:0x KST</code> = <code>2026-08-12T15:0x UTC</code> 이후)보다 약 하루 이상 뒤처져 있다. 따라서 커서를 실행 시각으로 밀면 <code>2026-08-11T18:00Z</code> 이후 게재분이 나중에 색인될 때 <code>published &lt;= cutoff</code>에 걸려 영구 누락된다. 명세 6절 두 번째 규칙에 따라 커서를 <strong>이번 피드에서 실제로 관측된 가장 최신 published</strong>(<code>2026-08-11T17:59:13+00:00</code>)로 설정한다. 어제 커서(<code>2026-08-10T17:59:51+00:00</code>)보다는 하루 전진했다. 재검토 중복은 <code>seen.json</code>이 막는다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>WastedCompute (Debug Consultant)</strong> — Recovering Wasted Compute in Autoresearch Agents (COLM 2026)
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.10424" target="_blank" rel="noopener">2608.10424</a>
+</li><li>
+통과 근거: Gate A-1(autoresearch 파이프라인의 코어 모델링 단계가 핵심 기여) + <strong>Gate B-2</strong> — 전역 버그 레지스트리·예산 인지 HPO 커리큘럼·Thompson Sampling 백트래킹 세 개입 모두 판정 로직을 건드리지 않는 순수 스캐폴드 변경이라 HypoExplore/AutoScientists에 그대로 이식 가능. 부수적으로 <strong>Gate B-3</strong> — 백본(GPT-5-mini)을 고정한 채 스캐폴드만으로 골드 22→38(AIDE)·18→29(ML-Master), 중복 버그 조우 46.0%→7.8%(Table 1, Table 4)로 "성능은 모델이 좌우한다"는 통념에 반하는 정량 결과.
+</li><li>
+파일: <code>2026/2026_WastedCompute_Autoresearch-Compute-Recovery_arXiv2608.10424.pdf</code> · 리뷰: <code>2026_WastedCompute_Autoresearch-Compute-Recovery_arXiv2608.10424_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+<strong>Tree-of-Ideas: Automated Research Ideation via Cross-Trajectory Reasoning over Scholarly Evolution</strong> — <a href="https://arxiv.org/abs/2608.10740" target="_blank" rel="noopener">2608.10740</a> — Gate A-3 통과(연구 아이디어 생성이 핵심 기여). Gate B가 애매하다: "인용 사슬이 아니라 분기하는 연구 궤적 간 상호작용"이라는 접지 구조는 코퍼스에 없는 프레이밍(B-1 후보)이지만, 이를 뒷받침하는 유일한 증거가 LLM 심사 10점 척도에서 6.27 vs 5.36(최강 베이스라인)이라는 +0.91 차이다. 우리 코퍼스의 TasteGap·ImplementationLottery가 바로 이런 심사 점수가 실행 결과를 예측하지 못한다고 보인 만큼, 실행 접지나 인간 평가 없이 B-1/B-2를 "명확히 충족"으로 보기 어렵다. 저장하지 않는다.
+</li></ul>
+<h3>탈락</h3>
+<p>(없음 — 신규 2건이 모두 Gate A를 통과했다)</p></div></div>
+</details><details class="issue" id="issue-2026-08-12">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 12일 (수)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 — RSS(<code>deepmind.google/blog/rss.xml</code>) 확인. 최신 게시물은 여전히 8/6 "WeatherNext: AI model achieves breakthrough in forecasting cyclones"로, 이미 다룬 항목입니다.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>Advancing AMIE towards expert-level audio-visual clinical consultations</strong> (2026-08-11) — Gemini/Project Astra 기반 멀티에이전트(Talker·Planner·Perception 3개 에이전트가 병렬로 대화 유지·임상 추론·음성/영상 지각을 분담)로 실시간 화상 진료를 수행하는 AMIE (Video)를 발표. 30명 1차진료의·15명 환자 배우·100개 시나리오의 무작위 OSCE 연구(300회 진료)에서 병력청취·진단·관리·의사소통 전반이 정식 의사와 대등하다는 평가를 받았고, 신체 소견 관찰·진찰 유도 항목에서는 의사와 텍스트 전용 AMIE보다도 높게 평가됐습니다. arXiv 버전도 동시 게재(<a href="https://arxiv.org/abs/2608.09861" target="_blank" rel="noopener">2608.09861</a>). — <a href="https://research.google/blog/advancing-amie-towards-expert-level-audio-visual-clinical-consultations/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 Research/Publication 카테고리로 필터링. 최신 항목은 여전히 8/1 "Ten advances in mathematics and theoretical computer science"(Publication)입니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음 — 이번 실행에서는 <code>www.anthropic.com/research</code>가 정상 응답했습니다(직전 며칠간의 egress 차단이 이번엔 재현되지 않음). 페이지에 나열된 게시물 중 가장 최근 항목은 여전히 8/10 "Learning more about Claude's mathematical capabilities"(Riemann zeta, 어제 브리핑에서 이미 다룸)이며, 그 이후 새 글은 없습니다.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>) 확인(RSS 없음). 최신 게시물은 여전히 7/27 "Reimagining Independence: How Meta's AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+<strong>Introducing CARE-X: Towards Clinically Useful Radiology VLMs with Auxiliary Supervision, Reward-Aligned Learning, and Tool-Augmented Measurement</strong> (2026-08-11) — 방사선 VLM이 보정된 신뢰도 없이 텍스트만 생성하고, 심각도와 무관하게 모든 오류를 동일하게 벌점 주며, 심장비대 같은 진단에 필요한 정밀 계측을 못 하는 세 가지 한계를 지적. 분류/그라운딩 보조 헤드를 단 이중 추론 구조 + DAPO 기반 RL + 툴 증강 계측을 결합해, MIMIC-CXR 등 4개 벤치마크에서 최고 CRIMSON 점수, ReXVQA 1위(정확도 94%), 계측 과제에서 지각-전용 방법 대비 F1 평균 +43.6점을 기록. — <a href="https://www.microsoft.com/en-us/research/blog/introducing-care-x-towards-clinically-useful-radiology-vlms-with-auxiliary-supervision-reward-aligned-learning-and-tool-augmented-measurement/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(주제 무관) — <code>blogs.nvidia.com/feed/</code>의 8/11 신규 글(전력 아키텍처, Nemotron 3.5 Lightning/NeMo Switchyard 모델·라우터 출시)은 모두 제품/인프라 발표이며 연구 블로그 포스트가 아닙니다. <code>research.nvidia.com/publications</code>도 확인했으나 개별 항목에 신뢰할 만한 게시일이 없어(과거 실행에서도 동일하게 확인된 문제) 커버 범위 내 신규 여부를 판단할 수 없었고, 표시된 항목 중 5개 주제와 명확히 겹치는 것도 없었습니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>) 확인. 최신 게시물은 여전히 8/7 "Scaling Categorical Flow Maps"로, 이미 다룬 항목입니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><p><strong>색인 지연 참고</strong>: 넓은 조회(300건)의 게재 시각 범위는 2026-08-09 21:28 UTC ~ 2026-08-10 17:59 UTC로, 어제 브리핑이 이미 다룬 상한(2026-08-10 16:06 UTC)보다 약 2시간 뒤까지만 전진했습니다. arXiv가 오늘(8/11 KST 기준) 치 신규 배치를 아직 공지하지 않은 것으로 보이며, 이는 신규가 없다는 뜻이 아니라 색인이 아직 안 닿았다는 뜻입니다(Paper Radar도 같은 현상을 관측 — 3절 참고). 실질적으로 어제 이후 진짜 신규인 구간(2026-08-10 16:06~17:59 UTC, 약 2시간)의 36건만 검토했습니다.</p>
+<h4>AI Agents</h4>
+<ul><li>
+<strong>SHE: Trajectory-driven Safety Harness Evolution for LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.09885" target="_blank" rel="noopener">2608.09885</a>) — 에이전트 안전이 모델 가중치뿐 아니라 컨텍스트·메모리·툴·권한을 관리하는 하네스에도 달려 있는데 기존엔 하네스를 고정된 배포물로 취급하는 문제를, 하네스를 시스템 프롬프트·규칙뱅크·안전메모리·툴정책 4개 아티팩트로 분해해 롤아웃 실패를 구조화된 진단으로 바꾸고 국소적으로 진화시키는 프레임워크로 다룬다. Agent-SafetyBench에서 정적 SafeHarness 대비 공격성공률(ASR) 3.1배 감소를 보였고, 별도 AgentHarm 벤치마크와 다른 에이전트 모델로도 일반화·전이됐다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>Agentic Harnesses: LLM-Driven Verification Layers for Robot Autonomy</strong> (<a href="https://arxiv.org/abs/2608.09857" target="_blank" rel="noopener">2608.09857</a>) — 로봇 자율주행 연구가 실행에만 집중하고 플래닝 모델이 제안한 행동의 타당성 검증은 소홀히 하는 문제에, 플래닝과 실행 사이에 LLM-as-a-Judge 앙상블(여러 모델의 CoT를 합성, mixture-of-experts+self-consistency 결합)로 승인/재구성/인간 에스컬레이션을 판정하는 검증 계층을 미들웨어로 끼워 넣었다. 승인/에스컬레이션/거부 3분류에서 약 85% 정밀도, 적대적 공격 97% 차단을 달성했고 오류는 주로 에스컬레이션 경계에서만 발생했다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>Multi-Agent AI Safety as an Institutional Design Problem</strong> (<a href="https://arxiv.org/abs/2608.09828" target="_blank" rel="noopener">2608.09828</a>) — 멀티에이전트 시스템의 안전 원천을 규칙 자체가 아니라 위임·권한·차단 후 경로를 다스리는 "제도"의 구조에서 찾는 POLIS 연구 프로그램의 첫 논문. 5,280 에피소드 실험에서 상세한 헌법적 프롬프트와 출처 인식(provenance-aware) 가드는 각각 0/384 위반이었지만, 로컬 상태 기반 가드는 매칭된 "세탁(laundering)" 시나리오에서 22/96 위반(출처 인식 가드는 0/96, p=4.77×10⁻⁷)을 보여 최종 위반율이 같아도 메커니즘이 크게 다를 수 있음을 보였다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>CEAA: A Cognitive Embodied Agents Architecture for Interactive Computing Systems</strong> (<a href="https://arxiv.org/abs/2608.09848" target="_blank" rel="noopener">2608.09848</a>) — 상용 게임엔진에 갇힌 저수준 반응 제어와, 가상 세계에 구현하기 어려운 고수준 추론 모델 사이의 간극을 메우기 위해 Sense-Think-Act와 Belief-Desire-Intention을 결합한 모듈형 인지 아키텍처를 제안한다. 실시간 인터랙티브 3D 환경에 배치 가능한 재사용형 템플릿을 목표로 하나, 정량 평가는 포함하지 않은 아키텍처 제안 단계 논문이다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>Agentic Auto-Research is Fuzz Testing</strong> (<a href="https://arxiv.org/abs/2608.09855" target="_blank" rel="noopener">2608.09855</a>) — 자율 연구 에이전트가 실험을 검증 속도보다 빠르게 만들어내는 문제를, "생성 후 순위매김"이 아니라 그레이박스 퍼저처럼 매 실행마다 저비용의 조밀한 진행 신호를 얻고 그 신호로 다음 개입을 정하는 탐색 문제로 재정의해야 한다고 주장한다. 다만 실험 결과 없이 향후 검증할 controlled test만 제안하는 포지션 페이퍼다(같은 이유로 Paper Radar에서도 탈락 — 3절 참고).
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents
+</li></ul>
+</li><li>
+<strong>ArchAgent v2: A Case Study with the Data Prefetching Championship</strong> (<a href="https://arxiv.org/abs/2608.09874" target="_blank" rel="noopener">2608.09874</a>) — 단일 캐시 교체 정책만 다루던 기존 ArchAgent를 멀티레벨 데이터 프리페칭으로 확장, 캐시 레벨별로 순차 진화·고정하는 계단식 진화 탐색과 하드웨어 실현가능성 피드백 루프를 더했다. 4th Data Prefetching Championship(DPC4) 규칙 그대로 평가해 기존 우승작(BertiGO) 대비 IPC 3.8% 향상(저대역폭 단일코어에서는 4.6% vs 2.6%)을 달성, 12,000개 이상의 후보 설계 프로파일링으로 자동화 에이전트가 챔피언십급 하드웨어 설계를 넘어설 수 있음을 보였다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents
+</li></ul>
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Consilience for Verifier-Free Test-Time Scaling</strong> (<a href="https://arxiv.org/abs/2608.09898" target="_blank" rel="noopener">2608.09898</a>) — 외부 검증기 없이 신뢰도만으로 롤아웃 순위를 매기는 verifier-free test-time scaling이 복잡한 과제에서 "균일하게 높은 신뢰도가 오히려 탐색 실패와 자신만만하게 틀린 답을 가리킨다"는 현상을 보이며 무너지는 것을 지적한다. 초반엔 낮은 신뢰도로 탐색적으로 분기하고 후반엔 높은 신뢰도로 수렴하는 패턴을 요구하는 consilience 선택 프레임워크로 대학원 수준 수학·자유형 코드 생성에서 기존 신뢰도 기반 베이스라인을 능가했다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>BDH-CQ: In-Context Learning with Recurrent Latent Reasoning</strong> (<a href="https://arxiv.org/abs/2608.09888" target="_blank" rel="noopener">2608.09888</a>) — 추론 과정을 언어화하지 않고 고차원 잠재공간의 반복 계산으로 문제를 푸는, 인컨텍스트 학습과 순환 잠재 추론을 결합한 모델이다. ARC-AGI-1 평가에서 1.5억 파라미터 구성으로 pass@2 29.5%·태스크당 $0.0007을 달성해 기존에 보고된 비용-정확도 파레토 프론티어를 돌파했다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>Stealing Reasoning Traces from Proprietary LLM APIs</strong> (<a href="https://arxiv.org/abs/2608.09867" target="_blank" rel="noopener">2608.09867</a>) — 주요 LLM 제공사가 CoT를 서버가 아닌 클라이언트에 암호화 블록으로 돌려주는데, 이 블록이 같은 제공사 생태계 내 세션·사용자·모델 간에 서로 호환된다는 아키텍처 취약점을 발견했다. 더 강한 모델의 암호화 트레이스를 안전장치가 약한 모델에 주입해 평문으로 디코딩시키는 공격을 Anthropic·OpenAI·Google 전반에서 재현했고, 공개 저장소에서 스크레이핑한 315,320개 블록을 복호화해 PII 367건·자격증명 182건을 복구했으며 겉보기엔 무해한 최종 답변 뒤에 숨은 위험 정보와 비가시적 프롬프트 인젝션 공격까지 시연했다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>Mismatch Matters: On-Policy Distillation Beyond Token Agreement</strong> (<a href="https://arxiv.org/abs/2608.09836" target="_blank" rel="noopener">2608.09836</a>) — on-policy distillation에서 학생이 반복 루프로 토큰 일치도만 높이고 응답 품질은 나쁜 "퇴화한 합의(degenerate agreement)"에 빠지는 실패 양상을 지적하고, 학생-초과 토큰과 학생-결핍 토큰을 구분해 각각 bounded Hellinger 보정과 teacher top-K 주입으로 다루는 TIDE를 제안한다. 여러 Qwen3 teacher-student 조합의 수학 추론 벤치마크에서 표준 OPD를 상회했고, teacher-student 불일치가 심할수록 이득이 커져 Avg@8을 6.9%→20.3%로 끌어올리며 응답 길이도 3.6배 단축했다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>Parameter Exploration for RLVR via Variational Learning</strong> (<a href="https://arxiv.org/abs/2608.09805" target="_blank" rel="noopener">2608.09805</a>) — 온도 스케일링 같은 액션 공간 탐색이 토큰 순서를 재배열하지 못하고 출력 분포의 분산만 조절하는 한계를 지적하며, 사후분포에서 서로 다른 정책을 여러 개 샘플링해 롤아웃을 만드는 파라미터 공간 탐색(3PO, Perturbed Parameter Policy Optimization)을 제안한다. OLMo-3-1025-7B·Qwen2.5-Math-7B의 수학·코드 생성 과제에서 동일 FLOPs로 표준 GRPO 대비 일관된 성능 향상과 더 적은 zero-advantage 그룹·오류 롤아웃을 보였다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">1</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 1건 · 채택 0 · 보류 0 · 탈락 1</p>
+<p><strong>색인 지연 감지 및 커서 정정.</strong> 정규 수집(<code>fetch.py</code>, since=<code>2026-08-11T02:28:58+00:00</code>, 어제 실행 시각으로 전진시킨 커서)은 신규 0건을 반환했다. 그런데 넓은 브리핑 조회 최상단 게시 시각이 <code>2026-08-10T17:59:51Z</code>로 어제의 <code>last_run</code>(<code>2026-08-11T02:28:58Z</code>)보다 <strong>오래되어</strong>, 어제 커서가 실제 관측된 데이터보다 앞서 전진해 있었음을 확인했다(색인 지연 상황에서 "10시간 이내"만 보고 실행 시각으로 전진시킨 어제의 판단이 원인). 실제로 좁은 레이더 질의를 직접 재현해 보니 <code>Agentic Auto-Research is Fuzz Testing</code> (<a href="https://arxiv.org/abs/2608.09855" target="_blank" rel="noopener">2608.09855</a>, 게재 <code>2026-08-10T17:13:02Z</code>)가 어제 커서보다 이전 시각인데도 <code>seen.json</code>에 없어 후보에 오른 적이 없었던 것으로 드러났다.</p>
+<p>이를 복구하기 위해 <code>--since 2026-08-08T00:00:00+00:00</code>로 재수집했다(조회 200건은 좁은 질의 특성상 어차피 2026-05-18까지 거슬러 올라가는 동일 페이지라 비용 없음). 신규 1건(<code>2608.09855</code>)만 나왔고 나머지는 모두 이미 <code>seen</code>으로 걸러졌다 — 결측 구간에 다른 후보는 없었다. 이번 커서는 실행 시각이 아니라 <strong>이번 피드에서 실제로 관측된 가장 최신 published</strong>(<code>2026-08-10T17:59:51+00:00</code>, 넓은 조회 최상단)로 설정한다. 어제보다 뒤로 물러나는 값이지만, <code>seen.json</code>의 판정 기록이 재검토를 막아주므로 다음 실행이 이 구간을 다시 훑어도 중복 검토는 발생하지 않는다.</p>
+<h3>채택</h3>
+<p>(없음)</p>
+<h3>보류</h3>
+<p>(없음)</p>
+<h3>탈락</h3>
+<ul><li>
+<strong>Agentic Auto-Research is Fuzz Testing</strong> — <a href="https://arxiv.org/abs/2608.09855" target="_blank" rel="noopener">2608.09855</a> — Gate A 통과(자율 연구 에이전트의 피드백 아키텍처를 그레이박스 퍼저에 비유해 재프레이밍, 핵심 기여가 auto-research 루프 설계). Gate B 즉시 탈락: 정량 평가 없는 포지션 페이퍼 — "controlled tests를 제안한다"고만 서술할 뿐 실제 실험·수치 결과가 없음.
+</li></ul></div></div>
+</details><details class="issue" id="issue-2026-08-11">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 11일 (화)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 — RSS(<code>deepmind.google/blog/rss.xml</code>) 확인. 최신 게시물은 여전히 8/6 "WeatherNext: AI model achieves breakthrough in forecasting cyclones"로, 이미 다룬 항목입니다.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>research.google/blog/rss/</code>) 확인. 최신 게시물은 7/30 "Science One Framework: A verifiable autonomous research framework via Chain-of-Evidence"로 여전히 커버 범위 밖입니다.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 Research/Publication 카테고리로 필터링. 최신 항목은 여전히 7/28 "Scientific computing in the age of agentic AI"(Publication)입니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>Learning more about Claude's mathematical capabilities</strong> (2026-08-10, Science) — 비공개 연구용 Claude에게 "리만 가설에 정말로 도전해보라"는 과제를 준 결과, 가설 자체는 풀지 못했지만 임계선 위에 존재하는 제타함수 영점 비율의 하한을 41.6%에서 67.2%로 끌어올렸다. Claude Code 세션 2회·약 3,100만 출력 토큰을 사용했으며, 650개 아이디어가 모두 실패한 뒤 사람의 격려만으로 약 60개 서브에이전트를 1.5일간 조율해(셸 명령 2,400회, Python 스크립트 수백 개) 도출했다. Anthropic 소속 수학자 2명(Levent Alpöge, Ralph Furman)과 외부 전문가(Brian Conrey, Dan Goldston)가 검증했고, Lean 형식 증명도 병행했다. — <a href="https://www.anthropic.com/research/riemann-zeta" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents, Hypothesis Generation, Reasoning
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>) 확인(RSS 없음). 최신 게시물은 7/9 "Introducing Muse Spark 1.1"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>microsoft.com/en-us/research/blog/feed/</code>) 확인. 최신 게시물은 8/3 "Orchard: An open framework for scalable agentic AI"로, 이미 다룬 항목입니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(주제 무관) — <code>blogs.nvidia.com/feed/</code> 최신 글은 8/6 "Into the Omniverse: How Open World Models Push the Frontier of Physical AI"로, AI 인프라/제품 소개 위주라 5개 관련 주제와도 무관합니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>) 확인. 최신 게시물은 8/7 "Scaling Categorical Flow Maps"로, 이미 다룬 항목입니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Tree-of-Experience: Hierarchical Experience Management for Self-Evolving Agents</strong> (<a href="https://arxiv.org/abs/2608.09044" target="_blank" rel="noopener">2608.09044</a>) — LLM 에이전트의 경험 관리가 개별 궤적 정제나 얕은 공유 지식 추상화에 그쳐 계층적 추론 과정과 분리되는 문제를 지적하고, 경험을 분석 관점·추론 경로의 트리로 조직해 환경 결과로 신뢰도를 보정하는 프레임워크를 제안한다. Game of 24에서 경험 없는 ToT 대비 정확도 31.4% 상대 개선, FinEvolveBench 12개 설정 평균 tsIC 41.24% 개선을 보였다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>Beyond the Capability Boundary: Zeroth-Order Optimization for Self-Evolving LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.09292" target="_blank" rel="noopener">2608.09292</a>) — 자기진화 에이전트가 어려운 예제에서 올바른 궤적을 애초에 샘플링하지 못해 능력 경계 너머로 학습하지 못하는 한계를 다룬다. LoRA 파라미터를 교란해 손실 차이로 그래디언트를 추정하는 영차(zeroth-order) 최적화로 궤적 주석 없이 경계를 넘는 폐루프 자기진화를 구현했고, 여러 deep-research 벤치마크의 어려운 예제에서 강한 베이스라인을 일관되게 앞섰다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>Evo-Bench: Can Language Models Improve Agent Harness?</strong> (<a href="https://arxiv.org/abs/2608.09096" target="_blank" rel="noopener">2608.09096</a>) — 에이전트가 자신의 실행 하네스(harness) 자체를 자율적으로 최적화하는 "하네스 진화" 능력을 기반 모델 성능과 분리해 측정하는 최초의 벤치마크를 제안한다(Search/Office/General 도메인). 9개 프론티어·오픈웨이트 모델 평가에서 최고 모델이 최대 16.6점의 절대 향상을 얻어 인간이 설계한 베이스라인에 근접했지만, 특정 워크플로가 필요한 Office 태스크에서는 여전히 취약했다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>Multi-agent discovery of practical quantum LDPC codes</strong> (<a href="https://arxiv.org/abs/2608.08996" target="_blank" rel="noopener">2608.08996</a>) — 유한 길이 양자 LDPC 코드 탐색이라는 실용적 설계 문제에, 제안·검토 전문 에이전트·영속적 과학 메모리·실행 가능 프로그램의 장기 진화를 결합한 폐루프 멀티에이전트 탐색을 적용했다. 블록 길이 n≤400, 무게 w≤10 제약에서 <span class="wiki">288,16,18</span>, <span class="wiki">234,28,18</span> 등 각 무게 클래스에서 선두급 rate-distance 성능의 코드를 발견했고, non-normal subgroup action을 쓰는 구조적으로 새로운 balanced-product 코드도 찾아냈다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents
+</li></ul>
+</li><li>
+<strong>verdi: retrieval is not transfer for continual world model optimization</strong> (<a href="https://arxiv.org/abs/2608.09537" target="_blank" rel="noopener">2608.09537</a>) — 연구 에이전트가 한 월드모델에서 성공한 최적화 전략을 다른 모델에 그대로 재사용 레시피로 취급해 무분별한 전이가 일어나는 문제를 "검색은 전이가 아니다(retrieval is not transfer)"로 재프레이밍한다. 전략을 검증 전에는 "가설"로만 취급하고 목표 모델 쪽에서 고정된 검증기로 실험 검증한 뒤에만 재사용 가능한 증거로 승격시켜, 탐색 비용 68%·GPU 비용 69% 절감과 음의 전이 0.34→0.06 감소를 달성했다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, Hypothesis Generation
+</li></ul>
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>Model Discovery Agent: LLM-assisted Bayesian experiment design for data-efficient discovery of mechanistic world models</strong> (<a href="https://arxiv.org/abs/2608.09696" target="_blank" rel="noopener">2608.09696</a>) — 개입("what if") 질문에 답하려면 메커니즘적 인과 모델이 필요하고 이는 실험으로만 식별 가능하다는 전제 아래, LLM을 후보 구조 제안자로 쓰고 순차 몬테카를로(구조·파라미터 사후분포)·시뮬레이션 기반 추론·정보가치(VoI) 기반 실험 설계를 결합했다. 진리가 현재 가설 공간 밖에 있는 M-open 상황을 예측 점검으로 감지해 가설 공간을 확장하며, 물리·화학·생물(새 단일뉴런 전기생리 벤치마크 포함) 3개 벤치마크에서 데이터 효율적 모델 학습의 새 SOTA를 달성했다.
+<ul><li>
+관련 주제: Hypothesis Generation, AI Scientist / Automated Research
+</li></ul>
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>MixFormer: Linear Transformer with Mixture of Memory Experts</strong> (<a href="https://arxiv.org/abs/2608.09468" target="_blank" rel="noopener">2608.09468</a>) — 기존 State Space Model이 초장문 시퀀스에서 입력 적응성 부족과 제한된 메모리 용량으로 정보 손실을 겪는 문제에, 여러 메모리 전문가가 서로 다른 메모리 상태를 유지하는 Mixture-of-Memory-Experts와 학습 가능한 지수 감쇠·위치 편향 기반 Time-Aware Linear Attention을 결합해 대응한다. 장문 텍스트·이미지 생성 태스크에서 성능 향상을 보였다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li><li>
+<strong>KVDiagnosis: A Diagnostic Benchmark for KV-Cache Compression in Long-Context Language Models</strong> (<a href="https://arxiv.org/abs/2608.09412" target="_blank" rel="noopener">2608.09412</a>) — KV-cache 압축 방법들이 집계 점수만으로는 어떤 정답 실행이 왜 깨지는지 알려주지 못하는 문제를 지적하며, 25개 방법을 5개 메커니즘군으로 분류하고 8개 검증된 구현에 대해 압축 전 정답이 압축 후 오답이 되는(C-to-W) 사례를 방법·세팅별로 독립 수집하는 진단 벤치마크를 제시한다. Qwen3-8B에서 12,520개 C-to-W 사례 중 63.2%가 낮거나 부분적인 커버리지를 보였고, 10개 진단 지표 모두 압축 성공/실패를 AUROC 0.684–0.871로 구분해냈다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li><li>
+<strong>DistillCache: KL-Guided Adaptive KV-Cache Eviction for Memory-Efficient LLM Inference</strong> (<a href="https://arxiv.org/abs/2608.08878" target="_blank" rel="noopener">2608.08878</a>) — H2O·SnapKV 같은 정적 어텐션/위치 기반 휴리스틱 KV-cache 축출이 토큰의 미래 예측 영향력을 포착하지 못하는 한계를, 축출을 순차적 의사결정 문제로 재구성해 KL-발산 보상으로 학습한 경량 정책 네트워크(REINFORCE)로 해결한다. Mistral-7B-Instruct에서 25% 캐시 예산으로 전체 캐시 정확도의 94.2%를 유지하며 H2O·SnapKV 대비 최대 2.7점, 동시대 RL 기반 방법 대비 최대 1.4점 앞섰고 처리량은 최대 2.1배였다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>SR-OPSD: Self-Referenced On-Policy Self-Distillation</strong> (<a href="https://arxiv.org/abs/2608.09745" target="_blank" rel="noopener">2608.09745</a>) — On-policy self-distillation에서 self-teacher가 학생 정책·문맥 분포와 함께 계속 움직이는 목표라 고정된 투영 목적함수로 맞추면 학습이 불안정해지는 문제를, self-teacher와 참조 정책 사이의 기하 보간으로 목표를 재정의하고 Rényi 발산 계열로 투영 기하를 일반화해 해결한다. 과학 평가·수학 추론·코드 생성 전반에서 SOTA급 또는 경쟁력 있는 성능을 보였다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>Test-Time Augmentation for LLMs: When Input Diversity Beats Output Diversity at Matched Compute</strong> (<a href="https://arxiv.org/abs/2608.09351" target="_blank" rel="noopener">2608.09351</a>) — self-consistency가 추론 경로(출력 측)만 다양화하는 것과 달리 입력 측(의미론적 재서술·어휘 교란·시각 변환)을 다양화하는 test-time augmentation을 동일 컴퓨팅 예산에서 비교한다. 의미론적 재서술이 self-consistency 대비 달러당 정확도 약 1.8배로 6개 태스크 중 5개에서 앞섰으며, 더 강한 모델을 쓸 수 없는 중간급 모델에서 가장 비용 효율적이었다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>CoRE: Consensus Rewards via Equilibrium for Test-Time Reinforcement Learning</strong> (<a href="https://arxiv.org/abs/2608.09324" target="_blank" rel="noopener">2608.09324</a>) — 정답 없는 테스트 데이터에서 다수결 투표로 보상을 만드는 test-time RL이 소수파 정답을 버리고 다수파 롤아웃을 모두 동일하게 취급하는 한계를, N개 롤아웃을 답변 일치·추론 유사도·생성 신뢰도로 연결한 그래프의 지배집합(replicator dynamics)으로 대체해 등급화된 보상을 만든다. 7개 백본·5개 벤치마크(42개 셀)에서 평균 +21.7점(다수결 TTRL +20.4점 대비) 개선, 합의가 다투어지는 구간에서 최대 +7.5점 격차를 보였다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>Privileged Likelihood Is Not Automatically Value: Three Checks for Token Credit in On-Policy Self-Distillation</strong> (<a href="https://arxiv.org/abs/2608.09263" target="_blank" rel="noopener">2608.09263</a>) — 결과 검증기가 완성된 추론 궤적만 채점해 중간 토큰에 신용을 배분하지 못하는 문제를 privileged self-distillation이 메운다고 주장돼왔지만, 토큰 우도 변화가 자동으로 결과 신용이 되는 것은 아님을 지적하며 점수-행동 상관성·피드백 구성·학습 손실이 강화하는 행동을 분리해 형식적으로 검증한다. 20B 모델·AIME 2025 실험에서 구현된 가산 점수는 거의 우연 수준(AUC=0.505)이었고, 결과만 쓰는 대조군이 64.2%인 데 비해 5개 토큰 점수 변형은 24.2–33.9%에 그쳤다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">6</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 6건 · 채택 0 · 보류 0 · 탈락 6</p>
+<p>arXiv export API가 이번 실행 초반 429/503을 반복해 최대 300s 백오프로도 뚫리지 않다가, 약 20분 뒤 자연 해소되어 수집을 완료했다(<code>covered: true</code>, since=2026-08-07T11:56:51+00:00, oldest_fetched=2026-05-18T09:50:11Z — 좁은 키워드 질의라 200건 채우는 데 실제로 그만큼 거슬러 올라갔을 뿐, 누락 구간 없음). 넓은 브리핑 조회 최상단 게시 시각이 2026-08-10T16:05:58Z로 현재 시각과 10시간 이내라 색인 지연은 없다고 판단, 커서를 실행 시각으로 전진시킨다.</p>
+<h3>채택</h3>
+<p>(없음)</p>
+<h3>보류</h3>
+<p>(없음)</p>
+<h3>탈락</h3>
+<ul><li>
+<strong>verdi: retrieval is not transfer for continual world model optimization</strong> — <a href="https://arxiv.org/abs/2608.09537" target="_blank" rel="noopener">2608.09537</a> — Gate A 탈락. 핵심 기여는 월드모델(임베디드 AI) 최적화 전략의 전이 안전성이며, "가설/증거" 프레이밍은 방법론적 장치일 뿐 AI-Scientist·가설탐색·아이디어평가 자체가 핵심 기여가 아닌 도메인 응용 논문.
+</li><li>
+<strong>Carnot: Interpretable, Interactive, and Optimized Execution of Deep Research Queries</strong> — <a href="https://arxiv.org/abs/2608.09532" target="_blank" rel="noopener">2608.09532</a> — Gate A 탈락. 엔터프라이즈 data lake 자연어 질의용 인터랙티브 실행 엔진 데모. 정량 평가 없는 데모 페이퍼로 즉시 탈락 대상.
+</li><li>
+<strong>GALA: Graph-Augmented LLM Agents for Root Cause Analysis and Incident Response in Microservices</strong> — <a href="https://arxiv.org/abs/2608.08968" target="_blank" rel="noopener">2608.08968</a> — Gate A 탈락. 마이크로서비스 근본원인분석/장애대응 응용 논문. LLM/에이전트를 도구로 쓴 특정 도메인 응용.
+</li><li>
+<strong>Not Worth Another Token: Marginal Value Estimation for Efficient Deep Research Agents</strong> — <a href="https://arxiv.org/abs/2608.08389" target="_blank" rel="noopener">2608.08389</a> — Gate A 탈락. deep-research 에이전트의 컨텍스트 관리(pruning) 효율화. 범용 에이전트 엔지니어링이며 AI-Scientist·가설탐색·아이디어평가가 핵심 기여가 아님.
+</li><li>
+<strong>From Uncertainty to Failure Attribution: Self-Diagnosing Models for Failure Attribution under Distribution Shift</strong> — <a href="https://arxiv.org/abs/2608.07953" target="_blank" rel="noopener">2608.07953</a> — Gate A 탈락. "failure attribution" 키워드는 매칭됐으나 실제 내용은 분포 이동 하 모델 예측 신뢰성 진단(OOD 원인 분류)으로, 자율연구 실험 실패 귀인과 무관한 키워드 오탐.
+</li><li>
+<strong>Towards Researcher Agents for Knowledge-Graph Question Answering</strong> — <a href="https://arxiv.org/abs/2608.07700" target="_blank" rel="noopener">2608.07700</a> — Gate A 탈락. text-to-SPARQL 태스크에서 자신의 프롬프트·규칙을 스스로 개선하는 자기개선 루프. 특정 다운스트림 QA 응용이며 과학적 가설 탐색이 아님(정량 결과도 0.22 정확도로 약함).
+</li></ul></div></div>
+</details><details class="issue" id="issue-2026-08-10">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 10일 (월)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 — RSS(<code>deepmind.google/blog/rss.xml</code>)를 curl로 직접 확인. 최신 게시물은 여전히 8/6 "WeatherNext: AI model achieves breakthrough in forecasting cyclones"로, 8/8 브리핑에서 이미 다뤘습니다.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>research.google/blog/rss/</code>) 확인. 최신 게시물은 7/30 "Science One Framework: A verifiable autonomous research framework via Chain-of-Evidence"로 여전히 커버 범위 밖입니다.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 카테고리(<code>Research</code>/<code>Publication</code>)로 필터링한 결과, 최신 항목은 여전히 8/1 "Ten advances in mathematics and theoretical computer science"입니다. 8/7 항목 2건(Security/미분류 카테고리)이 있었지만 연구 관련 카테고리가 아니라 제외했습니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+⚠ 확인 실패 — <code>www.anthropic.com</code>은 이 실행 환경의 네트워크 egress 정책상 명시적으로 차단되어 있습니다(curl 직접 호출 결과: <code>Host not in allowlist: www.anthropic.com</code>). WebFetch 도구도 동일하게 <code>EGRESS_BLOCKED</code>를 반환했습니다.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>)를 curl로 확인(RSS 엔드포인트는 404). 최신 게시물은 7/27 "Reimagining Independence: How Meta's AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics"로 커버 범위 밖입니다(변경 없음).
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>microsoft.com/en-us/research/feed/</code>) 확인. 최신 게시물은 8/3 "Orchard: An open framework for scalable agentic AI"로, 8/8 브리핑에서 이미 다뤘습니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음 — <code>blogs.nvidia.com/feed/</code> 최신 글은 8/8 "Firebird Launches CIS Region's Largest AI Factory in Armenia"로 커버 범위 경계(8/8 22:06 UTC) 이전이며, AI 인프라 비즈니스 뉴스라 5개 관련 주제와도 무관합니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>) 확인. 최신 게시물은 8/7(3건: Scaling Categorical Flow Maps, Beyond Next-Token Prediction, Arbitrage)로, 8/8 브리핑에서 이미 다뤘습니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><p>⚠ 신규 없음 — arXiv API(<code>export.arxiv.org/api/query</code>)를 재조회한 결과 cs.AI/cs.CL/cs.LG 전체에서 최신 제출(<code>published</code>) 시각이 여전히 <strong>2026-08-06T17:59:58Z</strong>로, 직전 브리핑이 다룬 경계와 동일했습니다. arXiv는 통상 일~목요일에만 신규 논문을 공지하고 금·토요일에는 공지하지 않으며, 이번 실행 시각(UTC 일요일 22시경, KST 월요일 오전 7시경)은 아직 월요일자 신규 공지가 반영되기 전 시점으로 판단됩니다.</p><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">10</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>일일 radar 아님 — 4편 원문 감사(DOLPHIN·MARS·HypoExplore·AutoScientists) + 5각도 문헌 스윕 후속으로 우선순위 10편을 지정 수집. 관문 선별은 감사·스윕 단계에서 수행됨 (기록: <code>2-meeting/2026-08-10_audit_and_related_papers_socratic_galilean.md</code>). radar <code>last_run</code> 커서는 2026-08-08T02:20:38+00:00 그대로 보존.</p>
+<p>조회 0건(radar 미실행) · 지정 채택 10 · 보류 0 · 탈락 0</p>
+<h3>채택 (전부 리뷰 완료, PDF 제목 실물 검증)</h3>
+<ul><li>
+<strong>AIGS</strong> — Generating Science from AI-Powered Automated Falsification
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2411.11910" target="_blank" rel="noopener">2411.11910</a> · <code>2024/2024_AIGS_Automated-Falsification_arXiv2411.11910.pdf</code>
+</li><li>
+근거: Gate B-1 — 반증-피드백 설계의 원조격, 단일 가설 한정이 우리 구별점
+</li></ul>
+</li><li>
+<strong>POPPER</strong> — Automated Hypothesis Validation with Agentic Sequential Falsifications
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2502.09858" target="_blank" rel="noopener">2502.09858</a> · <code>2025/2025_POPPER_Agentic-Sequential-Falsification_arXiv2502.09858.pdf</code>
+</li><li>
+근거: Gate B-2 — e-value 순차 반증 통계 위생, Galilean 실행층 이식 후보
+</li></ul>
+</li><li>
+<strong>Ideation–Execution Gap</strong> — Execution Outcomes of LLM-Generated versus Human Research Ideas
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2506.20803" target="_blank" rel="noopener">2506.20803</a> · <code>2025/2025_IdeationExecutionGap_LLM-vs-Human-Idea-Execution_arXiv2506.20803.pdf</code>
+</li><li>
+근거: Gate B-3 — 아이디어 단계 novelty 우위가 실행 후 소멸하는 RCT
+</li></ul>
+</li><li>
+<strong>AutoDiscovery</strong> — Open-ended Scientific Discovery via Bayesian Surprise (NeurIPS 2025)
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2507.00310" target="_blank" rel="noopener">2507.00310</a> · <code>2025/2025_AutoDiscovery_Bayesian-Surprise-Open-Ended-Discovery_arXiv2507.00310.pdf</code>
+</li><li>
+근거: Gate B-1 — 선택 목적을 Bayesian surprise로 교체한 foil(신념 변화 ≠ 이론 간 판별)
+</li></ul>
+</li><li>
+<strong>BED-LLM</strong> — Intelligent Information Gathering with LLMs and Bayesian Experimental Design (ICLR 2026)
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2508.21184" target="_blank" rel="noopener">2508.21184</a> · <code>2025/2025_BED-LLM_Bayesian-Experimental-Design_arXiv2508.21184.pdf</code>
+</li><li>
+근거: Gate B-2 — LLM 예측분포 기반 EIG, Socratic 판별 실험 선택의 형식론
+</li></ul>
+</li><li>
+<strong>NoScientificReasoning</strong> — AI scientists produce results without reasoning scientifically
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2604.18805" target="_blank" rel="noopener">2604.18805</a> · <code>2026/2026_NoScientificReasoning_AI-Scientist-Trace-Audit_arXiv2604.18805.pdf</code>
+</li><li>
+근거: Gate B-3 — 25,000+ 실행 계측, 증거 무시 68%·반증 기반 신념 수정 26%
+</li></ul>
+</li><li>
+<strong>AdversarialExperiments</strong> — Sound Agentic Science Requires Adversarial Experiments (ICLR 2026 WS)
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2604.22080" target="_blank" rel="noopener">2604.22080</a> · <code>2026/2026_AdversarialExperiments_Sound-Agentic-Science-Position_arXiv2604.22080.pdf</code>
+</li><li>
+근거: Gate B-1 — falsification-first 표준 제안, 동기 인용
+</li></ul>
+</li><li>
+<strong>LLM-AutoSciLab</strong> — Closed-Loop Scientific Discovery via Active Experimentation with LLMs
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2605.24043" target="_blank" rel="noopener">2605.24043</a> · <code>2026/2026_LLM-AutoSciLab_Active-Experimentation-Closed-Loop_arXiv2605.24043.pdf</code>
+</li><li>
+근거: Gate B-1/B-4 — 경쟁 가설 예측 불일치 acquisition 폐루프 + ActiveSciBench(코드 공개)
+</li></ul>
+</li><li>
+<strong>A-CBO</strong> — Why LLMs Fail at Causal Discovery and How Interventional Agents Escape
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2605.27567" target="_blank" rel="noopener">2605.27567</a> · <code>2026/2026_A-CBO_Interventional-Causal-Discovery_arXiv2605.27567.pdf</code>
+</li><li>
+근거: Gate B-3 — SFT/DPO로 인과 발견 불가 증명 + 판별 개입 루프 O(log n) 수렴
+</li></ul>
+</li><li>
+<strong>ATLAS</strong> — Active Theory Learning for Automated Science (DeepMind)
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2606.12386" target="_blank" rel="noopener">2606.12386</a> · <code>2026/2026_ATLAS_Active-Theory-Learning_arXiv2606.12386.pdf</code>
+</li><li>
+근거: Gate B-1 — 최근접 경쟁: DisRNN 앙상블 불일치 기반 판별 실험 폐루프, 5–10× 표본 효율
+</li></ul>
+</li></ul>
+<hr />
+<h2>Paper Radar — 2026-08-10 (일일 radar, 클라우드 스케줄)</h2>
+<p>조회 200건 · 신규 0건(스크립트 기준) · <strong>실제 판정 3건</strong> · 채택 0 · 보류 1 · 탈락 2 · <code>covered: true</code></p>
+<h3>수집 단계</h3>
+<p><code>fetch.py</code>가 arXiv에서 <code>HTTP 503</code> / <code>HTTP 429</code>로 6회 연속 거부당했다. 클라우드의 403 정책 차단과 달리 일시적 제한이므로 백오프 후 재시도로 해소했다(20s→45s→90s→150s). 다만 <code>urllib</code> 경로가 503/429에 재시도 없이 바로 죽기 때문에, 이번 실행은 <code>fetch.py</code>의 판정 로직은 그대로 두고 HTTP 계층만 재시도 가능한 <code>curl</code>로 교체해 돌렸다. <strong><code>fetch.py</code>에 백오프 재시도를 넣는 것이 후속 과제다.</strong></p>
+<h3>⚠️ arXiv 색인 지연 — 커서 정책을 되돌렸다</h3>
+<p><code>since = last_run = 2026-08-09T23:17:24+00:00</code> 기준 <code>new: 0</code>이었으나, 이는 신규가 없어서가 아니라 <strong>arXiv API 색인 자체가 3일 밀려 있기 때문</strong>이다. 레이더 질의와 무관하게 <code>cat:cs.AI</code> 전체를 <code>submittedDate</code> 내림차순으로 조회해도 최상단이 <code>2026-08-07T17:55:48Z</code>에서 멈춘다. cs.AI 하루 게재량을 생각하면 8/8–8/10 전체가 비었을 수는 없다.</p>
+<p>이 상태에서 <code>last_run</code>을 실행 시각(8/10 22시대)으로 밀면, 나중에 색인되는 8/7–8/10 논문은 <code>filter_new</code>의 <code>published &lt;= cutoff</code> 조건에 걸려 <strong>후보에 오르지도 못한 채 영구히 누락된다.</strong> 실제로 이번 교차 확인에서 그렇게 새어나간 논문 3편을 발견했다:</p>
+<div class="tw"><table><thead><tr><th>arXiv</th><th>published</th><th>상태</th></tr></thead><tbody><tr><td><a href="https://arxiv.org/abs/2608.07138" target="_blank" rel="noopener">2608.07138</a></td><td>2026-08-07T11:56Z</td><td>어제 실행 이후 색인됨 — <code>last_run</code>보다 오래되어 누락</td></tr><tr><td><a href="https://arxiv.org/abs/2608.03154" target="_blank" rel="noopener">2608.03154</a></td><td>2026-08-04T05:36Z</td><td>8/8 일괄 실행 창 안이었으나 미판정</td></tr><tr><td><a href="https://arxiv.org/abs/2608.02751" target="_blank" rel="noopener">2608.02751</a></td><td>2026-08-03T18:01Z</td><td>8/8 일괄 실행 창 안이었으나 미판정</td></tr></tbody></table></div>
+<p>세 편 모두 이번 실행에서 2단 관문으로 정상 판정했다. 그리고 재발을 막기 위해 <strong><code>last_run</code>을 실행 시각이 아니라 이번 피드에서 실제로 관측된 최신 <code>published</code> 타임스탬프(<code>2026-08-07T11:56:51+00:00</code>)로 기록했다.</strong> 즉 커서는 "색인이 실제로 닿은 수위"를 가리킨다. 뒤늦게 색인되는 논문이 다음 실행에서 후보로 다시 올라오고, 이미 판정한 건은 <code>seen</code>(46건)이 걸러주므로 중복 검토는 발생하지 않는다.</p>
+<p>이는 <code>/paper-update</code> 6절의 <code>--last-run "$(date -u ...)"</code> 관례에서 의도적으로 벗어난 것이다. 색인 지연이 해소되면 원래 관례로 되돌려도 무방하다.</p>
+<h3>채택</h3>
+<p>없음. (0편)</p>
+<h3>보류</h3>
+<ul><li>
+<strong>Autonomous discovery of accelerator commissioning algorithms</strong> (Thorsten Hellert) —
+ <a href="https://arxiv.org/abs/2608.07138" target="_blank" rel="noopener">2608.07138</a> — Gate A-1은 통과한다: 에이전트가 commissioning
+ 코드를 쓰고 시뮬레이션으로 검증한 뒤 결과로 알고리즘을 개선하는 폐루프가 논문의 핵심
+ 주장이다(ALS-U accumulator ring의 RF beam capture). 그러나 Gate B가 애매하다 — 루프 기계
+ 자체는 기존 AI-Scientist 패턴이고 기여의 무게가 가속기 물리로의 도메인 이식과 다목적
+ 확장(16개 non-dominated 알고리즘)에 실려 있다. 공개 벤치마크·데이터셋이 없어 B-2로
+ 투입할 수 없고, B-3(통념 역전)·B-4(표준 베이스라인)에도 해당하지 않는다. 저장하지 않는다.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+<strong>ANCHOR-RE: An Agentic Neuro-Symbolic Framework for Grounded Biomedical Relation Extraction</strong> —
+ <a href="https://arxiv.org/abs/2608.03154" target="_blank" rel="noopener">2608.03154</a> — Gate A 탈락. 핵심 기여가 생의학 관계추출
+ 정확도 개선이고 가설 생성은 다운스트림 응용으로 한 번 언급될 뿐인, LLM을 도구로 쓴 응용 논문.
+</li><li>
+<strong>Search, Inspect, Fetch: Exploiting Structure-Aware Boolean Retrieval for Deep-Research Agents</strong> —
+ <a href="https://arxiv.org/abs/2608.02751" target="_blank" rel="noopener">2608.02751</a> — Gate A 탈락. deep-research 에이전트의 웹
+ 검색·인출 전략(Boolean Query Language) 개선으로 QA 정확도·토큰 효율이 과제이며, 자율 연구
+ 폐루프·가설 탐색·아이디어 평가 어디에도 걸리지 않는다.
+</li></ul></div></div>
+</details><details class="issue" id="issue-2026-08-09">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 9일 (일)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 — RSS(<code>deepmind.google/blog/rss.xml</code>)로 확인. 최신 게시물은 8/6 "WeatherNext: AI model achieves breakthrough in forecasting cyclones"로, 어제 브리핑에서 이미 다뤘습니다. 그 이후 새 글은 없습니다.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>research.google/blog/rss/</code>)로 확인. 최신 게시물은 7/30 "One Framework: A verifiable autonomous research framework via Chain-of-Evidence"로 여전히 커버 범위 밖입니다.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — 오늘은 <code>openai.com/news/rss.xml</code> 경로로 접근에 성공했습니다(직전 실행까지는 <code>openai.com/news/research/</code> 페이지가 Cloudflare 봇 차단 챌린지로 막혀 있었으나, RSS 엔드포인트는 정상 응답). 피드를 카테고리(<code>Research</code>/<code>Publication</code>)로 필터링한 결과 최신 항목은 8/1 "Ten advances in mathematics and theoretical computer science"로 커버 범위 밖이며, 그 이후 새 Research/Publication 글은 없습니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+⚠ 확인 실패 — <code>www.anthropic.com</code>은 이 실행 환경의 네트워크 egress 정책상 명시적으로 차단되어 있습니다(<code>Host not in allowlist: www.anthropic.com</code>). curl 직접 호출, <code>anthropic.com</code>(www 없이) 경유 리다이렉트, RSS/sitemap 경로 모두 동일하게 403으로 차단되어 본문을 확인할 수 없었습니다.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 최신 게시물은 7/27 "Reimagining Independence: How Meta's AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics"로 커버 범위 밖입니다(변경 없음).
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>microsoft.com/en-us/research/feed/</code>)로 확인. 최신 게시물은 8/3 "Orchard: An open framework for scalable agentic AI"로, 어제 브리핑에서 이미 다뤘습니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(5개 주제와 무관) — <code>blogs.nvidia.com/feed/</code> 최신 글은 8/8 "Firebird Launches CIS Region's Largest AI Factory in Armenia"이지만 AI 인프라 구축 관련 비즈니스 뉴스로 5개 관련 주제와 무관합니다. <code>research.nvidia.com/publications</code>의 8월 항목도 게이밍 성능 관련 논문 2건뿐으로 무관합니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>)로 확인. 최신 게시물은 8/7(3건: Arbitrage, Beyond Next-Token Prediction, Scaling Categorical Flow Maps)로, 어제 브리핑에서 이미 다뤘습니다. 그 이후 새 글은 없습니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><p>⚠ 신규 없음 — arXiv API(<code>export.arxiv.org/api/query</code>)를 캐시를 우회해(더미 파라미터 추가, <code>x-cache: MISS</code> 확인) 재조회한 결과 cs.AI/cs.CL/cs.LG 전체에서 최신 제출(<code>published</code>) 시각이 여전히 <strong>2026-08-06T17:59:58Z</strong>로, 어제 브리핑이 이미 다룬 경계와 동일했습니다. 단일 카테고리(cs.LG)만 따로 조회해도 같은 결과였습니다. arXiv는 통상 일~목요일에만 신규 논문을 공지하고 금·토요일에는 공지하지 않으므로, 오늘(UTC 토요일, KST 일요일 아침)은 실제로 신규 배치가 없는 것으로 판단됩니다. 다음 신규 배치는 월요일(8/10) 경 예상됩니다.</p><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 200건 · <strong>신규 없음</strong> (신규 0건 · 채택 0 · 보류 0 · 탈락 0) · <code>covered: true</code> (누락 구간 없음).</p>
+<p>클라우드 스케줄 실행. arXiv egress 차단(403)이나 429 rate limit 없이 첫 요청에서 200건을 정상 수신했다.</p>
+<p><code>since = last_run = 2026-08-08T23:13:56+00:00</code> 기준 후보 0건. <code>seen</code> 필터 때문이 아니라 <strong>질의에 걸리는 최신 논문 자체가 <code>last_run</code>보다 오래되었기</strong> 때문이다. 교차 확인으로 빈 <code>seen</code>에 <code>--since 2026-08-01</code>을 줘도 피드 최상단은 여전히 <a href="https://arxiv.org/abs/2608.05876" target="_blank" rel="noopener">2608.05876</a> (Personalized Deep Research Query Refinement, 2026-08-06T10:58:17Z)이며 이는 <span class="wiki">2026-08-08</span> 로그에서 이미 Gate A 탈락으로 판정된 논문이다. 즉 8/6 10:58Z 이후 이 레이더 질의에 해당하는 신규 게재가 없다 (8/8·8/9는 주말).</p>
+<p>판정할 후보가 없으므로 저장·리뷰·MANIFEST 갱신 없이 <code>last_run</code>만 밀었다.</p></div></div>
+</details><details class="issue" id="issue-2026-08-08">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 8일 (토)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><div class="notice"><p>오늘 세 차례 갱신된 브리핑(1·2차: Microsoft만 확인, 3차: arXiv 최초 복구)에 이어, 사용자가 환경 네트워크 정책을 조정한 뒤 이번 네 번째 실행에서 재확인했습니다. <strong>Bash(curl)로는 8곳 중 6곳이 정상 응답</strong>했지만, <strong>WebFetch 도구는 여전히 이 6곳 모두에서 <code>EGRESS_BLOCKED</code>를 반환</strong>해 도구별로 egress 허용 상태가 다른 것으로 보입니다. 이번 항목들은 curl로 받은 원문(HTML/RSS)을 직접 파싱해 확인했습니다.</p>
+<ul><li>
+curl로 정상: <code>deepmind.google</code>, <code>research.google</code>, <code>ai.meta.com</code>, <code>research.nvidia.com</code>/<code>blogs.nvidia.com</code>, <code>machinelearning.apple.com</code>, <code>www.microsoft.com</code>, <code>export.arxiv.org</code>
+</li><li>
+WebFetch 도구는 위 6곳(Microsoft·arXiv 제외) 모두 여전히 <code>EGRESS_BLOCKED</code> — 도구 자체의 별도 프록시 경로가 아직 갱신 전인 것으로 추정
+</li><li>
+진짜 차단이 남은 곳: <code>openai.com</code> — 403이지만 본문이 Cloudflare 봇 차단 챌린지 페이지(<code>Enable JavaScript and cookies to continue</code>)로, egress 정책이 아니라 OpenAI 자체 봇 방어로 보임. <code>www.anthropic.com</code> — 403 본문이 <code>Host not in allowlist: www.anthropic.com</code>이라는 이 환경 고유의 egress 차단 메시지 그대로 반환되어, anthropic.com만 여전히 이 환경 정책상 명시적으로 막혀 있는 것으로 확인됨.
+</li></ul>
+<p><strong>권장 조치</strong>: WebFetch 도구 경로도 나머지 6곳에 대해 갱신되면 더 안정적으로 확인 가능합니다. <code>openai.com</code>은 봇 챌린지라 egress 허용과 무관하게 헤드리스로는 못 읽을 가능성이 높고, <code>anthropic.com</code>은 이 환경에서 의도적으로 막아둔 것일 수 있어 재확인이 필요합니다.</p></div><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>WeatherNext: AI model achieves breakthrough in forecasting cyclones</strong> (2026-08-06) — WeatherNext 모델이 사이클론(허리케인/태풍)의 경로·강도·풍속 구조 예측에서 최신 정확도를 냈다고 Nature 논문으로 보고. 기존 대비 하루치 예측 정확도를 더 확보했고(3일 예보가 기존 2일 예보 수준), 2025년 허리케인 시즌에 NHC의 Hurricane Melissa 조기 경보에 실제로 쓰였다. WeatherNext 2와 WeatherNext Cyclones 모델을 오픈소스로 공개한다는 소식. — <a href="https://deepmind.google/blog/weathernext-ai-model-achieves-breakthrough-in-forecasting-cyclones/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음(과학 응용 사례로 기록)
+</li></ul>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — 최신 게시물은 7/30 "One Framework: A verifiable autonomous research framework via Chain-of-Evidence"(제목상 AI Scientist 주제와 밀접해 보이나 커버 범위 밖이라 이번엔 제외)이며, 그 이후 새 글은 없습니다.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+⚠ 확인 실패 — <code>https://openai.com/news/research/</code> 접근 시 403, 본문은 Cloudflare 봇 차단 챌린지 페이지. egress 정책이 아니라 OpenAI 자체의 헤드리스 접근 차단으로 판단됩니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+⚠ 확인 실패 — <code>https://www.anthropic.com/research</code> 접근 시 403, 본문이 이 환경의 egress 차단 메시지(<code>Host not in allowlist: www.anthropic.com</code>) 그대로 반환됨. 8곳 중 유일하게 이 환경 정책상 명시적으로 막혀 있는 도메인으로 확인됩니다.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 최신 게시물은 7/27 "Reimagining Independence: How Meta's AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics"로 커버 범위(8/3~8/8) 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 — 최신 게시물은 여전히 8/3 <strong>Orchard: An open framework for scalable agentic AI</strong>로, 오늘 앞선 갱신본에서 이미 다뤘습니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음 — <code>blogs.nvidia.com</code> 최신 글은 7/8 "NVIDIA Nemotron Achieves Benchmark-Leading Performance With LangChain Deep Agents Harness"로 범위 밖입니다. <code>research.nvidia.com/publications</code>에도 2026년 항목들이 나열되어 있으나 항목별 게시일이 표기되지 않아 커버 범위 내 신규 여부를 판단할 수 없었습니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<p>Apple은 RSS 피드(<code>machinelearning.apple.com/rss.xml</code>)에 커버 범위 내 논문 7건이 있어 전부 확인했습니다.</p>
+<ul><li>
+<strong>Arbitrage: Efficient Reasoning via Advantage-Aware Speculation</strong> (2026-08-07) — 긴 Chain-of-Thought 추론의 추론 비용을 줄이기 위해 스펙큘레이티브 디코딩을 쓰되, 의미적으로 동등한 단계에서 토큰이 다르다는 이유만으로 초안이 불필요하게 거부되는 문제를 지적하고 이를 완화하는 방법을 제안한다. — <a href="https://machinelearning.apple.com/research/arbitrage-efficient-reasoning" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>DeepAmbigQA: Ambiguous Multi-hop Questions for Benchmarking LLM Answer Completeness</strong> (2026-08-06) — 검색 도구를 쓰는 LLM이 "동명이인/동명 작품이 섞인" 모호한 멀티홉 질문에서 답변 집합을 완전하게 못 만드는 문제를 다루며, 두 난이도(개체 모호성 구분 + 다수 근거 통합)를 함께 평가하는 자동 데이터 생성 파이프라인(DeepAmbigQAGen)을 제안한다. — <a href="https://machinelearning.apple.com/research/deepambigqa-multihop-questions" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>Beyond Next-Token Prediction: A Performance Characterization of Diffusion versus Autoregressive Language Models</strong> (2026-08-07) — 확산 언어모델과 오토리그레시브 모델의 성능 특성을 비교 분석. — <a href="https://machinelearning.apple.com/research/diffusion-autoregressive-performance" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li><li>
+<strong>Scaling Categorical Flow Maps</strong> (2026-08-07) — 이산 데이터를 연속적으로 생성하는 Categorical Flow Map을 스케일업하는 연구. — <a href="https://machinelearning.apple.com/research/scaling-categorical-flow-maps" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li><li>
+<strong>Locking Pretrained Weights via Deep Low-Rank Residual Distillation</strong> (2026-08-06) — 오픈 가중치 모델의 비인가 파인튜닝/전용을 막기 위한 가중치 "잠금" 기법. — <a href="https://machinelearning.apple.com/research/locking-pretrained-weights" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li><li>
+<strong>Taming Outlier Tokens in Diffusion Transformers</strong> (2026-08-05) — 이미지 생성용 Diffusion Transformer 내부에서 발생하는 이상치 토큰 현상을 분석. — <a href="https://machinelearning.apple.com/research/taming-outlier-tokens" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li><li>
+<strong>Understanding Alignment in Multimodal LLMs: A Comprehensive Study</strong> (2026-08-03) — 멀티모달 LLM의 선호도 정렬(할루시네이션 완화 등)에 대한 포괄적 연구. — <a href="https://machinelearning.apple.com/research/alignment-multimodal-llms" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>The Bitter Lesson of Tool Calling</strong> (<a href="https://arxiv.org/abs/2608.06370" target="_blank" rel="noopener">2608.06370</a>) — 14개 모델을 BFCL v4에서 비교해, 도구를 JSON 호출 대신 타입이 있는 Python 함수로 노출하고 코드로 호출하게 하는 "프로그래매틱 툴콜링"이 11/14 모델에서 JSON 방식과 같거나 더 나은 성능을 냈다고 보고한다. GPT-5.6 계열은 10.6% 개선, 병렬 팬아웃과 컨텍스트 손상 상황에서도 더 안정적이었다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>When Self-Evolution Backfires: Pre-Commit Gating against Skill Contamination in LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.05810" target="_blank" rel="noopener">2608.05810</a>) — 자가진화 에이전트가 트라젝토리에서 스킬을 계속 증류하면 어느 임계 규모를 넘는 순간 성능이 오히려 떨어지는 "역량 오염" 위상전이를 실증하고, 결함 스킬이 후속 스킬 증류의 참고자료가 되어 사후 롤백으로도 회복이 안 되는 구조적 비가역성을 보인다. 세 종류의 검증기로 스킬 진입을 사전 차단하는 Verifier-as-Gatekeeper를 제안해 Terminal-Bench 2에서 라운드마다 꾸준히 개선되며 스킬 풀 크기를 5배 줄이면서 72% pass@1을 달성했다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>TRAJDEBUG: Tracing Error Lifecycle to Identify Critical Failures in Long-Horizon Agent Trajectories</strong> (<a href="https://arxiv.org/abs/2608.06346" target="_blank" rel="noopener">2608.06346</a>) — 실패한 에이전트 트라젝토리에서 최종 실패의 원인이 된 최초 오류 스텝을 찾는 문제를 다룬다. 다중 granularity 히스토리 압축과 근거 기반 오류 식별로 각 오류의 해소 여부와 최종 영향을 추적하며, Tau2Bench/SWE-Bench Pro에서 수작업 라벨링한 486개 실패 트라젝토리 벤치마크(TrajErrBench)를 함께 공개했다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>SkillHEX: Improving Agent Skills via Hypothesis-Driven Autonomous Exploration and Exploitation</strong> (<a href="https://arxiv.org/abs/2608.05628" target="_blank" rel="noopener">2608.05628</a>) — 테스트 타임에 제한된 상호작용 예산으로 에이전트 스킬을 자율 개선할 때, 단일 스킬을 탐욕적으로 고치다 초기 오진단에 갇히는 "착취 함정"을 지적한다. 반증 가능한 실패 가설을 실행 가능한 테스트로 바꿔 밀집 보상을 만들고 트리 탐색으로 스킬 수정 분기를 관리하며, SkillsBench 87개 태스크에서 GPT-5.3-Codex 55.9% / Claude Opus 4.7 57.9% pass rate를 기록했다.
+<ul><li>
+관련 주제: AI Agents, Hypothesis Generation
+</li></ul>
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>OPERA: Operator-residual feedback for reliable autonomous optical experiments with language-model agents</strong> (<a href="https://arxiv.org/abs/2608.05990" target="_blank" rel="noopener">2608.05990</a>) — 자율 광학 실험 에이전트가 점수만 보고 행동을 고르면 물리적으로는 개선되지 않았는데 점수만 오르는 사례가 23.6~39.0%에 달함을 확인하고, 실행 가능한 변경(연산자)과 목표 물리 조건으로부터의 이탈(잔차)을 함께 평가하는 프레임워크로 이 비율을 0.9~1.9%까지 낮췄다. 디지털 트윈에서 학습한 프로토콜을 실제 광학 장비 3대에 이식해 검증했다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Hierarchical Server Architecture for Agentic Science</strong> (<a href="https://arxiv.org/abs/2608.05332" target="_blank" rel="noopener">2608.05332</a>) — 클라우드·엣지·HPC에 흩어진 이기종 자원을 과학 워크로드 에이전트가 자동으로 발견·협상·배정받도록 하는 계층형 아키텍처를 제안한다. "비서 에이전트"들이 7개 카테고리 51개 실제/시뮬레이션 프로바이더를 대상으로 협상하며, 약 2만 건의 시뮬레이션에서 87.71%의 협상 정확도를 보였다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Agentic self-driving microscopy benchmarks support qualification but do not necessarily generalize to unseen tasks</strong> (<a href="https://arxiv.org/abs/2608.05266" target="_blank" rel="noopener">2608.05266</a>) — 현미경 등 물리 계측 장비를 제어하는 LLM 에이전트의 아키텍처(에이전트 수, RAG 파라미터, LLM 선택 등)를 105개 조합·1,949회 실행·53개 벤치마크로 비교했다. 벤치마크는 알려진 태스크에 대한 자격 검증(회귀 테스트, 진단)에는 유용하지만, 아키텍처와 결과로 학습한 대리모델이 미지의 새 태스크 성능은 안정적으로 예측하지 못한다는 한계를 보고한다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents
+</li></ul>
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>Hypothesis Testing with Conditional Queries: Learnability and the Value of Interaction</strong> (<a href="https://arxiv.org/abs/2608.06262" target="_blank" rel="noopener">2608.06262</a>) — 모델 평가에서 모든 테스트를 미리 고정할지, 이전 응답을 보고 다음 테스트를 적응적으로 고를지의 이론적 차이를 분석한다. 두 분포 클래스가 조건부 확률에서 양의 분리를 가질 때만 학습 가능함을 보이고, 적응형 정책을 비적응형으로 흉내내려면 쿼리 수가 제곱 배(Θ(N²)) 늘어나야 함을 증명해, 상호작용이 주는 이득의 한계를 정량화했다.
+<ul><li>
+관련 주제: Hypothesis Generation
+</li></ul>
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>OctoLong: Mid-Training On Cross-Repository Code Contexts Enhances Long-Context Modeling</strong> (<a href="https://arxiv.org/abs/2608.05141" target="_blank" rel="noopener">2608.05141</a>) — AST 파서·언어 서버·패키지 매니저를 조합해 저장소를 가로지르는 코드 참조를 재귀적으로 수집, 수백만 토큰 길이의 의존성이 풍부한 장문맥 코퍼스를 만든다. 기존 장문맥 학습 데이터의 12%만 이 데이터로 교체해도 18개 최신 오픈 장문맥 모델 대비 장거리 검색·상태 추적·저장소 수준 코드 이해·에이전트 태스크에서 유의미한 향상을 보였다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Chained Recursive Language Models for Multi-Iteration Reasoning</strong> (<a href="https://arxiv.org/abs/2608.05124" target="_blank" rel="noopener">2608.05124</a>) — 하나의 긴 추론 궤적이 컨텍스트 탐색·중간상태 저장·근거 검증·최종답변 생성을 동시에 감당해야 하는 문제를, 같은 모델을 반복 호출하는 "체인형 재귀 LM"으로 재구성한다. 각 호출은 압축된 요약과 블랙보드, 이전 호출이 남긴 산출물만 이어받아 추론하며, 이 방식이 순수 재귀 도구 호출 대비 언제 정확도 이득을 주는지 실험 프로토콜을 설계했다.
+<ul><li>
+관련 주제: Long-context, Reasoning
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Hierarchical Graph Memory for LLM Agents with Path-level Localization and Rewrite</strong> (<a href="https://arxiv.org/abs/2608.05095" target="_blank" rel="noopener">2608.05095</a>) — 기존 그래프 메모리가 모든 기억을 하나의 평면 그래프에 쌓아 관련 없는 맥락이 누적되고 갱신이 유닛 단위로 반복되는 문제를 지적한다. 상위 노드와 메모리 유닛으로 나눈 계층형 그래프와, 질의·업데이트 조건부 MicroGraph로 근거 경로를 먼저 찾은 뒤 유닛 내부와 유닛 간 의존성을 함께 재작성하는 방법을 제안해 장기 대화 QA와 충돌 인지 메모리 평가에서 답변 품질·토큰 효율을 개선했다.
+<ul><li>
+관련 주제: Long-context, AI Agents
+</li></ul>
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Answer First, Reason Later: Commitment Order in Diffusion LLMs</strong> (<a href="https://arxiv.org/abs/2608.05687" target="_blank" rel="noopener">2608.05687</a>) — 마스크 확산 언어모델(dLLM)이 토큰을 임의 순서로 확정할 수 있다는 자유가 추론 과제에서는 오히려 실패 요인임을 보인다. LLaDA-8B가 절반의 추론 영역이 아직 마스크 상태인데 답을 먼저 확정하는 비율이 15~24%에 달하고, 캔버스가 커질수록 최대 90%까지 답만 남는 붕괴가 나타난다. 원인은 EOS 압력이 아니라 "도달 가능성"이며, 커밋 순서를 제한하는 단일 개입으로 성능 격차를 대부분(0.528→0.852) 복구했다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Reasoning Errors Have a Region and a Direction in the Residual-Stream Trajectory of LLMs</strong> (<a href="https://arxiv.org/abs/2608.05660" target="_blank" rel="noopener">2608.05660</a>) — 레이어별 잔차 스트림 변위만 보는 기존 트라젝토리 기반 오류 탐지가 상태의 출발점 정보를 버린다는 트레이드오프를 지적하고, 벡터 양자화 기반의 대략적 위치 리더와 다층 정규화 상태에 대한 세밀한 방향 리더를 결합한 3-스트림 탐지기를 제안한다. 미지의 추론 벤치마크에서 변위만 쓰는 최신 기법 대비 최대 12%, 단일층 프로빙 대비 21% 선택 정확도를 높였다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Refining Over Resampling: Test-Time Self-Correction for LLM Reasoning</strong> (<a href="https://arxiv.org/abs/2608.05643" target="_blank" rel="noopener">2608.05643</a>) — 테스트 타임에 샘플을 더 넓게 뽑는 것만으로는 새 롤아웃이 기존 답변 패턴을 반복해 수확체감이 온다는 문제를 다룬다. 검증기 없이 여러 독립 롤아웃을 뽑고(폭) 각각을 자기비판·자기수정으로 반복 정제한 뒤(깊이) 다수결로 합치는 방법을 제안해, Qwen2.5-1.5B 기준 MATH500에서 최강 검증기 기반 베이스라인 대비 58.0%, AMC에서 25.0%→32.5%로 개선했다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">4</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 7건 · 채택 2 · 보류 1 · 탈락 4</p>
+<p>로컬 맥에서 수동 실행(<code>/paper-update</code>). 8/4 이후 클라우드 루틴이 3회차 연속 arXiv egress 차단으로 막혀 있었기 때문에, <code>last_run</code>(2026-08-04T08:13:50)부터 오늘까지의 신규분을 한 번에 처리했다. 상세는 <span class="wiki">2026-08-06</span> · <span class="wiki">2026-08-07</span> 로그 참조.</p>
+<p>수집 단계에서 arXiv가 HTTP 429(rate limit)로 6회 연속 거부했으나, 이는 클라우드 쪽의 403 정책 거부와 달리 일시적 제한이라 백오프 후 재시도로 해소되었다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>AdversarialTestBeds</strong> — Adversarial Fast-Moving Real-World Domains as Test Beds for
+ Benchmarking AI Scientist Capabilities (William Bolton, Philip Torr · Oxford)
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.03569" target="_blank" rel="noopener">2608.03569</a> · ICML 2026 AI for Science workshop
+</li><li>
+통과 근거: Gate B-1 + B-3 — ideation 벤치마크의 데이터 오염 문제를 "전문가가 경쟁적·
+ 독립적으로 시간 지연 후 공개 산출물을 내는 도메인"이라는 새 축으로 재프레이밍(F1 2026
+ 규정 / MTG <em>Lorwyn Eclipsed</em>). 모든 모델 컷오프가 두 코퍼스 공개일보다 앞선다.
+ 아울러 "격차는 아이디어 생성이 아니라 필터링·우선순위화"라는 통념 역전 결과를 제시.
+</li><li>
+파일: <code>2026/2026_AdversarialTestBeds_AI-Scientist-Capability-Benchmark_arXiv2608.03569.pdf</code>
+ · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Project2Task</strong> — Graph-Guided Project-Level Planning for Autonomous Research
+ (Huirui Xu, Runtao Xu, Shuo Ren, Jiajun Zhang · CASIA)
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.05225" target="_blank" rel="noopener">2608.05225</a>
+</li><li>
+통과 근거: Gate B-2 — 코퍼스에 이미 있는 AutoResearchClaw에 contract를 얹어 다운스트림
+ task accuracy 0.536 → 0.759(무효 실행 제외 시 0.766 → 0.830)를 실측. 재현 파이프라인에
+ 바로 얹어볼 수 있는 계획 층이다. 부수적으로 "project ≠ 큰 task"라는 분해 입도 축도 새롭다.
+</li><li>
+파일: <code>2026/2026_Project2Task_Project-Level-Planning-Autonomous-Research_arXiv2608.05225.pdf</code>
+ · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+<strong>EviGraph: Evidence-Guided Autonomous Research Agents</strong> —
+ <a href="https://arxiv.org/abs/2608.04738" target="_blank" rel="noopener">2608.04738</a> — Gate A는 명확히 통과(자율 연구 프레임워크,
+ Problem/Gap/Hypothesis/Experiment/Finding/Claim 타입 증거 그래프를 사후 기록이 아닌 운영
+ 상태로 유지). 다만 "가장 이른 약한 노드를 국소화해 하위 그래프를 재생성"하는 메커니즘이
+ 코퍼스의 SAGE/MHFA(실패 귀인 기반 자기교정) 및 Arbor(가설 트리 정련)와 구조적으로 가까워
+ Gate B-1의 "새 문제 축" 충족이 애매하다. 하루 상한 2편에서 Gate B 충족 강도상 3순위.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+<strong>Personalized Deep Research Query Refinement (G-STEER)</strong> —
+ <a href="https://arxiv.org/abs/2608.05876" target="_blank" rel="noopener">2608.05876</a> — Gate A. deep research 에이전트의 질의 정제·
+ clarification 정책으로, 정보 탐색·보고서 개인화이지 아이디어→실험 closed loop이 아니다.
+</li><li>
+<strong>Eigenius: A Typed Knowledge-Graph DBMS</strong> —
+ <a href="https://arxiv.org/abs/2608.04457" target="_blank" rel="noopener">2608.04457</a> — Gate A. "AI Scientists"를 동기로 들지만
+ 핵심 기여는 의존 타입 이론·content-addressed 저장 기반 DBMS 아키텍처(인프라 논문).
+</li><li>
+<strong>Visualizing Graph-to-Answer Mechanism Recovery in Materials-Science Hypothesis Generation</strong> —
+ <a href="https://arxiv.org/abs/2608.04170" target="_blank" rel="noopener">2608.04170</a> — 단일 모델(Graph-PRefLexOR-8B) 해석가능성
+ 케이스 스터디이며 베이스라인 없는 시각 진단 워크플로. 즉시 탈락 규정(데모·케이스 스터디).
+</li><li>
+<strong>Training Documents Reranker with Search Rubrics (RubricRanker)</strong> —
+ <a href="https://arxiv.org/abs/2608.03527" target="_blank" rel="noopener">2608.03527</a> — Gate A. 문서 리랭킹/RAG 검색 방법.
+</li></ul>
+<h3>2회차 실행 (같은 날)</h3>
+<p>조회 200건 · <strong>신규 0건</strong>. 1회차에서 <code>last_run</code>이 <code>2026-08-08T00:19:16+00:00</code>으로 갱신된 직후 재실행한 것이라 그 이후 게재된 논문이 없다. 판정할 후보가 없으므로 저장·리뷰 없이 <code>last_run</code>만 다시 밀었다. 위 1회차 집계(채택 2 · 보류 1 · 탈락 4)가 오늘의 최종 결과다.</p>
+<h3>3회차 실행 (같은 날, 클라우드 루틴)</h3>
+<p>조회 200건 · <strong>신규 0건</strong> · <code>covered: true</code> (누락 구간 없음).</p>
+<p>클라우드 스케줄 실행. 8/4 이후 세 차례 막혔던 arXiv egress 차단(403)이 이번에는 발생하지 않았고, 429 rate limit도 없었다 — 첫 요청에서 200건을 정상 수신했다.</p>
+<p><code>since = last_run = 2026-08-08T02:20:38+00:00</code> 기준으로 후보가 0건인데, 이는 <code>seen</code> 필터 때문이 아니라 <strong>질의에 걸리는 최신 논문 자체가 <code>last_run</code>보다 오래되었기</strong> 때문이다. 피드 최상단(게재일 내림차순)은 <code>2608.05876</code>(2026-08-06T10:58:17Z)이며, 이는 1회차에서 이미 Gate A 탈락으로 판정된 논문이다. 즉 8/6 10:58Z 이후 이 레이더 질의에 해당하는 신규 게재가 없다. 교차 확인으로 <code>--since 2026-08-05T00:00:00+00:00</code>을 줘도 신규 0건이었다.</p>
+<p>판정할 후보가 없으므로 저장·리뷰·MANIFEST 갱신 없이 <code>last_run</code>만 밀었다. 오늘의 최종 결과는 여전히 1회차 집계(채택 2 · 보류 1 · 탈락 4)다.</p></div></div>
+</details><details class="issue" id="issue-2026-08-07">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 7일 (금)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><div class="notice"><p>이번 세션의 네트워크 정책상 <code>arxiv.org</code>, <code>export.arxiv.org</code>, 그리고 대상 기관 8곳(deepmind.google, research.google, openai.com, anthropic.com, ai.meta.com, microsoft.com, research.nvidia.com/blogs.nvidia.com, machinelearning.apple.com)을 포함한 일반 웹사이트에 대한 아웃바운드 접근이 전부 차단되어 있었습니다.</p>
+<ul><li>
+Bash에서 <code>export.arxiv.org</code> 직접 호출 → <code>Host not in allowlist</code> 로 거부됨.
+</li><li>
+WebFetch 도구로 위 기관 페이지 및 arXiv 페이지를 시도 → 전부 HTTP 403.
+</li><li>
+검증을 위해 임의의 외부 사이트(example.com, google.com)도 WebFetch로 시도했으나 동일하게 403 → 특정 사이트 문제가 아니라 이 환경의 아웃바운드 네트워크 허용목록이 (npm/pypi/anthropic.com 등 일부 패키지 레지스트리 도메인 위주로) 제한되어 있어 일반 웹 페이지 본문을 가져올 수 없는 상태였음을 확인.
+</li><li>
+WebSearch(검색 스니펫)는 정상 동작했으나, 이것만으로는 (a) 게시물이 실제로 2026-08-06~08-07 사이에 나온 것인지 날짜를 확정할 수 없고, (b) 본문/초록 전문을 읽을 수 없어 "실제로 읽고 요약" 규칙을 지킬 수 없었습니다. 따라서 브리핑 규칙(추측 요약 금지, 실제 확인 URL만 사용)에 따라 아래 항목들은 모두 "확인 실패"로 처리합니다.
+</li></ul>
+<p><strong>권장 조치</strong>: 이 리서치 브리핑 루틴이 정상 동작하려면 실행 환경의 네트워크 정책(allowlist)에 <code>arxiv.org</code>, <code>export.arxiv.org</code>, 그리고 8개 기관 도메인을 추가해야 합니다.</p></div><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+⚠ 확인 실패 — WebFetch 403(네트워크 정책상 접근 불가). WebSearch 스니펫상 "WeatherNext" 관련 글이 최근 게시된 것으로 보였으나 정확한 게시일과 본문을 확인할 수 없어 제외.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+⚠ 확인 실패 — WebFetch 403(네트워크 정책상 접근 불가). 검색 스니펫상 가장 최근 항목은 7/30 게시로 추정되어 커버 범위(8/6~8/7) 밖일 가능성이 높음.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+⚠ 확인 실패 — WebFetch 403(네트워크 정책상 접근 불가).
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+⚠ 확인 실패 — WebFetch 403(네트워크 정책상 접근 불가).
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+⚠ 확인 실패 — WebFetch 403(네트워크 정책상 접근 불가).
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+⚠ 확인 실패 — WebFetch 403(네트워크 정책상 접근 불가).
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+⚠ 확인 실패 — WebFetch 403(네트워크 정책상 접근 불가).
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+⚠ 확인 실패 — WebFetch 403(네트워크 정책상 접근 불가).
+</li></ul><h3 class="sub">arXiv 신규</h3><p>⚠ 확인 실패 — arXiv API(<code>export.arxiv.org</code>)가 이 환경의 네트워크 정책상 차단되어 있고, arXiv 웹페이지도 WebFetch로 접근 시 403이 반환되어 신규 논문 전수 조회 및 본문(초록) 확인이 불가능했습니다. WebSearch로 5개 주제 관련 논문을 탐색해 일부 arXiv ID(예: 2608.02827, 2608.03297 등)를 발견했으나, 정확한 제출일이 커버 범위(8/6~8/7) 안에 드는지, 그리고 실제 초록 내용이 무엇인지 검증할 방법이 없어 브리핑 규칙(추측 금지)에 따라 신지 않았습니다.</p><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p><strong>실행 실패 — arXiv 접근 차단 (3회차 연속).</strong> 조회 0건 · 신규 0건 · 채택 0 · 보류 0 · 탈락 0</p>
+<p>수집 단계에서 막혀 선별·저장·리뷰를 하나도 수행하지 못했다. 채택 0편이 아니라 <strong>판정 자체를 못 한 회차</strong>다. 원인·조치 방법은 <span class="wiki">2026-08-06</span> 로그에 상세히 적어두었고, 그 이후 달라진 것이 없다.</p>
+<h3>시도 이력</h3>
+<div class="tw"><table><thead><tr><th>시각(UTC)</th><th>결과</th></tr></thead><tbody><tr><td>2026-08-07T23:13:14</td><td><code>fetch.py</code> → HTTP 403 (<code>export.arxiv.org:443</code> CONNECT 거부)</td></tr><tr><td>2026-08-07T23:13:17~22</td><td><code>arxiv.org</code>, <code>www.arxiv.org</code>, <code>export.arxiv.org</code> 직접 확인 — 셋 다 403</td></tr></tbody></table></div>
+<p>프록시 상태 엔드포인트(<code>$HTTPS_PROXY/__agentproxy/status</code>)의 <code>recentRelayFailures</code>가 동일하게 기록한다:</p>
+<p>``<code>json { "kind": "connect_rejected", "detail": "gateway answered 403 to CONNECT (policy denial or upstream failure)", "host": "export.arxiv.org:443" } </code>``</p>
+<p>정책 거부(403)는 재시도·우회 대상이 아니므로 시도를 반복하지 않았다.</p>
+<h3>원인 (변동 없음)</h3>
+<p>클라우드 실행 환경의 네트워크 egress 허용목록에 arXiv 호스트가 없다. <code>9ab8645</code>에서 일일 실행을 launchd(로컬 맥) → 클라우드 루틴으로 옮긴 뒤로 계속 막혀 있다. <code>fetch.py</code>의 버그가 아니다.</p>
+<h3>조치 필요 — 아직 미조치</h3>
+<p>Claude Code 웹의 <strong>환경 설정 → 네트워크 egress 허용목록</strong>에 아래 두 호스트를 추가해야 한다.</p>
+<ul><li>
+<code>export.arxiv.org</code> — API 조회 (fetch.py)
+</li><li>
+<code>arxiv.org</code> — 채택 논문 PDF 다운로드 (<code>https://arxiv.org/pdf/&lt;ID&gt;</code>)
+</li></ul>
+<p>API만 열면 후보 수집은 되지만 3단계 PDF 저장에서 다시 막힌다.</p>
+<h3><code>seen.json</code>을 갱신하지 않은 이유</h3>
+<p><strong>의도적으로 <code>last_run</code>을 밀지 않았다.</strong> <code>2026-08-04T08:13:50+00:00</code>에 그대로 둔다.</p>
+<p><code>fetch.py</code>의 <code>filter_new()</code>는 <code>published &lt;= last_run</code>인 항목을 버린다. 커서를 오늘로 당기면 접근 복구 후 08-04 ~ 08-07 구간의 논문이 조회에서 통째로 빠져 <strong>영구 누락</strong>된다. 수집이 성공해서 신규 0건인 회차와 달리, 이 구간은 아직 한 번도 조회된 적이 없다.</p>
+<p>허용목록 수정 후 다음 실행이 08-04 이후 구간을 이어서 조회한다. 즉시 따라잡으려면:</p>
+<p>``<code>bash python3 "0-papers/.radar/fetch.py" --since 2026-08-04T08:13:50+00:00 </code>``</p>
+<h3>채택</h3>
+<p>없음 (판정 미수행).</p>
+<h3>보류</h3>
+<p>없음 (판정 미수행).</p>
+<h3>탈락</h3>
+<p>없음 (판정 미수행).</p></div></div>
+</details><details class="issue" id="issue-2026-08-06">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 6일 (목)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p><strong>실행 실패 — arXiv 접근 차단 (당일 2회 시도 모두 실패).</strong> 조회 0건 · 신규 0건 · 채택 0 · 보류 0 · 탈락 0</p>
+<p>수집 단계에서 막혀 선별·저장·리뷰를 하나도 수행하지 못했다. 채택 0편이 아니라 <strong>판정 자체를 못 한 회차</strong>다.</p>
+<h3>시도 이력</h3>
+<div class="tw"><table><thead><tr><th>시각(UTC)</th><th>결과</th></tr></thead><tbody><tr><td>2026-08-06 오전</td><td><code>fetch.py</code> → HTTP 403. 아래 원인 참조</td></tr><tr><td>2026-08-06T23:05:38</td><td>재시도 — 동일하게 403. 프록시 응답: <code>Host not in allowlist: export.arxiv.org.</code></td></tr></tbody></table></div>
+<p>허용목록은 아직 수정되지 않았다. 조치가 없으면 다음 회차도 같은 지점에서 멈춘다.</p>
+<h3>원인</h3>
+<p>클라우드 루틴 실행 환경의 네트워크 egress 허용목록에 arXiv 호스트가 없다.</p>
+<p>``` $ python3 0-papers/.radar/fetch.py urllib.error.HTTPError: HTTP Error 403: Forbidden</p>
+<p>$ curl http://export.arxiv.org/api/query?... 403 — Host not in allowlist: export.arxiv.org. Add this host to your network egress settings to allow access.</p>
+<p>$ curl https://arxiv.org/       -&gt; 000 (CONNECT tunnel failed, response 403) $ curl https://export.arxiv.org/ -&gt; 000 (CONNECT tunnel failed, response 403) ```</p>
+<p><code>arxiv.org</code>, <code>export.arxiv.org</code>, <code>www.arxiv.org</code> 모두 프록시 CONNECT 단계에서 차단된다. WebFetch 도구로도 동일하게 403이다. <code>fetch.py</code>의 버그가 아니며, 스크립트는 그대로 두면 된다.</p>
+<p>직전 회차(2026-08-04)는 launchd로 로컬 맥에서 돌아 정상 동작했다. 그 뒤 <code>9ab8645 chore(radar): switch daily run from launchd to cloud routine</code>로 실행 위치를 클라우드로 옮겼는데, 새 환경의 egress 정책에 arXiv가 빠져 있어 첫 클라우드 회차부터 막혔다.</p>
+<h3>조치 필요</h3>
+<p>Claude Code 웹의 <strong>환경 설정 → 네트워크 egress 허용목록</strong>에 다음을 추가해야 한다.</p>
+<ul><li>
+<code>export.arxiv.org</code> — API 조회 (fetch.py)
+</li><li>
+<code>arxiv.org</code> — 채택 논문 PDF 다운로드 (<code>https://arxiv.org/pdf/&lt;ID&gt;</code>)
+</li></ul>
+<p>둘 다 필요하다. API만 열면 후보 수집은 되지만 3단계 PDF 저장에서 다시 막힌다.</p>
+<h3><code>seen.json</code>을 갱신하지 않은 이유</h3>
+<p><strong>의도적으로 <code>last_run</code>을 밀지 않았다.</strong> <code>2026-08-04T08:13:50+00:00</code>에 그대로 둔다.</p>
+<p><code>fetch.py</code>의 <code>filter_new()</code>는 <code>published &lt;= last_run</code>인 항목을 버린다. 여기서 <code>last_run</code>을 오늘로 당기면, 접근이 복구된 뒤 08-04 ~ 08-06 사이에 게재된 논문이 조회 결과에서 통째로 제외되어 <strong>영구히 누락</strong>된다. 수집이 성공해서 신규가 0건인 회차와 달리, 이번엔 그 구간을 아직 한 번도 못 봤으므로 커서를 전진시키면 안 된다.</p>
+<p>허용목록 수정 후 다음 실행이 08-04 이후 구간을 그대로 이어서 조회한다. 수동으로 즉시 따라잡으려면:</p>
+<p>``<code>bash python3 "0-papers/.radar/fetch.py" --since 2026-08-04T08:13:50+00:00 </code>``</p></div></div>
+</details><details class="issue" id="issue-2026-08-04">
+  <summary class="issue__head">
+    <span class="issue__date">2026년 8월 4일 (화)</span>
+    <span class="issue__tag">지난 호</span>
+  </summary>
+  <div class="issue__body"><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">3</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">9</span></span></span></h3><div class="radar"><p>첫 실행 (최근 7일치, <code>--since 2026-07-28</code>). 조회 200건 · 신규 14건 · 채택 2 · 보류 3 · 탈락 9</p>
+<h3>채택</h3>
+<ul><li>
+<strong>Implementation Lottery</strong> — One Run Is Not an Idea: The Implementation Lottery in Automated Research
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2607.26587" target="_blank" rel="noopener">2607.26587</a> · CMU
+</li><li>
+통과 근거: Gate B-1 + B-3 — 자동 연구가 realization 수준 점수를 아이디어 수준 증거로 쓰는 구조적 불일치를 새 축으로 열고, LOO 승자 역전 25.6~43.6%라는 반직관 실증
+</li><li>
+파일: <code>2026/2026_ImplementationLottery_Idea-Reliability-Audit_arXiv2607.26587.pdf</code>
+</li><li>
+리뷰: <code>2026/2026_ImplementationLottery_Idea-Reliability-Audit_arXiv2607.26587_리뷰.md</code>
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>DivAlign</strong> — Diversifying Personalized Research Ideation against AI-Induced Homogenization
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2607.28087" target="_blank" rel="noopener">2607.28087</a> · Wuhan Univ. / Univ. of Sydney
+</li><li>
+통과 근거: Gate B-2 — TasteGap이 측정한 ideation 동질화의 완화 쪽 파이프라인. Stage 4의 MMR 중복 페널티를 가설 트리 확장에 바로 이식 가능
+</li><li>
+파일: <code>2026/2026_DivAlign_De-Homogenized-Research-Ideation_arXiv2607.28087.pdf</code>
+</li><li>
+리뷰: <code>2026/2026_DivAlign_De-Homogenized-Research-Ideation_arXiv2607.28087_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+TCA-SIR: Learning Target-Conditioned Abstractions for Scientific Inspiration Retrieval — <a href="https://arxiv.org/abs/2607.28498" target="_blank" rel="noopener">2607.28498</a> — Gate A 통과(가설 생성 전단의 inspiration retrieval)이나 SIR 컴포넌트 개선에 가까워 Gate B 충족이 애매
+</li><li>
+HPFA: Hypergraph-Based Paired Failure Attribution for LLM Reasoning — <a href="https://arxiv.org/abs/2608.02026" target="_blank" rel="noopener">2608.02026</a> — 실패 귀인 축이나 대상이 연구 에이전트가 아닌 일반 수학·코딩 추론이고, 이미 보유한 SAGE/MHFA와 같은 축
+</li><li>
+MARS: Autonomous Repair for Multi-Agent Systems via MCTS (+ StateMAS 벤치마크) — <a href="https://arxiv.org/abs/2607.29055" target="_blank" rel="noopener">2607.29055</a> — StateMAS가 표준 벤치마크가 될 여지(B-4)는 있으나 대상이 연구 에이전트가 아닌 일반 MAS
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+Abduction Without a Body? Representational Grounding and the Abduction Loop — <a href="https://arxiv.org/abs/2608.02505" target="_blank" rel="noopener">2608.02505</a> — 정량 평가 없이 "documented episode" 1건만 제시하는 포지션 페이퍼 (즉시 탈락 규칙)
+</li><li>
+OmniQEC: discovering practical QEC codes by an AI scientist — <a href="https://arxiv.org/abs/2607.25865" target="_blank" rel="noopener">2607.25865</a> — AI scientist 틀을 양자오류정정 도메인에 적용, 핵심 기여가 도메인 성과 (도메인 갈아끼우기)
+</li><li>
+ScrambleToolBench — <a href="https://arxiv.org/abs/2608.02358" target="_blank" rel="noopener">2608.02358</a> — Gate A 실패: 툴 사용·행동 추론 벤치마크이지 연구 파이프라인이 아님
+</li><li>
+Deep Research Pretraining via Predictive Navigation — <a href="https://arxiv.org/abs/2608.00432" target="_blank" rel="noopener">2608.00432</a> — Gate A 실패: deep research = 웹 검색·보고서 작성이지 과학 연구 루프가 아님
+</li><li>
+Baikal: Structured Search for Deep Research over Data Lakes — <a href="https://arxiv.org/abs/2607.27726" target="_blank" rel="noopener">2607.27726</a> — Gate A 실패: 데이터레이크 질의 응답
+</li><li>
+FinDeepIndicator — <a href="https://arxiv.org/abs/2608.00764" target="_blank" rel="noopener">2608.00764</a> — 금융 도메인 벤치마크
+</li><li>
+FinanceHarness — <a href="https://arxiv.org/abs/2607.27853" target="_blank" rel="noopener">2607.27853</a> — 금융 도메인 하네스
+</li><li>
+Auditable Release Control for Pedagogical Leakage in LLM Tutors — <a href="https://arxiv.org/abs/2608.00515" target="_blank" rel="noopener">2608.00515</a> — 주제 무관 (교육용 튜터 안전성)
+</li><li>
+From Minds to Models: The Intersection of Psychology and LLM Behaviours — <a href="https://arxiv.org/abs/2607.27579" target="_blank" rel="noopener">2607.27579</a> — 주제 무관 (LLM 심리 측정)
+</li></ul>
+<h3>메모</h3>
+<ul><li>
+<code>fetch.py</code>에 SSL CA 폴백 추가 (python.org macOS 빌드에 시스템 CA 번들이 비어 있어 <code>certifi</code>가 있으면 사용).
+</li><li>
+게이트 강도 관찰용: 이번 회차는 탈락 9건 중 6건이 Gate A(도메인/주제 무관)에서 걸렸다. 코어 3토픽 쿼리가 "deep research"·금융·툴사용 계열을 과하게 끌어오고 있으니, 며칠 더 보고 <code>topics.toml</code>의 <code>exclude</code>에 <code>deep research</code>·<code>financial</code> 계열 추가를 검토할 것.
+</li></ul></div></div>
+</details></section>
+<footer class="colophon">
+  <p>AI 사이언티스트 레이더 · 매일 아침 7시 30분 발행 · 최근 14호 수록</p>
+  <p>원본은 리포지터리의 <code>0-papers/_briefing/</code>(기관·arXiv 브리핑)와
+     <code>0-papers/_log/</code>(Paper Radar 판정 기록)입니다.
+     이 지면은 그 마크다운을 그대로 조판한 것이며, 여기서 내용을 새로 만들지 않습니다.</p>
+  <p>조판 2026-08-18</p>
+</footer>
+</div>
+
+</body></html>
