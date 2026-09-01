@@ -1,0 +1,114 @@
+---
+title: "AI 사이언티스트 레이더 — 2026년 8월 13일 (목)"
+date: 2026-08-13T07:30:00+09:00
+draft: false
+issue_label: "2026년 8월 13일 (목)"
+summary: "기관 3 · arXiv 15 · 채택 1 · 보류 1 · 탈락 0"
+tags: ["Daily", "AI Scientist Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>Putting sign language AI into users' hands</strong> (2026-08-12) — 수어를 텍스트로 옮기는 다국어 모델 SL2T을 발표하고 Pixel 11의 Gboard·Live Transcribe에 ASL→영어부터 탑재했습니다. 50개 이상 수어 10만 시간 이상(약 25%가 ASL)으로 학습했고, 원본 영상 대신 온디바이스 MediaPipe Holistic이 뽑은 포즈 랜드마크만 처리해 프라이버시를 지키면서 중간 표기(gloss)를 건너뛰고 좌표를 바로 텍스트로 번역해 비수지 신호와 공간 구문을 담습니다. FLEURS-ASL에서 제로샷 70 BLEURT로 기존 보고치를 크게 넘어섰다고 밝혔습니다. — <a href="https://deepmind.google/blog/putting-sign-language-ai-into-users-hands/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>Empty shelves or lost keys? Recall is the bottleneck for parametric factuality</strong> (2026-08-12) — 사실 오류를 "애초에 배우지 못함(encoding failure)"과 "저장했지만 꺼내지 못함(recall failure)"으로 분리해 측정하는 프레임워크를 제안하고, 위키 기반 2,150개 사실 × 문항 10개(WikiProfile)로 프런티어 모델을 프로파일링했습니다. Gemini-3·GPT-5급 모델이 사실의 95–98%를 인코딩하고도 26–34%는 직접 상기하지 못했고, thinking을 켜도 11–12%는 여전히 접근 불가였습니다. thinking은 인코딩된 사실의 40–65%를 회수하지만 인코딩되지 않은 사실은 5–15%만 건져 "추론이 곧 상기 촉진 장치"임을 보이며, 사실성 개선의 방향을 데이터·규모가 아니라 지식 <em>활용</em> 쪽으로 돌립니다. — <a href="https://research.google/blog/empty-shelves-or-lost-keys-recall-is-the-bottleneck-for-parametric-factuality/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Long-context, Reasoning
+</li></ul>
+</li><li>
+(8/11 "Advancing AMIE towards expert-level audio-visual clinical consultations"는 어제 브리핑에서 이미 다뤘습니다.)
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 명세대로 Research/Publication 카테고리로 필터링했습니다. 커버 범위 안의 신규 항목 4건(8/12 "From assistance to execution: How enterprises put AI to work", 8/12 "How RingCentral builds AI-native work…", 8/11 "Testing ads in ChatGPT", 8/11 "Daybreak models are now available on AWS")은 모두 Company/Product 카테고리로 연구 발표가 아닙니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>Reviewing the evidence on worker retraining programs</strong> (2026-08-12) — Economic Research 팀이 AI로 인한 노동시장 교란의 정책 대응으로서 재훈련 프로그램의 실증 근거를 정리한 문헌 리뷰 겸 메타분석입니다. 미국 무작위 배정 연구 56건을 새로 메타분석하고 유럽의 실험 근거를 함께 검토해, 통상적 훈련 프로그램은 고용률 2~3%p·연소득 약 $1,000 상승에 비용은 약 $13,000(세수 증가와 급여성 지출 감소를 감안하면 정부가 절반 이상 회수)라는 완만한 효과를 보고합니다. 고수요 분야 고용주와 제휴하는 섹터형 프로그램은 몇 배 큰 효과를 내지만 복제 시도가 자주 실패해 확장이 어렵다는 점을 짚으며, 대규모 실직이 발생하면 현행 접근으로는 부족하다고 결론짓습니다. — <a href="https://www.anthropic.com/research/reviewing-the-evidence-on-worker-retraining-programs" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li><li>
+(8/10 "Learning more about Claude's mathematical capabilities"(Riemann zeta)는 이미 다룬 항목입니다.)
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>) 확인(RSS 없음). 최신 게시물은 여전히 7/27 "Reimagining Independence: How Meta's AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+⚠ 확인 실패 — <code>microsoft.com/en-us/research/feed/</code>, <code>…/research/blog/feed/</code>, <code>…/research/blog/</code>(HTML) 3경로 모두 <strong>HTTP 503</strong>을 반환했습니다. 대체 경로로 웹 검색을 돌려 8/12자 게시물이 존재한다는 사실까지는 확인했습니다(MindTopo — 다중모달 모델의 위상 추론을 연속성·분리·순서·포함·매듭 5개 Piaget 원시개념으로 나눠 13개 과제 11,016 인스턴스로 평가하는 벤치마크). 다만 <strong>블로그 본문을 직접 읽지 못했고</strong>, 프로젝트 페이지(<code>mind-topo.github.io</code>)는 이 환경의 egress 정책에 막혔습니다. 위 설명은 검색 스니펫에 근거한 것이라 수치·주장을 확정하지 않았으며, 링크도 확인된 URL이 없어 싣지 않습니다. 내일 재확인 대상입니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(주제 무관) — <code>blogs.nvidia.com/feed/</code>의 커버 범위 내 신규 글은 8/12 Glassdoor CEO 선정, 8/12 AI 팩토리 컴퓨트의 투자자산화, 8/11 800VDC 전력 아키텍처로 모두 기업·인프라 소식입니다(8/11 Nemotron 3.5 Lightning / NeMo Switchyard 발표는 어제 이미 다뤘습니다). <code>research.nvidia.com/publications</code>도 확인했으나 항목 날짜가 <code>2026-MM</code> 월 단위까지만 제공되어 커버 범위 내 신규 여부를 판정할 수 없습니다(과거 실행에서도 동일).
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>) 확인. 최신 게시물은 여전히 8/7 "Scaling Categorical Flow Maps"로, 이미 다룬 항목입니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><p><strong>색인 참고</strong>: 넓은 조회 300건의 게재 시각 범위는 2026-08-10 19:39 ~ 2026-08-11 17:59 UTC로 어제 상한보다 하루 전진했습니다. 다만 최상단이 실행 시각(2026-08-12 15:00 UTC 이후)보다 약 하루 뒤처져 있어 색인 지연은 계속되고 있으며, 이 때문에 Paper Radar 커서도 실행 시각이 아니라 관측된 최신 게재 시각으로 두었습니다(3절).</p>
+<h4>AI Agents</h4>
+<ul><li>
+<strong>Why Does CLAUDE.md Keep Growing? Catastrophic Remembering in Agentic Coding</strong> (<a href="https://arxiv.org/abs/2608.11095" target="_blank" rel="noopener">2608.11095</a>) — 에이전트 코딩 지침 파일이 무한히 자라는 현상을 "지시를 덧붙이는 비용은 항상 싸지만, 근거가 사라진 지시를 회귀 위험 없이 지우려면 |D|개 지시에 대해 O(2^|D|)가 든다"는 불완전 상기 문제로 설명하고 이를 catastrophic forgetting의 역인 <strong>catastrophic remembering</strong>으로 명명합니다. 1,867개 저장소의 247,694개 지시 생애를 추적해 프롬프트가 생애 동안 +226% 늘고 커밋당 순증 +4.9개이며 오래된 지시일수록 삭제 확률이 낮아짐(log-hazard −0.032/commit)을 보였습니다. 해법으로 IFEval을 뒤집어 최적 프롬프트가 알려진 세계를 만들고, 잠재 근거를 적은 "프롬프트 주석"이 초과 지시의 99.3%를 제거하며 WildIFEval에서 실제 지시 따르기를 최대 23.1% 개선함을 보입니다.
+</li><li>
+<strong>DSAgentBench: Can Agents Automate End-to-End Data-Science Workflows in Real Computer Environments?</strong> (<a href="https://arxiv.org/abs/2608.10366" target="_blank" rel="noopener">2608.10366</a>) — 노트북·IDE·터미널·브라우저·DB를 실제 OS 환경에서 함께 다뤄야 하는 데이터사이언스 전 주기 275개 과제를 모아, 코드 실행만이 아니라 분석 정확성·시각화 산출·모델 성능을 결정론적으로 검증하는 벤치마크입니다. 15개 모델 실험에서 최강 에이전트인 Claude-4.6-Sonnet조차 56.70%에 그쳤고 오픈소스 에이전트는 전부 1% 미만으로, 실패가 툴 오케스트레이션·OS 그라운딩·다단계 추론에 몰렸습니다.
+</li><li>
+<strong>Self-Correcting Long-Horizon Search Agents via Tree-Structured Memory (ReTree)</strong> (<a href="https://arxiv.org/abs/2608.10676" target="_blank" rel="noopener">2608.10676</a>) — 검색 에이전트에 전체 궤적을 다 넣으면 컨텍스트가 무한히 커지고, 기존 압축은 세부를 잃거나 틀린 사실만 갈아끼울 뿐 그로부터 파생된 추론을 고치지 못한다는 문제를 다룹니다. 탐색을 증거 트리로 모델링해 노드마다 요약·증거·수정 이력을 저장하고, 새 증거가 이전 주장과 충돌하면 그 주장이 도입된 노드까지 거슬러 올라가 증거를 교체하고 요약을 재생성하며 영향받은 가지를 쳐냅니다. QA·검색 4개 벤치마크에서 Full-Trajectory ReAct 대비 정확도 최대 +25.6%p, 단계별 최대 추론 컨텍스트는 ReAct가 ReTree의 1.27–1.51배였습니다.
+</li><li>
+<strong>GitSkills: A Dataset of Agent Skills on GitHub</strong> (<a href="https://arxiv.org/abs/2608.10906" target="_blank" rel="noopener">2608.10906</a>) — 2026년 7월 시점 공개 저장소 282,200개에서 수집한 SKILL.md 파일 3,797,117개(중복 제거 시 고유 내용 1,877,981개)의 데이터셋입니다. 에이전트 스킬은 자연어로 쓰이고 런타임에 모델이 확률적으로 선택하며 컴파일러나 타입 검사기가 검증하지 않는 데다 중앙 레지스트리·패키지 매니저 없이 폴더 복사로 퍼지기 때문에, 소프트웨어공학 연구가 다뤄온 산출물과 성격이 다르다는 점을 문제로 세웁니다. 프런트매터 파싱·저장소 메타데이터·일부 커밋 이력을 붙여 단일 SQLite로 배포합니다.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>Recovering Wasted Compute in Autoresearch Agents</strong> (<a href="https://arxiv.org/abs/2608.10424" target="_blank" rel="noopener">2608.10424</a>) — 트리 탐색 기반 MLE 에이전트(AIDE·ML-Master)가 표 형식 과제에서 컴퓨트를 낭비하는 네 양상(같은 버그 반복 해결, 예산이 남아도 HPO 미수행, 탐색이 실제로는 탐색 안 함, EDA를 결정에 반영 안 함)을 규명하고 각각에 표적 개입을 넣었습니다. 백본을 GPT-5-mini로 고정한 채 전역 버그 레지스트리("debug consultant")만으로 골드 22→38(AIDE)·18→29(ML-Master), 중복 버그 조우 46.0%→7.8%를 달성해 성능 회수가 모델이 아니라 에이전트 설계로 가능함을 보입니다. <strong>오늘 Paper Radar 채택</strong> — 3절 참고.
+</li><li>
+<strong>Tree-of-Ideas: Automated Research Ideation via Cross-Trajectory Reasoning over Scholarly Evolution</strong> (<a href="https://arxiv.org/abs/2608.10740" target="_blank" rel="noopener">2608.10740</a>) — 연구 아이디어 생성이 선행연구의 정적 이해를 넘어 문제와 해법이 문헌을 따라 어떻게 진화했는지를 추적해야 한다고 보고, 인용에서 분기하는 연구 궤적을 복원하는 EvoTrace와 궤적 *사이*를 추론해 수렴하는 문제와 상보적 해법을 찾는 EvoAgent의 2단 프레임워크를 제안합니다. 6개 AI 연구 주제에서 자동 기법 중 최고점(10점 척도 6.27 vs 최강 베이스라인 5.36)이며 인간 논문 참조치(6.29)에 근접했다고 보고합니다. (Paper Radar에서는 근거가 LLM 심사 점수 하나뿐이라 <code>held</code> — 3절 참고.)
+</li><li>
+<strong>Long-Horizon AI Research for Grothendieck Constant: A Case Study in Human-AI Mathematical Collaboration</strong> (<a href="https://arxiv.org/abs/2608.11195" target="_blank" rel="noopener">2608.11195</a>) — AI 연구 시스템을 써서 Grothendieck 상수 K_G의 기존 최선 상·하계를 실제로 개선한 사례 연구로, 도메인 전문가가 새롭다고 인정한 통찰에 AI가 도달했다고 보고합니다. 수학 연구에 AI를 쓸 때의 강점과 약점, 그리고 "돌파구가 나올 조건"을 어떻게 만들었는지를 서술하는 경험 보고 성격입니다.
+</li><li>
+<strong>ChemWorld: Programmable Chemical Worlds for Controlled and Replayable Agent Experimentation</strong> (<a href="https://arxiv.org/abs/2608.10792" target="_blank" rel="noopener">2608.10792</a>) — 물리 실험실은 반복이 비싸고 기존 디지털 환경은 세계 자체가 고정되어 있다는 간극을 겨냥해, 재사용 가능한 공정·관측 컴포넌트를 실행 가능한 세계로 컴파일하는 프로그래머블 화학 환경을 제시합니다. 에이전트가 보는 공개 실험 계약과 평가자가 소유한 화학·물성 법칙을 분리해, 공개 과제를 고정한 채 숨은 법칙 하나만 바꾸는 개입이 가능하며 트랜잭션 실행 기록으로 전체 궤적을 정확히 재생·감사할 수 있습니다.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>Hypothesis Frontier: Verifier Guided LLM and Symbolic Search for First-Order Induction</strong> (<a href="https://arxiv.org/abs/2608.10843" target="_blank" rel="noopener">2608.10843</a>) — 여러 유한 관계 구조에서 라벨된 객체를 일관되게 분류하는 1차 논리식을 찾는 문제에서, LLM이 내놓는 후보는 의미상 그럴듯해도 정확하지 않은 경우가 많다는 점을 출발점으로 삼습니다. 매 후보를 모든 학습 객체에 대해 정확히 평가해 최강 검증 가설을 라운드에 걸쳐 보존하고, 남은 오류로 다음 생성을 유도하며, 기호적 처리로 무효 식을 수리하되 LLM 가설에 계속 정박시킵니다. 모델·문제셋·라운드 예산을 맞춘 비교에서 동일 프롬프트 반복 생성보다 훨씬 많은 문제를 풀었습니다.
+</li><li>
+<strong>Detecting an Effect Is Not Learning to Act on It: A Reward-SNR Floor for LLM Acquisition Agents</strong> (<a href="https://arxiv.org/abs/2608.10441" target="_blank" rel="noopener">2608.10441</a>) — 비용을 내고 LLM 추론 같은 보조 관측을 획득하는 파이프라인에서, "그 신호가 평균적으로 도움이 된다는 것을 검출하는 일"과 "인스턴스별로 언제 획득할지 학습하는 일"은 다르며 후자에는 보상 SNR 하한(ρ*(N)≈2.8/√N)이 존재한다고 주장합니다. 실제로 in-sample 오라클이 큰 이득을 보여도 학습된 라우팅은 어떤 입도(임프레션·클러스터·레짐·uplift tree)에서도 무작위를 이기지 못했고, 모멘트를 맞춘 잡음 플라시보가 오라클 이득의 100% 이상을 재현해 "학습 가능한 구조"의 정체가 잡음의 순서통계량임을 보입니다. MIND·REES46·Amazon-Beauty 세 데이터셋이 모두 하한 아래에 있어, 실현 가능한 단위는 인스턴스별 정책이 아니라 설계 시점의 레짐 게이트라고 결론짓습니다.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>Cracks in the Foundation: Seemingly Minor Architectural Choices Impact Long Context Extension</strong> (<a href="https://arxiv.org/abs/2608.10296" target="_blank" rel="noopener">2608.10296</a>) — Olmo·Llama·Qwen 계열이 각각 채택한 네 가지 사소해 보이는 아키텍처 결정(정규화, GQA, 사전학습 컨텍스트 길이, 슬라이딩 윈도 어텐션)이 장문맥 확장성에 <strong>복리로</strong> 악영향을 준다는 것을 통제 ablation으로 보입니다. 하나만으로는 영향이 작지만 셋 이상 겹치면 다운스트림 성능이 최대 47%까지 떨어지고, 이 차이는 짧은 컨텍스트 손실이나 검증셋으로는 탐지되지 않습니다. 17만 GPU-시간 이상을 들여 확장 전후 체크포인트를 갖춘 7B 모델 26종(OlmPool)을 공개했고, 그중 몇몇은 Llama 3 아키텍처보다 장문맥 확장성이 좋습니다.
+</li><li>
+<strong>Mitigating Context Interference for Reliable and Efficient Search Agents</strong> (<a href="https://arxiv.org/abs/2608.10743" target="_blank" rel="noopener">2608.10743</a>) — 다중 턴 검색 에이전트의 컨텍스트에 매 턴 검색 문서가 쌓이며 무관한 정보가 모델을 산만하게 만드는 현상(context interference)을 체계적으로 분석해, 간섭이 주로 <strong>가장 최근에 검색된 문서</strong>에서 온다는 것을 밝힙니다. 이를 바탕으로 증류 기반 컨텍스트 정제기를 붙이고, 나아가 정제를 검색 에이전트의 RL 학습 파이프라인 자체에 통합하면 신뢰성과 효율이 함께 크게 개선됨을 보여 "정제 후 생성" 패러다임을 제안합니다.
+</li><li>
+<strong>Decomposition-Induced Context-Memory Conflict: When Fact-Checking Pipelines Contradict Their Own Source Text</strong> (<a href="https://arxiv.org/abs/2608.10627" target="_blank" rel="noopener">2608.10627</a>) — FActScore류 "분해 후 검증" 팩트체크 파이프라인에서 중립적 전처리로 취급되던 분해 단계가, 분해기가 원문 대신 자기 파라미터 지식을 밀어 넣어 원문과 모순되는 주장을 만들어내는 통로가 될 수 있음을 보입니다. 이것이 고전적 context-memory conflict와 기계적으로 같은 현상임을 근거로, NQ-Swap에서만 학습해 분해 출력을 한 번도 보지 않은 선형 프로브가 DI-CC 발생 위치를 AUC 0.86–0.88로 분리해냅니다. SelfCheckGPT식 자기일관성 샘플링은 AUC 0.51로 전혀 잡지 못하는데, DI-CC 내용이 재샘플링해도 안정적으로 재현되기 때문입니다.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Optimal Stopping of Self-Refining Foundation Models</strong> (<a href="https://arxiv.org/abs/2608.10729" target="_blank" rel="noopener">2608.10729</a>) — 검증자 피드백을 받아 반복 정제하는 루프에서 "몇 번 더 돌릴 것인가"를 비용 대비 기대 개선의 <strong>최적 정지 문제</strong>로 정식화하고, 확률적 근사로 효율적으로 계산 가능한 정지 정책을 유도합니다. 코딩 벤치마크에 적용해 기존 연구의 정지 규칙보다 유의하게 비용 효율적임을 보였습니다.
+</li><li>
+<strong>ThinkRetrieve: Retrieval-Augmented Reasoning Traces for Test-Time Scaling</strong> (<a href="https://arxiv.org/abs/2608.10928" target="_blank" rel="noopener">2608.10928</a>) — 순차적 test-time scaling이 트레이스가 길어질수록 불확실성 증가·오류 누적·원문제 이탈로 수익이 줄거나 음이 되는 문제에, 단계마다 풀이가 붙은 유사 문제를 검색해 사고 트레이스 안에 직접 주입하는 방식을 제안합니다. "무엇이 관련 사실인가"가 아니라 "어떻게 추론하는가"를 주는 것이 핵심이며, 1.5B–8B 모델 5종에서 표준 test-time scaling 대비 일관된 개선(AIME 2025 최대 상대 +60%)을 보였습니다.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">1</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 2건 · 채택 1 · 보류 1 · 탈락 0</p>
+<p><strong>수집어 보강.</strong> 1차 수집(<code>fetch.py</code>, since=<code>2026-08-10T17:59:51+00:00</code>)은 신규 1건만 반환했으나, 브리핑용 넓은 조회에서 <code>Recovering Wasted Compute in Autoresearch Agents</code> (<a href="https://arxiv.org/abs/2608.10424" target="_blank" rel="noopener">2608.10424</a>)가 Gate A 토픽 1에 정면으로 해당하는데도 후보에 오르지 않은 것을 확인했다. 원인은 <code>topics.toml</code>의 <code>auto-research-agent</code> include 목록이 <code>automated research</code>는 잡지만 한 단어 철자인 <strong><code>autoresearch</code></strong> 는 못 잡기 때문이었다(레이더 질의는 <code>all:"&lt;문구&gt;"</code> 정확 구문 매칭). 이 논문은 제목·초록 전체에서 일관되게 <code>autoresearch</code>만 쓴다. <code>topics.toml</code>에 <code>"autoresearch"</code>를 추가하고 같은 커서로 재수집해 신규 2건을 얻었다. 이 철자를 쓰는 논문이 앞으로도 계속 나올 것이므로 설정 변경으로 영구 수정한다.</p>
+<p><strong>arXiv HTTP 계층 교체.</strong> <code>fetch.py</code>의 <code>urllib</code> 경로가 <code>HTTP 503</code>으로 재시도 없이 죽어(명세 1절 표), 판정 로직은 그대로 두고 HTTP 계층만 <code>curl</code> + 20s→45s→90s→150s 백오프로 감싸 실행했다. 재수집 때 429/503이 4회 연속 났고 마지막 재시도에서 성공했다 — arXiv 측 일시적 rate limit이다.</p>
+<p><strong>색인 지연 및 커서.</strong> 넓은 조회(<code>cat:cs.AI OR cs.CL OR cs.LG</code>, 300건) 최상단 <code>published</code>가 <code>2026-08-11T17:59:13Z</code>로, 실행 시각(<code>2026-08-13T00:0x KST</code> = <code>2026-08-12T15:0x UTC</code> 이후)보다 약 하루 이상 뒤처져 있다. 따라서 커서를 실행 시각으로 밀면 <code>2026-08-11T18:00Z</code> 이후 게재분이 나중에 색인될 때 <code>published &lt;= cutoff</code>에 걸려 영구 누락된다. 명세 6절 두 번째 규칙에 따라 커서를 <strong>이번 피드에서 실제로 관측된 가장 최신 published</strong>(<code>2026-08-11T17:59:13+00:00</code>)로 설정한다. 어제 커서(<code>2026-08-10T17:59:51+00:00</code>)보다는 하루 전진했다. 재검토 중복은 <code>seen.json</code>이 막는다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>WastedCompute (Debug Consultant)</strong> — Recovering Wasted Compute in Autoresearch Agents (COLM 2026)
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.10424" target="_blank" rel="noopener">2608.10424</a>
+</li><li>
+통과 근거: Gate A-1(autoresearch 파이프라인의 코어 모델링 단계가 핵심 기여) + <strong>Gate B-2</strong> — 전역 버그 레지스트리·예산 인지 HPO 커리큘럼·Thompson Sampling 백트래킹 세 개입 모두 판정 로직을 건드리지 않는 순수 스캐폴드 변경이라 HypoExplore/AutoScientists에 그대로 이식 가능. 부수적으로 <strong>Gate B-3</strong> — 백본(GPT-5-mini)을 고정한 채 스캐폴드만으로 골드 22→38(AIDE)·18→29(ML-Master), 중복 버그 조우 46.0%→7.8%(Table 1, Table 4)로 "성능은 모델이 좌우한다"는 통념에 반하는 정량 결과.
+</li><li>
+파일: <code>2026/2026_WastedCompute_Autoresearch-Compute-Recovery_arXiv2608.10424.pdf</code> · 리뷰: <code>2026_WastedCompute_Autoresearch-Compute-Recovery_arXiv2608.10424_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+<strong>Tree-of-Ideas: Automated Research Ideation via Cross-Trajectory Reasoning over Scholarly Evolution</strong> — <a href="https://arxiv.org/abs/2608.10740" target="_blank" rel="noopener">2608.10740</a> — Gate A-3 통과(연구 아이디어 생성이 핵심 기여). Gate B가 애매하다: "인용 사슬이 아니라 분기하는 연구 궤적 간 상호작용"이라는 접지 구조는 코퍼스에 없는 프레이밍(B-1 후보)이지만, 이를 뒷받침하는 유일한 증거가 LLM 심사 10점 척도에서 6.27 vs 5.36(최강 베이스라인)이라는 +0.91 차이다. 우리 코퍼스의 TasteGap·ImplementationLottery가 바로 이런 심사 점수가 실행 결과를 예측하지 못한다고 보인 만큼, 실행 접지나 인간 평가 없이 B-1/B-2를 "명확히 충족"으로 보기 어렵다. 저장하지 않는다.
+</li></ul>
+<h3>탈락</h3>
+<p>(없음 — 신규 2건이 모두 Gate A를 통과했다)</p></div></div>

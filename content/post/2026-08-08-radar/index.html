@@ -1,0 +1,239 @@
+---
+title: "AI 사이언티스트 레이더 — 2026년 8월 8일 (토)"
+date: 2026-08-08T07:30:00+09:00
+draft: false
+issue_label: "2026년 8월 8일 (토)"
+summary: "기관 8 · arXiv 14 · 채택 2 · 보류 1 · 탈락 4"
+tags: ["Daily", "AI Scientist Radar"]
+layout: radar
+---
+<div class="notice"><p>오늘 세 차례 갱신된 브리핑(1·2차: Microsoft만 확인, 3차: arXiv 최초 복구)에 이어, 사용자가 환경 네트워크 정책을 조정한 뒤 이번 네 번째 실행에서 재확인했습니다. <strong>Bash(curl)로는 8곳 중 6곳이 정상 응답</strong>했지만, <strong>WebFetch 도구는 여전히 이 6곳 모두에서 <code>EGRESS_BLOCKED</code>를 반환</strong>해 도구별로 egress 허용 상태가 다른 것으로 보입니다. 이번 항목들은 curl로 받은 원문(HTML/RSS)을 직접 파싱해 확인했습니다.</p>
+<ul><li>
+curl로 정상: <code>deepmind.google</code>, <code>research.google</code>, <code>ai.meta.com</code>, <code>research.nvidia.com</code>/<code>blogs.nvidia.com</code>, <code>machinelearning.apple.com</code>, <code>www.microsoft.com</code>, <code>export.arxiv.org</code>
+</li><li>
+WebFetch 도구는 위 6곳(Microsoft·arXiv 제외) 모두 여전히 <code>EGRESS_BLOCKED</code> — 도구 자체의 별도 프록시 경로가 아직 갱신 전인 것으로 추정
+</li><li>
+진짜 차단이 남은 곳: <code>openai.com</code> — 403이지만 본문이 Cloudflare 봇 차단 챌린지 페이지(<code>Enable JavaScript and cookies to continue</code>)로, egress 정책이 아니라 OpenAI 자체 봇 방어로 보임. <code>www.anthropic.com</code> — 403 본문이 <code>Host not in allowlist: www.anthropic.com</code>이라는 이 환경 고유의 egress 차단 메시지 그대로 반환되어, anthropic.com만 여전히 이 환경 정책상 명시적으로 막혀 있는 것으로 확인됨.
+</li></ul>
+<p><strong>권장 조치</strong>: WebFetch 도구 경로도 나머지 6곳에 대해 갱신되면 더 안정적으로 확인 가능합니다. <code>openai.com</code>은 봇 챌린지라 egress 허용과 무관하게 헤드리스로는 못 읽을 가능성이 높고, <code>anthropic.com</code>은 이 환경에서 의도적으로 막아둔 것일 수 있어 재확인이 필요합니다.</p></div><h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>WeatherNext: AI model achieves breakthrough in forecasting cyclones</strong> (2026-08-06) — WeatherNext 모델이 사이클론(허리케인/태풍)의 경로·강도·풍속 구조 예측에서 최신 정확도를 냈다고 Nature 논문으로 보고. 기존 대비 하루치 예측 정확도를 더 확보했고(3일 예보가 기존 2일 예보 수준), 2025년 허리케인 시즌에 NHC의 Hurricane Melissa 조기 경보에 실제로 쓰였다. WeatherNext 2와 WeatherNext Cyclones 모델을 오픈소스로 공개한다는 소식. — <a href="https://deepmind.google/blog/weathernext-ai-model-achieves-breakthrough-in-forecasting-cyclones/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음(과학 응용 사례로 기록)
+</li></ul>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — 최신 게시물은 7/30 "One Framework: A verifiable autonomous research framework via Chain-of-Evidence"(제목상 AI Scientist 주제와 밀접해 보이나 커버 범위 밖이라 이번엔 제외)이며, 그 이후 새 글은 없습니다.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+⚠ 확인 실패 — <code>https://openai.com/news/research/</code> 접근 시 403, 본문은 Cloudflare 봇 차단 챌린지 페이지. egress 정책이 아니라 OpenAI 자체의 헤드리스 접근 차단으로 판단됩니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+⚠ 확인 실패 — <code>https://www.anthropic.com/research</code> 접근 시 403, 본문이 이 환경의 egress 차단 메시지(<code>Host not in allowlist: www.anthropic.com</code>) 그대로 반환됨. 8곳 중 유일하게 이 환경 정책상 명시적으로 막혀 있는 도메인으로 확인됩니다.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 최신 게시물은 7/27 "Reimagining Independence: How Meta's AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics"로 커버 범위(8/3~8/8) 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 — 최신 게시물은 여전히 8/3 <strong>Orchard: An open framework for scalable agentic AI</strong>로, 오늘 앞선 갱신본에서 이미 다뤘습니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음 — <code>blogs.nvidia.com</code> 최신 글은 7/8 "NVIDIA Nemotron Achieves Benchmark-Leading Performance With LangChain Deep Agents Harness"로 범위 밖입니다. <code>research.nvidia.com/publications</code>에도 2026년 항목들이 나열되어 있으나 항목별 게시일이 표기되지 않아 커버 범위 내 신규 여부를 판단할 수 없었습니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<p>Apple은 RSS 피드(<code>machinelearning.apple.com/rss.xml</code>)에 커버 범위 내 논문 7건이 있어 전부 확인했습니다.</p>
+<ul><li>
+<strong>Arbitrage: Efficient Reasoning via Advantage-Aware Speculation</strong> (2026-08-07) — 긴 Chain-of-Thought 추론의 추론 비용을 줄이기 위해 스펙큘레이티브 디코딩을 쓰되, 의미적으로 동등한 단계에서 토큰이 다르다는 이유만으로 초안이 불필요하게 거부되는 문제를 지적하고 이를 완화하는 방법을 제안한다. — <a href="https://machinelearning.apple.com/research/arbitrage-efficient-reasoning" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>DeepAmbigQA: Ambiguous Multi-hop Questions for Benchmarking LLM Answer Completeness</strong> (2026-08-06) — 검색 도구를 쓰는 LLM이 "동명이인/동명 작품이 섞인" 모호한 멀티홉 질문에서 답변 집합을 완전하게 못 만드는 문제를 다루며, 두 난이도(개체 모호성 구분 + 다수 근거 통합)를 함께 평가하는 자동 데이터 생성 파이프라인(DeepAmbigQAGen)을 제안한다. — <a href="https://machinelearning.apple.com/research/deepambigqa-multihop-questions" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>Beyond Next-Token Prediction: A Performance Characterization of Diffusion versus Autoregressive Language Models</strong> (2026-08-07) — 확산 언어모델과 오토리그레시브 모델의 성능 특성을 비교 분석. — <a href="https://machinelearning.apple.com/research/diffusion-autoregressive-performance" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li><li>
+<strong>Scaling Categorical Flow Maps</strong> (2026-08-07) — 이산 데이터를 연속적으로 생성하는 Categorical Flow Map을 스케일업하는 연구. — <a href="https://machinelearning.apple.com/research/scaling-categorical-flow-maps" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li><li>
+<strong>Locking Pretrained Weights via Deep Low-Rank Residual Distillation</strong> (2026-08-06) — 오픈 가중치 모델의 비인가 파인튜닝/전용을 막기 위한 가중치 "잠금" 기법. — <a href="https://machinelearning.apple.com/research/locking-pretrained-weights" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li><li>
+<strong>Taming Outlier Tokens in Diffusion Transformers</strong> (2026-08-05) — 이미지 생성용 Diffusion Transformer 내부에서 발생하는 이상치 토큰 현상을 분석. — <a href="https://machinelearning.apple.com/research/taming-outlier-tokens" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li><li>
+<strong>Understanding Alignment in Multimodal LLMs: A Comprehensive Study</strong> (2026-08-03) — 멀티모달 LLM의 선호도 정렬(할루시네이션 완화 등)에 대한 포괄적 연구. — <a href="https://machinelearning.apple.com/research/alignment-multimodal-llms" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>The Bitter Lesson of Tool Calling</strong> (<a href="https://arxiv.org/abs/2608.06370" target="_blank" rel="noopener">2608.06370</a>) — 14개 모델을 BFCL v4에서 비교해, 도구를 JSON 호출 대신 타입이 있는 Python 함수로 노출하고 코드로 호출하게 하는 "프로그래매틱 툴콜링"이 11/14 모델에서 JSON 방식과 같거나 더 나은 성능을 냈다고 보고한다. GPT-5.6 계열은 10.6% 개선, 병렬 팬아웃과 컨텍스트 손상 상황에서도 더 안정적이었다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>When Self-Evolution Backfires: Pre-Commit Gating against Skill Contamination in LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.05810" target="_blank" rel="noopener">2608.05810</a>) — 자가진화 에이전트가 트라젝토리에서 스킬을 계속 증류하면 어느 임계 규모를 넘는 순간 성능이 오히려 떨어지는 "역량 오염" 위상전이를 실증하고, 결함 스킬이 후속 스킬 증류의 참고자료가 되어 사후 롤백으로도 회복이 안 되는 구조적 비가역성을 보인다. 세 종류의 검증기로 스킬 진입을 사전 차단하는 Verifier-as-Gatekeeper를 제안해 Terminal-Bench 2에서 라운드마다 꾸준히 개선되며 스킬 풀 크기를 5배 줄이면서 72% pass@1을 달성했다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>TRAJDEBUG: Tracing Error Lifecycle to Identify Critical Failures in Long-Horizon Agent Trajectories</strong> (<a href="https://arxiv.org/abs/2608.06346" target="_blank" rel="noopener">2608.06346</a>) — 실패한 에이전트 트라젝토리에서 최종 실패의 원인이 된 최초 오류 스텝을 찾는 문제를 다룬다. 다중 granularity 히스토리 압축과 근거 기반 오류 식별로 각 오류의 해소 여부와 최종 영향을 추적하며, Tau2Bench/SWE-Bench Pro에서 수작업 라벨링한 486개 실패 트라젝토리 벤치마크(TrajErrBench)를 함께 공개했다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>SkillHEX: Improving Agent Skills via Hypothesis-Driven Autonomous Exploration and Exploitation</strong> (<a href="https://arxiv.org/abs/2608.05628" target="_blank" rel="noopener">2608.05628</a>) — 테스트 타임에 제한된 상호작용 예산으로 에이전트 스킬을 자율 개선할 때, 단일 스킬을 탐욕적으로 고치다 초기 오진단에 갇히는 "착취 함정"을 지적한다. 반증 가능한 실패 가설을 실행 가능한 테스트로 바꿔 밀집 보상을 만들고 트리 탐색으로 스킬 수정 분기를 관리하며, SkillsBench 87개 태스크에서 GPT-5.3-Codex 55.9% / Claude Opus 4.7 57.9% pass rate를 기록했다.
+<ul><li>
+관련 주제: AI Agents, Hypothesis Generation
+</li></ul>
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>OPERA: Operator-residual feedback for reliable autonomous optical experiments with language-model agents</strong> (<a href="https://arxiv.org/abs/2608.05990" target="_blank" rel="noopener">2608.05990</a>) — 자율 광학 실험 에이전트가 점수만 보고 행동을 고르면 물리적으로는 개선되지 않았는데 점수만 오르는 사례가 23.6~39.0%에 달함을 확인하고, 실행 가능한 변경(연산자)과 목표 물리 조건으로부터의 이탈(잔차)을 함께 평가하는 프레임워크로 이 비율을 0.9~1.9%까지 낮췄다. 디지털 트윈에서 학습한 프로토콜을 실제 광학 장비 3대에 이식해 검증했다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Hierarchical Server Architecture for Agentic Science</strong> (<a href="https://arxiv.org/abs/2608.05332" target="_blank" rel="noopener">2608.05332</a>) — 클라우드·엣지·HPC에 흩어진 이기종 자원을 과학 워크로드 에이전트가 자동으로 발견·협상·배정받도록 하는 계층형 아키텍처를 제안한다. "비서 에이전트"들이 7개 카테고리 51개 실제/시뮬레이션 프로바이더를 대상으로 협상하며, 약 2만 건의 시뮬레이션에서 87.71%의 협상 정확도를 보였다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Agentic self-driving microscopy benchmarks support qualification but do not necessarily generalize to unseen tasks</strong> (<a href="https://arxiv.org/abs/2608.05266" target="_blank" rel="noopener">2608.05266</a>) — 현미경 등 물리 계측 장비를 제어하는 LLM 에이전트의 아키텍처(에이전트 수, RAG 파라미터, LLM 선택 등)를 105개 조합·1,949회 실행·53개 벤치마크로 비교했다. 벤치마크는 알려진 태스크에 대한 자격 검증(회귀 테스트, 진단)에는 유용하지만, 아키텍처와 결과로 학습한 대리모델이 미지의 새 태스크 성능은 안정적으로 예측하지 못한다는 한계를 보고한다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents
+</li></ul>
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>Hypothesis Testing with Conditional Queries: Learnability and the Value of Interaction</strong> (<a href="https://arxiv.org/abs/2608.06262" target="_blank" rel="noopener">2608.06262</a>) — 모델 평가에서 모든 테스트를 미리 고정할지, 이전 응답을 보고 다음 테스트를 적응적으로 고를지의 이론적 차이를 분석한다. 두 분포 클래스가 조건부 확률에서 양의 분리를 가질 때만 학습 가능함을 보이고, 적응형 정책을 비적응형으로 흉내내려면 쿼리 수가 제곱 배(Θ(N²)) 늘어나야 함을 증명해, 상호작용이 주는 이득의 한계를 정량화했다.
+<ul><li>
+관련 주제: Hypothesis Generation
+</li></ul>
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>OctoLong: Mid-Training On Cross-Repository Code Contexts Enhances Long-Context Modeling</strong> (<a href="https://arxiv.org/abs/2608.05141" target="_blank" rel="noopener">2608.05141</a>) — AST 파서·언어 서버·패키지 매니저를 조합해 저장소를 가로지르는 코드 참조를 재귀적으로 수집, 수백만 토큰 길이의 의존성이 풍부한 장문맥 코퍼스를 만든다. 기존 장문맥 학습 데이터의 12%만 이 데이터로 교체해도 18개 최신 오픈 장문맥 모델 대비 장거리 검색·상태 추적·저장소 수준 코드 이해·에이전트 태스크에서 유의미한 향상을 보였다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Chained Recursive Language Models for Multi-Iteration Reasoning</strong> (<a href="https://arxiv.org/abs/2608.05124" target="_blank" rel="noopener">2608.05124</a>) — 하나의 긴 추론 궤적이 컨텍스트 탐색·중간상태 저장·근거 검증·최종답변 생성을 동시에 감당해야 하는 문제를, 같은 모델을 반복 호출하는 "체인형 재귀 LM"으로 재구성한다. 각 호출은 압축된 요약과 블랙보드, 이전 호출이 남긴 산출물만 이어받아 추론하며, 이 방식이 순수 재귀 도구 호출 대비 언제 정확도 이득을 주는지 실험 프로토콜을 설계했다.
+<ul><li>
+관련 주제: Long-context, Reasoning
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Hierarchical Graph Memory for LLM Agents with Path-level Localization and Rewrite</strong> (<a href="https://arxiv.org/abs/2608.05095" target="_blank" rel="noopener">2608.05095</a>) — 기존 그래프 메모리가 모든 기억을 하나의 평면 그래프에 쌓아 관련 없는 맥락이 누적되고 갱신이 유닛 단위로 반복되는 문제를 지적한다. 상위 노드와 메모리 유닛으로 나눈 계층형 그래프와, 질의·업데이트 조건부 MicroGraph로 근거 경로를 먼저 찾은 뒤 유닛 내부와 유닛 간 의존성을 함께 재작성하는 방법을 제안해 장기 대화 QA와 충돌 인지 메모리 평가에서 답변 품질·토큰 효율을 개선했다.
+<ul><li>
+관련 주제: Long-context, AI Agents
+</li></ul>
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Answer First, Reason Later: Commitment Order in Diffusion LLMs</strong> (<a href="https://arxiv.org/abs/2608.05687" target="_blank" rel="noopener">2608.05687</a>) — 마스크 확산 언어모델(dLLM)이 토큰을 임의 순서로 확정할 수 있다는 자유가 추론 과제에서는 오히려 실패 요인임을 보인다. LLaDA-8B가 절반의 추론 영역이 아직 마스크 상태인데 답을 먼저 확정하는 비율이 15~24%에 달하고, 캔버스가 커질수록 최대 90%까지 답만 남는 붕괴가 나타난다. 원인은 EOS 압력이 아니라 "도달 가능성"이며, 커밋 순서를 제한하는 단일 개입으로 성능 격차를 대부분(0.528→0.852) 복구했다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Reasoning Errors Have a Region and a Direction in the Residual-Stream Trajectory of LLMs</strong> (<a href="https://arxiv.org/abs/2608.05660" target="_blank" rel="noopener">2608.05660</a>) — 레이어별 잔차 스트림 변위만 보는 기존 트라젝토리 기반 오류 탐지가 상태의 출발점 정보를 버린다는 트레이드오프를 지적하고, 벡터 양자화 기반의 대략적 위치 리더와 다층 정규화 상태에 대한 세밀한 방향 리더를 결합한 3-스트림 탐지기를 제안한다. 미지의 추론 벤치마크에서 변위만 쓰는 최신 기법 대비 최대 12%, 단일층 프로빙 대비 21% 선택 정확도를 높였다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Refining Over Resampling: Test-Time Self-Correction for LLM Reasoning</strong> (<a href="https://arxiv.org/abs/2608.05643" target="_blank" rel="noopener">2608.05643</a>) — 테스트 타임에 샘플을 더 넓게 뽑는 것만으로는 새 롤아웃이 기존 답변 패턴을 반복해 수확체감이 온다는 문제를 다룬다. 검증기 없이 여러 독립 롤아웃을 뽑고(폭) 각각을 자기비판·자기수정으로 반복 정제한 뒤(깊이) 다수결로 합치는 방법을 제안해, Qwen2.5-1.5B 기준 MATH500에서 최강 검증기 기반 베이스라인 대비 58.0%, AMC에서 25.0%→32.5%로 개선했다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">4</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 7건 · 채택 2 · 보류 1 · 탈락 4</p>
+<p>로컬 맥에서 수동 실행(<code>/paper-update</code>). 8/4 이후 클라우드 루틴이 3회차 연속 arXiv egress 차단으로 막혀 있었기 때문에, <code>last_run</code>(2026-08-04T08:13:50)부터 오늘까지의 신규분을 한 번에 처리했다. 상세는 <span class="wiki">2026-08-06</span> · <span class="wiki">2026-08-07</span> 로그 참조.</p>
+<p>수집 단계에서 arXiv가 HTTP 429(rate limit)로 6회 연속 거부했으나, 이는 클라우드 쪽의 403 정책 거부와 달리 일시적 제한이라 백오프 후 재시도로 해소되었다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>AdversarialTestBeds</strong> — Adversarial Fast-Moving Real-World Domains as Test Beds for
+ Benchmarking AI Scientist Capabilities (William Bolton, Philip Torr · Oxford)
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.03569" target="_blank" rel="noopener">2608.03569</a> · ICML 2026 AI for Science workshop
+</li><li>
+통과 근거: Gate B-1 + B-3 — ideation 벤치마크의 데이터 오염 문제를 "전문가가 경쟁적·
+ 독립적으로 시간 지연 후 공개 산출물을 내는 도메인"이라는 새 축으로 재프레이밍(F1 2026
+ 규정 / MTG <em>Lorwyn Eclipsed</em>). 모든 모델 컷오프가 두 코퍼스 공개일보다 앞선다.
+ 아울러 "격차는 아이디어 생성이 아니라 필터링·우선순위화"라는 통념 역전 결과를 제시.
+</li><li>
+파일: <code>2026/2026_AdversarialTestBeds_AI-Scientist-Capability-Benchmark_arXiv2608.03569.pdf</code>
+ · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>Project2Task</strong> — Graph-Guided Project-Level Planning for Autonomous Research
+ (Huirui Xu, Runtao Xu, Shuo Ren, Jiajun Zhang · CASIA)
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.05225" target="_blank" rel="noopener">2608.05225</a>
+</li><li>
+통과 근거: Gate B-2 — 코퍼스에 이미 있는 AutoResearchClaw에 contract를 얹어 다운스트림
+ task accuracy 0.536 → 0.759(무효 실행 제외 시 0.766 → 0.830)를 실측. 재현 파이프라인에
+ 바로 얹어볼 수 있는 계획 층이다. 부수적으로 "project ≠ 큰 task"라는 분해 입도 축도 새롭다.
+</li><li>
+파일: <code>2026/2026_Project2Task_Project-Level-Planning-Autonomous-Research_arXiv2608.05225.pdf</code>
+ · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+<strong>EviGraph: Evidence-Guided Autonomous Research Agents</strong> —
+ <a href="https://arxiv.org/abs/2608.04738" target="_blank" rel="noopener">2608.04738</a> — Gate A는 명확히 통과(자율 연구 프레임워크,
+ Problem/Gap/Hypothesis/Experiment/Finding/Claim 타입 증거 그래프를 사후 기록이 아닌 운영
+ 상태로 유지). 다만 "가장 이른 약한 노드를 국소화해 하위 그래프를 재생성"하는 메커니즘이
+ 코퍼스의 SAGE/MHFA(실패 귀인 기반 자기교정) 및 Arbor(가설 트리 정련)와 구조적으로 가까워
+ Gate B-1의 "새 문제 축" 충족이 애매하다. 하루 상한 2편에서 Gate B 충족 강도상 3순위.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+<strong>Personalized Deep Research Query Refinement (G-STEER)</strong> —
+ <a href="https://arxiv.org/abs/2608.05876" target="_blank" rel="noopener">2608.05876</a> — Gate A. deep research 에이전트의 질의 정제·
+ clarification 정책으로, 정보 탐색·보고서 개인화이지 아이디어→실험 closed loop이 아니다.
+</li><li>
+<strong>Eigenius: A Typed Knowledge-Graph DBMS</strong> —
+ <a href="https://arxiv.org/abs/2608.04457" target="_blank" rel="noopener">2608.04457</a> — Gate A. "AI Scientists"를 동기로 들지만
+ 핵심 기여는 의존 타입 이론·content-addressed 저장 기반 DBMS 아키텍처(인프라 논문).
+</li><li>
+<strong>Visualizing Graph-to-Answer Mechanism Recovery in Materials-Science Hypothesis Generation</strong> —
+ <a href="https://arxiv.org/abs/2608.04170" target="_blank" rel="noopener">2608.04170</a> — 단일 모델(Graph-PRefLexOR-8B) 해석가능성
+ 케이스 스터디이며 베이스라인 없는 시각 진단 워크플로. 즉시 탈락 규정(데모·케이스 스터디).
+</li><li>
+<strong>Training Documents Reranker with Search Rubrics (RubricRanker)</strong> —
+ <a href="https://arxiv.org/abs/2608.03527" target="_blank" rel="noopener">2608.03527</a> — Gate A. 문서 리랭킹/RAG 검색 방법.
+</li></ul>
+<h3>2회차 실행 (같은 날)</h3>
+<p>조회 200건 · <strong>신규 0건</strong>. 1회차에서 <code>last_run</code>이 <code>2026-08-08T00:19:16+00:00</code>으로 갱신된 직후 재실행한 것이라 그 이후 게재된 논문이 없다. 판정할 후보가 없으므로 저장·리뷰 없이 <code>last_run</code>만 다시 밀었다. 위 1회차 집계(채택 2 · 보류 1 · 탈락 4)가 오늘의 최종 결과다.</p>
+<h3>3회차 실행 (같은 날, 클라우드 루틴)</h3>
+<p>조회 200건 · <strong>신규 0건</strong> · <code>covered: true</code> (누락 구간 없음).</p>
+<p>클라우드 스케줄 실행. 8/4 이후 세 차례 막혔던 arXiv egress 차단(403)이 이번에는 발생하지 않았고, 429 rate limit도 없었다 — 첫 요청에서 200건을 정상 수신했다.</p>
+<p><code>since = last_run = 2026-08-08T02:20:38+00:00</code> 기준으로 후보가 0건인데, 이는 <code>seen</code> 필터 때문이 아니라 <strong>질의에 걸리는 최신 논문 자체가 <code>last_run</code>보다 오래되었기</strong> 때문이다. 피드 최상단(게재일 내림차순)은 <code>2608.05876</code>(2026-08-06T10:58:17Z)이며, 이는 1회차에서 이미 Gate A 탈락으로 판정된 논문이다. 즉 8/6 10:58Z 이후 이 레이더 질의에 해당하는 신규 게재가 없다. 교차 확인으로 <code>--since 2026-08-05T00:00:00+00:00</code>을 줘도 신규 0건이었다.</p>
+<p>판정할 후보가 없으므로 저장·리뷰·MANIFEST 갱신 없이 <code>last_run</code>만 밀었다. 오늘의 최종 결과는 여전히 1회차 집계(채택 2 · 보류 1 · 탈락 4)다.</p></div></div>

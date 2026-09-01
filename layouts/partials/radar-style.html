@@ -1,0 +1,233 @@
+{{/*
+  The AI Scientist Radar artifact's own stylesheet, lifted verbatim from
+  static/uploads/daily/ai-scientist-radar.html with every selector scoped
+  under #daily-radar. The artifact styles bare elements (body, a, table, *),
+  so without the scope it would restyle the whole site.
+
+  Used by layouts/post/radar.html (a single issue) and layouts/post/list.html
+  (the issue index).
+*/}}
+<style>
+#daily-radar{
+  --paper:#ffffff; --card:#ffffff; --sunk:#f4f5f8; --band:#eef1fb;
+  --ink:#1b1c20; --ink-soft:#43454c; --muted:#6c6f7c;
+  --hair:#e3e5ec;
+  --accent:#3a5cff; --accent-soft:#eef1ff;
+  --grad:linear-gradient(120deg,#3a86ff 0%,#7c5cff 32%,#c04cff 56%,#ff5c7a 78%,#ffb020 100%);
+  --ok:#1e8e3e; --hold:#b45f06; --off:#8a8d96;
+  --sans:Manrope,Pretendard,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",
+         system-ui,-apple-system,sans-serif;
+  --mono:"Roboto Mono","SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --wrap:44rem;
+}
+/* The site toggles dark mode via a .dark class on <html>. */
+html.dark #daily-radar,
+html[data-theme="dark"] #daily-radar{
+  --paper:#131314; --card:#1c1d1f; --sunk:#1a1b1d; --band:#1c2340;
+  --ink:#eceef2; --ink-soft:#c7cad3; --muted:#8f929e;
+  --hair:#34363c;
+  --accent:#7c96ff; --accent-soft:#1e2547;
+  --ok:#5fd489; --hold:#f0b429; --off:#8a8d96;
+}
+#daily-radar *{box-sizing:border-box}
+#daily-radar{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.7;
+  word-break:keep-all; -webkit-font-smoothing:antialiased;
+}
+#daily-radar .page{max-width:var(--wrap); margin:0 auto; padding:0 1.15rem 5rem}
+#daily-radar a{color:var(--accent); text-decoration-color:currentColor;
+  text-decoration-thickness:1.5px; text-underline-offset:3px}
+#daily-radar a:hover{text-decoration-thickness:2.5px}
+#daily-radar a:focus-visible,#daily-radar summary:focus-visible{outline:2px solid var(--accent);
+  outline-offset:3px; border-radius:4px}
+#daily-radar hr{border:0; border-top:1px solid var(--hair); margin:1.5rem 0}
+#daily-radar code{font-family:var(--mono); font-size:.82em; background:var(--sunk);
+  padding:.1em .4em; border-radius:5px}
+#daily-radar .wiki{font-family:var(--mono); font-size:.82em; color:var(--muted)}
+#daily-radar .muted{color:var(--muted)}
+#daily-radar strong{font-weight:700}
+
+/* ── 제호: 얇은 스펙트럼 바 + 그라디언트 워드마크 한 점 ─────── */
+#daily-radar .masthead{padding:1.6rem 0 1.5rem}
+#daily-radar .masthead__rule{height:3px; background:var(--grad); margin:0 -1.15rem;
+  border-radius:0 0 3px 3px}
+#daily-radar .masthead__rule--thin{height:1px; background:var(--hair); margin-top:1.4rem}
+#daily-radar .masthead__eyebrow{
+  margin:1.5rem 0 0; font-size:.78rem; font-weight:600; color:var(--muted);
+  display:flex; align-items:center; gap:.5rem;
+}
+#daily-radar .masthead__eyebrow::before{content:""; width:.5rem; height:.5rem; flex:none;
+  border-radius:50%; background:var(--grad)}
+#daily-radar .masthead__title{
+  font-family:var(--sans); font-size:clamp(2.1rem,7vw,3.1rem); font-weight:700;
+  letter-spacing:-.03em; line-height:1.08; margin:.5rem 0 1rem; text-wrap:balance;
+}
+#daily-radar .masthead__title em{
+  font-style:normal; background:var(--grad); background-clip:text;
+  -webkit-background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+}
+#daily-radar .masthead__meta{display:flex; flex-wrap:wrap; align-items:center;
+  gap:.5rem .6rem; margin:0 0 0; font-size:.8rem; color:var(--muted)}
+#daily-radar .masthead__meta .stamp{
+  background:var(--sunk); color:var(--ink); font-weight:600; border-radius:999px;
+  padding:.25rem .75rem; font-size:.78rem; letter-spacing:-.005em;
+  border:1px solid var(--hair); font-variant-numeric:tabular-nums;
+}
+#daily-radar .masthead__meta .no{font-weight:700; color:var(--ink-soft); font-family:var(--mono)}
+
+/* ── 섹션 이름표: 작은 점 + 헤어라인, 큰 목소리는 안 낸다 ────── */
+#daily-radar .rubric-wrap{
+  margin:0 0 1.1rem; padding-bottom:.6rem; border-bottom:1px solid var(--hair);
+  display:flex; align-items:center; gap:.55rem;
+  font-size:1.02rem; font-weight:700; letter-spacing:-.01em; line-height:1.5;
+}
+#daily-radar .rubric-wrap::before{content:""; width:.42rem; height:.42rem; flex:none;
+  border-radius:50%; background:var(--accent)}
+#daily-radar .rubric{color:var(--ink)}
+
+/* ── 한눈에: 헤어라인 카드 + 모노스페이스 숫자 ──────────────── */
+#daily-radar .front{margin-bottom:2.75rem}
+#daily-radar .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+  gap:.65rem; margin-bottom:1.7rem}
+#daily-radar .tile{display:flex; flex-direction:column; gap:.2rem; padding:1rem 1.1rem;
+  border:1px solid var(--hair); border-radius:18px; background:var(--card)}
+#daily-radar .tile--accent{
+  border-color:var(--accent);
+  background:linear-gradient(180deg,var(--accent-soft),var(--card) 75%);
+}
+#daily-radar .tile--accent .tile__v{color:var(--accent)}
+#daily-radar .tile__v{font-family:var(--mono); font-size:2rem; font-weight:500;
+  letter-spacing:-.02em; line-height:1.1; font-variant-numeric:tabular-nums}
+#daily-radar .tile__l{font-size:.83rem; font-weight:600; color:var(--ink)}
+#daily-radar .tile__note{font-size:.72rem; color:var(--muted); line-height:1.45}
+
+#daily-radar .lead{font-size:1.05rem; line-height:1.75; color:var(--ink-soft)}
+#daily-radar .lead p{margin:0}
+#daily-radar .lead strong{color:var(--ink); font-weight:700}
+#daily-radar .coverage{margin:1.15rem 0 0; padding:.7rem .9rem; background:var(--sunk);
+  border-radius:10px; font-family:var(--mono); font-size:.7rem; line-height:1.65;
+  color:var(--muted)}
+
+/* ── 오늘 볼 것 / 신규 편입: 헤어라인 카드 ───────────────────── */
+#daily-radar .pick{margin-bottom:2.75rem; padding:1.3rem 1.4rem 1.4rem;
+  background:var(--card); border:1px solid var(--hair); border-radius:20px}
+#daily-radar .pick ul,#daily-radar .tight{margin:0; padding-left:1.2rem}
+#daily-radar .pick li,#daily-radar .tight li{margin-bottom:.75rem}
+#daily-radar .pick li::marker,#daily-radar .tight li::marker{color:var(--accent); font-weight:700}
+#daily-radar .pick li:last-child,#daily-radar .tight li:last-child{margin-bottom:0}
+
+/* ── 판정 칩: 점 하나로 상태를 말한다 ────────────────────────── */
+#daily-radar .chip{display:inline-flex; align-items:center; gap:.35rem; margin-right:.4rem;
+  padding:.15rem .55rem .15rem .45rem; border-radius:999px;
+  background:var(--sunk); border:1px solid var(--hair);
+  font-size:.72rem; font-weight:600}
+#daily-radar .chip__k{color:var(--muted); font-weight:500}
+#daily-radar .chip__v{font-variant-numeric:tabular-nums; display:inline-flex; align-items:center; gap:.3rem}
+#daily-radar .chip__v::before{content:""; width:.4rem; height:.4rem; border-radius:50%; background:currentColor}
+#daily-radar .chip--ok .chip__v{color:var(--ok)}
+#daily-radar .chip--hold .chip__v{color:var(--hold)}
+#daily-radar .chip--off .chip__v{color:var(--off)}
+#daily-radar .chip--zero{opacity:.55}
+#daily-radar .chip--zero .chip__v{color:var(--muted)}
+
+/* ── 지난 호 목록 ───────────────────────────────────────────── */
+#daily-radar .strip{margin-bottom:2.75rem}
+#daily-radar .strip__list{display:flex; flex-direction:column;
+  border:1px solid var(--hair); border-radius:16px; overflow:hidden}
+#daily-radar .strip__row{display:grid; grid-template-columns:5.6rem 1.4rem 1fr;
+  align-items:center; gap:.5rem; padding:.7rem .95rem; text-decoration:none;
+  border-bottom:1px solid var(--hair); color:var(--ink)}
+#daily-radar .strip__row:last-child{border-bottom:0}
+#daily-radar .strip__row:hover{background:var(--sunk)}
+#daily-radar .strip__date{font-family:var(--mono); font-size:.78rem; font-weight:500;
+  font-variant-numeric:tabular-nums}
+#daily-radar .strip__wd{font-size:.72rem; color:var(--muted)}
+#daily-radar .strip__stats{display:flex; flex-wrap:wrap; align-items:center; gap:.15rem .45rem}
+#daily-radar .mini{font-size:.73rem; font-weight:500; color:var(--ink-soft)}
+#daily-radar .mini--none{color:var(--muted); font-weight:400}
+
+/* ── 일자별 지면: 헤어라인 카드 아코디언 ─────────────────────── */
+#daily-radar .pages{display:flex; flex-direction:column; gap:.7rem}
+#daily-radar .issue{border:1px solid var(--hair); border-radius:20px; background:var(--card);
+  overflow:hidden}
+#daily-radar .issue__head{display:flex; align-items:center; gap:.75rem; padding:1.05rem 1.3rem;
+  cursor:pointer; list-style:none; font-weight:700}
+#daily-radar .issue__head::-webkit-details-marker{display:none}
+#daily-radar .issue[open] .issue__head{border-bottom:1px solid var(--hair); background:var(--sunk)}
+#daily-radar .issue__head::after{content:"펼쳐 보기"; font-size:.72rem; font-weight:600;
+  color:var(--muted); margin-left:.25rem}
+#daily-radar .issue[open] .issue__head::after{content:"접기"}
+#daily-radar .issue__date{font-size:1.05rem; letter-spacing:-.015em}
+#daily-radar .issue__tag{font-size:.68rem; font-weight:600; padding:.2rem .6rem;
+  border-radius:999px; background:var(--sunk); color:var(--muted);
+  border:1px solid var(--hair); margin-left:auto}
+#daily-radar .issue__body{padding:.4rem 1.3rem 1.7rem}
+
+#daily-radar .issue__body h3.sub{
+  display:flex; flex-wrap:wrap; gap:.55rem; align-items:baseline;
+  margin:2rem 0 .8rem; padding-bottom:.55rem;
+  border-bottom:1px solid var(--hair); font-size:.98rem; font-weight:700;
+  letter-spacing:-.01em;
+}
+#daily-radar .sub__chips{margin-left:auto}
+/* 기관명·주제명 — 점 하나로 새 묶음의 시작을 표시 */
+#daily-radar .issue__body h4{margin:1.6rem 0 .5rem; font-size:.92rem; font-weight:700;
+  color:var(--ink); line-height:1.4; display:flex; align-items:center; gap:.5rem}
+#daily-radar .issue__body h4::before{content:""; width:.38rem; height:.38rem; flex:none;
+  border-radius:50%; background:var(--accent)}
+#daily-radar .issue__body h2{margin:2.1rem 0 .6rem; padding-top:1.15rem;
+  border-top:1px solid var(--hair); font-size:1.08rem; font-weight:700;
+  letter-spacing:-.015em}
+#daily-radar .issue__body h3:not(.sub){margin:1.7rem 0 .5rem; font-size:.92rem; font-weight:700}
+#daily-radar .issue__body h5{margin:1.1rem 0 .35rem; font-size:.78rem; font-weight:600;
+  color:var(--ink-soft)}
+#daily-radar .issue__body p{margin:.75rem 0}
+#daily-radar .issue__body ul{margin:.5rem 0; padding-left:1.15rem}
+#daily-radar .issue__body li{margin-bottom:.6rem}
+#daily-radar .issue__body li::marker{color:var(--muted)}
+#daily-radar .issue__body li ul{margin-top:.45rem}
+#daily-radar .issue__body li li{font-size:.87rem; color:var(--ink-soft); margin-bottom:.25rem}
+#daily-radar .issue__body blockquote{margin:1rem 0; padding:.85rem 1.05rem; background:var(--sunk);
+  border-radius:12px; font-size:.8rem; line-height:1.65; color:var(--ink-soft)}
+#daily-radar .notice{margin:1rem 0; padding:1rem 1.15rem; background:var(--band);
+  border:1px solid var(--hair); border-radius:16px; font-size:.87rem}
+#daily-radar .notice p:first-child{margin-top:0}
+#daily-radar .notice p:last-child{margin-bottom:0}
+#daily-radar .radar{font-size:.93rem}
+#daily-radar .tw{overflow-x:auto; margin:1rem 0}
+#daily-radar table{border-collapse:collapse; width:100%; font-size:.82rem}
+#daily-radar th,#daily-radar td{text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--hair);
+  vertical-align:top}
+#daily-radar th{font-size:.72rem; font-weight:700; color:var(--muted);
+  border-bottom:1px solid var(--ink-soft); font-variant-numeric:tabular-nums}
+#daily-radar td{font-variant-numeric:tabular-nums}
+
+#daily-radar .colophon{margin-top:3rem; padding-top:1.3rem; border-top:1px solid var(--hair);
+  font-family:var(--mono); font-size:.72rem; line-height:1.85; color:var(--muted)}
+#daily-radar .colophon p{margin:.35rem 0}
+
+@media (max-width:32rem){
+  #daily-radar .page{padding:0 .9rem 4rem}
+  #daily-radar .masthead__rule{margin:0 -.9rem}
+  #daily-radar .strip__row{grid-template-columns:5rem 1.2rem 1fr; padding:.65rem .8rem}
+  #daily-radar .issue__head,#daily-radar .issue__body{padding-left:1rem; padding-right:1rem}
+}
+@media (prefers-reduced-motion:reduce){#daily-radar *{animation:none!important; transition:none!important}}
+
+/* ── 목록 지면: 지난 호 목록을 날짜 + 제목 2열로 ────────────── */
+#daily-radar .strip__row--index{grid-template-columns:6.4rem 1fr; align-items:baseline}
+#daily-radar .strip__title{font-weight:600; font-size:.92rem; line-height:1.5}
+#daily-radar .strip__row--index:hover .strip__title{color:var(--accent)}
+@media (max-width:32rem){
+  #daily-radar .strip__row--index{grid-template-columns:5.6rem 1fr}
+}
+
+/* ── 목록으로 돌아가기 ──────────────────────────────────────── */
+#daily-radar .backlink{display:inline-flex; align-items:center; gap:.4rem;
+  margin:1.35rem 0 -.35rem; padding:.35rem .8rem .35rem .6rem; border-radius:999px;
+  border:1px solid var(--hair); background:var(--card); color:var(--ink-soft);
+  font-size:.78rem; font-weight:600; text-decoration:none}
+#daily-radar .backlink::before{content:"\2190"; font-size:.9rem; line-height:1}
+#daily-radar .backlink:hover{border-color:var(--accent); color:var(--accent)}
+</style>

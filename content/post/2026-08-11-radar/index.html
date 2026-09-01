@@ -1,0 +1,137 @@
+---
+title: "AI 사이언티스트 레이더 — 2026년 8월 11일 (화)"
+date: 2026-08-11T07:30:00+09:00
+draft: false
+issue_label: "2026년 8월 11일 (화)"
+summary: "기관 1 · arXiv 13 · 채택 0 · 보류 0 · 탈락 6"
+tags: ["Daily", "AI Scientist Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 — RSS(<code>deepmind.google/blog/rss.xml</code>) 확인. 최신 게시물은 여전히 8/6 "WeatherNext: AI model achieves breakthrough in forecasting cyclones"로, 이미 다룬 항목입니다.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>research.google/blog/rss/</code>) 확인. 최신 게시물은 7/30 "Science One Framework: A verifiable autonomous research framework via Chain-of-Evidence"로 여전히 커버 범위 밖입니다.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 Research/Publication 카테고리로 필터링. 최신 항목은 여전히 7/28 "Scientific computing in the age of agentic AI"(Publication)입니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>Learning more about Claude's mathematical capabilities</strong> (2026-08-10, Science) — 비공개 연구용 Claude에게 "리만 가설에 정말로 도전해보라"는 과제를 준 결과, 가설 자체는 풀지 못했지만 임계선 위에 존재하는 제타함수 영점 비율의 하한을 41.6%에서 67.2%로 끌어올렸다. Claude Code 세션 2회·약 3,100만 출력 토큰을 사용했으며, 650개 아이디어가 모두 실패한 뒤 사람의 격려만으로 약 60개 서브에이전트를 1.5일간 조율해(셸 명령 2,400회, Python 스크립트 수백 개) 도출했다. Anthropic 소속 수학자 2명(Levent Alpöge, Ralph Furman)과 외부 전문가(Brian Conrey, Dan Goldston)가 검증했고, Lean 형식 증명도 병행했다. — <a href="https://www.anthropic.com/research/riemann-zeta" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents, Hypothesis Generation, Reasoning
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>) 확인(RSS 없음). 최신 게시물은 7/9 "Introducing Muse Spark 1.1"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>microsoft.com/en-us/research/blog/feed/</code>) 확인. 최신 게시물은 8/3 "Orchard: An open framework for scalable agentic AI"로, 이미 다룬 항목입니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(주제 무관) — <code>blogs.nvidia.com/feed/</code> 최신 글은 8/6 "Into the Omniverse: How Open World Models Push the Frontier of Physical AI"로, AI 인프라/제품 소개 위주라 5개 관련 주제와도 무관합니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>) 확인. 최신 게시물은 8/7 "Scaling Categorical Flow Maps"로, 이미 다룬 항목입니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Tree-of-Experience: Hierarchical Experience Management for Self-Evolving Agents</strong> (<a href="https://arxiv.org/abs/2608.09044" target="_blank" rel="noopener">2608.09044</a>) — LLM 에이전트의 경험 관리가 개별 궤적 정제나 얕은 공유 지식 추상화에 그쳐 계층적 추론 과정과 분리되는 문제를 지적하고, 경험을 분석 관점·추론 경로의 트리로 조직해 환경 결과로 신뢰도를 보정하는 프레임워크를 제안한다. Game of 24에서 경험 없는 ToT 대비 정확도 31.4% 상대 개선, FinEvolveBench 12개 설정 평균 tsIC 41.24% 개선을 보였다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>Beyond the Capability Boundary: Zeroth-Order Optimization for Self-Evolving LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.09292" target="_blank" rel="noopener">2608.09292</a>) — 자기진화 에이전트가 어려운 예제에서 올바른 궤적을 애초에 샘플링하지 못해 능력 경계 너머로 학습하지 못하는 한계를 다룬다. LoRA 파라미터를 교란해 손실 차이로 그래디언트를 추정하는 영차(zeroth-order) 최적화로 궤적 주석 없이 경계를 넘는 폐루프 자기진화를 구현했고, 여러 deep-research 벤치마크의 어려운 예제에서 강한 베이스라인을 일관되게 앞섰다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>Evo-Bench: Can Language Models Improve Agent Harness?</strong> (<a href="https://arxiv.org/abs/2608.09096" target="_blank" rel="noopener">2608.09096</a>) — 에이전트가 자신의 실행 하네스(harness) 자체를 자율적으로 최적화하는 "하네스 진화" 능력을 기반 모델 성능과 분리해 측정하는 최초의 벤치마크를 제안한다(Search/Office/General 도메인). 9개 프론티어·오픈웨이트 모델 평가에서 최고 모델이 최대 16.6점의 절대 향상을 얻어 인간이 설계한 베이스라인에 근접했지만, 특정 워크플로가 필요한 Office 태스크에서는 여전히 취약했다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>Multi-agent discovery of practical quantum LDPC codes</strong> (<a href="https://arxiv.org/abs/2608.08996" target="_blank" rel="noopener">2608.08996</a>) — 유한 길이 양자 LDPC 코드 탐색이라는 실용적 설계 문제에, 제안·검토 전문 에이전트·영속적 과학 메모리·실행 가능 프로그램의 장기 진화를 결합한 폐루프 멀티에이전트 탐색을 적용했다. 블록 길이 n≤400, 무게 w≤10 제약에서 <span class="wiki">288,16,18</span>, <span class="wiki">234,28,18</span> 등 각 무게 클래스에서 선두급 rate-distance 성능의 코드를 발견했고, non-normal subgroup action을 쓰는 구조적으로 새로운 balanced-product 코드도 찾아냈다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, AI Agents
+</li></ul>
+</li><li>
+<strong>verdi: retrieval is not transfer for continual world model optimization</strong> (<a href="https://arxiv.org/abs/2608.09537" target="_blank" rel="noopener">2608.09537</a>) — 연구 에이전트가 한 월드모델에서 성공한 최적화 전략을 다른 모델에 그대로 재사용 레시피로 취급해 무분별한 전이가 일어나는 문제를 "검색은 전이가 아니다(retrieval is not transfer)"로 재프레이밍한다. 전략을 검증 전에는 "가설"로만 취급하고 목표 모델 쪽에서 고정된 검증기로 실험 검증한 뒤에만 재사용 가능한 증거로 승격시켜, 탐색 비용 68%·GPU 비용 69% 절감과 음의 전이 0.34→0.06 감소를 달성했다.
+<ul><li>
+관련 주제: AI Scientist / Automated Research, Hypothesis Generation
+</li></ul>
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>Model Discovery Agent: LLM-assisted Bayesian experiment design for data-efficient discovery of mechanistic world models</strong> (<a href="https://arxiv.org/abs/2608.09696" target="_blank" rel="noopener">2608.09696</a>) — 개입("what if") 질문에 답하려면 메커니즘적 인과 모델이 필요하고 이는 실험으로만 식별 가능하다는 전제 아래, LLM을 후보 구조 제안자로 쓰고 순차 몬테카를로(구조·파라미터 사후분포)·시뮬레이션 기반 추론·정보가치(VoI) 기반 실험 설계를 결합했다. 진리가 현재 가설 공간 밖에 있는 M-open 상황을 예측 점검으로 감지해 가설 공간을 확장하며, 물리·화학·생물(새 단일뉴런 전기생리 벤치마크 포함) 3개 벤치마크에서 데이터 효율적 모델 학습의 새 SOTA를 달성했다.
+<ul><li>
+관련 주제: Hypothesis Generation, AI Scientist / Automated Research
+</li></ul>
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>MixFormer: Linear Transformer with Mixture of Memory Experts</strong> (<a href="https://arxiv.org/abs/2608.09468" target="_blank" rel="noopener">2608.09468</a>) — 기존 State Space Model이 초장문 시퀀스에서 입력 적응성 부족과 제한된 메모리 용량으로 정보 손실을 겪는 문제에, 여러 메모리 전문가가 서로 다른 메모리 상태를 유지하는 Mixture-of-Memory-Experts와 학습 가능한 지수 감쇠·위치 편향 기반 Time-Aware Linear Attention을 결합해 대응한다. 장문 텍스트·이미지 생성 태스크에서 성능 향상을 보였다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li><li>
+<strong>KVDiagnosis: A Diagnostic Benchmark for KV-Cache Compression in Long-Context Language Models</strong> (<a href="https://arxiv.org/abs/2608.09412" target="_blank" rel="noopener">2608.09412</a>) — KV-cache 압축 방법들이 집계 점수만으로는 어떤 정답 실행이 왜 깨지는지 알려주지 못하는 문제를 지적하며, 25개 방법을 5개 메커니즘군으로 분류하고 8개 검증된 구현에 대해 압축 전 정답이 압축 후 오답이 되는(C-to-W) 사례를 방법·세팅별로 독립 수집하는 진단 벤치마크를 제시한다. Qwen3-8B에서 12,520개 C-to-W 사례 중 63.2%가 낮거나 부분적인 커버리지를 보였고, 10개 진단 지표 모두 압축 성공/실패를 AUROC 0.684–0.871로 구분해냈다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li><li>
+<strong>DistillCache: KL-Guided Adaptive KV-Cache Eviction for Memory-Efficient LLM Inference</strong> (<a href="https://arxiv.org/abs/2608.08878" target="_blank" rel="noopener">2608.08878</a>) — H2O·SnapKV 같은 정적 어텐션/위치 기반 휴리스틱 KV-cache 축출이 토큰의 미래 예측 영향력을 포착하지 못하는 한계를, 축출을 순차적 의사결정 문제로 재구성해 KL-발산 보상으로 학습한 경량 정책 네트워크(REINFORCE)로 해결한다. Mistral-7B-Instruct에서 25% 캐시 예산으로 전체 캐시 정확도의 94.2%를 유지하며 H2O·SnapKV 대비 최대 2.7점, 동시대 RL 기반 방법 대비 최대 1.4점 앞섰고 처리량은 최대 2.1배였다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>SR-OPSD: Self-Referenced On-Policy Self-Distillation</strong> (<a href="https://arxiv.org/abs/2608.09745" target="_blank" rel="noopener">2608.09745</a>) — On-policy self-distillation에서 self-teacher가 학생 정책·문맥 분포와 함께 계속 움직이는 목표라 고정된 투영 목적함수로 맞추면 학습이 불안정해지는 문제를, self-teacher와 참조 정책 사이의 기하 보간으로 목표를 재정의하고 Rényi 발산 계열로 투영 기하를 일반화해 해결한다. 과학 평가·수학 추론·코드 생성 전반에서 SOTA급 또는 경쟁력 있는 성능을 보였다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>Test-Time Augmentation for LLMs: When Input Diversity Beats Output Diversity at Matched Compute</strong> (<a href="https://arxiv.org/abs/2608.09351" target="_blank" rel="noopener">2608.09351</a>) — self-consistency가 추론 경로(출력 측)만 다양화하는 것과 달리 입력 측(의미론적 재서술·어휘 교란·시각 변환)을 다양화하는 test-time augmentation을 동일 컴퓨팅 예산에서 비교한다. 의미론적 재서술이 self-consistency 대비 달러당 정확도 약 1.8배로 6개 태스크 중 5개에서 앞섰으며, 더 강한 모델을 쓸 수 없는 중간급 모델에서 가장 비용 효율적이었다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>CoRE: Consensus Rewards via Equilibrium for Test-Time Reinforcement Learning</strong> (<a href="https://arxiv.org/abs/2608.09324" target="_blank" rel="noopener">2608.09324</a>) — 정답 없는 테스트 데이터에서 다수결 투표로 보상을 만드는 test-time RL이 소수파 정답을 버리고 다수파 롤아웃을 모두 동일하게 취급하는 한계를, N개 롤아웃을 답변 일치·추론 유사도·생성 신뢰도로 연결한 그래프의 지배집합(replicator dynamics)으로 대체해 등급화된 보상을 만든다. 7개 백본·5개 벤치마크(42개 셀)에서 평균 +21.7점(다수결 TTRL +20.4점 대비) 개선, 합의가 다투어지는 구간에서 최대 +7.5점 격차를 보였다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>Privileged Likelihood Is Not Automatically Value: Three Checks for Token Credit in On-Policy Self-Distillation</strong> (<a href="https://arxiv.org/abs/2608.09263" target="_blank" rel="noopener">2608.09263</a>) — 결과 검증기가 완성된 추론 궤적만 채점해 중간 토큰에 신용을 배분하지 못하는 문제를 privileged self-distillation이 메운다고 주장돼왔지만, 토큰 우도 변화가 자동으로 결과 신용이 되는 것은 아님을 지적하며 점수-행동 상관성·피드백 구성·학습 손실이 강화하는 행동을 분리해 형식적으로 검증한다. 20B 모델·AIME 2025 실험에서 구현된 가산 점수는 거의 우연 수준(AUC=0.505)이었고, 결과만 쓰는 대조군이 64.2%인 데 비해 5개 토큰 점수 변형은 24.2–33.9%에 그쳤다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">6</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 6건 · 채택 0 · 보류 0 · 탈락 6</p>
+<p>arXiv export API가 이번 실행 초반 429/503을 반복해 최대 300s 백오프로도 뚫리지 않다가, 약 20분 뒤 자연 해소되어 수집을 완료했다(<code>covered: true</code>, since=2026-08-07T11:56:51+00:00, oldest_fetched=2026-05-18T09:50:11Z — 좁은 키워드 질의라 200건 채우는 데 실제로 그만큼 거슬러 올라갔을 뿐, 누락 구간 없음). 넓은 브리핑 조회 최상단 게시 시각이 2026-08-10T16:05:58Z로 현재 시각과 10시간 이내라 색인 지연은 없다고 판단, 커서를 실행 시각으로 전진시킨다.</p>
+<h3>채택</h3>
+<p>(없음)</p>
+<h3>보류</h3>
+<p>(없음)</p>
+<h3>탈락</h3>
+<ul><li>
+<strong>verdi: retrieval is not transfer for continual world model optimization</strong> — <a href="https://arxiv.org/abs/2608.09537" target="_blank" rel="noopener">2608.09537</a> — Gate A 탈락. 핵심 기여는 월드모델(임베디드 AI) 최적화 전략의 전이 안전성이며, "가설/증거" 프레이밍은 방법론적 장치일 뿐 AI-Scientist·가설탐색·아이디어평가 자체가 핵심 기여가 아닌 도메인 응용 논문.
+</li><li>
+<strong>Carnot: Interpretable, Interactive, and Optimized Execution of Deep Research Queries</strong> — <a href="https://arxiv.org/abs/2608.09532" target="_blank" rel="noopener">2608.09532</a> — Gate A 탈락. 엔터프라이즈 data lake 자연어 질의용 인터랙티브 실행 엔진 데모. 정량 평가 없는 데모 페이퍼로 즉시 탈락 대상.
+</li><li>
+<strong>GALA: Graph-Augmented LLM Agents for Root Cause Analysis and Incident Response in Microservices</strong> — <a href="https://arxiv.org/abs/2608.08968" target="_blank" rel="noopener">2608.08968</a> — Gate A 탈락. 마이크로서비스 근본원인분석/장애대응 응용 논문. LLM/에이전트를 도구로 쓴 특정 도메인 응용.
+</li><li>
+<strong>Not Worth Another Token: Marginal Value Estimation for Efficient Deep Research Agents</strong> — <a href="https://arxiv.org/abs/2608.08389" target="_blank" rel="noopener">2608.08389</a> — Gate A 탈락. deep-research 에이전트의 컨텍스트 관리(pruning) 효율화. 범용 에이전트 엔지니어링이며 AI-Scientist·가설탐색·아이디어평가가 핵심 기여가 아님.
+</li><li>
+<strong>From Uncertainty to Failure Attribution: Self-Diagnosing Models for Failure Attribution under Distribution Shift</strong> — <a href="https://arxiv.org/abs/2608.07953" target="_blank" rel="noopener">2608.07953</a> — Gate A 탈락. "failure attribution" 키워드는 매칭됐으나 실제 내용은 분포 이동 하 모델 예측 신뢰성 진단(OOD 원인 분류)으로, 자율연구 실험 실패 귀인과 무관한 키워드 오탐.
+</li><li>
+<strong>Towards Researcher Agents for Knowledge-Graph Question Answering</strong> — <a href="https://arxiv.org/abs/2608.07700" target="_blank" rel="noopener">2608.07700</a> — Gate A 탈락. text-to-SPARQL 태스크에서 자신의 프롬프트·규칙을 스스로 개선하는 자기개선 루프. 특정 다운스트림 QA 응용이며 과학적 가설 탐색이 아님(정량 결과도 0.22 정확도로 약함).
+</li></ul></div></div>

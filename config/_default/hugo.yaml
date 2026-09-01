@@ -54,6 +54,12 @@ markup:
       unsafe: true
 security:
   _merge: deep
+  # Hugo Blox denies text/html content files by default. The Daily Update
+  # issues under content/post/*-radar are HTML so they keep the AI Scientist
+  # Radar artifact's own markup; all content here is first-party.
+  allowContent:
+    - '^text/markdown$'
+    - '^text/html$'
   exec:
     allow:
       - '^(dart-)?sass$'

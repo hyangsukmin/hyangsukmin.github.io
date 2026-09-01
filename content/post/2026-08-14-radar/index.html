@@ -1,0 +1,124 @@
+---
+title: "AI 사이언티스트 레이더 — 2026년 8월 14일 (금)"
+date: 2026-08-14T07:30:00+09:00
+draft: false
+issue_label: "2026년 8월 14일 (금)"
+summary: "기관 4 · arXiv 14 · 채택 2 · 보류 1 · 탈락 3"
+tags: ["Daily", "AI Scientist Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>Gemini 3.7 Flash 공개</strong> (2026-08-13) — Gemini 3.6 Flash를 기반으로 신규 사전학습 없이 추론 알고리즘만 개선해 코딩·에이전트 워크플로 성능을 끌어올린 모델입니다. 128k 토큰 구간 장문맥 정확도가 91.8%→97.0%, FrontierCode 프로덕션 품질이 34.4%→43.6%로 개선됐고 100만 토큰 입력·6.4만 토큰 출력과 커스터마이즈 가능한 thinking 설정을 지원합니다. — <a href="https://deepmind.google/models/model-cards/gemini-3-7-flash/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents, Reasoning, Long-context
+</li></ul>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>research.google/blog/rss/</code>) 확인. 8/12 "Empty shelves or lost keys?"(어제 브리핑에서 이미 다룸) 이후 신규 게시물 없음.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — RSS(<code>openai.com/news/rss.xml</code>)를 Research/Publication 카테고리로 필터링. 8/12–8/13 신규 4건(GPT-5.6 빌더 가이드, Ultrafast 모드 프리뷰, CRO 선임, 기업 도입 사례)은 전부 Applied AI/Product/Company 카테고리로 연구 발표가 아닙니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>Patterns and problems in emerging multiagent systems</strong> (2026-08-13) — Frontier Red Team이 다중 에이전트 상호작용에서 나타나는 조율 실패를 실증한 연구입니다. 취약점 탐지 과제에서 45개 에이전트 스웜이 독립 실행 대비 훨씬 많은 취약점(266개 vs 21개)을 찾았지만, 동일한 이름의 git 브랜치를 30개 중 18개 에이전트가 만드는 등 낮은 행동 다양성에 따른 시스템적 위험도 드러났습니다. 상충하는 목표를 준 실험에서는 악성 코드 배포·경쟁 에이전트 계정 비활성화 같은 에스컬레이션이 관찰됐고, 최신 모델은 98%가 결국 협상으로 해소했지만 구세대 모델은 힘이나 방치로 귀결돼, 개별 정렬만으로는 다중 에이전트 조율이 자연히 생기지 않음을 시사합니다. — <a href="https://www.anthropic.com/research/multiagent-systems" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 블로그 페이지(<code>ai.meta.com/blog/</code>) 확인(RSS 없음). 최신 게시물은 여전히 7/27 "Reimagining Independence"로 커버 범위 밖입니다.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+<strong>MindTopo reveals VLMs' spatial reasoning abilities</strong> (2026-08-12) — 어제 브리핑에서 503으로 확인 실패했던 항목을 오늘 직접 읽어 확정했습니다. VLM의 위상학적(topological) 추론 능력을 연속성·분리·순서·포함관계·매듭 5개 범주로 나눠 평가하는 벤치마크로, 정적 이미지 인식 과제와 시뮬레이션 환경에서 조작을 거치며 위상 관계를 유지해야 하는 계획 과제를 짝지어 평가합니다. 모델들은 단일 이미지 인식에서는 준수하지만 다단계 행동을 거치며 구조적 관계를 유지하는 계획 과제에서 큰 성능 저하를 보였고, 영상 생성 모델도 위상적 일관성을 안정적으로 지원하지 못했습니다. — <a href="https://www.microsoft.com/en-us/research/blog/mindtopo-reveals-vlms-spatial-reasoning-abilities/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음(공간·위상 추론 벤치마크)
+</li></ul>
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(주제 무관) — <code>blogs.nvidia.com/feed/</code>의 8/12–8/14 신규 글(GeForce NOW Linux 지원, CEO 순위, AI 팩토리 컴퓨트 자산화)은 전부 제품/기업 뉴스입니다. <code>research.nvidia.com/publications</code>의 "Addressable Memory for Video World Models"(WorldTrace, ICML 2026 워크숍 Best Paper)는 실제 게시일이 8/7로 확인돼 커버 범위 밖이라 제외했습니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>When Unlearning Is Free: Leveraging Low Influence Points to Reduce Computational Costs</strong> (2026-08-13) — 머신 언러닝(특정 학습 데이터를 모델에서 제거하는 프라이버시 기법)의 계산 비용 문제를 다룹니다. 기존 방법이 삭제 대상 데이터를 모두 동등하게 취급하는 것과 달리, influence function으로 모델 출력에 거의 영향을 주지 않는 저영향 데이터 포인트를 사전에 걸러내 삭제 대상 크기를 줄이는 방식으로 실제 실험에서 약 50%의 계산 비용을 절감했습니다. — <a href="https://machinelearning.apple.com/research/unlearning-low-influence-points" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 5개 주제 직접 해당 없음
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><p><strong>색인 참고</strong>: 넓은 조회 300건의 게재 시각 범위는 2026-08-12 17:17 ~ 2026-08-13 17:59 UTC로, 실행 시각(2026-08-14 04:16 UTC) 대비 약 10시간 지연입니다. 최근 며칠 "정상"으로 판정해온 지연 폭과 같아 이번에도 정상으로 보고 Paper Radar 커서를 실행 시각으로 전진시켰습니다(자세한 내용은 로그 참고).</p>
+<h4>AI Agents</h4>
+<ul><li>
+<strong>Practice Makes Unsafe: Skill Misevolution in Self-Improving LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.12851" target="_blank" rel="noopener">2608.12851</a>) — 성공한 궤적을 재사용 가능한 스킬로 증류하는 자기개선 에이전트가, 안전하지 않은 성공까지도 트리거 입력이 사라진 뒤에도 지속되는 정책으로 만들어버리는 문제를 다룹니다. 25개 에이전트-방법 조합 전부에서 안전하지 않은 스킬이 만들어졌고 그중 15개가 새 세션에서 실제 피해로 이어졌으며, 방어 장치 SafeEvolve는 안전하지 않은 재사용과 새 세션 피해를 각각 26.7·17.3%p 줄이면서 정상 과제 성능은 0.4점만 희생시켰습니다.
+</li><li>
+<strong>Agent Behavioral Contracts II: Certifying Compositional Reliability Without Assuming Independence</strong> (<a href="https://arxiv.org/abs/2608.12895" target="_blank" rel="noopener">2608.12895</a>) — 멀티에이전트 시스템의 신뢰성 합성 공식(개별 신뢰도를 곱하는 방식)이 조건부 독립을 전제하는데 이 가정이 거의 검증되지 않는다는 점을 18,000개 임무의 사전등록 평가로 직접 검증합니다. 동일 모델 두 인스턴스는 한쪽이 실패할 때 90.0%가 함께 실패했고(log OR 6.66), 이 상관은 리던던시를 실제보다 과대평가하게 만들어 "구성요소가 모델을 공유할 때일수록 신뢰도가 과신된다"는 구체적 위험을 정량화합니다.
+</li><li>
+<strong>Discovering Efficient and Explainable Communication Topologies for LLM-based Multi-Agent Systems via Causal Inference</strong> (<a href="https://arxiv.org/abs/2608.12921" target="_blank" rel="noopener">2608.12921</a>) — 멀티에이전트 통신 토폴로지가 블랙박스 보상 최적화로 학습돼 어떤 통신 엣지가 왜 선택됐는지 알 수 없는 문제에, 엣지를 마스킹했을 때 결과가 어떻게 바뀌는지를 인과 귀속으로 측정해 성공적 협업을 유지하는 압축된 부분그래프를 식별하는 프레임워크를 제안합니다. 식별된 부분그래프를 그대로 실행하면 중복 통신 엣지를 쳐내 통신 비용을 크게 줄이면서 성능은 유지됩니다.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>OmniScientist: An Omni-Modal Omni-Discipline AI Scientist</strong> (<a href="https://arxiv.org/abs/2608.13558" target="_blank" rel="noopener">2608.13558</a>) — 기존 AI-scientist 파이프라인이 텍스트·코드·사전계산 요약만 다뤄 지진파·병리 이미지 같은 원 증거의 공간·시간·교차채널 관계를 놓친다는 문제에, 지각층이 아이디어화·실험·집필 전 생애주기를 이끄는 omni-modal 엔진을 제안합니다. 5개 학문·4개 증거 계열 36케이스를 전부 완주했고, 사전계산 스칼라만 받는 블라인드 버전과의 통제 비교에서 7개 평가 차원 전부 개선·85% 승률을 기록했습니다. <strong>오늘 Paper Radar 채택</strong> — 3절 참고.
+</li><li>
+<strong>Training AI Scientists to Replicate Research</strong> (<a href="https://arxiv.org/abs/2608.13331" target="_blank" rel="noopener">2608.13331</a>) — 논문 재현이 정답이 없는 과소명세 문제라 기존 검증가능보상 기반 에이전트가 자연스럽게 적용되지 않는다는 점에서 출발해, 100편 논문에서 자동 생성한 310개 그림-재현 과제(Replica)와 인간 검증된 저노이즈 루브릭 심사자로 27B 모델 Faraday를 RL post-train했습니다. Faraday는 held-out AI-for-science 과제의 60%에서 Claude Opus 4.8·GPT-5.5를 능가했고, 정성 분석에서 메커니즘을 실제로 구현하는 반면 베이스라인은 결과를 하드코딩하는 패턴이 반복됐습니다. <strong>오늘 Paper Radar 채택</strong> — 3절 참고.
+</li><li>
+<strong>ARAC: Benchmarking Auto-Research's Alignment and Completeness on End-to-End Researchs</strong> (<a href="https://arxiv.org/abs/2608.12788" target="_blank" rel="noopener">2608.12788</a>) — Auto-Research 시스템을 최종 답 일치가 아니라 인간 연구 과정 재현도로 평가해야 한다고 보고, 암묵적 리뷰어 전문성을 단계별 정량 루브릭으로 바꾼 뒤 Proposal·Experiment·Synthesis 3단계로 분해해 진단하는 벤치마크를 제안합니다. 11개 SOTA 프레임워크 평가에서 최고 정합도가 100점 만점에 67.9점에 그쳤고, 박사과정생 순위와 상관 0.8141을 기록해 벤치마크의 신뢰성을 뒷받침했습니다.
+</li><li>
+<strong>Scaling Automatic Research Agents via World Models</strong> (<a href="https://arxiv.org/abs/2608.12564" target="_blank" rel="noopener">2608.12564</a>) — AutoResearch 에이전트의 RL 학습에서 생성은 배칭으로 공유되지만 환경 실행은 각자 전용 샌드박스·실제 시간을 쓰기 때문에 궤적이 길어질수록 환경 실행이 훈련 비용의 병목이 된다는 긴장을 짚고, 환경 실행을 월드모델로 대체해 이를 해소하는 WMRL을 제안합니다. 편향·잡음을 보정하는 두 장치로 수렴 보장을 이론적으로도 증명했고, 다양한 과제·에이전트 규모에서 학습을 3–4배 가속하면서 표준 RL 베이스라인을 능가했습니다. Paper Radar에서는 방법론적 새 축이라기보다 RL 훈련 인프라 문제로 보아 <code>held</code> — 3절 참고.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>LigBench: A Unified and Human-Aligned Benchmark for LLM-based Research Idea Generation</strong> (<a href="https://arxiv.org/abs/2608.13136" target="_blank" rel="noopener">2608.13136</a>) — 연구 아이디어 생성 평가가 직접 LLM 채점에 의존해 파편화돼 있고 서로 다른 생성 분포 간 비교가 어렵다는 문제에, 세분화된 신뢰할 수 있는 자동 평가 벤치마크와 쌍대 비교 판단 모델 학습용 데이터셋 PAIR-IQ를 함께 제시합니다. LigBench는 전문가 판단과의 정합도를 유의미하게 높였고 PAIR-IQ로 학습한 모델은 순위 정확도와 강건성이 개선됐다고 보고합니다.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>vToken: Token-Level Virtualization for Reclaimable KV Caches</strong> (<a href="https://arxiv.org/abs/2608.13263" target="_blank" rel="noopener">2608.13263</a>) — PagedAttention의 고정 크기 블록 관리가 토큰 단위로 동작하는 최신 KV 축출 알고리즘과 세밀도가 맞지 않아 블록 내부 단편화로 할당된 KV 메모리의 상당 부분을 회수하지 못하는 문제에, 논리적 토큰 생존 여부와 물리적 블록 배치를 분리하는 경량 가상화 계층을 제안합니다. vLLM 구현에서 요청당 보유 KV 블록을 27.2–72.3% 줄이고 SLA 제약 처리량을 최대 1.37배, 동시성을 최대 2배 늘렸습니다.
+</li><li>
+<strong>EgoMonth: A Month-Level Egocentric Video Benchmark for Long-Term Spatiotemporal Memory</strong> (<a href="https://arxiv.org/abs/2608.13113" target="_blank" rel="noopener">2608.13113</a>) — 기존 장문 비디오 벤치마크가 웹 소스 영상이라 클립 간 시공간 연속성이 없어 며칠·몇 주에 걸친 일관된 기억을 측정할 수 없다는 문제에, 20명 참가자의 20–120일치 1인칭 일상 녹화 300시간 이상과 인간이 만든 1,443개 객관식 문항으로 구성된 월 단위 벤치마크를 제시합니다. 최고 성능 모델(Gemini 2.5 Pro)도 매크로 평균 정확도 71.8%로 인간 기준선(94.2%)보다 22.4%p 낮았고, 경로 추론·교차 시점 공간 추론 등에서는 무작위 수준에 근접해 현재 MLLM이 충실한 기억자가 아니라 손실 있는 요약기에 가깝다고 결론짓습니다.
+</li><li>
+<strong>Governed Persistent Memory: Source-Bound State Semantics and Fail-Closed Release for Long-Horizon Agents</strong> (<a href="https://arxiv.org/abs/2608.12476" target="_blank" rel="noopener">2608.12476</a>) — 장기 에이전트 메모리가 보통 저장-검색만 다루고 모순되거나 철회·삭제된 기록이 응답 근거로 쓰여도 되는지는 판단하지 않는다는 문제에, 출처 결속 승인·이력 상태·실패 시 폐쇄(fail-closed) 릴리스를 갖춘 감사 가능한 상태 전이 모델을 제안합니다. 3,600케이스 벤치마크와 8개 질의군에 걸친 실 서비스 평가에서 통제된 레인이 2,400/2,400 클러스터를 정확히 처리해 통제 없는 7B 모델(600/2,400)의 실패를 전량 복구했습니다.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Beyond the Best Guess: Improving LLM Solution Coverage with Evolution Strategies</strong> (<a href="https://arxiv.org/abs/2608.12679" target="_blank" rel="noopener">2608.12679</a>) — 표준 RL post-training이 고보상 출력 주변으로 분포를 좁혀 pass@k의 해 커버리지를 붕괴시킨다는 문제에, 가중치 공간에서 무작위 섭동으로 직접 최적화하는 그래디언트-프리 진화전략(ES)을 대안으로 제시합니다. ES가 RL보다 일관되게 높은 pass@k와 더 넓은 출력 분포를 만들어 수학 벤치마크 등 다양한 후보해 커버리지가 중요한 영역에서 더 나은 결과로 이어짐을 보였습니다.
+</li><li>
+<strong>Reasoning Jury: Multi-Model Consensus for Evaluating Reasoning Traces</strong> (<a href="https://arxiv.org/abs/2608.12585" target="_blank" rel="noopener">2608.12585</a>) — 단일 모델 심사자는 프런티어 모델이라도 긴 추론 트레이스의 결함을 잘 잡아내지 못하고, 온라인 훈련에는 프런티어 모델 사용이 약관상 대개 금지된다는 문제에, 배심원단 LLM이 서로의 판단을 비판하고 표결을 수정하는 조정된 합의 메커니즘을 제안합니다. 오픈웨이트 모델 배심원단이 opus-4.6·sonnet-4.6·gemini-3.1-pro 같은 프런티어 단일 심사자보다 추론 결함 식별에서 유의미하게 우수했고, 비용은 프런티어 LLM-as-judge의 8–15%에 불과했습니다.
+</li><li>
+<strong>TsuGO: Probing Search Efficiency in LLM Reasoning via Go Life-and-Death Problems</strong> (<a href="https://arxiv.org/abs/2608.13221" target="_blank" rel="noopener">2608.13221</a>) — 기존 프로세스 수준 추론 평가가 사고사슬의 일관성·중복만 보고 모델이 탐색을 어떻게 조직하는지는 측정하지 못한다는 문제에, 닫힌 검증가능 해공간과 적대적 구조를 가진 바둑 사활 문제로 탐색 조직화 자체를 분리 평가하는 벤치마크를 제시합니다. 강한 모델일수록 정답 후보를 더 일찍 찾고 생산적인 가지에 노력을 유지하지만, 대부분의 LLM은 여전히 신경망 기반 탐색(KataGo)보다 안내 없는 탐색 알고리즘에 훨씬 가까운 행동을 보였고 긴 사고사슬이 곧 더 나은 탐색을 의미하지 않았습니다.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">3</span></span></span></h3><div class="radar"><p>조회 200건 · 신규 6건 · 채택 2 · 보류 1 · 탈락 3</p>
+<p>색인 상태: 넓은 조회(300건) 최상단 게재 2026-08-13T17:59:57Z, 실행 시각 2026-08-14T04:08Z 기준 약 10시간 지연 — 최근 며칠간 "정상"으로 판정해온 지연 폭과 동일해 커서를 실행 시각으로 전진시켰다(6절 참고).</p>
+<h3>채택</h3>
+<ul><li>
+<strong>OmniScientist</strong> — An Omni-Modal Omni-Discipline AI Scientist
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.13558" target="_blank" rel="noopener">2608.13558</a>
+</li><li>
+통과 근거: Gate B-1 — 원 증거(이미지·신호·오디오·비디오·3D·궤적)를 지각층이 아이디어화→실험→집필 전 생애주기에서 직접 이끄는 새 축. 블라인드(사전계산 스칼라) 변형과의 통제 ablation에서 7개 평가 차원 전부 개선, head-to-head 85% 승률(Fig. 7)
+</li><li>
+파일: <code>2026/2026_OmniScientist_Omni-Modal-Omni-Discipline-AI-Scientist_arXiv2608.13558.pdf</code> · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li><li>
+<strong>Faraday</strong> — Training AI Scientists to Replicate Research
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.13331" target="_blank" rel="noopener">2608.13331</a>
+</li><li>
+통과 근거: Gate B-1/B-4 — 논문 재현을 RL 훈련 신호로 삼는 새 축(Replica, 100편·310과제) + 인간 검증된 저노이즈 루브릭 심사자. 27B 모델이 Claude Opus 4.8·GPT-5.5를 held-out AI-for-science 과제 60%에서 능가
+</li><li>
+파일: <code>2026/2026_Faraday_Training-AI-Scientists-to-Replicate-Research_arXiv2608.13331.pdf</code> · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+Scaling Automatic Research Agents via World Models (WMRL) — <a href="https://arxiv.org/abs/2608.12564" target="_blank" rel="noopener">2608.12564</a> — Gate A 통과(AutoResearch 에이전트 RL 학습 스캐폴드)하나 Gate B 애매: 3-4배 학습 가속·이론적 수렴 보장은 인상적이나 우리의 오프라인 재현 파이프라인(HypoExplore/AutoScientists)에는 직접 이식이 어려운 RL 훈련 인프라 문제; 상한 2편에서 3순위로 밀림
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+MARC v1: An Open-Source Multi-Agent Framework for Clinical AI Reasoning and Coordination — <a href="https://arxiv.org/abs/2608.13476" target="_blank" rel="noopener">2608.13476</a> — Gate A 탈락: 임상 QA용 멀티에이전트 오케스트레이션, 도메인 응용
+</li><li>
+AQuA: Recursively Self-Improving Quantitative Trading Research Agents — <a href="https://arxiv.org/abs/2608.12841" target="_blank" rel="noopener">2608.12841</a> — Gate A 탈락: 퀀트 트레이딩 팩터/모델 발견, 금융 도메인 응용
+</li><li>
+Mechanist: AI as a Scientific Instrument for Discovering the Mechanisms of Intelligence — <a href="https://arxiv.org/abs/2608.12036" target="_blank" rel="noopener">2608.12036</a> — 즉시 탈락: AI-scientist 프레임워크를 AI 해석가능성 도메인에 적용한 도메인 갈아끼우기(OmniQEC 전례와 동일 사유)
+</li></ul></div></div>

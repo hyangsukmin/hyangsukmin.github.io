@@ -1,0 +1,110 @@
+---
+title: "AI 사이언티스트 레이더 — 2026년 8월 18일 (화)"
+date: 2026-08-18T07:30:00+09:00
+draft: false
+issue_label: "2026년 8월 18일 (화)"
+summary: "기관 1 · arXiv 15 · 채택 2 · 보류 1 · 탈락 0"
+tags: ["Daily", "AI Scientist Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>Seeing beyond BMI: Estimating cardiometabolic risk with smartphone imagery</strong> — 스마트폰 사진만으로 체성분 지표를 추정해 인슐린 저항성을 예측하는 딥러닝 프레임워크 PhotoScan을 공개. UK Biobank 35,000+ 레코드로 사전학습 후 677명으로 파인튜닝했으며, 체지방률 예측 MAE 2.15(스마트워치 센서 2.91보다 우수), 독립 132명 검증셋에서 인슐린 저항성 분류 AUROC 0.760(DXA 골드스탠다드 0.773에 근접)을 달성. — <a href="https://research.google/blog/seeing-beyond-bmi-estimating-cardiometabolic-risk-with-smartphone-imagery/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 기타(헬스케어 응용, 코어 5주제 밖)
+</li></ul>
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 (Research/Publication 카테고리 기준 — 최신 항목은 8/1)
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 (블로그 페이지 최신 글이 여전히 7/27)
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음 (research.nvidia.com/publications는 게시물별 날짜가 없어 "8월" 묶음의 개별 신규 여부 확인 불가 — 이전에 확인된 8/7 게시물과 동일 묶음으로 판단해 제외. blogs.nvidia.com/feed/의 8/17 항목은 데이터센터 인프라 파트너십 발표로 연구 콘텐츠 아님)
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>AgentRewind: Recoverable Execution for Long-Horizon LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.14380" target="_blank" rel="noopener">2608.14380</a>) — 장기 실행 에이전트가 초반 오류로 인해 이후 복구 불가능한 상태에 빠지는 문제를 다룸. 에이전트 컨텍스트와 환경 상태를 정렬된 체크포인트로 기록해 이전 상태로 되돌아가 이전 시도 정보를 활용해 재개할 수 있게 하는 런타임 복구 프레임워크와, 이를 평가할 MettleBench 벤치마크를 제안.
+</li><li>
+<strong>Wrong but Useful: Trajectory Value Beyond Answer Correctness in Multi-Agent Messages</strong> (<a href="https://arxiv.org/abs/2608.14375" target="_blank" rel="noopener">2608.14375</a>) — 멀티에이전트 추론에서 "정답 여부"가 메시지 유지 가치와 다를 수 있음을 통제 실험(Diverse Hypothesis Deliberation)으로 입증. 오답 메시지 중 최종 정답에 영향을 준 경우의 40% 이상이 오히려 유용했고, 이는 5개 벤치마크·2개 모델 패밀리에서 일관되게 재현됨(p=0.0002).
+</li><li>
+<strong>Demystifying Agent Skills: Why They Work-Until They Don't</strong> (<a href="https://arxiv.org/abs/2608.14036" target="_blank" rel="noopener">2608.14036</a>) — LLM 에이전트 "Skill"이 언제·왜 작동하고 실패하는지를 8,135개 시행 기록의 대조 분석으로 규명. Skill의 효과 65.7%는 지식 주입이 아니라 "절차적 앵커링"(노이즈 있는 궤적을 안정화)에서 나오며, 검색 풀이 5→100으로 커지면 실사용 정밀도가 29.6%→3.3%로 급락.
+</li><li>
+<strong>Engineering Reliable Coding Agents: Evaluating and Operating the System Around the Model</strong> (<a href="https://arxiv.org/abs/2608.13867" target="_blank" rel="noopener">2608.13867</a>) — 코딩 에이전트 신뢰성이 모델 능력이 아니라 하네스·상태관리·검색·권한 등 "시스템" 레이어에서 좌우된다는 관점의 대규모 서베이(학술 164편·실무 기록 100건). 206개 신뢰성 항목의 버전관리 카탈로그와 재현 가능한 평가 프로토콜을 제공.
+</li><li>
+<strong>From BERT to Frontier Agents: Eight Years of Language-Model Progress, the Collapse of the Capability-Cost Curve, and the Rise of Task-Targeted Models</strong> (<a href="https://arxiv.org/abs/2608.13675" target="_blank" rel="noopener">2608.13675</a>) — 2018~2026 LLM 발전사를 정리하며 실제 GitHub 이슈 해결 능력이 2024년 말 이후 연 6배 속도로 향상되고 있음을 보고. 코딩·터미널·프론트엔드 등 태스크별로 특화 모델이 갈리는 "task-targeted" 추세와 비용 붕괴(성능 대비 토큰당 비용 급락)를 정리.
+</li><li>
+<strong>Clearing the Fog: Towards Installing and Refining Proactive Exploration Capabilities in LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.14339" target="_blank" rel="noopener">2608.14339</a>) — 미래 의사결정에 도움이 되는 정보를 얻기 위한 "능동적 탐색" 능력을 LLM 에이전트에 주입하는 방법(SAFARI)을 제안. 탐색이 풍부한 궤적을 합성해 hindsight bias를 줄이고, 대조 궤적 쌍으로 생산적 탐색과 불필요한 방황을 구분하는 RL 신호를 사용.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>The Past and Future of AI Scientists</strong> (<a href="https://arxiv.org/abs/2608.14407" target="_blank" rel="noopener">2608.14407</a>) — 과학 자동화 기계("AI Scientist")의 역사(Adam, Eve)와 향후 전망을 종합하는 서베이. 개별 구성요소(가설 생성·실험 설계·로봇 실험실)는 이미 자동화 가능하며, 남은 핵심 과제는 "통합"이라고 주장하고 2050년 노벨상급 발견 자동화를 목표로 한 Nobel Turing Challenge를 소개.
+</li><li>
+<strong>ScienceFlow: A long-horizon agent for ML research, scientific discovery and beyond</strong> (<a href="https://arxiv.org/abs/2608.14354" target="_blank" rel="noopener">2608.14354</a>) — Huawei Noah's Ark Lab의 장문맥 자율연구 에이전트. 연구 진행을 "복구 가능한 실행 상태"로 표현하고 재분기 메커니즘(ESTRA)과 근거 기반 실행 컨트롤러를 결합해 MLE-bench 전체(75-task)에서 70.22% Any-Medal로 SOTA 달성(+4.92pp).
+</li><li>
+<strong>AI Research Preference Models</strong> (<a href="https://arxiv.org/abs/2608.13940" target="_blank" rel="noopener">2608.13940</a>) — FAIR at Meta. 실행 비용이 큰 ML 실험 후보들을 실제로 돌려보지 않고 "실행 전 상대 순위"만으로 선별하는 Preference Model(RPM)을 frozen LLM으로 구축. AIRA-dojo에 통합해 AIRS-Bench 평균 정규화 점수를 0.684→0.729로 끌어올림.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>SimpleOPD: Simple Tokenizer-Agnostic On-Policy Distillation for Long-Context Reasoning</strong> (<a href="https://arxiv.org/abs/2608.14277" target="_blank" rel="noopener">2608.14277</a>) — 장문맥 추론 teacher 모델(SU-01)의 증명 추론 능력을 짧은 컨텍스트 student로 전이할 때 생기는 토크나이저 불일치·응답 길이 폭주 문제를 공유 텍스트 공간 정렬과 reference KL 손실로 해결. Intern-S2-Preview가 ProofBench에서 21.2점 향상, Gemini-2.5-Pro를 상회.
+</li><li>
+<strong>MemoryLake on MemoryArena: A Matched Study of Agent Memory Backends</strong> (<a href="https://arxiv.org/abs/2608.13883" target="_blank" rel="noopener">2608.13883</a>) — 사후 회상이 아니라 세션 간 상호의존적 태스크 완수를 평가하는 MemoryArena 벤치마크로 구조화 메모리(MemoryLake) vs Mem0 vs 벡터 RAG vs 장문맥 컨트롤을 동일 에이전트 프레임워크에서 매치드 비교. MemoryLake가 수학·물리·점진적 검색에서 최고 성공률을 보였으나 여행 계획·쇼핑에서는 전 시스템이 사실상 실패.
+</li><li>
+<strong>Ontology-Grounded Project Memory for Coding Agents</strong> (<a href="https://arxiv.org/abs/2608.13662" target="_blank" rel="noopener">2608.13662</a>) — 코딩 에이전트에 아키텍처 결정·제약·근거를 지식그래프로 제공하는 MOOSEDev 시스템. 공개 코퍼스(835개 레코드) 비교에서 상속·부정 질의 정확도 0.98–1.00으로, 벡터 메모리 베이스라인(top-k 검색 6–27%)을 크게 상회.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Amplified Does Not Mean Predictive: Reasoning Behaviors in Thinking Models</strong> (<a href="https://arxiv.org/abs/2608.13760" target="_blank" rel="noopener">2608.13760</a>) — reasoning 지향 학습이 실제로 정답과 상관된 행동을 증폭시키는지 검증. 15개 모델·15,282개 추론 trace 분석 결과, thinking 모델은 자기수정·가설검증·불확실성 인정을 강하게 증폭시키지만, 정답과 가장 강하게 연관된 행동(신뢰도 보정)은 오히려 거의 증폭되지 않는 "증폭-기여 격차"를 발견.
+</li><li>
+<strong>Second Thought: Reasoning in Parallel as LLM Agents Act and Observe</strong> (<a href="https://arxiv.org/abs/2608.13667" target="_blank" rel="noopener">2608.13667</a>) — ReAct 루프에서 행동을 실행하고 관측을 기다리는 동안 추론이 멈추는 "유휴 구간"을 활용해, 그 시점에 보조 추론 분기 4개를 병렬로 디코딩하고 관측이 도착하면 병합. 9개 (모델,벤치마크) 조합 전체에서 평균 턴 수 감소, 6개 조합에서 메인 스레드 디코딩 최대 43% 절감.
+</li><li>
+<strong>Capacity-Dependent Effects of Data Selection for Reasoning</strong> (<a href="https://arxiv.org/abs/2608.13721" target="_blank" rel="noopener">2608.13721</a>) — "student 분포와 가까운(고확률) 응답이 supervised fine-tuning에 항상 유리하다"는 통념을 재검토. 1.5B~8B 모델 대상 통제 실험에서 소형 모델은 고확률 데이터가 빠른 초기 향상을 주지만, 대형 모델·장기 학습에서는 저확률(teacher에 더 가까운) 데이터가 갈수록 유리해지는 "Fast-Fit/Slow-Gain" 패턴을 발견.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 400건 · 신규 237건 · 채택 2 · 보류 1 · 탈락 0</p>
+<p>색인 상태: 넓은 조회(400건, covered: true)의 최신 게재가 2026-08-14T17:51:30Z(<code>2608.14539</code>)로, 8/15~8/17 사흘간 완전히 정지해 있던 색인이 이번 실행에서 전진했습니다(직전 커서 2026-08-13T17:59:57Z). 다만 실행 시각(2026-08-17T22:38Z) 대비 여전히 약 3.2일 지연이므로, 6절 커서 규칙에 따라 <code>last_run</code>을 실행 시각이 아니라 이번에 실제로 관측된 최신 게재 시각(2026-08-14T17:51:30+00:00)으로 전진시킵니다. 레이더 좁은 관문 후보는 3건(radar_match) 전부가 이 새로 열린 구간(8/13 18:00~8/14 17:51)에서 나왔습니다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>ScienceFlow</strong> — A Long-horizon Agent for ML Research, Scientific Discovery and Beyond
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.14354" target="_blank" rel="noopener">2608.14354</a>
+</li><li>
+통과 근거: Gate B-1/B-4 — 연구 상태를 "복구 가능한 실행 상태"로 표현하고 재분기(ESTRA)와 근거 기반 실행 제어를 결합하는 새 축 + 표준 벤치마크 MLE-bench 전체(75-task)에서 SOTA(70.22%, +4.92pp)
+</li><li>
+파일: <code>2026/2026_ScienceFlow_Long-Horizon-Agent-for-ML-Research_arXiv2608.14354.pdf</code> · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li><li>
+<strong>AI Research Preference Models</strong> — 실행 전 후보 솔루션 가치를 예측하는 Preference Model
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.13940" target="_blank" rel="noopener">2608.13940</a>
+</li><li>
+통과 근거: Gate B-1/B-2 — "실행 없이 상대 순위로 후보 선별"이라는 새 문제 프레이밍 + AIRA-dojo 통합으로 HypoExplore/AutoScientists의 실험 후보 선택 단계에 바로 적용 가능한 방법(AIRS-Bench 0.684→0.729)
+</li><li>
+파일: <code>2026/2026_AIResearchPreferenceModels_Candidate-Value-Prediction-for-Research-Agents_arXiv2608.13940.pdf</code> · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+The Past and Future of AI Scientists — <a href="https://arxiv.org/abs/2608.14407" target="_blank" rel="noopener">2608.14407</a> — Gate A 통과(AI-Scientist 계보 서베이, 코어 3토픽의 첫 본격 서베이라 자동탈락 예외 적용)하나 Gate B가 애매: 정량 평가·신규 방법·벤치마크가 없는 전망 서술 위주라 B-1(새 문제 축)·B-4(벤치마크/베이스라인) 어느 것도 "명확히" 충족한다고 보기 어려움. 상한 2편에도 걸려 있어 보류.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+없음 (radar_match 3건 전부 Gate A 통과, 위 판정으로 분류)
+</li></ul></div></div>

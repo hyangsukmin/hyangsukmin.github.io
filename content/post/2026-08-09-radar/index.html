@@ -1,0 +1,44 @@
+---
+title: "AI 사이언티스트 레이더 — 2026년 8월 9일 (일)"
+date: 2026-08-09T07:30:00+09:00
+draft: false
+issue_label: "2026년 8월 9일 (일)"
+summary: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0"
+tags: ["Daily", "AI Scientist Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 — RSS(<code>deepmind.google/blog/rss.xml</code>)로 확인. 최신 게시물은 8/6 "WeatherNext: AI model achieves breakthrough in forecasting cyclones"로, 어제 브리핑에서 이미 다뤘습니다. 그 이후 새 글은 없습니다.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>research.google/blog/rss/</code>)로 확인. 최신 게시물은 7/30 "One Framework: A verifiable autonomous research framework via Chain-of-Evidence"로 여전히 커버 범위 밖입니다.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 — 오늘은 <code>openai.com/news/rss.xml</code> 경로로 접근에 성공했습니다(직전 실행까지는 <code>openai.com/news/research/</code> 페이지가 Cloudflare 봇 차단 챌린지로 막혀 있었으나, RSS 엔드포인트는 정상 응답). 피드를 카테고리(<code>Research</code>/<code>Publication</code>)로 필터링한 결과 최신 항목은 8/1 "Ten advances in mathematics and theoretical computer science"로 커버 범위 밖이며, 그 이후 새 Research/Publication 글은 없습니다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+⚠ 확인 실패 — <code>www.anthropic.com</code>은 이 실행 환경의 네트워크 egress 정책상 명시적으로 차단되어 있습니다(<code>Host not in allowlist: www.anthropic.com</code>). curl 직접 호출, <code>anthropic.com</code>(www 없이) 경유 리다이렉트, RSS/sitemap 경로 모두 동일하게 403으로 차단되어 본문을 확인할 수 없었습니다.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 — 최신 게시물은 7/27 "Reimagining Independence: How Meta's AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics"로 커버 범위 밖입니다(변경 없음).
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>microsoft.com/en-us/research/feed/</code>)로 확인. 최신 게시물은 8/3 "Orchard: An open framework for scalable agentic AI"로, 어제 브리핑에서 이미 다뤘습니다.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(5개 주제와 무관) — <code>blogs.nvidia.com/feed/</code> 최신 글은 8/8 "Firebird Launches CIS Region's Largest AI Factory in Armenia"이지만 AI 인프라 구축 관련 비즈니스 뉴스로 5개 관련 주제와 무관합니다. <code>research.nvidia.com/publications</code>의 8월 항목도 게이밍 성능 관련 논문 2건뿐으로 무관합니다.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 — RSS(<code>machinelearning.apple.com/rss.xml</code>)로 확인. 최신 게시물은 8/7(3건: Arbitrage, Beyond Next-Token Prediction, Scaling Categorical Flow Maps)로, 어제 브리핑에서 이미 다뤘습니다. 그 이후 새 글은 없습니다.
+</li></ul><h3 class="sub">arXiv 신규</h3><p>⚠ 신규 없음 — arXiv API(<code>export.arxiv.org/api/query</code>)를 캐시를 우회해(더미 파라미터 추가, <code>x-cache: MISS</code> 확인) 재조회한 결과 cs.AI/cs.CL/cs.LG 전체에서 최신 제출(<code>published</code>) 시각이 여전히 <strong>2026-08-06T17:59:58Z</strong>로, 어제 브리핑이 이미 다룬 경계와 동일했습니다. 단일 카테고리(cs.LG)만 따로 조회해도 같은 결과였습니다. arXiv는 통상 일~목요일에만 신규 논문을 공지하고 금·토요일에는 공지하지 않으므로, 오늘(UTC 토요일, KST 일요일 아침)은 실제로 신규 배치가 없는 것으로 판단됩니다. 다음 신규 배치는 월요일(8/10) 경 예상됩니다.</p><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 200건 · <strong>신규 없음</strong> (신규 0건 · 채택 0 · 보류 0 · 탈락 0) · <code>covered: true</code> (누락 구간 없음).</p>
+<p>클라우드 스케줄 실행. arXiv egress 차단(403)이나 429 rate limit 없이 첫 요청에서 200건을 정상 수신했다.</p>
+<p><code>since = last_run = 2026-08-08T23:13:56+00:00</code> 기준 후보 0건. <code>seen</code> 필터 때문이 아니라 <strong>질의에 걸리는 최신 논문 자체가 <code>last_run</code>보다 오래되었기</strong> 때문이다. 교차 확인으로 빈 <code>seen</code>에 <code>--since 2026-08-01</code>을 줘도 피드 최상단은 여전히 <a href="https://arxiv.org/abs/2608.05876" target="_blank" rel="noopener">2608.05876</a> (Personalized Deep Research Query Refinement, 2026-08-06T10:58:17Z)이며 이는 <span class="wiki">2026-08-08</span> 로그에서 이미 Gate A 탈락으로 판정된 논문이다. 즉 8/6 10:58Z 이후 이 레이더 질의에 해당하는 신규 게재가 없다 (8/8·8/9는 주말).</p>
+<p>판정할 후보가 없으므로 저장·리뷰·MANIFEST 갱신 없이 <code>last_run</code>만 밀었다.</p></div></div>

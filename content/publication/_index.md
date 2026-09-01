@@ -10,6 +10,32 @@ aliases:
 
 <div class="publication-year"><span>2026</span></div>
 
+<article class="publication-entry publication-entry--animation" id="remember">
+  <div class="publication-entry__visual">
+    <div class="publication-animation">
+      <iframe src="/uploads/research/remember-loop.html?v=3" title="ReMEMBER missing-evidence memory loop" loading="lazy"></iframe>
+    </div>
+  </div>
+  <div class="publication-entry__content">
+    <p class="publication-summary"><strong>Core idea.</strong> Retrieves evidence for unresolved window dependencies and refines it into evidence-dense memory for streaming dialogue summarization under a fixed budget.</p>
+    <div class="publication-badges">
+      <span class="publication-badge publication-badge--green">EMNLP 2026</span>
+      <span class="publication-badge publication-badge--magenta">NLP</span>
+    </div>
+    <h3>Don't Scroll Back: Missing-Evidence Memory for Streaming Dialogue Summarization</h3>
+    <p class="publication-authors"><mark class="author-highlight">Hyangsuk Min</mark>, Hwanjun Song*</p>
+    <p class="publication-venue">Conference on Empirical Methods in Natural Language Processing, 2026</p>
+    <div class="publication-keywords" aria-label="Paper keywords">
+      <span class="publication-keyword">Streaming Summarization</span>
+      <span class="publication-keyword">Long-Context Dialogue</span>
+      <span class="publication-keyword">Missing Evidence</span>
+      <span class="publication-keyword">Memory Construction</span>
+      <span class="publication-keyword">Retrieval</span>
+    </div>
+    <p class="publication-links"><a href="https://arxiv.org/abs/2608.09043">[arXiv]</a></p>
+  </div>
+</article>
+
 <article class="publication-entry" id="dream">
   <div class="publication-entry__visual">
     <figure class="publication-figure">
@@ -35,32 +61,6 @@ aliases:
       <span class="publication-keyword">Benchmark Refinement</span>
     </div>
     <p class="publication-links"><a href="https://openreview.net/pdf?id=DD5RNCHuzq">[Paper]</a></p>
-  </div>
-</article>
-
-<article class="publication-entry publication-entry--animation" id="remember">
-  <div class="publication-entry__visual">
-    <div class="publication-animation">
-      <iframe src="/uploads/research/remember-loop.html?v=3" title="ReMEMBER missing-evidence memory loop" loading="lazy"></iframe>
-    </div>
-  </div>
-  <div class="publication-entry__content">
-    <p class="publication-summary"><strong>Core idea.</strong> Retrieves evidence for unresolved window dependencies and refines it into evidence-dense memory for streaming dialogue summarization under a fixed budget.</p>
-    <div class="publication-badges">
-      <span class="publication-badge publication-badge--gray">Under Review</span>
-      <span class="publication-badge publication-badge--magenta">NLP</span>
-    </div>
-    <h3>Don't Scroll Back: Missing-Evidence Memory for Streaming Dialogue Summarization</h3>
-    <p class="publication-authors"><mark class="author-highlight">Hyangsuk Min</mark>, Hwanjun Song*</p>
-    <p class="publication-venue">Preprint, 2026</p>
-    <div class="publication-keywords" aria-label="Paper keywords">
-      <span class="publication-keyword">Streaming Summarization</span>
-      <span class="publication-keyword">Long-Context Dialogue</span>
-      <span class="publication-keyword">Missing Evidence</span>
-      <span class="publication-keyword">Memory Construction</span>
-      <span class="publication-keyword">Retrieval</span>
-    </div>
-    <p class="publication-links"><a href="https://arxiv.org/abs/2608.09043">[arXiv]</a></p>
   </div>
 </article>
 

@@ -1,0 +1,45 @@
+{{/* One AI Scientist Radar issue, rendered in the artifact's own design.
+     Page content is the artifact's <div class="issue__body"> markup, kept
+     verbatim; the styles come from partials/radar-style.html. */}}
+{{ define "main" }}
+{{ partial "radar-style.html" . }}
+<div id="daily-radar">
+  <div class="page">
+    <header class="masthead">
+      <div class="masthead__rule"></div>
+      <a class="backlink" href="{{ .CurrentSection.RelPermalink }}">{{ .CurrentSection.Title }}</a>
+      <p class="masthead__eyebrow">바쁜 아침에 대신 읽어드리는 자율 연구 소식</p>
+      <h1 class="masthead__title">AI 사이언티스트 <em>레이더</em></h1>
+      <p class="masthead__meta">
+        <span class="stamp">{{ with .Params.issue_label }}{{ . }}{{ else }}{{ .Date.Format "2006-01-02" }}{{ end }}</span>
+        {{ with .Params.summary }}<span>{{ . }}</span>{{ end }}
+      </p>
+      <div class="masthead__rule masthead__rule--thin"></div>
+    </header>
+
+    <article class="issue" style="margin-bottom:2.75rem;">
+      <div class="issue__body">{{ .Content }}</div>
+    </article>
+
+    {{ $others := where (where .CurrentSection.Pages "Params.layout" "radar") "Permalink" "!=" .Permalink }}
+    {{ with $others.ByDate.Reverse }}
+    <section class="strip">
+      <h2 class="rubric-wrap"><span class="rubric">지난 호 다시 보기</span></h2>
+      <div class="strip__list">
+        {{ range . }}
+        <a class="strip__row strip__row--index" href="{{ .RelPermalink }}">
+          <span class="strip__date">{{ .Date.Format "2006-01-02" }}</span>
+          <span class="strip__title">{{ with .Params.summary }}{{ . }}{{ else }}{{ .Title }}{{ end }}</span>
+        </a>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+    <footer class="colophon">
+      <p>AI 사이언티스트 레이더 · 매일 아침 7시 30분 발행</p>
+      <p><a href="{{ .CurrentSection.RelPermalink }}">전체 목록으로</a></p>
+    </footer>
+  </div>
+</div>
+{{ end }}
