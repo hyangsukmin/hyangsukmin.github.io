@@ -1,0 +1,86 @@
+---
+title: "리서치 레이더 — 2026년 8월 25일 (화)"
+date: 2026-08-25T07:30:00+09:00
+draft: false
+issue_label: "2026년 8월 25일 (화)"
+summary: "기관 1 · arXiv 12 · 채택 0 · 보류 0 · 탈락 1"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 (RSS <code>deepmind.google/blog/rss.xml</code> 확인. 최신 글 "From Atari to EVE Online: Building on 15 Years of AI Research in Games"(2026-08-21)는 커버 범위 이전이며 이미 다룸)
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 (RSS <code>research.google/blog/rss/</code> 확인. 최신 글 "An AI tool for prioritizing candidate biomarkers from wearable sensor data"(2026-08-21)는 커버 범위 이전이며 이미 다룸)
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 (RSS <code>openai.com/news/rss.xml</code> 확인. Research/Publication 카테고리 최신 글은 여전히 7월 말("How enabling two settings tripled our scores on the ARC-AGI-3 benchmark" 7/29, "Scientific computing in the age of agentic AI" 7/28)로 커버 범위 이전. 8/24 최신 항목들은 Product/Company/Global Affairs 카테고리)
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음 (research 페이지 확인. 최신 글 "How Claude is accelerating protein design and analytical chemistry"(8/18)는 커버 범위 이전이며 이미 다룸)
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 (블로그 페이지 확인. 최신 글 7/27 "Reimagining Independence..." 그대로, RSS 없음)
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 (RSS <code>/feed/</code> 확인. 최신 글 "Broadening access to Skala creates a faster path to predictive DFT"(2026-08-20)는 커버 범위 이전이며 이미 다룸. 다음으로 최신인 "MindTopo reveals VLMs' spatial reasoning abilities"(8/12), "Introducing CARE-X"(8/11)도 모두 이전)
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+⚠ 확인 실패 — <code>research.nvidia.com/publications</code>는 논문마다 학회 게재월만 표기돼("2026-12" 등 미래 날짜) 실제 게시일과 무관해 신규 판별 불가. 대체 경로 <code>blogs.nvidia.com/feed/</code>도 게임/제품/인프라 소식 위주라 연구 신규 게시물 유무를 판별할 수 없음. (연속 4일째 동일한 확인 실패)
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>Beyond Visual CoT: Internalized Visual Thinking for Proactive Video Reasoning</strong> (2026-08-24) — 비디오 이해에서 널리 쓰이는 Visual CoT(추론 중간 단계마다 이미지를 생성)는 추론 비용이 커 실시간 활용이 어렵다는 문제를 지적. 학습 단계에서만 미래 프레임의 잠재 표현을 예측하도록 텍스트 답변 예측과 공동 최적화해 "예측적 세계 모델링"을 내재화하고, 추론 시에는 프레임을 다시 생성·인코딩하지 않고 곧바로 답을 내는 IVT(Internalized Visual Thinking) 프레임워크를 제안. Visual CoT 대비 동등하거나 더 나은 성능을 유지하면서 종단간 지연을 5배 이상 줄였고, 6개 평가 세팅 전반에서 텍스트 전용 베이스라인 대비 일관된 개선을 보임. — <a href="https://machinelearning.apple.com/research/internalized-visual-thinking" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning, Long-context
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Graph Engineering in the Era of LLM Agents: From Individual Intelligence to System Intelligence</strong> (<a href="https://arxiv.org/abs/2608.21156" target="_blank" rel="noopener">2608.21156</a>) — Prompt/Context/Harness/Loop Engineering으로 개별 에이전트 역량을 늘리는 접근이 이질적 전문성·상호의존 서브태스크·병렬 실행이 필요한 복잡 과제에서 한계에 부딪힌다고 진단하고, 태스크·에이전트·시스템 상태를 명시적 동적 그래프로 표현해 여러 에이전트를 조직하는 새 패러다임 "Graph Engineering"을 제안하는 서베이. 개별 지능 확장이 아니라 시스템 수준 조율 구조가 필요하다는 문제의식이 핵심.
+</li><li>
+<strong>Weighted Memory Tree: Remembering What Matters for Long-Horizon LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.20631" target="_blank" rel="noopener">2608.20631</a>) — 장기 실행 이력이 쌓이면 추론 비용이 늘고 오래된/오도하는 정보가 섞여 성능이 떨어지는 문제에, 태스크·서브태스크·액션을 계층화하고 각 메모리에 동적 보존 점수를 매겨 유지·폴딩·억제를 결정하는 계층형 메모리(WMT)로 대응. GAIA-Text에서 선형 메모리 대비 정확도 평균 9.97%p 향상, 프롬프트 토큰 32.8% 절감을 보였고 메모리 오염 실험에서도 오염 정보의 전파를 제한함을 확인.
+</li><li>
+<strong>Don't Solve, Just Compare: Tiny Advisors for Runtime Intervention in LLM Agents</strong> (<a href="https://arxiv.org/abs/2608.21027" target="_blank" rel="noopener">2608.21027</a>) — 런타임 개입을 위해 별도의 강력한 솔버/크리틱이 필요하다는 통념에 맞서, 정답을 직접 풀지 않고 액터의 제안과 샘플링된 대안 중 어느 쪽이 더 나은지 "비교만" 하는 작은 비교기(COTA)로 개입 여부와 방향을 판단하는 프레임워크. WebShop·ALFWorld·τ³-Retail의 9개 설정 전부에서 액터보다 훨씬 약한 보조 모델로도 개선을 이끌어냄.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>CDRL: Certification-Driven Reinforcement Learning for Neutrino Flavor Model Discovery</strong> (<a href="https://arxiv.org/abs/2608.20686" target="_blank" rel="noopener">2608.20686</a>) — 조합적 가설 공간에서의 과학적 발견에 스칼라 보상만 쓰는 RL은 실패 이유 정보가 없어 무효 영역을 반복 탐색한다는 한계를 지적. 기호적 추론 도구가 제약 위반 시 원인 행동을 짚어주는 "인증서(certificate)"를 재사용 가능한 제약으로 변환해 탐색을 유효 영역으로 유도하는 CDRL을 제안. 이론 공간이 10^26개를 넘는 중성미자 플레이버 모델 탐색에서 기존 SOTA RL 대비 유효 모델 비율 최대 1.95배, 중성미자 모델 발견율 최대 6.33배 향상시키면서 평가 후보 수는 최대 4배 줄임. 탐색 궤적에서 해석 가능한 규칙 40개를 추출해 재사용하면 추가로 최대 2~3배 향상.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>Tree-of-Concerns: Hierarchical Multi-Agent Debate for Unstated-Limitation Extraction in Scientific Critique</strong> (<a href="https://arxiv.org/abs/2608.20777" target="_blank" rel="noopener">2608.20777</a>) — 논문이 한계를 과소 보고하는 경향이 커지는 상황에서, 카테고리별 전문 "회의론자" 페르소나들이 병렬 논쟁 트리로 논문의 명시되지 않은 한계를 찾아내고 패널 리뷰로 범주·심각도 오류를 재교정하는 멀티에이전트 프레임워크. 리뷰어 지적·후속 인용 비판에서 수집한 414편·1,905개 한계로 구성된 ToC-Bench에서 최강 베이스라인 대비 정밀도 79%, 커버리지 11% 향상.
+</li><li>
+<strong>Metag: A dataset to build agentic meta-reviewing capabilities</strong> (<a href="https://arxiv.org/abs/2608.20488" target="_blank" rel="noopener">2608.20488</a>) — 리뷰-리버틀 과정에서 저자가 리뷰어 우려를 실제로 반영했는지 확인해야 하는 메타리뷰어의 부담에 주목, 리뷰 마감 전/승인 후 원고 버전을 비교해 리뷰어 우려·저자 해결책·원고 diff를 정렬한 349개 고품질 액션 아이템 데이터셋 Metag를 공개. 메타리뷰 에이전트가 "저자가 지적을 반영했는지, 어디를 고쳤는지"를 자동 판별하도록 학습시키는 것이 목표.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>RAG Deserves an Index: Why Ingest-Time Compilation Beats Query-Time Interpretation</strong> (<a href="https://arxiv.org/abs/2608.20845" target="_blank" rel="noopener">2608.20845</a>) — 매 질의마다 원문을 다시 해석하고 그 결과를 버리는 현재 RAG 구조를 "매번 풀스캔하는 DB"에 비유하고, 임베딩과 출처 검증된 원자적 주장(claim)을 write-time에 미리 컴파일해두는 "ingest-time semantic compilation(ISC)"을 제안. 증분 갱신이 재구축 대비 33.7배 저렴하면서 부동소수점 정밀도까지 추적 가능함을 보였고, 500개 방송 인터뷰 전사본 실험에서 컴파일된 claim 기반 검색이 32개 예산×모델 조합 전부에서 승리(2.2k 토큰으로 85.2% 정확도 vs 최선의 청크 구성 16.3k 토큰으로 72.5%).
+</li><li>
+<strong>Memory Augmentation Unlocks Efficient Chain-of-Thought Reasoning</strong> (<a href="https://arxiv.org/abs/2608.21265" target="_blank" rel="noopener">2608.21265</a>) — CoT 압축이 추론 지연을 줄이지만 논리적 일관성을 해칠 수 있다는 트레이드오프를 "맥락-생성 대체 법칙"으로 정식화하고, 과거 추론 흔적에서 재사용 가능한 패턴·제약·핵심 연산을 요약한 메모리를 prefill 단계에서 검색해 압축으로 손실된 정보를 보완하는 학습 불필요 프레임워크를 제안. GSM8K·MATH·BBH·MMLU-Sci에서 Chain-of-Draft 대비 각각 21.4/28.0/29.5/6.61점 정확도 향상과 표준 CoT 대비 1.14~1.49배 지연 단축을 동시에 달성.
+</li><li>
+<strong>MGAL: A Multilingual Granularity-Aware Long-Context Benchmark</strong> (<a href="https://arxiv.org/abs/2608.20853" target="_blank" rel="noopener">2608.20853</a>) — 기존 장문맥 벤치마크가 문서 단위·고자원 언어 위주라는 한계를 지적하고, UN 6개 공용어·8K~128K 토큰 보고서로 단어/문장/단락/문서 4단계 세분성과 위치(시작/중간/끝)를 함께 통제한 벤치마크를 공개. 모델이 단어 단위 과제엔 강하지만 성긴 단위로 갈수록 약해지며, 인접 문장이 주제·개체를 공유할 때 담화 역할보다 표면 단서(접속사·개체 반복)에 의존하는 경향과 유창성-사실 일치성 간 괴리를 새로운 실패 유형으로 제시.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>DirEAG: Dirichlet Evidence Aggregation for Calibrating Verbalized Confidence in Mathematical Reasoning</strong> (<a href="https://arxiv.org/abs/2608.20717" target="_blank" rel="noopener">2608.20717</a>) — 동일 문제를 여러 신뢰도 유도 프롬프트로 반복 질의하면 유용한 불확실성 정보가 나오지만 스케일이 프롬프트·모델·데이터셋마다 달라져 보정이 어렵다는 문제에, 각 답변-신뢰도 관측치를 후보 답안 및 "정답 없음" 상태에 대한 보정된 소프트 증거로 변환하는 디리클레 증거 집계법을 제안. GSM8K·SVAMP·GSM-Hard에서 Qwen/Mistral/Gemma 대상으로 단순 평균·휴리스틱 집계보다 나은 보정을 유지하면서 답 선택 성능도 경쟁력 있게 유지.
+</li><li>
+<strong>No Judgment Without a Reason: Counterfactual Receipts for Versioned AI Evaluators</strong> (<a href="https://arxiv.org/abs/2608.20938" target="_blank" rel="noopener">2608.20938</a>) — 라벨은 맞아도 추론이 잘못된 평가자가 에이전틱 시스템의 행동 게이팅·리뷰 라우팅에 위험하다는 문제의식으로, 근거(grounds)·규범(norms)·권한(authority) 3요소로 판단 갱신을 8분면 반사실 큐브로 정식화하고 판정 변화를 재현하는 최소 근거 교체집합인 "판단 영수증"을 정의. 19,520건·7,200개 대조군의 ReasonBench에서 표준 정확도는 높아도(Qwen3-1.7B 영수증 정확도 98.41%) 의미보존 순열에 대한 견고성은 54.8%·49.2%로 급락함을 보여 "표준 정확도가 취약한 추론을 가린다"는 점을 실증.
+</li><li>
+<strong>Automated Trajectory Evaluation for Mobile Agents via Step-Level Consequence Reasoning and Aggregation</strong> (<a href="https://arxiv.org/abs/2608.20797" target="_blank" rel="noopener">2608.20797</a>) — 모바일 에이전트 평가가 전체 궤적을 한 번에 처리해 컨텍스트 과부하가 걸리고 과제 완료만 보고 조작 안전성은 놓친다는 한계에, 각 스텝에서 시각 단서와 행동에 따른 상태 변화를 독립적으로 추론한 뒤 궤적 단위로 종합하는 2단계 VLM-as-judge 프레임워크 CRATE(+안전성 평가용 CRATE-S)를 제안. Qwen2.5-VL-72B 기반으로 AndroidWorld에서 F1 0.833(SPA-Bench 대비 20%↑), MobileRisk에서 CRATE-S가 F1 0.697 달성.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">1</span></span></span></h3><div class="radar"><p>조회 400건 · 신규 236건 · 채택 0 · 보류 0 · 탈락 1</p>
+<p>색인 상태: 넓은 조회(400건, covered: true)의 최신 게재가 2026-08-21T17:59:37Z(<code>2608.21357</code>)로, 실행 시각(2026-08-24T22:38Z) 대비 약 3.2일 지연되어 있고 직전 커서(2026-08-20T17:59:57+00:00)에서 하루치가 새로 열렸습니다. 6절 커서 규칙에 따라 <code>last_run</code>을 실행 시각이 아니라 이번에 실제로 관측된 최신 게재 시각(2026-08-21T17:59:37+00:00)으로 전진시킵니다. 레이더 좁은 관문(radar_match) 후보는 1건이었습니다.</p>
+<h3>채택</h3>
+<p>없음</p>
+<h3>보류</h3>
+<p>없음</p>
+<h3>탈락</h3>
+<ul><li>
+When Failures Propagate: Causal Failure Attribution in Agentic Retrieval-Augmented Generation — <a href="https://arxiv.org/abs/2608.20627" target="_blank" rel="noopener">2608.20627</a> — Gate A 탈락: 핵심 기여가 agentic RAG의 인과적 실패 귀인을 위한 개입 기반 벤치마크(홉 단위 결함 주입·재실행으로 사후 진단이 개입 지점을 다시 찾아내는지 평가)이며, 자율연구 파이프라인·가설생성·아이디어평가 어느 것도 아니고 일반 멀티홉 RAG 디버깅 도구. 지난주 유사 사례(2608.18575, GNN 기반 에이전트 실패 귀인)와 동일한 사유로 탈락.
+</li></ul></div></div>

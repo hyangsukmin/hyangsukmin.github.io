@@ -1,0 +1,124 @@
+---
+title: "리서치 레이더 — 2026년 9월 1일 (화)"
+date: 2026-09-01T07:30:00+09:00
+draft: false
+issue_label: "2026년 9월 1일 (화)"
+summary: "기관 2 · arXiv 13 · 채택 0 · 보류 1 · 탈락 1"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 (RSS 최신 항목은 "Gemini Omni 1.1 Flash lets you build with more control", 2026-08-27로 커버 범위 이전)
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>TimesFM-3: A zero-shot foundation model for multivariate forecasting</strong> — 3.3억 파라미터 시계열 예측 파운데이션 모델의 최신판으로, 기존 버전이 단변량 예측에 국한됐던 것과 달리 다변량 예측을 네이티브로 지원한다. 연관 시계열과 프로모션·날씨 예보처럼 미리 알려진 미래 정보를 함께 반영해 예측 정확도를 높인다. — <a href="https://research.google/blog/timesfm-3-a-zero-shot-foundation-model-for-multivariate-forecasting/" target="_blank" rel="noopener">링크</a>
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 (RSS 최신 6건이 모두 Product/Company 카테고리이며 Research/Publication 카테고리 신규 항목 없음)
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음 (연구 페이지 최신 항목은 "Automated researchers can reliably mitigate alignment failures", 2026-08-28로 커버 범위 이전)
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 (블로그 최신 항목이 2026-07 하순 이후 갱신 없음)
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+<strong>GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models</strong> — 계산 비용을 대폭 줄이면서 성능은 유지한 경량 병리학 파운데이션 모델. 기존 GigaPath 대비 약 50배 적은 연산으로 경쟁력 있는 성능을 달성해 더 큰 규모의 연구와 폭넓은 질병·바이오마커 탐색을 가능케 한다. 저자들은 연구용 모델이며 임상 사용에는 검증되지 않았다고 명시한다. — <a href="https://www.microsoft.com/en-us/research/blog/gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models/" target="_blank" rel="noopener">링크</a>
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음 (publications 페이지는 컨퍼런스 발표일 기준 정렬이라 신규 게시 판단에 부적합했고, 보조 확인한 <code>blogs.nvidia.com/feed/</code>도 커버 범위 이전인 2026-08-27까지만 확인됨)
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 (RSS 최신 항목이 2026-08-28로 커버 범위 이전, 이후 갱신 없음)
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Logos: An Agent Harness on a Cross-Process Bus</strong> (<a href="https://arxiv.org/abs/2608.28553" target="_blank" rel="noopener">2608.28553</a>) — 단일 프로세스에서 모든 플러그인 상태를 공유하는 기존 에이전트 하네스 구조 대신, 각 플러그인을 별도 프로세스로 두고 append-only transcript만 공유하는 ROS 스타일 하네스를 제안한다. 툴콜 사이클의 4개 경계에서 강제로 프로세스를 죽여도 80개 세션이 재개 효과 중복 없이 복구되며, 단일 프로세스 구성과 비교해 장애가 다른 세션까지 번지지 않는다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>EvoUndo: Recoverability-Constrained Self-Evolution for LLM Agent Harnesses</strong> (<a href="https://arxiv.org/abs/2608.28363" target="_blank" rel="noopener">2608.28363</a>) — 런타임에 자기 프롬프트·툴·하네스를 스스로 수정하는 에이전트가 남기는 되돌릴 수 없는 부작용을 다룬다. 600개 자기진화 태스크 중 197개의 "능력은 개선되지만 복구 불가능한" 변이를 찾아내고, 상태 그라운딩과 복구 언어(recovery-language) 표현력을 함께 설계해야 복구율이 0%에서 최대 99.3%까지 오른다는 것을 보인다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>CURA: Certified Runtime Alarms for Computer-Use Agents</strong> (<a href="https://arxiv.org/abs/2608.27808" target="_blank" rel="noopener">2608.27808</a>) — OSWorld 361개 태스크에서 컴퓨터 사용 에이전트가 71개 실패 중 64개(90%)에서 스스로 "성공"이라 보고하는 self-report 실패를 지적하고, 하네스 텔레메트리만 읽는 외부 CUSUM 모니터로 실패의 42.3%를 평균 31스텝 전에 인증된 오탐률(0.066)로 탐지한다. 중도 개입으로 전체 성공률을 86.8까지 끌어올린다.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>Finding Where the Buck Stops (DoCtOR)</strong> (<a href="https://arxiv.org/abs/2608.28264" target="_blank" rel="noopener">2608.28264</a>) — 멀티에이전트 실패 시 모든 에이전트가 반성하면 정상 동작한 에이전트의 기억까지 오염된다는 문제를 짚고, 결정적 오류를 낸 한 에이전트만 자동 귀인해 반사실적 추론으로 교정 스텝을 만든 뒤 그 에이전트만 반성시킨다. HotPotQA·ChartQAPro·Mind2Web에서 초기 성공률 대비 22~27%p 개선.
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>MAIL: Memory-driven, Adaptive, Incremental, and Literature-grounded Framework for Hypothesis Generation in Chemistry</strong> (<a href="https://arxiv.org/abs/2608.28315" target="_blank" rel="noopener">2608.28315</a>) — 화학 문헌을 계속 누적·재해석하는 진화하는 개념 경로로 가설 생성을 프레이밍한다. TOMATO-Chem과 자체 구축한 고난도 nature/science 챌린지 데이터셋(HN-NS) 모두에서 기존 정적 영감 코퍼스 방식보다 높은 MIOS/MPOS와 전문가 평가 점수를 얻는다.
+<ul><li>
+관련 주제: Hypothesis Generation
+</li></ul>
+</li><li>
+<strong>See, Hypothesize, Validate (MAGE)</strong> (<a href="https://arxiv.org/abs/2608.27869" target="_blank" rel="noopener">2608.27869</a>) — 편미분방정식(PDE) 발견을 관측→가설→반증의 과학적 사이클로 프레이밍한 멀티모달 에이전트 프레임워크. Differential Observer·Phenomenology Extractor·Governing Law Synthesizer·Equation Arbiter 4개 역할 에이전트가 협업해 사전 정의된 함수 라이브러리 없이 지배방정식을 제안하고, 평가된 PDE 세트 8개 중 8개에서 구조를 정확히 복원한다.
+<ul><li>
+관련 주제: Hypothesis Generation, Reasoning
+</li></ul>
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>Sliding-window beats linear attention</strong> (<a href="https://arxiv.org/abs/2608.28444" target="_blank" rel="noopener">2608.28444</a>) — 선형 어텐션으로의 리트로핏이 이차 스케일링 문제를 푸는 유망한 대안으로 주목받아 왔지만, 별도 재학습 없이 sink를 곁들인 슬라이딩 윈도우 어텐션(SWA)이 여러 LLM·다운스트림 태스크에서 사후학습된 선형 어텐션과 동등하거나 더 낫다는 것을 보인다. Needle-in-a-Haystack·BABILong 같은 장문맥 추론 과제에서는 SWA가 2~10배 더 높은 성능을 낸다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li><li>
+<strong>LongGuard: Mechanistic Analysis and Training-Free Mitigation of Long-Context Failure in Safety Guardrails</strong> (<a href="https://arxiv.org/abs/2608.27580" target="_blank" rel="noopener">2608.27580</a>) — 안전 가드레일이 짧은 텍스트로만 학습·평가돼 왔다는 점을 지적하며, Safety Needle-in-a-Haystack 설정에서 15개 주요 가드레일의 불안전 리콜이 문맥 길이에 따라 평균 50% 이상 떨어짐을 보인다. 원인은 절대 길이가 아니라 유해 니들의 희석이며, 어텐션→로짓→행동으로 이어지는 메커니즘을 규명하고 학습 없는 완화 기법(Chunked Detection, Attention-Head Sharpening)으로 평균 13~22% 개선한다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li><li>
+<strong>LongPIBench: A Long-Context Benchmark for Prompt Injection</strong> (<a href="https://arxiv.org/abs/2608.28411" target="_blank" rel="noopener">2608.28411</a>) — 기존 프롬프트 인젝션 벤치마크가 대부분 짧은 문맥에 국한돼 방어 효과가 과대평가돼 왔다고 지적하고, 논문 심사·이력서 심사·코드 리뷰·이메일 요약 4개 시나리오에 걸쳐 수천~수만 토큰 길이의 합성·실사용 데이터셋을 구성한다. 단순한 휴리스틱 공격조차 장문맥에서는 최신 방어를 자주 우회한다.
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>SABER: Stability-Aware Early Exit for LLM Reasoning via Adversarial Branch Probing</strong> (<a href="https://arxiv.org/abs/2608.27963" target="_blank" rel="noopener">2608.27963</a>) — 중간 답이 안정된 뒤에도 계속 추론하는 비효율을 줄이기 위해, 중간 추론 상태 주변에 의미적 교란을 준 "적대적 가지"를 만들어 전체 롤아웃 없이 가벼운 프로빙으로 최종 결과를 추정한다. 가지들의 결과가 일치하면 조기 종료하며, 여러 벤치마크·모델에서 정확도를 유지하며 추론 토큰을 평균 30.2~39.8% 절감한다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>The Illusion of What If: Evaluating the Breakdown of Counterfactual Reasoning in LLMs</strong> (<a href="https://arxiv.org/abs/2608.27953" target="_blank" rel="noopener">2608.27953</a>) — 고정 변수·단일 정답에 갇힌 기존 반사실추론 벤치마크의 한계를 넘어, STEM·인문사회·혼합 시나리오 220개의 개방형·장기 인과 what-if 질문(WhatIfBench)을 제시한다. 자유형 답변을 사건·상태·메커니즘의 인과 그래프로 변환해 채점하는 PRISM으로 평가한 결과, 최강 모델도 64.62점에 그치며 그럴듯한 서술 뒤에 취약한 인과 과정이 숨어 있음을 보인다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>VICT: Verifier-Instrumented Credit Tracing for Long-Horizon LLM Agent Reinforcement Learning</strong> (<a href="https://arxiv.org/abs/2608.28128" target="_blank" rel="noopener">2608.28128</a>) — 검증 가능한 태스크의 종단 검증기가 이미 내부적으로 어떤 체크를 통과했는지 알고 있다는 점에 착안해, 검증기가 노출한 증거 원자를 액션까지 의존성 유효 경로로 역추적해 그 경로를 따라서만 크레딧을 재분배한다. 별도 크리틱·과정 라벨·분기 롤아웃 없이 ALFWorld·WebShop에서 결과만 학습하는 방식보다 크게 개선된다.
+<ul><li>
+관련 주제: Reasoning, AI Agents
+</li></ul>
+</li><li>
+<strong>Is Monte Carlo Tree Search Just Every-Visit Monte Carlo Control?</strong> (<a href="https://arxiv.org/abs/2608.27985" target="_blank" rel="noopener">2608.27985</a>) — MCTS(선택·확장·시뮬레이션·백업)와 every-visit 몬테카를로 제어(궤적 샘플링·리턴 추정·행동가치 갱신)가 궤적 생성·행동가치 갱신 수준에서는 사실상 같은 절차라는 것을 논증하는 해설 노트. 트리 정책과 롤아웃 정책을 하나의 진화하는 정책의 "학습된 부분/아직 안 배운 부분"으로 재해석하면 MCTS의 4단계가 궤적 샘플링+every-visit MC 갱신 두 연산으로 환원된다.
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">1</span></span></span></h3><div class="radar"><p>조회 400건 · 신규 266건 · 채택 0 · 보류 1 · 탈락 1</p>
+<h3>채택</h3>
+<p>없음</p>
+<h3>보류</h3>
+<ul><li>
+<strong>MAIL</strong> — Memory-driven, Adaptive, Incremental, and Literature-grounded Framework for Hypothesis Generation in Chemistry — <a href="https://arxiv.org/abs/2608.28315" target="_blank" rel="noopener">2608.28315</a> — Gate A(가설 생성)는 통과하나 Gate B가 애매: 메모리 기반·점진적 문헌근거 추론이 새 문제 축인지, 코퍼스에 이미 있는 도메인 특화 패턴(HypoExplore: 비전 도메인)의 화학 버전에 가까운지 판단이 서지 않음
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+<strong>DoCtOR</strong> — Finding Where the Buck Stops: An Automated Failure Attribution-Based Reflection Framework for Multi-Agent Collaboration — <a href="https://arxiv.org/abs/2608.28264" target="_blank" rel="noopener">2608.28264</a> — Gate A 탈락: 핵심 기여가 범용 멀티에이전트 협업 신뢰성(실패 진단+타겟 반성)이며 평가도 HotPotQA/ChartQAPro/Mind2Web 등 연구자동화·가설생성과 무관한 일반 에이전트 태스크
+</li></ul>
+<p><strong>색인/커서 참고</strong>: 넓은 조회(<code>cat:cs.AI OR cat:cs.CL OR cat:cs.LG</code>, <code>sortBy=submittedDate</code>) 관측 최상단 <code>published</code>가 2026-08-28T17:59:47Z로 갱신됨 — 지난 사흘간(08-29~08-31) 정체됐던 2026-08-27T17:59:30Z에서 하루치가 새로 색인됨. 다만 실행 시각(2026-09-01)에 비해 여전히 사흘 이상 뒤처져 있어 색인 지연이 계속되는 것으로 판단, <code>last_run</code>은 실행 시각이 아니라 이번에 실제로 관측된 가장 최신값(<code>2026-08-28T17:59:47+00:00</code>)으로 세팅. <code>seen</code>이 중복 검토를 막아주므로 커서를 보수적으로 유지하는 데 비용은 없다.</p></div></div>

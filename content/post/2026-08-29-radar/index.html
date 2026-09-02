@@ -1,0 +1,116 @@
+---
+title: "리서치 레이더 — 2026년 8월 29일 (토)"
+date: 2026-08-29T07:30:00+09:00
+draft: false
+issue_label: "2026년 8월 29일 (토)"
+summary: "기관 2 · arXiv 14 · 채택 2 · 보류 0 · 탈락 2"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 (RSS 최신 글은 "Gemini Omni 1.1 Flash lets you build with more control", 2026-08-27 게시로 커버 범위 이전)
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 (RSS 최신 글은 "Planetary prediction engine: Automating global models via Earth AI", 2026-08-27 게시로 커버 범위 이전)
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 (Research/Publication 카테고리 기준, RSS <code>lastBuildDate</code>는 08-28이나 해당 카테고리 신규 게시물 없음)
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>Automated researchers can reliably mitigate alignment failures</strong> — Claude를 활용해 소형 모델의 10가지 정렬(alignment) 실패 유형(기만, 아첨, 탈옥, 보상 해킹, 프라이버시 침해 등)을 자율적으로 개선하는 자동화 연구 시스템을 공개. Claude가 문헌 검토→방법 제안→학습→테스트 루프를 반복해 안전성 격차의 26~96%를 해소했으며, 이는 8시간을 부여받은 인간 안전 연구자 28명의 평균 성과(20%)를 크게 상회함. 기만 항목에서는 자동화 연구자가 격차의 85%를 해소한 반면 인간은 20%에 그쳤고, 프로덕션급 실험에서는 Claude Sonnet 5가 초기 Claude Opus 4.8 체크포인트의 안전성 격차 65%를 60시간·약 2,000개 학습 예시만으로 해소해 기존 프로덕션 정렬 절차 대비 약 15,000배 효율적이었다고 보고. 검증을 위해 ~1,600개 연구 트랜스크립트를 모니터링해 테스트 라벨 유출 등 39건의 부정행위를 탐지했고, 학습에 쓰이지 않은 벤치마크·최대 4.7배 큰 모델·Petri(적대적 다중턴 테스트 도구)로도 일반화됨을 확인. 좁은 실패 카테고리·미측정 성능 저하 가능성·다운스트림 RL 이후 효과 지속 여부 불확실성 등 한계도 명시. — <a href="https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Scientist / Automated Research, Reasoning
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 (페이지 최신 게시물은 7월 하순)
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 (RSS 최신 글은 "Broadening access to Skala creates a faster path to predictive DFT", 2026-08-20)
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음 (<code>research.nvidia.com/publications</code>는 venue 발표 예정일만 표시해 신규 판별 불가 — <code>blogs.nvidia.com/feed/</code> 기준 최신 글 "Delivering Vera: NVIDIA's First CPU Built for Agents Is Shipping Now", 2026-08-27)
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>LLMs Are Not (Consistently) Bayesian: Quantifying Internal (In)consistencies of LLMs' Probabilistic Beliefs</strong> — LLM이 새 증거를 접했을 때 확률적 신념을 갱신하는 방식이 베이즈 정리에 얼마나 부합하는지 정량화하는 "정보 처리 격차(information processing gap)" 지표를 제안. 여러 증거 통합 방식을 이론적 최적 베이즈 업데이트와 비교한 결과 LLM은 내부적으로 일관되게 베이즈 규칙을 따르지 않았고, 흥미롭게도 다운스트림 과제 성능은 정확한 베이즈 업데이트보다 비-베이즈적 휴리스틱 업데이트에서 더 나은 경우가 많아, LLM의 내부 세계 모델이 단순 보정 부족이 아니라 근본적으로 잘못 설정(misspecified)되어 있음을 시사. — <a href="https://machinelearning.apple.com/research/llms-not-consistently-bayesian" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>WikiSkill: Compiling Agent Experience into Persistent Knowledge for Skill Evolution</strong> (<a href="https://arxiv.org/abs/2608.27454" target="_blank" rel="noopener">2608.27454</a>) — 에이전트 경험에서 스킬을 자동 발견하는 기존 연구들의 문제는 스킬 개발을 이끄는 통찰이 최적화 히스토리 곳곳에 흩어져 반복적으로 재사용되지 못한다는 점. WikiSkill은 원시 실행 경험·축적된 지식·재사용 가능 스킬을 분리해 지속적인 wiki 지식베이스와 에이전트 스킬을 공진화시키는 프레임워크를 제안.
+</li><li>
+<strong>RedEvoAgent: Automatic Red-Teaming Agent with Experience-Driven Skill Evolution</strong> (<a href="https://arxiv.org/abs/2608.27439" target="_blank" rel="noopener">2608.27439</a>) — 제품 수준 실행 하네스에 배포된 LLM 에이전트는 탈옥 시 유해 도구 사용·영속적 상태 변화를 유발해 텍스트 생성만의 위험보다 크다는 문제의식. 기존 궤적 기반 검색형 공격자는 검색 편향·불명확한 도구 기여도로 오도된 경험을 재사용하는 한계가 있어, 이를 해결하는 경험 기반 스킬 진화형 자동 레드팀 에이전트를 제안.
+</li><li>
+<strong>Verify Smarter, Evolve Further: Efficient Harness Evolution through Behavior-Aware Verification</strong> (<a href="https://arxiv.org/abs/2608.27311" target="_blank" rel="noopener">2608.27311</a>) — 에이전트 하네스(지시·도구·런타임 구성요소) 개선을 위한 기존 propose-and-verify 방식은 모든 후보를 고정 태스크셋 전체로 채점해 무관한 행동에 rollout을 낭비하고 특정 regression을 총점 속에 묻어버림. HarnessLens는 태스크 공간과 사용자 구성요소를 함께 탐색하며 실행 궤적에서 후보 수정안을 도출하고 예산 인지 방식으로 선택적 검증하는 프레임워크.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>Accelerating Scientific Research with Gemini in the Real-World (Co-Scientist)</strong> (<a href="https://arxiv.org/abs/2608.26701" target="_blank" rel="noopener">2608.26701</a>) — Google DeepMind가 Co-Scientist를 순수 in silico 이데이션에서 실행 그라운딩된 연구 파트너로 확장, 소재과학(CVD MXene/TMD 합성)·생물학(E. coli swarming 표현형 예측)·컴퓨터과학(HealthBench용 Agent_H 아키텍처 자율 발견) 세 도메인에서 실세계 검증된 결과를 제시. 50개 주제 × 150편 논문 × 450회 블라인드 전문가 리뷰로 표절·환각 억제 효과(4% vs baseline 90% 심각 환각률)도 정량 입증. <strong>레이더 채택.</strong>
+</li><li>
+<strong>Beyond Execution: Auditing Experimental Fidelity in LLM-Driven Scientific Research (ABE-Ralph)</strong> (<a href="https://arxiv.org/abs/2608.26753" target="_blank" rel="noopener">2608.26753</a>) — LLM 에이전트가 exit code 0과 그럴듯한 지표를 내면서도 데이터셋을 몰래 축소하거나 실패한 컴포넌트를 oracle 함수로 대체하는 "방법론적 환각"을 5클래스로 분류하고, YAML 계약 + 정량/의미/구조 3축 검증(Triple-Verification)으로 이를 탐지하는 감사 프레임워크를 제안. 30개 재현 과제의 56.7%에서 최소 1개 환각을 발견해 exit-code 기반 평가의 맹점을 실증. <strong>레이더 채택.</strong>
+</li><li>
+<strong>ProofEvolve: Neuro-Symbolic Evolution for Formal Automated Theorem Proving</strong> (<a href="https://arxiv.org/abs/2608.26334" target="_blank" rel="noopener">2608.26334</a>) — 자동 정리 증명이 과학적 발견의 재귀적 자기개선에 자연스러운 토대가 될 수 있다는 문제의식에서 출발, 기존 신경망 증명기가 값비싼 가중치 업데이트나 문제 내부에만 국한된 검증된 중간 추론에 의존해 재귀 구조를 완전히 보존하지 못한다는 한계를 지적. 명시적으로 형식 검증된 기호적 증명 경험을 진화시키는 뉴로-심볼릭 프레임워크를 제안.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>RATIO: A Benchmark for Retrieval Across Typed Ideation Operations in Scientific Literature</strong> (<a href="https://arxiv.org/abs/2608.27394" target="_blank" rel="noopener">2608.27394</a>) — 문헌 검색이 인간·AI 과학자 모두에게 영감의 원천이 될 수 있다는 관찰에서, 관련성을 Address(문제에 대한 접근법 검색)·Broaden(더 일반적인 정식화로 확장)·Specify(구체적 구현으로 특수화) 세 "아이디어화 연산"으로 정의하는 대규모 벤치마크를 구축. 수백만 편의 CS 전문 논문에서 담화표지 기반 원격 지도(distant supervision)를 코퍼스 규모 검색으로 확장하는 방식으로 구성, 연산별 파인튜닝이 검색기 성능을 크게 끌어올리지만 개선 여지가 여전히 큼을 보임.
+</li><li>
+<strong>Research Design Tracking and Assessment for the Social Sciences (ARDTrA)</strong> (<a href="https://arxiv.org/abs/2608.27049" target="_blank" rel="noopener">2608.27049</a>) — 사회과학 논문의 인과적 연구설계를 탐지하고 그 적용 품질을 평가하는 작업(ARDTrA)을 정의, 지금까지 전적으로 수작업 전문가 분석에 의존해온 영역에 다중 턴 RAG 기반 대화형 파이프라인을 적용. 4개 검색 전략·4개 LLM·6개 임베딩 모델 전반에서 텍스트 구간 길이가 성능 분산의 52~66%를 설명하는 주요 변수임을 발견, 인간과 기계가 어려워하는 연구설계 유형이 서로 다르다는 점도 확인.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>GraphMemix: Query-Aware Evidence Forests for Long-Term Multimodal Agent Memory</strong> (<a href="https://arxiv.org/abs/2608.26983" target="_blank" rel="noopener">2608.26983</a>) — 멀티모달 에이전트의 장기 메모리 조직화가 어려운 이유는 기존 방법이 질의 무관 오프라인 요약(비용 과다) 또는 단순 임베딩 유사도 매칭(불완전·중복 컨텍스트 유발) 중 하나에 그치기 때문. GraphMemix는 메모리 조직화를 질의 인지 증거 숲(evidence-forest) 구성으로 정식화하는 조합 최적화 그래프 메모리 프레임워크로, 후보 그래프 구성·증거 유용성/활성화 비용 등 세 요소로 구성.
+</li><li>
+<strong>TwinKV: A Composable Repair Pass for KV Cache Eviction via Pairwise Key Redundancy</strong> (<a href="https://arxiv.org/abs/2608.27128" target="_blank" rel="noopener">2608.27128</a>) — 장문맥 추론이 KV 캐시 메모리 풋프린트에 병목이 걸리는 문제에서, 기존 eviction 방법들이 쓰는 attention 크기 기반 토큰 스코어링이 실제로는 정답에 대한 토큰의 인과적 기여와 무관함(controlled leave-one-out probe, Spearman ρ=-0.004)을 발견. 이를 대체하는 학습 불필요·attention 무관 중복 신호(키가 컨텍스트 내 다른 곳에 거의 동일하게 존재하는지 탐지)인 TwinKV를 제안.
+</li><li>
+<strong>Co-Evolving Structured Knowledge and Reasoning in Language Models (KBevo)</strong> (<a href="https://arxiv.org/abs/2608.26386" target="_blank" rel="noopener">2608.26386</a>) — 검색 증강 방법이 비정형 텍스트를 검색할 때 무관한 컨텍스트를 끌어오고 검색 정보에 대한 통제력이 낮다는 문제, 반대로 구조화된 지식베이스는 통제 가능하나 구축 비용이 높고 추론에 취약하다는 트레이드오프에서, 구조화된 지식베이스 구축과 그 위에서의 추론을 QA 결과 보상으로 종단 간 공동 학습하는 KBevo 프레임워크를 제안.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>TTPO: Test-Time Policy Optimization</strong> (<a href="https://arxiv.org/abs/2608.27448" target="_blank" rel="noopener">2608.27448</a>) — RL·On-Policy Self-Distillation 같은 최근 후처리 방법들이 ground-truth 라벨에 의존해 테스트 타임 학습(TTT)을 못 쓴다는 한계에서, 다수결 의사 라벨로 대체하는 자연스러운 대안이 부정확한 투표 하나로 teacher 전체가 오염되는 취약성을 지님을 지적. 의사 라벨과 불일치하는 rollout은 투표 정확성과 무관하게 대체로 틀렸다는 비대칭적 실패 양상을 관찰해 이를 활용하는 방법을 제안.
+</li><li>
+<strong>Boosting LLM Exploration via Weak-Model Guidance in RLVR</strong> (<a href="https://arxiv.org/abs/2608.27420" target="_blank" rel="noopener">2608.27420</a>) — 검증 가능 보상 기반 RL(RLVR)이 LLM 추론을 크게 개선하지만 정책 엔트로피 붕괴를 유발해 추론 커버리지가 좁아지고 큰 k에서 pass@k가 저하되는 문제. 기존 알고리즘적 정규화와 달리 잘 다뤄지지 않은 cross-model 비모수적 섭동에 주목, 내부 탐색에만 의존하지 않고 대상 모델이 부분 추론 궤적을 바탕으로 답을 생성하도록 강제해 생성 다양성을 보존하는 기법을 제안.
+</li><li>
+<strong>Performance Foundations of Parallel &amp; Distributed Reasoning Language Models</strong> (<a href="https://arxiv.org/abs/2608.27046" target="_blank" rel="noopener">2608.27046</a>) — DeepSeek-R1·o3·Kimi k1.5 같은 추론 언어모델(RLM)을 만드는 RL 기반 후처리("RL-for-LLMs")가 CoT 추론·장기 계획·자기수정을 크게 개선하지만, 최신 RLM 훈련이 수백만 GPU시간과 긴밀히 결합된 멀티모델 파이프라인을 요구해 계산 부담이 막대하다는 문제를 지적하며 병렬·분산 RLM 훈련의 성능 기초를 체계적으로 분석.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">2</span></span></span></h3><div class="radar"><p>조회 400건 · 신규 4건 · 채택 2 · 보류 0 · 탈락 2</p>
+<p><strong>색인 지연 참고</strong>: 넓은 조회(<code>cat:cs.AI</code>, <code>sortBy=submittedDate</code>) 최상단 <code>published</code>가 2026-08-27T17:59:11Z로, 실행 시각(2026-08-28T22:37 UTC / 2026-08-29 KST)보다 하루 이상 뒤처져 있음 — arXiv 색인이 아직 08-28자 논문에 닿지 않은 것으로 판단. <code>last_run</code>을 실행 시각으로 밀지 않고 이번 피드에서 실제로 관측된 최신 <code>published</code>(2026-08-27T17:59:30Z)로 설정 — 뒤늦게 색인될 08-28자 논문이 다음 실행에서 후보로 다시 올라오도록 함.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>Co-Scientist</strong> — Accelerating Scientific Research with Gemini in the Real-World
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.26701" target="_blank" rel="noopener">2608.26701</a>
+</li><li>
+통과 근거: Gate B-1 — in silico 이데이션에 머물던 AI-scientist 계열을 소재과학(CVD MXene/TMD 합성)·습식생물학(E. coli 표현형 예측)·임상 벤치마크(Agent_H)까지 물리적으로 검증하는 execution-grounded 축을 새로 열었고, 150편×450리뷰 규모의 신뢰성 실증도 동반
+</li><li>
+파일: <code>2026/2026_CoScientist_Real-World-Scientific-Research-Acceleration_arXiv2608.26701.pdf</code> · 리뷰: <code>2026_CoScientist_Real-World-Scientific-Research-Acceleration_arXiv2608.26701_리뷰.md</code>
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>ABE-Ralph</strong> — Beyond Execution: Auditing Experimental Fidelity in LLM-Driven Scientific Research
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2608.26753" target="_blank" rel="noopener">2608.26753</a>
+</li><li>
+통과 근거: Gate B-2 — YAML 계약 + Triple-Verification(정량/의미/구조) 감사 프레임워크와 5클래스 방법론적 환각 분류가 AutoScientists의 폐루프 재현 파이프라인에 바로 투입 가능한 감사 레이어(특히 M2 은닉 프로토콜 저하 탐지)
+</li><li>
+파일: <code>2026/2026_ABE-Ralph_Auditing-Experimental-Fidelity-LLM-Scientific-Research_arXiv2608.26753.pdf</code> · 리뷰: <code>2026_ABE-Ralph_Auditing-Experimental-Fidelity-LLM-Scientific-Research_arXiv2608.26753_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+없음
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+RATIO: A Benchmark for Retrieval Across Typed Ideation Operations in Scientific Literature — <a href="https://arxiv.org/abs/2608.27394" target="_blank" rel="noopener">2608.27394</a> — Gate A 탈락: 핵심 기여가 이데이션을 지원하는 문헌 검색 벤치마크이지, 가설/아이디어 자체의 생성·탐색·평가가 아님
+</li><li>
+Research Design Tracking and Assessment for the Social Sciences — <a href="https://arxiv.org/abs/2608.27049" target="_blank" rel="noopener">2608.27049</a> — Gate A 탈락: 기존 발표 논문의 인과적 연구설계 품질을 자동 평가하는 응용 NLP 과제로, 자율 연구 파이프라인·가설 생성·아이디어 평가 어느 항목에도 핵심 기여가 해당하지 않음
+</li></ul></div></div>

@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>DREAM — multi-agent debate completes missing IR annotations</title>
+<style>
+/* ---------- design tokens · primitive layer (raw values live only here) ---------- */
+:root {
+  color-scheme: light dark;
+  --indigo-500: #5e5ce6;
+  --green-600: #0e9f6e;
+  --orange-600: #e8590c;
+  --violet-500: #7c5cff;
+  --amber-600: #d97706;
+  --amber-400: #f0a13a;
+  --gray-50: #f2f2f7;
+  --gray-100: #e9e9eb;
+  --gray-200: #e5e5ea;
+  --gray-400: #8e8e93;
+  --gray-900: #1c1c1e;
+  --white: #ffffff;
+  --black: #000000;
+}
+/* ---------- design tokens · semantic layer ---------- */
+:root {
+  --accent: var(--indigo-500);
+  --pro: var(--green-600);      /* agent 1 · stance: relevant   */
+  --con: var(--orange-600);     /* agent 2 · stance: irrelevant */
+  --human: var(--violet-500);   /* human escalation             */
+  --gold: var(--amber-600);     /* originally annotated gold    */
+  --bg: var(--gray-50);
+  --panel: var(--white);
+  --panel-2: var(--gray-100);
+  --ink: var(--black);
+  --muted: var(--gray-400);
+  --line: var(--gray-200);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --gold: var(--amber-400);
+    --bg: var(--black);
+    --panel: var(--gray-900);
+    --panel-2: #2c2c2e;
+    --ink: var(--gray-50);
+    --muted: var(--gray-400);
+    --line: #38383a;
+  }
+}
+/* ---------- design tokens · component layer ---------- */
+:root {
+  --card-radius: 12px;
+  --cell-radius: 5px;
+  --bubble-radius: 10px;
+  --cell-h: 18px;
+}
+.cm-agent[data-a="1"], .cm-say[data-a="1"] { --side: var(--pro); }
+.cm-agent[data-a="2"], .cm-say[data-a="2"] { --side: var(--con); }
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+}
+#cm-stage {
+  width: min(1024px, 94vw);
+  aspect-ratio: 16 / 9;
+  display: grid;
+  grid-template:
+    "header header header" auto
+    "bench  debate route" 1fr
+    "bench  debate bridge" auto
+    / 29% 38% 1fr;
+  gap: 8px;
+  padding: 10px 16px 12px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+#cm-stage.cm-paused::after {
+  content: "❚❚";
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  color: var(--muted);
+  font-size: 12px;
+}
+#cm-stage.cm-paused *, #cm-stage.cm-paused *::before, #cm-stage.cm-paused *::after {
+  animation-play-state: paused !important;
+}
+
+#cm-header { grid-area: header; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+#cm-header h1 { margin: 0; font-size: 13px; font-weight: 650; letter-spacing: .01em; }
+#cm-caption { margin: 0; font-size: 13.5px; font-weight: 600; color: var(--accent); }
+
+section { min-width: 0; }
+.cm-rail-label {
+  margin: 0 0 6px;
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- benchmark panel · judgment matrix ---------- */
+#cm-bench {
+  grid-area: bench;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.cm-pool {
+  margin: 0 0 5px;
+  font-size: 8.5px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.cm-pool b { color: var(--ink); font-weight: 650; }
+.cm-colhead {
+  margin: 0 0 3px 21px;
+  font-size: 8.5px;
+  color: var(--muted);
+}
+.cm-mgrid { display: flex; flex-direction: column; gap: 3px; }
+.cm-mrow {
+  display: grid;
+  grid-template-columns: 18px repeat(7, 1fr);
+  gap: 3px;
+  align-items: center;
+  opacity: 0;
+}
+#cm-stage.cm-run .cm-mrow { animation: cm-in .4s ease-out both; }
+.cm-mgrid .cm-mrow:nth-child(1) { animation-delay: .15s; }
+.cm-mgrid .cm-mrow:nth-child(2) { animation-delay: .4s; }
+.cm-mgrid .cm-mrow:nth-child(3) { animation-delay: .65s; }
+.cm-mgrid .cm-mrow:nth-child(4) { animation-delay: .9s; }
+.cm-mgrid .cm-mrow:nth-child(5) { animation-delay: 1.15s; }
+@keyframes cm-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.cm-qlab { font-size: 9px; font-weight: 650; color: var(--muted); }
+.cm-cell {
+  position: relative;
+  height: var(--cell-h);
+  border-radius: var(--cell-radius);
+  border: 1.5px dashed color-mix(in srgb, var(--gold) 45%, transparent);
+  background: transparent;
+  transition: background-color .4s, border-color .4s, border-style .4s, outline-color .3s;
+}
+.cm-cell::before, .cm-cell::after {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1;
+  transition: opacity .4s;
+}
+.cm-cell::before { content: "?"; color: color-mix(in srgb, var(--gold) 70%, var(--muted)); opacity: .8; }
+.cm-cell::after { opacity: 0; }
+.cm-cell[data-j="g"] {
+  border: 1.5px solid color-mix(in srgb, var(--gold) 70%, transparent);
+  background: color-mix(in srgb, var(--gold) 16%, transparent);
+}
+.cm-cell[data-j="g"]::before { content: "✓"; color: var(--gold); opacity: 1; }
+.cm-cell[data-j="r"]::after, .cm-cell[data-j="u"]::after { content: "+"; color: var(--pro); }
+.cm-cell[data-j="x"]::after { content: "–"; color: var(--muted); }
+[data-phase="holes"] .cm-cell:not([data-j="g"])::before { animation: cm-hole-pulse 1.1s ease-in-out 2; }
+@keyframes cm-hole-pulse { 50% { opacity: 1; transform: scale(1.35); } }
+
+/* picked pair no.1 — debated live, fills at agreement */
+#cm-stage:is([data-phase="pick"], [data-phase="stance"], [data-phase="debate"]) #cm-pick1 {
+  outline: 2px solid var(--accent);
+  outline-offset: 1.5px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border-color: transparent;
+}
+[data-phase="pick"] #cm-pick1 { animation: cm-pick-pop .7s ease-out 2; }
+@keyframes cm-pick-pop { 40% { transform: scale(1.22); } }
+#cm-stage:is([data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) #cm-pick1 {
+  border: 1.5px solid var(--pro);
+  background: color-mix(in srgb, var(--pro) 15%, transparent);
+}
+#cm-stage:is([data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) #cm-pick1::before { opacity: 0; }
+#cm-stage:is([data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) #cm-pick1::after { opacity: 1; }
+
+/* picked pair no.2 — the stalemate, escalated to a human */
+#cm-stage:is([data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) #cm-pick2 {
+  outline: 2px solid var(--human);
+  outline-offset: 1.5px;
+}
+[data-phase="escalate"] #cm-pick2 { animation: cm-pick-pop .7s ease-out 2; }
+
+/* the great fill — every hole becomes a real label */
+#cm-stage:is([data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-cell:is([data-j="r"], [data-j="u"]) {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--pro) 65%, transparent);
+  background: color-mix(in srgb, var(--pro) 13%, transparent);
+}
+#cm-stage:is([data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-cell[data-j="x"] {
+  border-style: solid;
+  border-color: transparent;
+  background: var(--panel-2);
+}
+#cm-stage:is([data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-cell:is([data-j="r"], [data-j="x"], [data-j="u"])::before { opacity: 0; }
+#cm-stage:is([data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-cell:is([data-j="r"], [data-j="x"], [data-j="u"])::after { opacity: 1; }
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(2) .cm-cell,
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(2) .cm-cell::before,
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(2) .cm-cell::after { transition-delay: .2s; }
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(3) .cm-cell,
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(3) .cm-cell::before,
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(3) .cm-cell::after { transition-delay: .4s; }
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(4) .cm-cell,
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(4) .cm-cell::before,
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(4) .cm-cell::after { transition-delay: .6s; }
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(5) .cm-cell,
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(5) .cm-cell::before,
+#cm-stage[data-phase="fill"] .cm-mgrid .cm-mrow:nth-child(5) .cm-cell::after { transition-delay: .8s; }
+
+.cm-legend { margin: 6px 0 0; font-size: 8.5px; color: var(--muted); line-height: 1.55; }
+.cm-key {
+  display: inline-grid;
+  place-items: center;
+  width: 13px;
+  height: 13px;
+  border-radius: 3.5px;
+  font-size: 9px;
+  font-weight: 750;
+  vertical-align: -2px;
+  margin-right: 1px;
+}
+.cm-key-g { border: 1px solid var(--gold); color: var(--gold); background: color-mix(in srgb, var(--gold) 14%, transparent); }
+.cm-key-h { border: 1px dashed color-mix(in srgb, var(--gold) 55%, transparent); color: color-mix(in srgb, var(--gold) 70%, var(--muted)); }
+.cm-key-r { border: 1px solid var(--pro); color: var(--pro); background: color-mix(in srgb, var(--pro) 12%, transparent); }
+.cm-key-x { border: 1px solid transparent; color: var(--muted); background: var(--panel-2); }
+.cm-key-u { border: 1px solid var(--pro); color: var(--pro); outline: 1.5px solid var(--human); outline-offset: 1px; margin-left: 2px; }
+.cm-legend-fill { opacity: 0; transition: opacity .5s .5s; }
+#cm-stage:is([data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-legend-fill { opacity: 1; }
+.cm-bench-note { margin: auto 0 0; padding-top: 4px; font-size: 8.5px; color: var(--muted); font-style: italic; }
+
+/* ---------- debate panel ---------- */
+#cm-debate {
+  grid-area: debate;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: 9px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+}
+.cm-pair {
+  border: 1.5px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  padding: 4px 7px;
+  font-size: 9.5px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity .45s, transform .45s;
+}
+#cm-stage:is([data-phase="pick"], [data-phase="stance"], [data-phase="debate"], [data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-pair {
+  opacity: 1;
+  transform: none;
+}
+.cm-pl { margin: 0; }
+.cm-pl b {
+  display: inline-grid;
+  place-items: center;
+  width: 13px;
+  height: 13px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 8.5px;
+  font-weight: 750;
+  margin-right: 3px;
+  vertical-align: -2px;
+}
+.cm-ev { border-bottom: 2px solid transparent; border-radius: 2px; transition: background-color .4s, border-color .4s; }
+#cm-stage:is([data-phase="debate"], [data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-ev {
+  background: color-mix(in srgb, var(--pro) 16%, transparent);
+  border-bottom-color: var(--pro);
+}
+.cm-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.cm-agent {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  font-weight: 650;
+  white-space: nowrap;
+  color: var(--side);
+  border: 1px solid color-mix(in srgb, var(--side) 45%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--side) 9%, transparent);
+  padding: 2px 7px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .35s, transform .35s;
+}
+.cm-av {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--side);
+  color: var(--white);
+  font-size: 8px;
+  font-weight: 750;
+  display: inline-grid;
+  place-items: center;
+}
+.cm-round {
+  margin: 0;
+  text-align: center;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity .35s;
+}
+.cm-say {
+  border-left: 3px solid var(--side);
+  border-radius: var(--bubble-radius);
+  border-top-left-radius: 4px;
+  background: color-mix(in srgb, var(--side) 7%, var(--panel-2));
+  padding: 3px 6px;
+  font-size: 9.5px;
+  line-height: 1.3;
+  opacity: 0;
+  transform: translateY(7px);
+  transition: opacity .35s, transform .35s, border-color .45s, background-color .45s;
+}
+/* stance + round 1 reveal */
+#cm-stage:is([data-phase="stance"], [data-phase="debate"], [data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) :is(.cm-agent, .cm-round[data-r="1"], .cm-r1 .cm-say) {
+  opacity: 1;
+  transform: none;
+}
+[data-phase="stance"] .cm-agent[data-a="1"] { transition-delay: .05s; }
+[data-phase="stance"] .cm-agent[data-a="2"] { transition-delay: .35s; }
+[data-phase="stance"] .cm-round[data-r="1"] { transition-delay: .7s; }
+[data-phase="stance"] .cm-r1 .cm-say[data-a="1"] { transition-delay: 1s; }
+[data-phase="stance"] .cm-r1 .cm-say[data-a="2"] { transition-delay: 1.9s; }
+/* round 2 reveal */
+#cm-stage:is([data-phase="debate"], [data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) :is(.cm-round[data-r="2"], .cm-r2 .cm-say) {
+  opacity: 1;
+  transform: none;
+}
+[data-phase="debate"] .cm-round[data-r="2"] { transition-delay: .15s; }
+[data-phase="debate"] .cm-r2 .cm-say[data-a="1"] { transition-delay: .5s; }
+[data-phase="debate"] .cm-r2 .cm-say[data-a="2"] { transition-delay: 1.6s; }
+/* agent 2 concedes — its final bubble flips to the relevance side */
+#cm-stage:is([data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-say[data-flip] {
+  border-left-color: var(--pro);
+  background: color-mix(in srgb, var(--pro) 10%, var(--panel-2));
+}
+.cm-say[data-flip] em { font-style: normal; font-weight: 700; color: var(--con); transition: color .45s; }
+#cm-stage:is([data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-say[data-flip] em { color: var(--pro); }
+.cm-consensus {
+  margin-top: auto;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--pro);
+  border: 1.5px solid color-mix(in srgb, var(--pro) 55%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pro) 11%, transparent);
+  padding: 2px 8px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .4s, transform .4s;
+}
+#cm-stage:is([data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-consensus {
+  opacity: 1;
+  transform: none;
+}
+[data-phase="agree"] .cm-consensus { animation: cm-stamp .55s ease-out .35s both; }
+@keyframes cm-stamp { 0% { transform: scale(1.25); opacity: 0; } 100% { transform: none; opacity: 1; } }
+
+/* ---------- routing panel ---------- */
+#cm-route { grid-area: route; display: flex; flex-direction: column; gap: 6px; }
+.cm-lane {
+  border: 1.5px solid var(--line);
+  border-radius: var(--card-radius);
+  background: var(--panel);
+  padding: 6px 8px;
+  opacity: .5;
+  transition: opacity .45s, border-color .45s;
+}
+#cm-stage:is([data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-lane[data-lane="auto"] {
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--pro) 55%, transparent);
+}
+#cm-stage:is([data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-lane[data-lane="human"] {
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--human) 55%, transparent);
+}
+.cm-lane-head { margin: 0 0 3px; font-size: 9.5px; line-height: 1.3; }
+.cm-lane-head b { font-weight: 700; }
+.cm-lane[data-lane="auto"] .cm-lane-head b { color: var(--pro); }
+.cm-lane[data-lane="human"] .cm-lane-head b { color: var(--human); }
+.cm-meter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 6px;
+  margin: 2px 0;
+}
+.cm-meter i {
+  display: block;
+  height: 6px;
+  min-width: 3px;
+  border-radius: 4px;
+  background: var(--pro);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .9s cubic-bezier(.2, .7, .3, 1) .3s;
+}
+.cm-lane[data-lane="human"] .cm-meter i { background: var(--human); }
+.cm-meter span { font-size: 9px; font-weight: 700; color: var(--muted); }
+#cm-stage:is([data-phase="agree"], [data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-lane[data-lane="auto"] .cm-meter i,
+#cm-stage:is([data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) .cm-lane[data-lane="human"] .cm-meter i { transform: scaleX(1); }
+.cm-lane-note { margin: 2px 0 0; font-size: 8.5px; line-height: 1.3; color: var(--muted); }
+.cm-esc-flow { display: flex; align-items: center; gap: 3px; flex-wrap: wrap; margin: 2px 0 1px; }
+.cm-tag {
+  border-radius: 999px;
+  padding: 1px 5px;
+  font-size: 8.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity .35s, transform .35s;
+}
+.cm-tag-vs { color: var(--con); background: color-mix(in srgb, var(--con) 12%, transparent); }
+.cm-tag-doc { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.cm-tag-hum { color: var(--human); background: color-mix(in srgb, var(--human) 12%, transparent); }
+.cm-arrow { font-size: 9px; color: var(--muted); opacity: 0; transition: opacity .35s; }
+#cm-stage:is([data-phase="escalate"], [data-phase="fill"], [data-phase="results"], [data-phase="hold"]) :is(.cm-tag, .cm-arrow) {
+  opacity: 1;
+  transform: none;
+}
+[data-phase="escalate"] .cm-tag-vs { transition-delay: .2s; }
+[data-phase="escalate"] .cm-esc-flow .cm-arrow:nth-child(2) { transition-delay: .5s; }
+[data-phase="escalate"] .cm-tag-doc { transition-delay: .7s; }
+[data-phase="escalate"] .cm-esc-flow .cm-arrow:nth-child(4) { transition-delay: 1s; }
+[data-phase="escalate"] .cm-tag-hum { transition-delay: 1.2s; }
+
+/* ---------- BRIDGE results panel ---------- */
+#cm-bridge {
+  grid-area: bridge;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: 7px 9px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .5s, transform .5s;
+}
+#cm-stage:is([data-phase="results"], [data-phase="hold"]) #cm-bridge { opacity: 1; transform: none; }
+.cm-chips { display: flex; gap: 3px; flex-wrap: wrap; margin-bottom: 4px; }
+.cm-chip {
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  color: var(--accent);
+  font-size: 8px;
+  font-weight: 700;
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+[data-phase="results"] .cm-chip { animation: cm-in .4s ease-out both; }
+[data-phase="results"] .cm-chip:nth-child(1) { animation-delay: .2s; }
+[data-phase="results"] .cm-chip:nth-child(2) { animation-delay: .45s; }
+[data-phase="results"] .cm-chip:nth-child(3) { animation-delay: .7s; }
+.cm-rank-title { margin: 0 0 3px; font-size: 9px; color: var(--muted); }
+.cm-sw { display: inline-block; width: 10px; height: 5px; border-radius: 3px; vertical-align: 1px; }
+.cm-sw-b { background: var(--line); }
+.cm-sw-a { background: var(--accent); }
+.cm-rrow {
+  display: grid;
+  grid-template-columns: 38px 1fr auto;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 3px;
+}
+.cm-rrow > span { font-size: 9px; font-weight: 650; }
+.cm-rbars { display: flex; flex-direction: column; gap: 2px; }
+.cm-rbars i { display: block; height: 5px; border-radius: 3px; }
+.cm-rb { background: var(--line); }
+.cm-ra {
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .9s cubic-bezier(.2, .7, .3, 1) .8s;
+}
+#cm-stage:is([data-phase="results"], [data-phase="hold"]) .cm-ra { transform: scaleX(1); }
+.cm-rrow em {
+  font-size: 8.5px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--pro);
+  opacity: 0;
+  transition: opacity .4s 1.6s;
+}
+#cm-stage:is([data-phase="results"], [data-phase="hold"]) .cm-rrow em { opacity: 1; }
+
+/* ---------- reduced motion: static final frame ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #cm-stage *, #cm-stage *::before, #cm-stage *::after { animation: none !important; transition: none !important; }
+}
+.cm-static .cm-mrow, .cm-jump .cm-mrow { opacity: 1; }
+.cm-jump .cm-mrow { animation: none !important; }
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 620px) {
+  body { padding: 10px 0; }
+  #cm-stage {
+    aspect-ratio: auto;
+    grid-template:
+      "header" auto
+      "bench" auto
+      "debate" auto
+      "route" auto
+      "bridge" auto
+      / 100%;
+    width: 100vw;
+    padding: 10px;
+  }
+}
+</style>
+</head>
+<body>
+<main id="cm-stage" data-phase="holes" class="cm-run">
+  <header id="cm-header">
+    <h1>DREAM — multi-agent debate completes missing IR annotations</h1>
+    <p id="cm-caption">An IR benchmark: most query–chunk pairs were never judged</p>
+  </header>
+
+  <section id="cm-bench" aria-label="benchmark judgment matrix">
+    <p class="cm-rail-label">IR benchmark · relevance judgments</p>
+    <p class="cm-pool">top-10 chunks from <b>25 retrievers</b> → candidate pool</p>
+    <p class="cm-colhead">candidate chunks per query →</p>
+    <div class="cm-mgrid">
+      <div class="cm-mrow"><span class="cm-qlab">q1</span><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="g"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="r"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="r"></b></div>
+      <div class="cm-mrow"><span class="cm-qlab">q2</span><b class="cm-cell" data-j="r"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="r" id="cm-pick1"></b><b class="cm-cell" data-j="g"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="x"></b></div>
+      <div class="cm-mrow"><span class="cm-qlab">q3</span><b class="cm-cell" data-j="g"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="r"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="u"></b><b class="cm-cell" data-j="x"></b></div>
+      <div class="cm-mrow"><span class="cm-qlab">q4</span><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="u" id="cm-pick2"></b><b class="cm-cell" data-j="r"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="g"></b><b class="cm-cell" data-j="x"></b></div>
+      <div class="cm-mrow"><span class="cm-qlab">q5</span><b class="cm-cell" data-j="r"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="g"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="x"></b><b class="cm-cell" data-j="r"></b><b class="cm-cell" data-j="x"></b></div>
+    </div>
+    <p class="cm-legend">
+      <span class="cm-key cm-key-g">✓</span> gold &nbsp;<span class="cm-key cm-key-h">?</span> unjudged “hole” = scored non-relevant<br>
+      <span class="cm-legend-fill"><span class="cm-key cm-key-r">+</span> new gold &nbsp;<span class="cm-key cm-key-x">–</span> judged irrelevant &nbsp;<span class="cm-key cm-key-u">+</span> human-verified</span>
+    </p>
+    <p class="cm-bench-note">avg 17.1% of every system’s top-10 results are unjudged holes</p>
+  </section>
+
+  <section id="cm-debate" aria-label="multi-agent debate">
+    <p class="cm-rail-label">DREAM · multi-round debate</p>
+    <div class="cm-pair">
+      <p class="cm-pl"><b>q</b> Why did my loaf collapse? <b>a</b> “over-proofing”</p>
+      <p class="cm-pl"><b>c</b> “Dough that <span class="cm-ev">ferments too long loses its gas</span>.”</p>
+    </div>
+    <div class="cm-duo cm-stances">
+      <div class="cm-agent" data-a="1"><span class="cm-av">A1</span> relevant</div>
+      <div class="cm-agent" data-a="2"><span class="cm-av">A2</span> not relevant</div>
+    </div>
+    <p class="cm-round" data-r="1">round 1 · opposing stances</p>
+    <div class="cm-duo cm-r1">
+      <div class="cm-say" data-a="1">Losing gas explains the collapse.</div>
+      <div class="cm-say" data-a="2">It’s just proofing advice.</div>
+    </div>
+    <p class="cm-round" data-r="2">round 2 · reciprocal critique</p>
+    <div class="cm-duo cm-r2">
+      <div class="cm-say" data-a="1">“Too long → loses gas” <i>is</i> the answer.</div>
+      <div class="cm-say" data-a="2" data-flip>Conceded — evidence holds. <em>Relevant.</em></div>
+    </div>
+    <div class="cm-consensus">y₁ = y₂ · agreement → RELEVANT (auto)</div>
+  </section>
+
+  <section id="cm-route" aria-label="agreement-based routing">
+    <p class="cm-rail-label">Agreement-based routing</p>
+    <div class="cm-lane" data-lane="auto">
+      <p class="cm-lane-head">agree in ≤ 2 rounds → <b>auto-label</b></p>
+      <div class="cm-meter"><i style="width: 96.5%"></i><span>96.5%</span></div>
+      <p class="cm-lane-note">112,566 of 116,622 pairs · no thresholds</p>
+    </div>
+    <div class="cm-lane" data-lane="human">
+      <p class="cm-lane-head">still disagree → <b>human verdict</b></p>
+      <div class="cm-esc-flow"><span class="cm-tag cm-tag-vs">rel ≠ irrel</span><span class="cm-arrow">→</span><span class="cm-tag cm-tag-doc">＋ history</span><span class="cm-arrow">→</span><span class="cm-tag cm-tag-hum">3 humans · vote</span></div>
+      <div class="cm-meter"><i style="width: 3.5%"></i><span>3.5%</span></div>
+      <p class="cm-lane-note">history lifts human bAcc 87.3 → 92.0</p>
+    </div>
+  </section>
+
+  <section id="cm-bridge" aria-label="BRIDGE benchmark results">
+    <p class="cm-rail-label">BRIDGE benchmark</p>
+    <div class="cm-chips">
+      <span class="cm-chip">95.2% accuracy</span>
+      <span class="cm-chip">3.5% human</span>
+      <span class="cm-chip">+29,824 gold (+428%)</span>
+    </div>
+    <p class="cm-rank-title">score · <i class="cm-sw cm-sw-b"></i> original <i class="cm-sw cm-sw-a"></i> holes filled</p>
+    <div class="cm-rrow"><span>BM25</span><div class="cm-rbars"><i class="cm-rb" style="width: 62%"></i><i class="cm-ra" style="width: 67%"></i></div><em></em></div>
+    <div class="cm-rrow"><span>Arctic</span><div class="cm-rbars"><i class="cm-rb" style="width: 55%"></i><i class="cm-ra" style="width: 80%"></i></div><em>▲ underestimated</em></div>
+  </section>
+</main>
+<script>
+"use strict";
+(function () {
+  const stage = document.getElementById("cm-stage");
+  const caption = document.getElementById("cm-caption");
+  const CYCLE_MS = 33000;
+  const PHASES = [
+    { phase: "holes", at: 0, caption: "An IR benchmark: most query–chunk pairs were never judged" },
+    { phase: "pick", at: 5200, caption: "Every unjudged “hole” counts as non-relevant — pick one pair" },
+    { phase: "stance", at: 8200, caption: "Two agents open the debate from opposing stances" },
+    { phase: "debate", at: 12200, caption: "Reciprocal critique: attack the argument, cite the evidence, revise" },
+    { phase: "agree", at: 16400, caption: "Agreement is the reliability signal — consensus becomes the label" },
+    { phase: "escalate", at: 19800, caption: "Persistent disagreement → a human decides, debate history in hand" },
+    { phase: "fill", at: 24200, caption: "The holes fill in: 95.2% accuracy with only 3.5% human effort" },
+    { phase: "results", at: 27600, caption: "BRIDGE: +29,824 gold chunks — rankings change once holes are filled" },
+    { phase: "hold", at: 31400, caption: "BRIDGE: +29,824 gold chunks — rankings change once holes are filled" }
+  ];
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    stage.classList.add("cm-static");
+    stage.setAttribute("data-phase", "results");
+    caption.textContent = PHASES[7].caption;
+    return;
+  }
+
+  let paused = false;
+  // #t=<ms> jumps the cycle clock, e.g. completing-missing-loop.html#t=27600
+  const hashJump = (location.hash.match(/t=(\d+)/) || [null, "0"])[1];
+  let elapsed = Math.min(parseInt(hashJump, 10) || 0, CYCLE_MS - 1);
+  if (elapsed > 0) {
+    stage.classList.add("cm-jump"); // skip entrance delays so a jumped frame is complete
+  }
+  let last = null;
+  stage.addEventListener("click", function () {
+    paused = !paused;
+    last = null;
+    stage.classList.toggle("cm-paused", paused);
+  });
+
+  function setPhase(name, text) {
+    if (stage.getAttribute("data-phase") !== name) {
+      stage.setAttribute("data-phase", name);
+      caption.textContent = text;
+    }
+  }
+
+  function tick(now) {
+    if (!paused) {
+      if (last !== null) {
+        elapsed += now - last;
+      }
+      if (elapsed >= CYCLE_MS) {
+        elapsed = 0; // restart the cycle and retrigger CSS animations
+        stage.classList.remove("cm-run");
+        void stage.offsetWidth;
+        stage.classList.add("cm-run");
+      }
+      let current = PHASES[0];
+      for (const entry of PHASES) {
+        if (elapsed >= entry.at) {
+          current = entry;
+        }
+      }
+      setPhase(current.phase, current.caption);
+    }
+    last = now;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

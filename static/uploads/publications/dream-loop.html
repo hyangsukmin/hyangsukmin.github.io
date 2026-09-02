@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>DREAM — multi-agent debate for relevance judgments</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --ios-blue: #0a84ff;
+  --red-500: #ff453a;
+  --green-600: #0e9f6e;
+  --amber-600: #d97706;
+  --gray-50: #f2f2f7;
+  --gray-100: #e9e9eb;
+  --gray-200: #e5e5ea;
+  --gray-400: #8e8e93;
+  --gray-900: #1c1c1e;
+  --white: #ffffff;
+  --black: #000000;
+}
+:root {
+  --accent: var(--ios-blue);
+  --relevant: var(--ios-blue);
+  --irrelevant: var(--red-500);
+  --gold: var(--green-600);
+  --human: var(--amber-600);
+  --bg: var(--gray-50);
+  --panel: var(--white);
+  --panel-2: var(--gray-100);
+  --ink: var(--black);
+  --muted: var(--gray-400);
+  --line: var(--gray-200);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: var(--black);
+    --panel: var(--gray-900);
+    --panel-2: #2c2c2e;
+    --ink: var(--gray-50);
+    --muted: var(--gray-400);
+    --line: #38383a;
+  }
+}
+:root { --card-radius: 10px; }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 10px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+}
+#dm-stage {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template:
+    "header" auto
+    "steps"  auto
+    "detail" minmax(0, 1fr)
+    / 100%;
+  gap: 5px;
+  padding: 6px 9px 7px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+#dm-stage.dm-paused::after {
+  content: "❚❚";
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: var(--muted);
+  font-size: 11px;
+}
+#dm-stage.dm-paused *, #dm-stage.dm-paused *::before, #dm-stage.dm-paused *::after {
+  animation-play-state: paused !important;
+}
+
+#dm-header { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+#dm-header h1 { margin: 0; font-size: 9px; line-height: 1.2; font-weight: 650; white-space: nowrap; }
+#dm-caption { margin: 0; font-size: 10px; line-height: 1.2; font-weight: 600; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- step tracker ---------- */
+#dm-steps { display: flex; align-items: center; gap: 3px; min-width: 0; }
+.dm-step {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 5px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: 6.6px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  transition: background-color .3s, color .3s, transform .3s;
+}
+.dm-step-num {
+  display: inline-grid;
+  place-items: center;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--muted);
+  color: var(--white);
+  font-size: 6px;
+  font-weight: 700;
+}
+.dm-step-arrow { flex: none; color: var(--line); font-size: 8px; }
+#dm-stage[data-phase="dataset"] .dm-step[data-step="dataset"],
+#dm-stage[data-phase="retrieve"] .dm-step[data-step="retrieve"],
+#dm-stage[data-phase="debate"] .dm-step[data-step="debate"],
+#dm-stage[data-phase="result"] .dm-step[data-step="result"],
+#dm-stage[data-phase="label"] .dm-step[data-step="label"],
+#dm-stage:is([data-phase="bridge"], [data-phase="hold"]) .dm-step[data-step="bridge"] {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+  transform: scale(1.05);
+}
+#dm-stage[data-phase="dataset"] .dm-step[data-step="dataset"] .dm-step-num,
+#dm-stage[data-phase="retrieve"] .dm-step[data-step="retrieve"] .dm-step-num,
+#dm-stage[data-phase="debate"] .dm-step[data-step="debate"] .dm-step-num,
+#dm-stage[data-phase="result"] .dm-step[data-step="result"] .dm-step-num,
+#dm-stage[data-phase="label"] .dm-step[data-step="label"] .dm-step-num,
+#dm-stage:is([data-phase="bridge"], [data-phase="hold"]) .dm-step[data-step="bridge"] .dm-step-num {
+  background: var(--accent);
+}
+
+/* ---------- detail panel ---------- */
+#dm-detail { position: relative; min-height: 0; }
+.dm-panel {
+  position: absolute;
+  inset: 0;
+  display: none;
+  gap: 6px;
+  opacity: 0;
+  animation: dm-fade .3s ease-out both;
+}
+@keyframes dm-fade { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+#dm-stage[data-phase="dataset"] .dm-panel[data-step="dataset"],
+#dm-stage[data-phase="retrieve"] .dm-panel[data-step="retrieve"],
+#dm-stage[data-phase="debate"] .dm-panel[data-step="debate"],
+#dm-stage[data-phase="result"] .dm-panel[data-step="result"],
+#dm-stage[data-phase="label"] .dm-panel[data-step="label"],
+#dm-stage:is([data-phase="bridge"], [data-phase="hold"]) .dm-panel[data-step="bridge"] {
+  display: flex;
+}
+
+.dm-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  padding: 5px 7px;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.dm-card-title { margin: 0 0 3px; font-size: 7.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.dm-row { display: flex; gap: 5px; align-items: baseline; font-size: 8.5px; line-height: 1.3; }
+.dm-row + .dm-row { margin-top: 2px; }
+.dm-key { flex: none; width: 62px; color: var(--muted); font-weight: 650; }
+.dm-val { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dm-missing { display: inline-block; border: 1.5px dashed var(--irrelevant); border-radius: 4px; padding: 0 5px; color: var(--irrelevant); font-weight: 650; }
+.dm-filled { display: inline-block; border-radius: 4px; padding: 0 5px; background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--gold); font-weight: 650; }
+
+/* dataset / bridge full-width single card */
+.dm-panel[data-step="dataset"], .dm-panel[data-step="bridge"] { align-items: stretch; }
+.dm-panel[data-step="dataset"] .dm-card, .dm-panel[data-step="bridge"] .dm-card { flex: 1; justify-content: center; }
+
+/* retrieve */
+.dm-retrievers { flex: 1; display: flex; gap: 6px; align-items: center; }
+.dm-retriever-list { flex: none; display: flex; flex-direction: column; gap: 2px; }
+.dm-retriever-chip { padding: 1.5px 6px; border-radius: 999px; background: var(--panel-2); font-size: 7.5px; font-weight: 650; opacity: 0; transform: translateX(-4px); animation: dm-chip-in .3s ease-out both; }
+.dm-retriever-chip:nth-child(1) { animation-delay: .05s; }
+.dm-retriever-chip:nth-child(2) { animation-delay: .2s; }
+.dm-retriever-chip:nth-child(3) { animation-delay: .35s; }
+.dm-retriever-chip:nth-child(4) { animation-delay: .5s; }
+@keyframes dm-chip-in { to { opacity: 1; transform: none; } }
+.dm-flow-arrow { flex: none; color: var(--muted); font-size: 12px; }
+.dm-pool { flex: none; padding: 6px 10px; border: 1px dashed var(--accent); border-radius: var(--card-radius); font-size: 7.5px; font-weight: 700; color: var(--accent); text-align: center; }
+
+/* debate */
+.dm-panel[data-step="debate"] { flex-direction: column; }
+.dm-sub-title { font-size: 7px; font-weight: 700; letter-spacing: .04em; color: var(--muted); margin: 0 0 2px; }
+.dm-bubbles { display: flex; gap: 5px; }
+.dm-bubble { flex: 1; display: flex; align-items: center; gap: 3px; padding: 2px 5px; border-radius: 8px; font-size: 7.5px; font-weight: 650; line-height: 1.2; min-width: 0; }
+.dm-bubble .dm-av { flex: none; width: 10px; height: 10px; border-radius: 50%; display: inline-grid; place-items: center; color: var(--white); font-size: 5.5px; font-weight: 700; }
+.dm-bubble[data-side="a"] { background: color-mix(in srgb, var(--relevant) 12%, transparent); color: var(--relevant); }
+.dm-bubble[data-side="a"] .dm-av { background: var(--relevant); }
+.dm-bubble[data-side="b"] { background: color-mix(in srgb, var(--irrelevant) 12%, transparent); color: var(--irrelevant); }
+.dm-bubble[data-side="b"] .dm-av { background: var(--irrelevant); }
+
+/* result */
+.dm-panel[data-step="result"] .dm-card { flex: 1; }
+.dm-outcome-title { display: flex; align-items: center; gap: 3px; }
+.dm-dot { width: 6px; height: 6px; border-radius: 50%; flex: none; }
+.dm-panel[data-step="result"] [data-outcome="agree"] .dm-dot { background: var(--gold); }
+.dm-panel[data-step="result"] [data-outcome="disagree"] .dm-dot { background: var(--human); }
+
+/* label */
+.dm-panel[data-step="label"] .dm-card { flex: 1; }
+.dm-chip-row { display: flex; gap: 4px; margin-top: 3px; }
+.dm-tag { padding: 1.5px 6px; border-radius: 999px; font-size: 7.5px; font-weight: 700; }
+.dm-tag--gold { background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--gold); }
+.dm-tag--muted { background: var(--panel-2); color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  #dm-stage *, #dm-stage *::before, #dm-stage *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<main id="dm-stage" data-phase="dataset" class="dm-run">
+  <header id="dm-header">
+    <h1>DREAM — multi-agent debate for relevance judgments</h1>
+    <p id="dm-caption">Incomplete dataset</p>
+  </header>
+
+  <nav id="dm-steps" aria-hidden="true">
+    <span class="dm-step" data-step="dataset"><span class="dm-step-num">1</span>Dataset</span>
+    <span class="dm-step-arrow">›</span>
+    <span class="dm-step" data-step="retrieve"><span class="dm-step-num">2</span>Retrieve</span>
+    <span class="dm-step-arrow">›</span>
+    <span class="dm-step" data-step="debate"><span class="dm-step-num">3</span>Debate</span>
+    <span class="dm-step-arrow">›</span>
+    <span class="dm-step" data-step="result"><span class="dm-step-num">4</span>Result</span>
+    <span class="dm-step-arrow">›</span>
+    <span class="dm-step" data-step="label"><span class="dm-step-num">5</span>Label</span>
+    <span class="dm-step-arrow">›</span>
+    <span class="dm-step" data-step="bridge"><span class="dm-step-num">6</span>BRIDGE</span>
+  </nav>
+
+  <div id="dm-detail">
+    <section class="dm-panel" data-step="dataset">
+      <div class="dm-card">
+        <p class="dm-card-title">Incomplete dataset</p>
+        <div class="dm-row"><span class="dm-key">Query</span><span class="dm-val">How does BRIDGE relabel IR benchmarks?</span></div>
+        <div class="dm-row"><span class="dm-key">Gold Answer(s)</span><span class="dm-val">Escalates only disagreements to humans</span></div>
+        <div class="dm-row"><span class="dm-key">Gold Chunk(s)</span><span class="dm-missing">missing</span></div>
+      </div>
+    </section>
+
+    <section class="dm-panel" data-step="retrieve">
+      <div class="dm-retrievers">
+        <div class="dm-retriever-list">
+          <span class="dm-retriever-chip">Sparse</span>
+          <span class="dm-retriever-chip">Dense</span>
+          <span class="dm-retriever-chip">Reranking</span>
+          <span class="dm-retriever-chip">Rewriting</span>
+        </div>
+        <span class="dm-flow-arrow">→</span>
+        <div class="dm-pool">Candidate<br>Chunk Pool</div>
+      </div>
+    </section>
+
+    <section class="dm-panel" data-step="debate">
+      <div>
+        <p class="dm-sub-title">Opposing initial stance</p>
+        <div class="dm-bubbles">
+          <span class="dm-bubble" data-side="a"><span class="dm-av">A</span>Relevance</span>
+          <span class="dm-bubble" data-side="b"><span class="dm-av">B</span>Irrelevance</span>
+        </div>
+      </div>
+      <div>
+        <p class="dm-sub-title">Multi-round debate — Round R</p>
+        <div class="dm-bubbles">
+          <span class="dm-bubble" data-side="a"><span class="dm-av">A</span>Even though … it is still relevant, because …</span>
+          <span class="dm-bubble" data-side="b"><span class="dm-av">B</span>Even though … it is still not relevant, because …</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="dm-panel" data-step="result">
+      <div class="dm-card" data-outcome="agree">
+        <p class="dm-card-title dm-outcome-title"><span class="dm-dot"></span>Agreement</p>
+        <span class="dm-bubble" data-side="a" style="align-self:flex-start"><span class="dm-av">A</span>Relevance</span>
+      </div>
+      <div class="dm-card" data-outcome="disagree">
+        <p class="dm-card-title dm-outcome-title"><span class="dm-dot"></span>Disagreement</p>
+        <div class="dm-bubbles">
+          <span class="dm-bubble" data-side="a"><span class="dm-av">A</span>Relevance</span>
+          <span class="dm-bubble" data-side="b"><span class="dm-av">B</span>Irrelevance</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="dm-panel" data-step="label">
+      <div class="dm-card">
+        <p class="dm-card-title">Automated annotation</p>
+        <p style="margin:0;font-size:7.5px;color:var(--muted)">Agreement cases auto-labeled</p>
+        <div class="dm-chip-row"><span class="dm-tag dm-tag--gold">Gold</span><span class="dm-tag dm-tag--muted">Non-Gold</span></div>
+      </div>
+      <div class="dm-card">
+        <p class="dm-card-title">Human annotation</p>
+        <p style="margin:0;font-size:7.5px;color:var(--muted)">Disagreements escalate for review</p>
+        <div class="dm-chip-row"><span class="dm-tag dm-tag--gold">Gold</span><span class="dm-tag dm-tag--muted">Non-Gold</span></div>
+      </div>
+    </section>
+
+    <section class="dm-panel" data-step="bridge">
+      <div class="dm-card">
+        <p class="dm-card-title">BRIDGE</p>
+        <div class="dm-row"><span class="dm-key">Query</span><span class="dm-filled">✓ filled</span></div>
+        <div class="dm-row"><span class="dm-key">Gold Answer(s)</span><span class="dm-filled">✓ filled</span></div>
+        <div class="dm-row"><span class="dm-key">Gold Chunk(s)</span><span class="dm-filled">✓ filled</span></div>
+      </div>
+    </section>
+  </div>
+</main>
+<script>
+"use strict";
+(function () {
+  const stage = document.getElementById("dm-stage");
+  const caption = document.getElementById("dm-caption");
+  const CYCLE_MS = 15000;
+  const PHASES = [
+    { phase: "dataset", at: 0, caption: "Incomplete dataset" },
+    { phase: "retrieve", at: 2200, caption: "Diverse retrievers pull candidate chunks" },
+    { phase: "debate", at: 4600, caption: "Agents debate the chunk across rounds" },
+    { phase: "result", at: 8200, caption: "Agreement or disagreement" },
+    { phase: "label", at: 10400, caption: "Automated vs. human relevance labeling" },
+    { phase: "bridge", at: 12800, caption: "BRIDGE — the relabeled benchmark" },
+    { phase: "hold", at: 14200, caption: "BRIDGE — the relabeled benchmark" }
+  ];
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    stage.setAttribute("data-phase", "bridge");
+    caption.textContent = PHASES[5].caption;
+    return;
+  }
+
+  let paused = false;
+  const hashJump = (location.hash.match(/t=(\d+)/) || [null, "0"])[1];
+  let elapsed = Math.min(parseInt(hashJump, 10) || 0, CYCLE_MS - 1);
+  let last = null;
+  stage.addEventListener("click", function () {
+    paused = !paused;
+    last = null;
+    stage.classList.toggle("dm-paused", paused);
+  });
+
+  function setPhase(name, text) {
+    if (stage.getAttribute("data-phase") !== name) {
+      stage.setAttribute("data-phase", name);
+      caption.textContent = text;
+    }
+  }
+
+  function tick(now) {
+    if (!paused) {
+      if (last !== null) {
+        elapsed += now - last;
+      }
+      if (elapsed >= CYCLE_MS) {
+        elapsed = 0;
+      }
+      let current = PHASES[0];
+      for (const entry of PHASES) {
+        if (elapsed >= entry.at) {
+          current = entry;
+        }
+      }
+      setPhase(current.phase, current.caption);
+    }
+    last = now;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

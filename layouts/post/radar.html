@@ -1,4 +1,4 @@
-{{/* One AI Scientist Radar issue, rendered in the artifact's own design.
+{{/* One Research Radar issue, rendered in the artifact's own design.
      Page content is the artifact's <div class="issue__body"> markup, kept
      verbatim; the styles come from partials/radar-style.html. */}}
 {{ define "main" }}
@@ -9,7 +9,7 @@
       <div class="masthead__rule"></div>
       <a class="backlink" href="{{ .CurrentSection.RelPermalink }}">{{ .CurrentSection.Title }}</a>
       <p class="masthead__eyebrow">바쁜 아침에 대신 읽어드리는 자율 연구 소식</p>
-      <h1 class="masthead__title">AI 사이언티스트 <em>레이더</em></h1>
+      <h1 class="masthead__title">리서치 <em>레이더</em></h1>
       <p class="masthead__meta">
         <span class="stamp">{{ with .Params.issue_label }}{{ . }}{{ else }}{{ .Date.Format "2006-01-02" }}{{ end }}</span>
         {{ with .Params.summary }}<span>{{ . }}</span>{{ end }}
