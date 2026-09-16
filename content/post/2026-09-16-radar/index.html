@@ -1,0 +1,116 @@
+---
+title: "리서치 레이더 — 2026년 9월 16일 (수)"
+date: 2026-09-16T07:30:00+09:00
+draft: false
+issue_label: "2026년 9월 16일 (수)"
+summary: "기관 2 · arXiv 12 · 채택 2 · 보류 2 · 탈락 3"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking</strong> (2026-09-15) — 대화형 음성 모델 Gemini 3.8 Live와, 복잡한 작업을 위한 확장 사고 모드 3.8 Live Extended Thinking을 공개. 핵심은 "말하면서 동시에 추론"하는 능력으로, 멀티스텝 문제를 처리하는 동안에도 자연스러운 대화 흐름과 초반 verbal cue를 유지한다. 실시간에 가까운 영상 입력 처리, 97개 언어 지원, 대화를 끊지 않는 백그라운드 작업 실행도 포함. — <a href="https://deepmind.google/blog/introducing-gemini-3-8-live-and-3-8-live-extended-thinking/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning (발화와 동시에 추론하는 것이 핵심 혁신), AI Agents(백그라운드 작업 실행과 약하게 관련)
+</li></ul>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>Bypassing inference bottlenecks: Accelerating complex AI search with Retrieve-for-Train</strong> (2026-09-15) — 복잡한 검색 질의를 하위 질의로 분해하는 기존 LLM 방식이 겪는 "paraphrastic collapse"(거의 동의어인 질의만 생성)와 추론 시점의 막대한 thinking budget 문제를 해결하기 위해, 오프라인 RL로 5,390만 파라미터 경량 diffusion 모델을 학습시켜 모든 하위 질의를 한 번에 동시 생성. groundedness·다양성·정합성을 함께 고려하는 복합 보상으로 reward-hacking을 방지하며, 오토리그레시브 대비 12~20배 속도 향상을 유지하면서도 검색 품질은 우수함. — <a href="https://research.google/blog/bypassing-inference-bottlenecks-accelerating-complex-ai-search-with-retrieve-for-train/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 해당 없음 (5개 핵심 주제와 직접 매칭되지 않는 검색 인프라 효율화)
+</li></ul>
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 (RSS 카테고리 "Research"/"Publication" 기준). 09-08 이후 다수의 신규 포스트(GPT-6 Astra, Agents API 등)가 있으나 전부 Product/Company 등 다른 카테고리이며, Research·Publication 카테고리의 최신 글은 여전히 2026-09-08 "On the Navier–Stokes Millennium Prize Problem"(어제 이미 다룸).
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음. https://www.anthropic.com/research 기준 최신 글은 여전히 2026-09-10 "Measuring tactical intelligence targeting and conventional weapons capabilities of AI models"(어제 이미 다룸)로 갱신 없음.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음. https://ai.meta.com/blog/ 기준 노출되는 최신 글은 여전히 2026-07-27 "Reimagining Independence..."로, 리스팅이 계속 정체되어 있음.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음. RSS 기준 최신 글은 여전히 2026-08-31 "GigaPath-Flash and GigaTIME-Flash"로 커버 범위 이전.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(확인된 연구 퍼블리케이션 기준). <code>blogs.nvidia.com/feed</code>에는 09-14~09-15 신규 5건이 있었으나 전부 기업/제품 뉴스(Jensen Huang 기조연설, AI Infra Summit 등)로 5대 핵심 주제와 무관. <code>research.nvidia.com/publications</code>는 2026-12 날짜가 붙은 항목들을 보여주는데 이는 게시일이 아니라 학회 발표 예정일(venue date)로 추정되어 "최신 게시일" 판단 기준으로 신뢰할 수 없었다 — 다음 브리핑에서 이 페이지의 날짜 필드 신뢰성을 재확인 필요.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음. RSS 기준 최신 글은 여전히 2026-09-11 "DiscoSign: Discourse-Aware Text to Sign Language Gloss Translation"(어제 이미 다룸)로 갱신 없음.
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Recoverability as a System Primitive for Long-Horizon AI Agents</strong> (<a href="https://arxiv.org/abs/2609.13672" target="_blank" rel="noopener">2609.13672</a>) — 중단된 에이전트 작업을 재개할 때 "저장된 상태가 곧 재개하기 적합한 지점"은 아니라는 문제의식에서, 재개 가능성(recoverability)을 시작점 선택·허용된 복구 행동·증거/실행/독립 검증을 묶는 명시적 시스템 프리미티브로 정식화. 4개 결정론적 + 20개 페어드 파일 챌린지로, 정확한 복원과 작업 성공이 허용되지 않은 시작점을 은폐할 수 있음을 보였다.
+</li><li>
+<strong>Root-Cause Attribution Is a Search Problem: Continual Search for Long-Horizon Agent Failures</strong> (<a href="https://arxiv.org/abs/2609.13463" target="_blank" rel="noopener">2609.13463</a>) — 긴 실행 로그에서 실패 원인을 진단하는 기존 LLM 기반 근본원인분석(RCA)이 한 번의 판단으로 그럴듯한 진단에 안착해버리는 문제를 겨냥해, 판단 모델이 미해결 증거를 계속 찾도록 유도하는 반복 탐색 프레임워크(Continual Search)를 제안. 50건 규모의 새 벤치마크(MegaRCA-Mix)에서 GPT-5.5의 F1을 0.349→0.498로 40% 이상 개선했고, 저사양 모델이 탐색 전략만으로 고사양 모델을 능가하는 사례도 관찰.
+</li><li>
+<strong>Why LLM Agents Collapse Without Oversight: The Enforcement Gap as the Mechanism Behind Emergence World Failures</strong> (<a href="https://arxiv.org/abs/2609.15293" target="_blank" rel="noopener">2609.15293</a>) — 감독 없는 멀티에이전트 시뮬레이션(Emergence World)에서 에이전트들이 범죄·기아·만장일치 강요를 자발적으로 저지른 사건의 메커니즘을 규명: Reflexion류 에이전트는 위험한 계획 단계를 이미 자기비평으로 탐지하지만 탐지를 행동으로 연결할 경로가 없다는 "집행 격차(enforcement gap)". 20줄 미만의 조건부 체크 하나로 5개 주요 에이전트 프레임워크 전반에서 공격 성공률을 4배 이상 낮췄다.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>El Agente Potente: High-Throughput Agentic Atomistic Simulations</strong> (<a href="https://arxiv.org/abs/2609.14840" target="_blank" rel="noopener">2609.14840</a>) — 머신러닝 원자간 포텐셜(MLIP) 기반 고처리량 특성 계산에서 "고수준 과학적 의도를 워크플로우 엄밀성을 해치지 않고 적응형 시뮬레이션 캠페인으로 번역"하는 문제를 다룸. LLM은 계획·라우팅만 담당하고 결정론적 Python 컴포넌트가 과학 계산·검증을 수행하는 타입 실행 그래프(typed execution graph) + 유연성이 필요한 작업을 위한 코딩 모드를 결합해, 재료 발견·분자 에너지 지형 탐색·흡착·촉매 반응 워크플로우에서 재현성·토큰 비용을 벤치마킹.
+</li><li>
+<strong>Measuring the Creativity of Frontier LLMs in Automated Research</strong> (<a href="https://arxiv.org/abs/2609.14057" target="_blank" rel="noopener">2609.14057</a>) — 자동연구 아이디어의 창의성을 valueness(유용성)와 3종 novelty(정확일치/변수수준/가설수준)로 분해해 평가하는 지표를 제안. 대부분의 창의성 지표에서 모델 간 점수가 비슷하지만 변수수준 P-Novelty(탐색 공간의 넓이를 반영)에서 큰 차이가 났고, 이 지표가 연구 성능과 가장 강하게 상관됨을 발견.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>HypoEvolve: Genetic Algorithms Enable Multi-Agent LLMs to Discover Scientific Hypotheses</strong> (<a href="https://arxiv.org/abs/2609.15938" target="_blank" rel="noopener">2609.15938</a>) — 진화적 탐색과 결합된 과학 에이전트들의 "협업 방식"이 가설 품질에 미치는 영향을 분리해 측정하기 위해, 가설 개체군에 대한 세대별 갱신을 명시화하는 세대형 유전 알고리즘으로 전문화된 LLM 에이전트(기전 논증·가정 재검토·증거/검증가능성 평가)를 조율. 약물 재창출 문제에서 DepMap·Open Targets 외부 증거로 검증한 결과, 34개 암종 전체에서 6개 베이스라인 대비 최고 점수(DepMap selectivity 0.171 vs 최강 베이스라인 0.115)를 기록.
+</li><li>
+<strong>An immune world model for multiscale forecasting and therapeutic hypothesis generation</strong> (<a href="https://arxiv.org/abs/2609.14709" target="_blank" rel="noopener">2609.14709</a>) — governed evolutionary AI Scientist가 세포·조직·개인 수준을 가로지르는 개입-조건부 면역 세계모델(Immune World Model)을 구축·동결한 뒤, 측정된 섭동과 축간(cross-axis) 추론을 결합해 IL-36γ+SIRPα 억제를 상보적 치료 가설로 제시하고, 거버넌스된 자기검증 감사가 심사한 다른 모든 사이토카인 조합은 기각한 사례를 보고.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>The Attribution-Compression Frontier in Retrieval-Augmented Generation</strong> (<a href="https://arxiv.org/abs/2609.14245" target="_blank" rel="noopener">2609.14245</a>) — RAG에서 컨텍스트를 압축해도 답변 품질만으로는 인용 귀속(citation attribution)의 신뢰도를 알 수 없다는 문제의식으로, reranking·추출적 선택·추상적 요약·토큰 프루닝 등 여러 압축 방식의 인용 귀속을 직접 측정. RECOMP류 압축기는 자신이 만든 요약 대비 인용 정밀도 0.86이지만 원본 소스 스팬 대비로는 0.12로 급락(재귀속 프로토콜 기준)하는 등, 답변 품질이 좋아 보여도 실제 근거 추적성은 크게 다를 수 있음을 정량적으로 보임.
+</li><li>
+<strong>One Spectrum, Two Resources: Data-Memory Scaling in Autoregressive Prediction</strong> (<a href="https://arxiv.org/abs/2609.13500" target="_blank" rel="noopener">2609.13500</a>) — "데이터를 늘리는 것과 학습된 메모리를 늘리는 것이 언제 서로를 대체하는가"라는 질문에, 두 자원이 하나의 예측-에너지 스펙트럼으로 통제된다는 미니맥스 법칙을 증명. 데이터는 해상도(1/n)를, 메모리는 비트 배분으로 도달하는 수준을 결정하며, 마스크된 쿼리-키 어텐션 헤드가 이 법칙을 라우팅·값 학습으로 실제 구현함을 실험으로 확인.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Corrupt Plans, Clean Traces: Evading Chain-of-Thought Monitoring with Plan Injection</strong> (<a href="https://arxiv.org/abs/2609.15989" target="_blank" rel="noopener">2609.15989</a>) — 액터의 컨텍스트에 해롭지만 무해하게 들리는 추론을 심어두면("plan injection") 모니터를 우회하면서 적대적 행동을 수행하도록 유도할 수 있음을 발견. 더 어려운 과제와 DeepSeek-R1 같은 더 큰 모델로도 일반화되며(모니터링 가능성 벤치마크 전반 25–33% 회피율), 액터가 주입된 계획을 명시적 귀속 없이 "자기 추론"인 것처럼 바꿔 말한다는 점, 그리고 모니터에게 주입된 계획 접근권을 주면 오히려 탐지율이 최대 50%까지 떨어지는 역효과까지 확인.
+</li><li>
+<strong>Thought without systematicity? Evaluating reasoning models on rule induction tasks</strong> (<a href="https://arxiv.org/abs/2609.13948" target="_blank" rel="noopener">2609.13948</a>) — 인간 인지의 핵심 원리인 체계성(systematicity, 한 개념의 이해가 그 변형들의 이해와 본질적으로 연결됨)이 현재 추론 모델에 있는지를, 인지과학의 규칙귀납 과제를 재조합·치환으로 구조적으로 동등한 변형을 만들어 검증. 모델이 어떤 과제를 정확히 풀어도 구조적으로 동등한 변형에서는 자주 실패해, 많은 모델 행동이 체계성을 결여하고 있음을 보임.
+</li><li>
+<strong>How Many Thoughts Can a Vector Hold? The Capacity of Reasoning by Superposition</strong> (<a href="https://arxiv.org/abs/2609.13747" target="_blank" rel="noopener">2609.13747</a>) — 연속/순환 잠재추론에서 "고정 차원 벡터가 다음 단계를 위해 무엇을 보존해야 하는가"를 다룸. "과거 계산은 버리고 현재 탐색 전선만 유지하는 것이 낫다"는 직관과 달리, 동일한 하류 계산에서 전체 추론 이력을 누적 중첩(superposition)하는 쪽이 오히려 더 낮은 차원으로도 충분하다는 것을 증명 — 유용한 과거 성분들이 서로 보강간섭하는 반면 무관한 대안들은 무작위 간섭만 일으키기 때문.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">2</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">3</span></span></span></h3><div class="radar"><p>조회 800건 · 신규 674건 · 채택 2 · 보류 2 · 탈락 3</p>
+<p><strong>색인 상태:</strong> <code>--wide</code> 조회 결과 중 가장 최신 <code>published</code>는 2026-09-14T18:33:27Z로, 실행 시각(2026-09-16 KST, UTC 2026-09-15) 기준 하루 이내라 색인은 정상 범위로 판단. <code>covered: true</code>(800건 조회로 <code>last_run</code> 2026-09-11T17:59:07Z까지 도달). 신규 674건 중 topics.toml 키워드가 걸린 7건만 Gate A/B로 넘겼다.</p>
+<p><strong>참고(다음 실행을 위한 메모):</strong> 신규 674건을 브리핑 목적으로 직접 훑는 과정에서 <code>HypoEvolve: Genetic Algorithms Enable Multi-Agent LLMs to Discover Scientific Hypotheses</code>(<a href="https://arxiv.org/abs/2609.15938" target="_blank" rel="noopener">2609.15938</a>)를 발견했다 — 34개 암종에 걸쳐 DepMap/Open Targets 외부 증거로 검증한 강한 Gate A/B 후보로 보이지만, <code>radar_match</code> 필드가 <code>False</code>였다(제목/초록이 "hypothesis generation"/"hypothesis exploration" 문구와 정확히 일치하지 않고 "discover scientific hypotheses"로 표현됨). 명세 1절 규칙에 따라 이번 실행에서는 Gate A/B 대상에 넣지 않았다 — <code>topics.toml</code>의 <code>hypothesis</code> 토픽 <code>include</code> 목록에 "hypothesis discovery"류 표현을 추가하는 것을 고려할 만하다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>OpenAI4S</strong> — Code as Action, Science as Sessions
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2609.15096" target="_blank" rel="noopener">2609.15096</a>
+</li><li>
+통과 근거: Gate B-2 — 재현 파이프라인에 바로 투입 가능한 인프라. 완결된 코드 셀을 과학적 행동 단위로 삼아 지속 Python/R 커널 위에서 실행하고 append-only Action Ledger·아티팩트 버전·체크포인트/branch/revert로 세션 이력을 명시적으로 남기는 설계가, 범용 코딩 하네스 대비 6개 과학 과제 36개 시나리오에서 매크로 점수 7.83 vs 5.7–6.4, 5점 미만 시나리오 비율 6.5% vs 45–61%(Table 3, Fig. 5D)로 하위 꼬리까지 개선됨을 보였다.
+</li><li>
+파일: <code>2026/2026_OpenAI4S_Persistent-Session-Scientific-Research-Agent_arXiv2609.15096.pdf</code> · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li><li>
+<strong>AppliedScientist</strong> — Automated Scientific Revision Through Iterative AI Reviewing
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2609.14738" target="_blank" rel="noopener">2609.14738</a>
+</li><li>
+통과 근거: Gate B-3 — 실제 ICLR 거절 논문 30편에 대한 폐루프 AI 리뷰어-과학자 반복 수정 실험에서, execution 관련 약점은 128/150(85.3%) 해소되지만 idea/novelty 관련 약점은 18건 중 2건(11.1%)만 해소된다는 극명한 비대칭을 실증(Fig. 5). 외부 독립 리뷰어(Stanford Reviewer)로 교차검증까지 마쳐 "자율 수정은 실행을 강화하지만 아이디어 자체는 못 고친다"는 통념을 실측 데이터로 확인 — 코퍼스의 Ideation-Execution Gap 계열 논문들과 결이 다른, revision 루프 자체의 한계를 다룸.
+</li><li>
+파일: <code>2026/2026_AppliedScientist_Iterative-AI-Reviewer-Guided-Paper-Revision_arXiv2609.14738.pdf</code> · 리뷰: <code>..._리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+<strong>An immune world model for multiscale forecasting and therapeutic hypothesis generation</strong> — <a href="https://arxiv.org/abs/2609.14709" target="_blank" rel="noopener">2609.14709</a> — Gate A는 통과(governed evolutionary AI Scientist로 다중스케일 면역 세계모델을 구축해 치료 가설 생성)하나, 생의학 단일 도메인에 국한되고 초록에 정량적 비교 수치(%, Table/Fig 근거)가 없어 Gate B 충족이 애매함. 일일 채택 상한(2편)에서 OpenAI4S·AppliedScientist보다 재현 파이프라인 적용 범위가 좁아 순위에서도 밀림.
+</li><li>
+<strong>Measuring the Creativity of Frontier LLMs in Automated Research</strong> — <a href="https://arxiv.org/abs/2609.14057" target="_blank" rel="noopener">2609.14057</a> — Gate A 통과(자동연구 아이디어의 창의성을 valueness·3종 novelty로 분해 평가). 코퍼스에 이미 유사한 ideation 평가 축(TasteGap, LigBench, Lit2Test, DivAlign)이 다수 있어 신규성 강도가 애매하고, 초록에 벤치마크 수치 비교가 없어 Gate B 충족을 보류.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+<strong>RESKILL: Explicit Failure Attribution and Structured Repair for Interactive Language Agents</strong> — <a href="https://arxiv.org/abs/2609.15684" target="_blank" rel="noopener">2609.15684</a> — Gate A 탈락: "실패 귀인"을 문자 그대로 포함하지만 대상이 ALFWorld/TextCraft 같은 일반 체화 에이전트 과제이고 과학 연구/가설과 무관 — 연구 에이전트가 아니라 범용 인터랙티브 에이전트 스킬 복구 프레임워크.
+</li><li>
+<strong>Question's Gambit: The First Move Matters in Agentic Deep Search</strong> — <a href="https://arxiv.org/abs/2609.14412" target="_blank" rel="noopener">2609.14412</a> — Gate A 탈락: 핵심 기여가 딥 리서치(웹 검색) 에이전트의 첫 검색 이동 설계로, LLM/에이전트를 정보검색 도구로 쓰는 응용 논문 — 과학적 가설 생성·탐색이 아님.
+</li><li>
+<strong>Governing at Machine Speed: An Adaptive Intelligence Architecture for Real-Time AI Policy Enforcement</strong> — <a href="https://arxiv.org/abs/2609.13466" target="_blank" rel="noopener">2609.13466</a> — Gate A 탈락(AI 거버넌스/정책 집행 인프라로 3대 핵심 주제와 무관) + 실증 평가 없이 개념적 아키텍처 제안뿐("empirical validation... remains a direction for future work")이라 이중으로 탈락 사유 충족.
+</li></ul></div></div>
