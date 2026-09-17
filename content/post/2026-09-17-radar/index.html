@@ -1,0 +1,106 @@
+---
+title: "리서치 레이더 — 2026년 9월 17일 (목)"
+date: 2026-09-17T07:30:00+09:00
+draft: false
+issue_label: "2026년 9월 17일 (목)"
+summary: "기관 4 · arXiv 14 · 채택 0 · 보류 1 · 탈락 1"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음. 최신 글은 여전히 2026-09-15 "Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking"(어제 이미 다룸)로 갱신 없음.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음. RSS 기준 최신 글은 여전히 2026-09-15 "Bypassing inference bottlenecks: Accelerating complex AI search with Retrieve-for-Train"(어제 이미 다룸)이고, 그다음 글 "ToolGrad"(09-10)도 커버 범위 이전.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+<strong>Our framework for reporting model misalignment</strong> (2026-09-16) — 모델의 정렬 실패를 추적·조사·공개하는 프레임워크를 새로 공개하고, 예상치 못했거나 우려스러운 모델 행동 사례 6건을 함께 보고했다고 밝힘. ⚠ 본문 미확인 — 기사 URL(<code>openai.com/index/...</code>)이 WebFetch·curl 모두에서 HTTP 403으로 막혀 RSS 요약 문구만 확인함. — <a href="https://openai.com/index/model-misalignment-reporting-framework" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 해당 없음 (5개 핵심 주제와 직접 매칭되지 않는 안전성/거버넌스 공지)
+</li></ul>
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음. https://www.anthropic.com/research 기준 최신 글은 여전히 2026-09-10(어제 이미 다룸)으로 갱신 없음.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음. https://ai.meta.com/blog/ 기준 노출되는 최신 글은 여전히 2026-07-27로, 리스팅이 계속 정체되어 있음.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음. RSS 기준 최신 글은 여전히 2026-08-31 "GigaPath-Flash and GigaTIME-Flash"로 커버 범위 이전.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(확인된 연구 퍼블리케이션 기준). <strong>어제 지적한 날짜 필드 신뢰성 문제를 오늘 해소함</strong>: <code>research.nvidia.com/publications</code>에 뜨는 "2026-12" 등은 게시일이 아니라 개별 페이지 하단에 별도로 적힌 venue 예정일이었고, 실제 게시일은 각 publication 상세 페이지에서 확인 가능했다 — 오늘 목록 최상단이던 "Composing Detector Error Models"의 실제 게시일은 2026-09-11로, 커버 범위(09-16~) 이전이었다. <code>blogs.nvidia.com/feed</code>의 09-14~09-16 신규 4건(MLPerf Inference v6.1, Earth-2 대기질 예보, AI 팩토리 에너지 관리, 소아 심장질환 AI)은 전부 인프라·응용 뉴스로 5대 핵심 주제와 무관.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>Shared Selective Persistent Memory for Agentic LLM Systems</strong> (2026-09-16) — 멀티턴 에이전틱 코드 생성에서 세션이 끝날 때마다 설정값·데이터 스키마·툴 사용 패턴 같은 맥락이 사라지는 문제를 겨냥해, 작업명세·데이터 스키마·툴 설정·출력 제약 4종만 선택적으로 저장해 워크스페이스 단위로 사용자 간 공유하는 메모리 아키텍처를 제안. 전체 대화이력을 그대로 유지하면 오래된 추론 편향이 섞여 오히려 완료율이 떨어졌고(71%), 선택적 메모리는 무메모리(79%) 대비도 크게 앞선 96% 완료율에 반복 갱신 시간 14배 단축·토큰 비용 97배 절감을 보임. — <a href="https://machinelearning.apple.com/research/shared-selective-persistent-memory" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Long-context, AI Agents
+</li></ul>
+</li><li>
+<strong>Glyph: A Multi-Strategy Agentic System for Column Description and Sensitivity-Ontology Tagging of Enterprise Data Catalogs</strong> (2026-09-16) — 기업 데이터 레이크의 "문서화 부채"를 풀기 위해, 소스 파이프라인 코드를 검색해 근거로 삼는 Descriptor 에이전트와 설명 기반·규칙 기반·미세조정 대조 인코더 기반 태깅 결과를 RRF로 융합하는 Tagger 에이전트로 구성된 프로덕션 멀티에이전트 시스템을 제안. 미세조정한 6층 MiniLM 메타데이터 인코더가 NDCG@10을 0.55→0.92, MAP@100을 0.19→0.90으로 끌어올림. — <a href="https://machinelearning.apple.com/research/glyph-column-description-tagging" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>DACA-GRPO: Denoising-Aware Credit Assignment for Reinforcement Learning in Diffusion Language Models</strong> (2026-09-16) — 확산 언어모델용 GRPO류 RL이 디노이징 스텝 전체를 동등하게 취급하고 편향된 우도 추정에 의존한다는 문제를 겨냥해, 추가 연산 없이 스텝별 중요도를 뽑는 Denoising Progress Score와 토큰을 계층화해 더 많은 문맥을 보고 예측하게 하는 Stratified Masking Likelihood를 결합한 경량 플러그인을 제안. 세 가지 GRPO 베이스 전반에서 7개 벤치마크에 걸쳐 일관 개선(제약 충족 과제 최대 36.3%p)을 보임. — <a href="https://machinelearning.apple.com/research/denoising-aware-credit-assignment" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Agentic Societies Need a Social Harness</strong> (<a href="https://arxiv.org/abs/2609.17527" target="_blank" rel="noopener">2609.17527</a>) — 서로 다른 principal을 대신하는 에이전트들이 신뢰 경계를 넘나들며 협업하는 "에이전틱 사회"에서는 정직하고 유능한 에이전트끼리도 기존 하네스·메시징 프리미티브로는 만족스러운 결과에 이르지 못하고, 결함 있거나 악의적인 에이전트가 통신("발화") 취약점을 악용해 협업을 방해할 수 있음을 실험으로 보임. 개별 에이전트의 "개인 하네스"에 더해 무효 메시지를 런타임에 탐지하고 사후 조사·제재까지 지원하는 계층형 "소셜 하네스" 아키텍처를 제안한다.
+</li><li>
+<strong>Coding Agents Have Converged: Why the SWE-bench Leaderboard Can No Longer Order Its Top Entries, and What to Measure Instead</strong> (<a href="https://arxiv.org/abs/2609.17394" target="_blank" rel="noopener">2609.17394</a>) — SWE-bench 리더보드 제출 254건을 재실행 없이 감사한 결과, Verified 상위 두 팀은 500건 중 396건 해결로 동률이고 상위 10개 팀이 성공 285건·실패 51건을 공유해 실제로 순위를 가르는 사례는 164건뿐임을 밝힘. 인접한 상위 30개 팀 쌍 29개 중 정확 페어드 McNemar 검정으로 유의하게 갈리는 쌍이 하나도 없어, 작은 점수 차를 확립된 순위 차로 해석하지 말라고 경고한다.
+</li><li>
+<strong>Mo' Models, Mo' Problems: How to best select model pools when designing Multi-Agent Systems</strong> (<a href="https://arxiv.org/abs/2609.17306" target="_blank" rel="noopener">2609.17306</a>) — 오픈소스 모델 후보가 급증하는데도 멀티에이전트 시스템(MAS) 설계 시 모델 풀을 어떻게 고를지는 거의 연구되지 않았다는 문제의식으로, 라우팅·다수결·LLM-as-judge 등 8가지 모델 선택 전략을 과학 벤치마크에서 체계적으로 평가. 후보 풀을 무작정 넓히면 이론적 오라클 성능과 달리 최고 단일 모델보다 오히려 성능이 떨어지는 경우가 많고, 동일 모델 패밀리 내에서 후보를 고르는 전략이 가장 안정적으로 성능을 개선함을 발견했다.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>ScienceBuddy: Recursive-in-Recursive Self-Improvement for Interactive Scientific Agents</strong> (<a href="https://arxiv.org/abs/2609.17523" target="_blank" rel="noopener">2609.17523</a>) — 연구자의 요청·피드백·실행 증거를 지속 학습용 과제와 평가 루브릭으로 전환하는 대화형 과학 연구 워크스페이스를 공개. 하네스를 모델 고정 상태로 진화시키는 내부 재귀와, 개선된 하네스 아래에서 모델을 강화학습으로 훈련하는 외부 재귀를 결합한 "재귀 속 재귀 자기개선" 패러다임을 제시하고, 4개 과학 과제군에 걸친 사례연구로 검증했다.
+</li><li>
+<strong>PaperDoctor: Evidence-Grounded and Actionable Feedback for Scientific Papers in Progress</strong> (<a href="https://arxiv.org/abs/2609.16995" target="_blank" rel="noopener">2609.16995</a>) — 자동연구 에이전트가 결함 있는 주장을 문헌에 대량 유입시킬 수 있다는 문제의식에서, 작성 중인 논문에 대해 "판정자"가 아닌 "진단자" 역할을 하는 사전 제출 피드백 에이전트를 제안. 표면 스크리닝(L1)·주장별 근거로 라우팅하는 유형화 검증기(L2)·우선순위에 따라 실험을 재실행하는 재현기(L3)의 3단 계층 구조로, 진행 중인 논문 30편에서 70.6% 동의율과 전부 양(positive)의 총평 점수를 얻었고 인간·다른 에이전트 리뷰어보다 더 감사 가능한(auditable) 피드백을 만들었다고 보고한다.
+</li><li>
+<strong>Metacognitive Steering: Learning the Structure of Scientific Judgment</strong> (<a href="https://arxiv.org/abs/2609.16245" target="_blank" rel="noopener">2609.16245</a>) — 과학자의 실제 연구 상호작용 흔적에서 탐색·집행·재평가 같은 "과정 수준의 과학적 판단"을 복원해 고정된 프론티어 모델(Kimi 2.6)의 내부 계산을 제어할 수 있는지 검증. 대조적 개입으로 식별한 중간 깊이의 제어 표면을 추론 시점에 읽어 탐색/절차적 수렴/비판적 재평가 개입을 동적으로 조합하는 컨트롤러를 만들고, 이를 실제 자율 연구 시스템(Columbus-1)에 적용해 BlueZ에서 독립 재현된 취약점 8건을 발견하고 논스로틀 고체 모터로 추진 착륙하는 10피트 로켓의 설계·시뮬레이션·제작까지 지휘한 사례를 보고한다.
+</li><li>
+<strong>The AI-Enabled Scientific Frontier</strong> (<a href="https://arxiv.org/abs/2609.16258" target="_blank" rel="noopener">2609.16258</a>) — AI가 "일반적인 과학적 방법"이 되고 있다는 주장을 검증하기 위해 2000~2025년 초 발표 논문에서 27개 과학 분야에 걸친 AI 대 기존 기법 head-to-head 비교 2,507건을 수집. 전통 통계 대비로는 AI가 더 나은 경우가 많지만 계산비용이 훨씬 크고 사례의 약 1/4은 AI가 더 비싸면서 성능도 나쁜 채 10년째 정체돼 있는 반면, 과학 컴퓨팅 대비로는 2020년 이후 AI 성능이 뚜렷이 강해져 이제 절반 이상의 비교에서 앞선다는 이분법적 그림을 제시한다.
+</li><li>
+<strong>AI for Science with GPT-6 Astra: Thermal Design and Electrothermal Analysis of 2D CFET</strong> (<a href="https://arxiv.org/abs/2609.17123" target="_blank" rel="noopener">2609.17123</a>) — 2D CFET 인버터의 열 설계 최적화 과제에, 전기열 모델 위에서 구조를 제안하는 Astra와 기판 방향 방열 경로를 제안하는 조율 에이전트를 결합한 AI 에이전트 워크플로를 적용. 고정 금속 부피·20μW 조건에서 피크 온도 상승을 1.67K 낮췄고, 금속 저항 민감도 분석으로 약 0.6K 냉각과 2% nFET on-전류 손실 사이의 트레이드오프를 정량화했다.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>Interactive Memory Learning for Long-Term Conversations</strong> (<a href="https://arxiv.org/abs/2609.17088" target="_blank" rel="noopener">2609.17088</a>) — 장기 대화 에이전트의 기존 메모리가 적응적 가치 평가 없이 정보를 수동적으로 archiving만 한다는 한계를 지적하고, Planner 에이전트가 고가치 정보를 선택 인코딩하고 Trigger 에이전트가 이를 동적으로 검색하는 온라인 강화학습 기반 상호작용형 메모리 정책(ICML)을 제안. 두 에이전트가 지연 보상으로 동기화되어 상호작용이 누적될수록 응답 품질이 계속 개선되는 특성을 보인다.
+</li><li>
+<strong>LSREP: A Longitudinal State-Replay Protocol for Evaluating Conversational Memory, with ICE v2 as an Audited Local-First Architecture</strong> (<a href="https://arxiv.org/abs/2609.16730" target="_blank" rel="noopener">2609.16730</a>) — 대화형 메모리는 사용 중 계속 변하므로 단발성 QA만으로는 상태 축적·노화·수정 반영을 평가할 수 없다는 문제의식으로, 순서 재생·생애주기 스케줄·반복 프로브·메커니즘 충실도 점검을 결합한 종단적 재생 프로토콜을 제안. 로컬 우선 메모리 미들웨어 ICE v2를 사례로 감사한 결과 자체 데이터셋에서는 vector-RAG와 비슷한 품질을 32% 적은 조각으로 냈지만, 공개 LongMemEval 진단에서는 vector-RAG에 큰 차이로 패배해(evidence-only 50.8% vs 72.8%) 아키텍처 설명이나 집계 점수만으로는 드러나지 않는 실패 양상을 노출한다.
+</li><li>
+<strong>Where Should the KV Cache Live? Placement Policies Across GPU, CPU, and SSD for Long-Lived Sessions</strong> (<a href="https://arxiv.org/abs/2609.16215" target="_blank" rel="noopener">2609.16215</a>) — GPU HBM이 부족한 상황에서 KV 캐시를 GPU/CPU/SSD 계층 중 어디에 둘지, 언제 옮기고 프리페치가 도움이 되는지를 실행시간 예측기로 보정한 이산사건 시뮬레이터로 분석. 계층화 자체가 GPU당 동시 세션 수를 73배, 세션당 비용을 62배 개선시키는 핵심 요인(계층 용량 1:8:64)이며, 프리페칭은 오라클조차 마이그레이션 트래픽에서 "안 함"을 이기지 못해 비용을 정당화하지 못함을 보인다.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Large Language Models Develop Belief State Geometry In-Context</strong> (<a href="https://arxiv.org/abs/2609.17376" target="_blank" rel="noopener">2609.17376</a>) — LLM의 in-context learning을 은닉 마르코프 모델(HMM)이 생성한 데이터로 프롬프트한 통제 환경에서 분석해, 오픈소스 LLM 6종에서 HMM의 사후 신념 상태가 residual stream 활성화로부터 선형적으로 디코딩 가능함(피크 probe R²=0.83–0.99)을 보임. 해당 서브스페이스에 직접 패칭·스티어링해도 원본 모델 수준의 하류 예측 품질이 유지되어, ICL이 문맥에서 추론한 생성모델에 대한 근사 베이지안 예측에 해당한다는 표현 수준의 증거를 제시한다.
+</li><li>
+<strong>Diagnosing the Fact-Grounding Gap in Multi-Hop Question Answering</strong> (<a href="https://arxiv.org/abs/2609.17043" target="_blank" rel="noopener">2609.17043</a>) — 멀티홉 QA 실패가 흔히 "문서를 못 찾아서"로 귀속되지만, 개별 추론 스텝 단위로 보면 검색 실패와 "문서는 찾았지만 필요한 사실을 추출 못함"(fact-grounding gap)의 두 가지로 나뉨을 3개 표준 벤치마크에서 실증. 추출 실패가 홉당 결함의 거의 절반을 차지하고 표준 검색 지표로는 보이지 않으며, 테스트한 모든 검색 개입으로도 해소되지 않아 검색만으로 개선할 수 있는 상한선을 못박는다.
+</li><li>
+<strong>Register Tokens for Bounded-State Reasoning in Diffusion Language Models</strong> (<a href="https://arxiv.org/abs/2609.16372" target="_blank" rel="noopener">2609.16372</a>) — 마스크 확산 언어모델이 생성 청크를 넘나들며 추론을 이어가려면 이전 텍스트를 계속 문맥에 유지해야 하는 문제에, 고정 개수의 레지스터 토큰에 추론 진행 상태를 압축해 담고 이전 텍스트는 지운 채로 이어 디코딩하게 학습시키는 방법을 제안. LLaDA·Dream 양쪽에서 레지스터가 discrete-text carry보다 모든 벤치마크에서 우세했고(수학 최대 8.5점, 코드 최대 19.5점 개선), 여러 청크에 걸치는 코드 생성에서 특히 효과적이다.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">1</span></span></span></h3><div class="radar"><p>조회 400건 · 신규 303건 · 채택 0 · 보류 1 · 탈락 1</p>
+<p><strong>색인 상태 (중요 — 파이프라인 이슈):</strong> <code>--wide</code> 조회 결과 중 가장 최신 <code>published</code>는 2026-09-15T17:57:27Z로, 실행 시각(2026-09-17 KST, UTC 2026-09-16T22:42) 기준 약 29시간 지연 — 색인 밀림으로 판단.</p>
+<p>더 심각한 문제: <code>seen.json</code>의 기존 <code>last_run</code>(2026-09-15T22:50:31+00:00, 어제 실행 시각으로 설정된 값)이 이미 오늘 관측된 최신 색인 시점(2026-09-15T17:57:27Z)보다 <strong>앞서 있었다.</strong> 즉 어제(09-16) 실행이 "색인이 하루 이내라 정상"이라고 판단해 커서를 실행 시각(wall-clock)으로 밀었지만, 실제로는 그 시점에 색인이 2026-09-14T18:33:27Z까지만 닿아 있었고 이후 실제로 색인된 2026-09-14T18:33~2026-09-15T17:57 구간의 논문들이 어제의 밀어둔 커서(22:50:31)보다 <code>published</code>가 앞서 있어 오늘 조회에서 <code>since</code> 필터에 전부 걸려 <strong>후보에 오르지 못하고 조용히 누락될 뻔했다.</strong></p>
+<p><strong>조치:</strong> <code>fetch.py --wide --since 2026-09-14T18:33:27+00:00</code>(어제 로그에 기록된, 실제로 확인된 마지막 안전 지점)로 재조회해 해당 구간을 회수 — queried 400 · new 303 (원래의 <code>--wide</code> 단독 조회는 new 0이었음). 이 303건이 이번 브리핑·레이더 판정 대상이다. <code>seen.json</code>에 이미 등재된 판정은 없으므로 중복 검토는 없었다.</p>
+<p>이번 실행의 커서는 실행 시각(wall-clock)이 아니라 <strong>이번 피드에서 실제로 관측된 가장 최신 <code>published</code>인 2026-09-15T17:57:27Z</strong>로 설정한다(6절 커서 규칙 — 색인 밀림 지속 중이므로 wall-clock을 쓰지 않는다). 색인이 이 시각을 넘어서기 전까지는 다음 실행도 같은 방식으로 재확인이 필요하다.</p>
+<h3>채택</h3>
+<p>없음</p>
+<h3>보류</h3>
+<ul><li>
+<strong>PaperDoctor: Evidence-Grounded and Actionable Feedback for Scientific Papers in Progress</strong> — <a href="https://arxiv.org/abs/2609.16995" target="_blank" rel="noopener">2609.16995</a> — Gate A 통과는 애매: 논문 아이디어/가설이 아니라 완성된 원고의 글쓰기·실험·재현성을 진단하는 사전 제출 리뷰 에이전트로, 자율 연구 파이프라인의 검증 단계에는 해당하나 세 관문 중 어디에도 깔끔히 들어맞지 않음. Gate B도 코퍼스에 이미 있는 인접 항목들(<code>AppliedScientist</code>의 반복 AI 리뷰 루프, <code>DCP</code>·<code>ABE-Ralph</code>의 AI 연구 결과 감사)과 축이 크게 겹쳐 신규성 강도가 애매함 — 근거 포인터(문장/수식/코드 라인)와 우선순위 기반 선택적 재실행이라는 세부 설계는 차별점이지만 "명확히 새로운 축"이라 부르기엔 부족.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+<strong>AI for Science with GPT-6 Astra: Thermal Design and Electrothermal Analysis of 2D CFET</strong> — <a href="https://arxiv.org/abs/2609.17123" target="_blank" rel="noopener">2609.17123</a> — Gate A 탈락: 핵심 기여가 2D CFET 인버터라는 단일 반도체 공정의 열 설계 최적화이고 LLM 에이전트는 그 안에서 구조·방열 경로를 제안하는 도구로만 쓰였다 — 자율 연구 에이전트/가설 탐색/아이디어 평가 어느 축에도 해당하지 않는 도메인 응용 논문.
+</li></ul></div></div>
