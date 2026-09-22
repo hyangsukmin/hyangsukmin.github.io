@@ -1,0 +1,90 @@
+---
+title: "리서치 레이더 — 2026년 9월 22일 (화)"
+date: 2026-09-22T07:30:00+09:00
+draft: false
+issue_label: "2026년 9월 22일 (화)"
+summary: "기관 1 · arXiv 14 · 채택 0 · 보류 1 · 탈락 0"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음. RSS 최신 글은 여전히 2026-09-15 "Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking"(이전에 이미 다룸)로 갱신 없음.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음. RSS 최신 글은 여전히 2026-09-18 "MilleMiglia: A realistic instance generator for middle-mile logistics"(이전에 이미 다룸)로 갱신 없음.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음(Research/Publication 카테고리 기준). RSS 원문(<code>openai.com/news/rss.xml</code>)을 직접 확인한 결과 Research 카테고리 최신 글은 여전히 2026-09-16 "Our framework for reporting model misalignment"(이전에 이미 다룸)이고, 09-17 이후 올라온 글들은 전부 Company/Startup/Global Affairs 등 비연구 카테고리.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음. https://www.anthropic.com/research 기준 최신 글은 여전히 2026-09-17 "How Claude is uplifting biomolecular modeling"(이전에 이미 다룸)이고, 그 이전 09-10·09-09·09-04 게시물들도 이미 지난 브리핑 커버 범위에 속함.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음. https://ai.meta.com/blog/ 기준 노출되는 최신 글은 여전히 2026-07-27 "Reimagining Independence..."로, 리스팅이 계속 정체되어 있음(이전과 동일 상태).
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+<strong>RetroChimera: Improving synthesis prediction of small molecules at scale</strong> (2026-09-21) — 화학 합성 경로 설계(retrosynthesis)가 신약 개발 비용의 주요 병목이라는 문제에, 구조 변화가 큰 반응에 강하지만 환각(hallucination)에 취약한 Transformer 기반 de novo 모델(R-SMILES 2)과, 템플릿이 커버하는 반응에서는 안정적이지만 템플릿 밖에서는 한계를 보이는 그래프 신경망 템플릿 모델(NeuralLoc)을 학습된 앙상블 투표로 결합. 완전한 합성 경로에 대한 전문가 채택률이 개별 서브모델 20–50%에서 RetroChimera 90%로 크게 상승했고, 난제 타깃 10개 중 9개를 해결(개별 모델 최대 5개, 베이스라인 NeuralSym 2개)함을 보임. MIT 라이선스로 오픈소스 공개. — <a href="https://www.microsoft.com/en-us/research/blog/improving-synthesis-prediction-of-small-molecules-at-scale-with-retrochimera/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 해당 없음 (화학 합성 계획 도메인 특화 모델로 5개 핵심 주제와 직접 매칭되지 않음)
+</li></ul>
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(관련 연구 발표 기준). <code>blogs.nvidia.com/feed</code>의 09-21 신규 5건(DSX Ready 전력·냉각 인증, Physical AI 안전, 이집트 AI 생태계, 에이전트 스택 보안, 청정에너지 고객사례)은 전부 기업/제품/고객사례 뉴스로 5대 핵심 주제와 무관. 09-17 "Aniimo" 게임 출시 건은 이전 브리핑에서 이미 다룸. <code>research.nvidia.com/publications</code>는 이전 로그에서 지적한 대로 목록 날짜가 venue 예정일이라 신뢰할 수 없어 이번에도 <code>blogs.nvidia.com/feed</code>만 확인.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음. RSS 최신 글은 여전히 2026-09-18 "Dynamically Scaled Activation Steering"(이전에 이미 다룸)로 갱신 없음.
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>RecreationWorld: Scalable and Verifiable Environments for Hybrid Computer-Use Agents</strong> (<a href="https://arxiv.org/abs/2609.22000" target="_blank" rel="noopener">2609.22000</a>) — GUI 조작과 코드/커맨드라인 개발을 함께 요구하는 "하이브리드" 컴퓨터 사용 에이전트를 겨냥해, 실행 중인 레퍼런스 앱의 동작을 관찰만으로 재현하도록 시키고 그 레퍼런스를 숨은 행동 테스트의 오라클로 쓰는 5개 플랫폼(Ubuntu/macOS/Windows/Android/Web) 환경을 공개. held-out 벤치마크(RecreationBench, 250개 과제)에서 GPT-6 Astra가 전체 점수 58.1%로 1위였지만 프로그램적 테스트를 전부 통과한 과제는 2.8%뿐으로, 에이전트가 정적 인터페이스 구조는 잘 재현해도 상호작용·연산 결과는 훨씬 못 미침을 보임.
+</li><li>
+<strong>CodeMidas: Scaling Agentic Coding RL Environments from Code Itself</strong> (<a href="https://arxiv.org/abs/2609.22068" target="_blank" rel="noopener">2609.22068</a>) — 코딩 에이전트 RL용 과제를 issue·commit 같은 개발 아티팩트에 의존해 만들던 기존 방식의 범위 한계를 겨냥해, 소스 코드만을 입력으로 에이전트가 기능을 탐색해 행동 명세를 만들고 실행 기반 테스트로 검증·필터링하는 파이프라인을 제안. 3,185개 오픈소스 저장소·23개 언어에서 5,545개 학습 과제를 생성했고, MiMo-V2.5를 GRPO로 학습시켜 issue 수정(DeepSWE +11.7%)·전체 프로그램 구현(ProgramBench +17%)·터미널 작업(Terminal-Bench v2.1 +8.5%) 전 벤치마크에서 개선을 확인.
+</li><li>
+<strong>When Better Turns Do Not Make Better Agents: Diagnosing the Gap Between Next-Turn Metrics and Workflow Success</strong> (<a href="https://arxiv.org/abs/2609.21187" target="_blank" rel="noopener">2609.21187</a>) — 에이전트를 골드 히스토리 조건에서 다음 행동만 채점하는 turn-by-turn 평가가 실제 자율 워크플로 성공을 예측하는지 검증. Qwen3(4B/14B)·Gemma 3(4B/12B)에 SFT를 적용하면 turn 단위 성공률은 일관되게 오르지만, 이 개선이 자율 실행으로 전혀 이어지지 않아 4개 SFT 모델 중 어느 것도 holistic 워크플로 평가를 통과하지 못했고 엄격한 trajectory 완료율은 최대 10.4%에 그침을 보임.
+</li><li>
+<strong>MACE: Memory-Agent Co-Evolution with Adaptive Memory Graphs for Multi-Agent Systems</strong> (<a href="https://arxiv.org/abs/2609.21533" target="_blank" rel="noopener">2609.21533</a>) — 멀티에이전트 협업 흔적을 재사용하려면 전제조건과 후속 산출물 의존성을 함께 보존해야 한다는 관찰에서, 기능 단위로 묶은 메모리 유닛을 지지·충돌·수리 관계로 연결하는 MemGoG 구조와 실행 피드백으로 메모리 구성·활용 방식을 함께 갱신하는 MACE Loop를 제안. 8개 벤치마크 평균 81.11%로 최강 베이스라인 SAGE(78.97%)를 상회.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>Verify, Don't Trust: Agentic Model Development for Video Discovery Retrieval at Scale</strong> (<a href="https://arxiv.org/abs/2609.21257" target="_blank" rel="noopener">2609.21257</a>) — 분·시간 단위의 폐쇄형 autoresearch와 달리, 코드 변경이 사실상 no-op이거나 데이터 윈도우가 새거나 평가 지표가 변질되면 몇 주짜리 온라인 캠페인도 잘못된 결론에 도달할 수 있다는 문제를 겨냥해, 역할별 에이전트가 버전관리된 도메인 스킬로 라운드를 수행하고 결정론적 체크로 과거 교훈을 강제하는 human-gated 프레임워크 EvoPilot을 제안. 실제 영상 추천 시스템에서 37일 캠페인을 돌린 결과, 초기 autoresearch가 22%p 오프라인 성능 하락을 특정 모듈 탓으로 잘못 귀인했던 것을 EvoPilot의 검증이 사전 존재하던 평가 결함(출력 깊이 불일치)으로 추적해냈고, 수정 후 매칭 비교에서 실제 3.20%p 개선과 7일 온라인 A/B에서 0.66%의 실질적 지표 개선을 확인 — 이번 레이더에서 검토(3절 참고).
+</li><li>
+<strong>MOSAIC-SR: Transformer-Guided Symbolic Regression for Scientific Equation Recovery</strong> (<a href="https://arxiv.org/abs/2609.20997" target="_blank" rel="noopener">2609.20997</a>) — 탐색 기반 기호 회귀는 방대한 수식 공간에서 무작위 초기화로 비용이 크고, 사전학습 신경망은 빠르지만 기호 오류가 잦다는 딜레마에, 사전학습 Transformer가 여러 개의 유망한 초기 스케치를 제안해 탐색을 유망 영역으로 좁히고 척도-인지 상수 최적화와 국소 기호 수리로 구조와 상수를 함께 복원하는 MOSAIC-SR을 제안. SRSD-Feynman 데이터셋과 추가 6개 벤치마크 전체에서 최고 기호 해 복원율을 기록하며 무관한 더미 변수가 섞여도 이 우위가 유지됨을 보임.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>TierKV: Long-Context On-Device LLMs via Predictive Multi-Tier KV Caching</strong> (<a href="https://arxiv.org/abs/2609.21172" target="_blank" rel="noopener">2609.21172</a>) — 모바일 온디바이스 장문맥 추론에서 KV 캐시가 메모리 병목이 되는 문제에, 디코딩 시작 전 prefill hidden state로 향후 캐시 수요를 예측해 토큰을 정밀·저랭크·플래시 오프로드 3단 계층에 배분하는 PMCO(Predictive Multi-Tier Cache Optimization)를 제안 — 반응형 eviction의 순환 의존성을 제거하고 닫힌 형태 해법으로 계층 경계를 런타임에 결정. 8개 텍스트·비전·오디오 모델·3개 모바일 SoC에서 prefill 처리량 최대 17.6배 향상, RAM 상주 KV 캐시 12.5–34% 절감을 확인.
+</li><li>
+<strong>RBS-Attention: Radius-Bounded Sparse Prefill for Long-Context Large Language Models</strong> (<a href="https://arxiv.org/abs/2609.20971" target="_blank" rel="noopener">2609.20971</a>) — 블록 단위 희소 어텐션이 블록 중심점(centroid)에 가려 소수의 고관련 토큰을 놓치는 "mean dilution" 실패 모드를 지적하고, 평균 관련성을 잡는 centroid 브랜치와 블록별 최대 반경 분포로 과소추정 위험 블록을 찾아내는 rescue 브랜치를 독립 임계값으로 결합하는 학습 불필요 희소 prefill 기법을 제안. H100에서 128K 길이 기준 end-to-end TTFT 5.97배 가속을 달성하면서 RULER 정확도는 88.65로 dense 어텐션(89.52) 대비 손실이 미미함을 보임.
+</li><li>
+<strong>AutoViewMem: Self-Configuring Orthogonal Views for Conversational Long-Term Memory</strong> (<a href="https://arxiv.org/abs/2609.21940" target="_blank" rel="noopener">2609.21940</a>) — 선호·이벤트·제약·시간적 갱신처럼 이질적인 정보가 하나의 혼합 표현에 섞이면 top-K 검색이 노이즈에 취약해진다는 문제에, 상호작용 흔적에서 후보 뷰를 발견해 상보적인 저중첩 뷰 집합을 고르고 기록 시점에 이 뷰들로 구조화 추출을 수행하는 AutoViewMem을 제안 — 의미적 분리를 검색 시점이 아니라 기록 시점으로 옮겨 표준 top-K 유사도 검색만으로도 초점이 맞는 근거를 찾게 함. LoCoMo·PersonaMem 벤치마크에서 Qwen3-8B/14B 백본 모두 기존 메모리 베이스라인 대비 장기 QA·개인화 성능을 개선.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>LogicTrack: Auditing Reasoning Trajectories of Large Language Models with Formal Logic Solvers</strong> (<a href="https://arxiv.org/abs/2609.21492" target="_blank" rel="noopener">2609.21492</a>) — CoT가 최종 정답을 맞혀도 중간 추론 단계의 논리적 타당성은 검증되지 않는다는 간극을 겨냥해, 각 추론 단계를 기호 표현으로 자동 형식화하고 자동 정리 증명기로 검증하는 신경-기호 프레임워크를 제안. 단계별 논리적 건전성을 정량화하는 Solver-Based Backtracking Reward로 추론 시점 백트래킹 탐색을 유도하고, 이 백트래킹 흔적으로 만든 SFT 데이터로 단계별 자기감사 능력을 내재화시켜 8개 벤치마크·7개 LLM 전반에서 추론 사슬의 검증 가능성과 최종 정답률을 동시에 개선.
+</li><li>
+<strong>GVPO++: Group Variance Policy Optimization for LLM Post-Training and On-Policy Distillation</strong> (<a href="https://arxiv.org/abs/2609.21432" target="_blank" rel="noopener">2609.21432</a>) — GRPO 계열이 importance sampling에 의존해 겪는 학습 불안정성을 겨냥해, KL 제약 보상 최대화 문제의 해석적 해를 그래디언트 가중치에 직접 통합한 GVPO를 제안 — 그래디언트가 암묵적 보상의 중심거리와 실제 보상의 중심거리 간 평균제곱오차로 해석됨. importance sampling 없이도 유일 최적해를 보장하며 on-policy distillation으로 자연스럽게 확장되어 post-training과 distillation을 하나의 원칙 있는 프레임워크로 통합.
+</li><li>
+<strong>Information-Gain Rewards over Diversity-Pruned Tests: GT-Anchored Verifier Co-Training for Reliable Code Generation</strong> (<a href="https://arxiv.org/abs/2609.21208" target="_blank" rel="noopener">2609.21208</a>) — 코더와 테스트 작성자를 함께 self-play로 학습시키는 방식이 사소한 비변별적 테스트로 보상을 타는 "관대함 붕괴"와 유사 입력에 몰리는 "집중 편향" 두 병리를 동시에 겪는다는 문제에, 정답 신호와의 상호정보량으로 테스트를 채점하는 information-gain 보상과 행동적으로 비중복인 테스트만 남기는 3단계 다양성 선별을 결합한 CoVer를 제안. 5개 벤치마크에서 Qwen2.5-Instruct 대비 one-shot pass@1을 7B에서 +5.8점, 14B에서 +7.1점 끌어올림.
+</li><li>
+<strong>When Does Reasoning Help in Machine Translation? A Hierarchical Analysis of LRM Reasoning Traces</strong> (<a href="https://arxiv.org/abs/2609.21247" target="_blank" rel="noopener">2609.21247</a>) — 대형 추론 모델이 번역에 중간 추론 흔적을 점점 더 쓰지만 언제 도움이 되고 언제 해가 되는지는 불명확하다는 문제에, 추론 언어·길이·구조를 모델·언어·도메인·데이터셋에 걸쳐 분석. 사전 정의된 분류 체계 없이 추론 구조를 유도하는 Hierarchical Meta-Summarization(HMS)을 도입해 이해/계획 → 번역/초안 → 정제/검증이라는 공통 조직 구조와 도메인별 변이를 발견했고, 최적 추론 언어는 모델마다 다르며 추론 길이와 품질은 비단조 관계임을 보임.
+</li><li>
+<strong>Complex Problem Solving in Large Language Models: A Statistical Control Survey and Diagnostic Framework</strong> (<a href="https://arxiv.org/abs/2609.20973" target="_blank" rel="noopener">2609.20973</a>) — LLM의 복합 문제 해결력 부족을 흔히 추론력이나 생성 길이 문제로만 프레이밍하는 것에 반박하며, 잠재적 해 상태에 대한 순차적 추정-의사결정 문제로 재정의. 상태 표현·전이 구조화·검증/제약 강제·탐색과 롤백·불확실성 관리 5개 요소로 기존 방법들을 조직하고, 개입이 관측된 실패 유형(체계적/확률적/환원불가 오류, 인식론적/우연적 불확실성)에 정확히 대응할 때 가장 효과적이라는 "problem-control fit" 개념과 그 실패("control mismatch")를 진단 틀로 제시.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 400건 · 신규 257건 · 채택 0 · 보류 1 · 탈락 0</p>
+<p><strong>색인 상태:</strong> <code>--wide</code> 조회 결과 가장 최신 <code>published</code>는 2026-09-18T17:59:56Z로, 지난 사흘간 묶여 있던 2026-09-17T17:59:58Z에서 하루치 전진했다(신규 257건, 09-17분 48건 + 09-18분 209건). 다만 실행 시각(UTC 2026-09-21T22:37 ≈ 미국 동부시각 월요일 오후 6:37) 기준으로는 여전히 금요일(09-18) 마감분의 월요일 저녁 정기 발표(통상 20:00 ET 전후) 이전이므로, 색인이 고장난 것이 아니라 정상적인 주간 발표 주기상 아직 도착하지 않은 구간으로 판단.</p>
+<p><strong>커서:</strong> 6절 규칙에 따라 이번 실행의 커서도 wall-clock이 아니라 <strong>이번 피드에서 실제로 관측된 가장 최신 <code>published</code>인 2026-09-18T17:59:56Z</strong>로 설정한다(전진값, 09-17T17:59:58Z에서 하루 전진) — 오늘 밤 도착할 월요일 마감분 발표를 놓치지 않기 위함.</p>
+<p>신규 257건 중 <code>radar_match</code> 1건만 Gate A/B로 넘겼다.</p>
+<h3>채택</h3>
+<p>없음</p>
+<h3>보류</h3>
+<ul><li>
+<strong>Verify, Don't Trust: Agentic Model Development for Video Discovery Retrieval at Scale (EvoPilot)</strong> — <a href="https://arxiv.org/abs/2609.21257" target="_blank" rel="noopener">2609.21257</a> — Gate A는 통과(자율 연구 에이전트가 라운드를 실행하는 human-gated autoresearch 방법론으로, "failure attribution" 진단이 핵심 기여). Gate B가 애매: 평가 결함으로 인한 오귀인을 검증으로 걸러낸다는 축은 코퍼스에 없던 문제 제기이지만(B-1 후보), 실증이 단일 회사의 비디오 추천 시스템 대상 37일 캠페인 하나에 국한되고 공개 벤치마크·재현 가능한 데이터셋이 없어 일반화 가능성을 판단하기 어려움 — 도메인 응용 엔지니어링 사례 보고서에 가까운지 자율연구 방법론 논문인지 경계선.
+</li></ul>
+<h3>탈락</h3>
+<p>없음</p></div></div>
