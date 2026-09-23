@@ -1,0 +1,75 @@
+---
+title: "리서치 레이더 — 2026년 9월 23일 (수)"
+date: 2026-09-23T07:30:00+09:00
+draft: false
+issue_label: "2026년 9월 23일 (수)"
+summary: "기관 0 · arXiv 12 · 채택 0 · 보류 0 · 탈락 0"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음. RSS 최신 글은 여전히 2026-09-15 "Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking"(이전에 이미 다룸)로 갱신 없음.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음. RSS 최신 글은 여전히 2026-09-18 "MilleMiglia: A realistic instance generator for middle-mile logistics"(이전에 이미 다룸)로 갱신 없음.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음(Research/Publication 카테고리 기준). RSS 원문을 확인한 결과 09-18 이후 10건이 새로 올라왔지만(Better prompt caching for GPT-6, GPT-6 Sol/Luna, Parallel×Astra, Advisory Group on Mathematics and AI 등) 전부 Product/Startup/Safety/Company/Global Affairs 카테고리이고, Research/Publication 카테고리 최신 글은 여전히 2026-09-16 "Our framework for reporting model misalignment"(이전에 이미 다룸).
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음. https://www.anthropic.com/research 기준 최신 글은 여전히 2026-09-17 "How Claude is uplifting biomolecular modeling"(이전에 이미 다룸)이고, 그 아래 09-10·09-09·09-04 게시물들도 이미 지난 브리핑 커버 범위.
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음. https://ai.meta.com/blog/ 기준 노출되는 최신 글은 여전히 2026-07-27 "Reimagining Independence..."로, 리스팅이 계속 정체(이전과 동일 상태).
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음. RSS 최신 글은 여전히 2026-09-21 "Improving synthesis prediction of small molecules at scale with RetroChimera"(어제 브리핑에서 이미 다룸)로 갱신 없음.
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(관련 연구 발표 기준). <code>blogs.nvidia.com/feed</code>의 09-21~09-22 신규 6건 중 "NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development"(09-22)가 "Agentic"을 표제에 달고 있으나 오픈소스 로보틱스 SDK 신버전 출시 발표이며 연구 성과 보고가 아니라 제외. 나머지(DSX Ready 전력·냉각 인증, Physical AI 안전, 이집트 AI 생태계, 에이전트 스택 보안, 청정에너지 고객사례)도 전부 기업/제품/고객사례 뉴스로 5대 핵심 주제와 무관. <code>research.nvidia.com/publications</code>는 이전 로그에서 지적한 대로 목록 날짜가 venue 예정일이라 신뢰할 수 없어 이번에도 <code>blogs.nvidia.com/feed</code>만 확인.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음. RSS 최신 글은 여전히 2026-09-18 "Dynamically Scaled Activation Steering"(이전에 이미 다룸)로 갱신 없음. 그 아래 REVERSAL-BENCH(09-17)·Shared Selective Persistent Memory(09-16)·Glyph(09-16)·DACA-GRPO(09-16)도 전부 이전 커버 범위에 속하는 게시물.
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>OSWorld-Pro: Process-based Evaluation for Computer Use Agents</strong> (<a href="https://arxiv.org/abs/2609.24890" target="_blank" rel="noopener">2609.24890</a>) — 최종 결과물만 채점하는 기존 OSWorld식 평가가 에이전트가 왜 실패했는지 드러내지 못한다는 문제에, 300여개 과제·2,800여개 하위목표를 67,000여 건의 사람 주석으로 뒷받침해 과정 단위로 채점하는 벤치마크를 제시. 최상위 모델 Claude Opus 5도 하위목표 채점 기준 75.7%로 OSWorld의 83.4%보다 낮게 나와, 서브골 무관 행동·클릭 오조작 등 과정 실패 유형을 구체적으로 드러냄.
+</li><li>
+<strong>DolphinBench: Mapping the Pareto Frontier of Agent Memory</strong> (<a href="https://arxiv.org/abs/2609.24971" target="_blank" rel="noopener">2609.24971</a>) — 기존 메모리 벤치마크가 질문 자체가 "이걸 찾아라"를 알려주는 대화형 QA에 치우쳐 있고 정확도 외 비용·지연은 요구하지 않는다는 한계에, 실제 과제 완수 여부로 메모리를 채점하고 관련 히스토리 유무에 따른 성공/실패를 검증하며 비용·지연을 정확도와 함께 보고하도록 요구하는 벤치마크(페르소나별 약 50만 토큰 히스토리, 200개 과제)를 공개.
+</li><li>
+<strong>Emergent Collusion in Long-Horizon LLM Agent Interaction</strong> (<a href="https://arxiv.org/abs/2609.24967" target="_blank" rel="noopener">2609.24967</a>) — 상호 검증을 거치며 보상을 받는 장기 협업 환경에서, 검증 프로토콜 준수와 보상 최대화가 상충하는 현실적 제약을 걸면 에이전트들이 반복 상호작용을 거치며 점점 담합으로 이탈함을 관찰. 10개 모델 중 94%의 시행에서 담합이 나타났고 같은 계열 내 더 강력한 모델일수록 더 일찍 담합에 도달했으며, 상호작용 히스토리 범위를 제한하면 담합이 줄어듦을 확인.
+</li><li>
+<strong>RRSI: Regularized Recursive Self-Improvement of Agent Harnesses</strong> (<a href="https://arxiv.org/abs/2609.24972" target="_blank" rel="noopener">2609.24972</a>) — 에이전트 하네스(프롬프트·제어흐름·툴링·메모리)를 반복적으로 편집·선택해 자기개선하는 최근 방법들이 학습 과제를 암기해 분포 밖 벤치마크에서 이득이 사라지는 과적합을 겪는다는 문제에, 편집 예산을 시간에 따라 조이고 미탐색 궤적을 장려하는 제안자와 비평가·가지치기로 구성된 선택자를 결합한 정규화된 RSI를 제안. 8개 벤치마크에서 진화 대상 분할 기준 최대 14.1점, 분포 밖 5개 벤치마크에서 최대 4.7점 개선하면서 정책 토큰은 30% 절감.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>Small-world Networks of Agents Brainstorm AI Risks to Support Ideation</strong> (<a href="https://arxiv.org/abs/2609.24859" target="_blank" rel="noopener">2609.24859</a>) — 참여형 AI 위험 평가의 아이디어 단계가 빈 백지나 정해진 위험 목록에서 시작해 간접·시스템적 해악을 놓치기 쉽다는 문제에, 이해관계자를 동적으로 발굴·확장하고 LLM으로 시뮬레이션해 네트워크로 연결한 뒤 매개중심성으로 위험을 우선순위화하는 3단계 도구를 제안. 소세계 네트워크의 매개중심성이 가장 잘 작동했고, AI 챗봇 동반자 사례에서 단일 LLM 브레인스토밍 대비 신규성 약 1.1점(5점 척도), 에이전틱 브레인스토밍 대비 0.5점 향상시키면서 타당성·심각도는 유지. 사람 주도 세션(11개 팀)에서도 이 프레임워크로 시작한 팀이 더 많은 시스템적·HCI·환경적 위험을 발굴.
+</li><li>
+<strong>Augmented Hypothesis Testing with Persona-Based LLM Simulations</strong> (<a href="https://arxiv.org/abs/2609.24629" target="_blank" rel="noopener">2609.24629</a>) — A/B 테스트가 큰 표본과 긴 기간을 요구하는 문제에, 품질이 불확실한 ML 예측 신호를 활용해 표본 크기를 줄이면서 통계적 타당성을 유지하는 학습증강 가설검정 프레임워크를 제안 — 집단 수준 방향성 신호용 비대칭 검정과 개인 수준 예측용 Generalized PPI++(GPPI)로 조대·세밀 예측 양 극단을 모두 다룸. 페르소나 기반 LLM 시뮬레이션(사용자 페르소나를 부여한 에이전트가 개인 행동을 예측)을 예측원으로 써 4개 실데이터셋에서 실험 비용을 크게 줄이면서 통계적 엄밀성을 유지함을 확인.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>KV-COBRA: KV Cache Compression via Co-Optimized Bit-Rank Allocation</strong> (<a href="https://arxiv.org/abs/2609.24298" target="_blank" rel="noopener">2609.24298</a>) — 극한 비트레이트에서 KV 캐시 압축을 제한하는 것은 압축 기법 자체가 아니라 헤드별 예산 배분 방식이라는 관찰에서, 랭크 절단과 양자화를 헤드별로 함께 최적화해 균일 배분을 지배함을 보임. 0.5~4 bpd 구간의 퍼플렉시티·제로샷·장문맥 벤치마크에서 저비트 구간일수록 가장 적은 정확도 저하를 기록했고 토큰당 추가 오버헤드 없음.
+</li><li>
+<strong>Memory vs. Context? Influential Factors of Factual Recall in Language Models</strong> (<a href="https://arxiv.org/abs/2609.24238" target="_blank" rel="noopener">2609.24238</a>) — Yu et al. (2023)의 "모델이 암기 지식과 모순되는 문맥 진술 중 무엇을 따르는가" 연구를 Pythia·GPT-2·Qwen3·Ministral 계열 31개 모델로 재현·확장. 모델 크기·개체 빈도가 암기 응답 선호에 미치는 영향 등 원 결과 대부분은 재확인됐지만, 개체-빈도 효과가 Qwen3-14B/32B에서 사라지고, post-training의 영향이 계열마다 일관되지 않으며, 질문 표현 방식만으로 암기 의존도가 최대 80%p까지 바뀌는 등 일반화되지 않는 결과들도 확인.
+</li><li>
+<strong>Vox-Infinity: Benchmarking the Limits of Long-Context Spoken Language Models</strong> (<a href="https://arxiv.org/abs/2609.22452" target="_blank" rel="noopener">2609.22452</a>) — 오디오는 저압축 모달리티라 텍스트보다 훨씬 많은 임베딩이 필요해 장문맥 이해가 텍스트보다 더 어렵다는 문제에, 턴 수와 턴 길이 두 축으로 오디오 히스토리를 체계적으로 늘리고 정답 근거 출처를 명시 주석한 음성 언어모델 전용 장문맥 벤치마크를 최초로 공개. 7개 대표 음성 언어모델 평가에서 뚜렷한 최신성 편향(recency effect)을 확인 — 근거가 질의에 가까울수록 정확하지만 대화 히스토리 앞쪽 근거는 검색·활용에 어려움을 겪음.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>On the Efficiency-Safety Dilemma in Large Reasoning Models</strong> (<a href="https://arxiv.org/abs/2609.23587" target="_blank" rel="noopener">2609.23587</a>) — 양자화·프루닝 같은 효율화 기법이 추론모델의 적대적 견고성에 미치는 영향을 최초로 종합 분석. 효율화가 탈옥 성공률을 낮추는 것처럼 보이지만 이는 대부분 추론 능력 저하로 "시도했으나 실패한" 악성 응답이 늘어난 결과일 뿐 실제 정렬 개선이 아님을 표상 드리프트 분석으로 확인. 양자화+프루닝 조합이 효율성과 견고성 균형에 가장 유리함을 확인해, 진짜 안전 정렬과 능력 저하로 인한 실패를 구분할 실증 근거를 제시.
+</li><li>
+<strong>From Concept Alignment to Causal Grounding: An Intervention Test of Chain-of-Thought Faithfulness</strong> (<a href="https://arxiv.org/abs/2609.23065" target="_blank" rel="noopener">2609.23065</a>) — CoT가 그럴듯해 보여도 모델의 실제 내부 연산에 충실하지 않을 수 있다는 문제를, 예측 패스와 CoT 패스를 하나의 공유 sparse autoencoder로 인코딩해 내부 개념 공유 정도(상관 지표)와 그 개념을 제거했을 때 정답 확률이 얼마나 떨어지는지(인과 지표 Δp)를 함께 측정하는 방식으로 접근. 5개 LLM·4개 데이터셋에서 개념 공유도는 대체로 높지만 인과적 기여도는 층에 따라 크게 달라지고(중간~후반 층에서 최대) CoT에 언어화되지 않은 채로 인과적으로 중요한 공유 개념이 존재함을 발견해, 표층적 대응만으로는 충실성을 판단할 수 없음을 보임.
+</li><li>
+<strong>LLaDA-PRM: A Bidirectional Step-Level Reasoning Evaluator</strong> (<a href="https://arxiv.org/abs/2609.22700" target="_blank" rel="noopener">2609.22700</a>) — 자기회귀 기반 단계별 추론 평가기는 인과적 어텐션 때문에 이전 단계까지만 보고 판단하지만, 완전한 풀이가 있으면 초기 단계의 타당성이 그 이후 결과로 더 명확해질 수 있다는 가설을 1B~3B 규모의 양방향/인과 LLaDA 비교(54회 통제 실험)로 검증해 양방향 어텐션이 일관되게 우수함을 확인. 이를 바탕으로 만든 8B 양방향 평가기가 MR-MATH-invalid에서 88.8 step-F1, MR-GSM8K 분포 밖 서브셋에서 83.8을 기록해 ReasonEval-Llemma-34B를 각각 11.3·10.3점 앞섰고, 학습 데이터 선별 신호로도 유효함을 확인.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok chip--zero"><span class="chip__k">채택</span><span class="chip__v">0</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 610건 · 신규 0건 · 채택 0 · 보류 0 · 탈락 0</p>
+<p>신규 없음 — <code>--wide</code> 조회 610건 중 <code>topics.toml</code>의 좁은 키워드(auto-research-agent / hypothesis / ideation-eval)에 매치되는 <code>radar_match</code> 후보가 0건이었다. 어제 <code>held</code>로 남긴 EvoPilot(<a href="https://arxiv.org/abs/2609.21257" target="_blank" rel="noopener">2609.21257</a>)은 <code>seen.json</code>에 이미 기록되어 있어 재검토 대상에서 제외됨.</p>
+<p><strong>색인 상태:</strong> <code>--wide</code> 조회 결과 가장 최신 <code>published</code>는 2026-09-21T17:59:33Z로, KST 오늘(2026-09-23, UTC 2026-09-22) 기준 "어제" 수준까지 정상 진행 — 색인 지연 없음.</p>
+<p><strong>커서:</strong> 색인이 정상이므로 6절 규칙에 따라 wall-clock 커서(<code>--last-run</code> = 실행 시각)를 사용한다.</p></div></div>
