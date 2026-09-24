@@ -1,0 +1,112 @@
+---
+title: "리서치 레이더 — 2026년 9월 24일 (목)"
+date: 2026-09-24T07:30:00+09:00
+draft: false
+issue_label: "2026년 9월 24일 (목)"
+summary: "기관 5 · arXiv 12 · 채택 2 · 보류 0 · 탈락 1"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>Private AI Compute에 서버측 영속 메모리 추가</strong> — 기존엔 클라우드 어시스턴트가 세션 간 상태를 유지하지 못하는 stateless 구조였는데, 기기 파생 암호화 키로 보호되는 사용자별 암호화 DB를 클라우드에 두고 보안 엔클레이브에서만 일시 복호화하는 구조를 더해 기기 간 대화 연속성을 확보. 변조 방지 소프트웨어 기록과 독립 보안 감사를 공개해 프라이버시 주장을 외부 검증 가능하게 함. — <a href="https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Long-context (세션 간 상태 유지)
+</li></ul>
+</li><li>
+<strong>Gemini 3.8 Flash/Flash-Lite TTS 공개</strong> — 30초 샘플로 목소리를 복제하거나 자연어 프롬프트만으로 100개 이상 언어의 새 목소리를 생성. 대사별 속도·감정 지시, 시간당 단위로 이어져도 목소리 일관성을 유지하는 장문 생성, 2인 대화 턴테이킹을 지원하며 SynthID 워터마크·동의 검증을 내장. Hume AI Voice Design Benchmark 1위(71.4점). — <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-8-text-to-speech/" target="_blank" rel="noopener">링크</a>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음. RSS 최신 글은 여전히 2026-09-18 "MilleMiglia: A realistic instance generator for middle-mile logistics"(이전에 이미 다룸)로 갱신 없음.
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+<strong>MentalHealthBench 공개</strong> (Research/Publication 카테고리 신규) — RSS에는 2026-09-23자 게시물로 확인됐으나, 게시물 본문 페이지가 두 차례 시도 모두 HTTP 403으로 차단돼 실제 내용을 확인하지 못함. ⚠ 확인 실패 — 본문 접근 차단(403), 제목·날짜만 RSS로 확인. — <a href="https://openai.com/index/introducing-mentalhealthbench" target="_blank" rel="noopener">링크</a>
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음. https://www.anthropic.com/research 기준 최신 글은 여전히 2026-09-17 "How Claude is uplifting biomolecular modeling"(이전에 이미 다룸).
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음. https://ai.meta.com/blog/ 기준 노출되는 최신 글은 여전히 2026-07-27 "Reimagining Independence..."로 정체.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+<strong>Offloaded Inference for Real-World Physical AI Robotics</strong> — 로봇 추론은 온보드 GPU에서만 돌려야 한다는 통념에, Kubernetes 기반 툴체인으로 로봇 워크로드를 온보드·엣지 GPU·클라우드에 선언적으로 자동 분산하는 시스템을 제시(ROS2/LeRobot/시뮬레이터 연동). 모바일 조작 과제에서 내비게이션 장애물 탐지 30% 개선, 물체 인계 성공률 상승을 보였고, 온보드 GPU를 Raspberry Pi-5급 경량 하드웨어로 대체해도 배터리 가동시간이 100% 이상 늘어남을 확인. — <a href="https://www.microsoft.com/en-us/research/blog/offloaded-inference-for-real-world-physical-ai-robotics/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents (로봇 에이전트 추론 인프라)
+</li></ul>
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(관련 연구 성과 기준). <code>blogs.nvidia.com/feed</code>의 09-21~09-23 신규(직원 프로필, AI Day Singapore 파트너 행사, Isaac ROS 5.0 오픈소스 SDK 출시, DSX Ready 전력·냉각 인증, Physical AI 안전 캠페인, 이집트 AI 생태계, 에이전트 스택 보안)는 전부 기업/제품/고객사례 뉴스로 5대 핵심 주제와 무관 — 이전 로그와 동일 판단.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>How to Guide Your Language Flow (Probe Guidance)</strong> — flow matching 기반 언어 생성에서 기존 autoguidance가 추론마다 추가 forward pass를 요구하는 비효율에, 기존 diffusion 모델의 고정된 내부 상태만으로 안내 신호를 구성해 추가 연산 없이 동일 효과를 내는 probe guidance를 제안. 1.7B 모델에 적용해 객관식 QA 벤치마크 성능을 개선했고, 효과적인 weak 모델이 저-엔트로피 학습 영역에서 나와야 한다는 조건을 분석으로 규명해 autoguidance의 작동 원리 자체를 설명. — <a href="https://machinelearning.apple.com/research/guide-language-flow" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning (효율적 guidance 메커니즘)
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Recursive self-improvement of AI research agents (AIDE²)</strong> (<a href="https://arxiv.org/abs/2609.26457" target="_blank" rel="noopener">2609.26457</a>) — 연구 에이전트가 자기 자신의 하네스 코드(탐색 정책·컨텍스트 관리)를 편집 대상으로 삼는 재귀적 자기개선 시스템. 8일 자율 런에서 7차례 연속 개선을 채택했고, 완전히 다른 도메인(기상예보)까지 이득이 일반화됨을 확인. Paper Radar 채택.
+</li><li>
+<strong>The Tasteful Agent: Measuring and Improving Taste in Long-Horizon Tasks (Taste-Bench)</strong> (<a href="https://arxiv.org/abs/2609.25804" target="_blank" rel="noopener">2609.25804</a>) — 장문맥 에이전트가 도중에 내리는 판단(어떤 가설을 검증할지 등)의 품질을 사후 결과로 자동 채점하는 벤치마크. 최고 모델도 정확도 59.7%에 그치고, distillation으로 이 판단력을 학습시켜 실제 과제 성공률까지 끌어올림. Paper Radar 채택.
+</li><li>
+<strong>Grow the Harness, Not the Context: From Strategy-Free Scaffolds to Reusable Specialist Agents</strong> (<a href="https://arxiv.org/abs/2609.26760" target="_blank" rel="noopener">2609.26760</a>) — 매번 같은 제어 판단을 컨텍스트 안에서 반복 재구성하는 대신, 실패를 코드 수준으로 국소화해 재사용 가능한 실행 코드로 굳히는 failure-guided 학습 패러다임을 제안. 성공 우선 held-out 게이트로 과거 능력을 해치는 수정은 롤백.
+</li><li>
+<strong>CliffCompaction: Cost-Efficient Compaction for Long-Horizon Coding Agents</strong> (<a href="https://arxiv.org/abs/2609.26779" target="_blank" rel="noopener">2609.26779</a>) — 장문맥 코딩 에이전트의 세션 간 압축(compaction)이 정보를 잘라내는 대신 충실하게 유지하도록 설계해 비용을 최대 50% 절감하면서 Terminal-Bench 성능은 유지·개선. 같은 비용에서 Kimi K2.6이 Opus 4.7과 대등한 수준까지 도달.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>Beyond Natural Language: An Agent-Native Language for Autonomous Science (Lara)</strong> (<a href="https://arxiv.org/abs/2609.25421" target="_blank" rel="noopener">2609.25421</a>) — 자율 에이전트의 연구 산출물이 사람의 검토 역량을 넘어서는 상황에서, 연구 주장·근거·가정을 기계 검증 가능한 형태로 선언하고 justified/defeated/contested/gap 4단계로 판정하는 언어·프로토콜을 Lean 4로 기계화(약 11.7만 줄). Paper Radar에서는 핵심 기여가 검증 인프라라는 이유로 Gate A 탈락.
+</li><li>
+<strong>The AI Neuroscientist: An Interactive Agentic Interface for Neuroimaging Analysis</strong> (<a href="https://arxiv.org/abs/2609.25254" target="_blank" rel="noopener">2609.25254</a>) — 신경영상 데이터 분석에 필요한 전문 코딩·통계 지식 장벽을 낮추기 위해, 자연어로 품질관리·모델링·시각화를 지시할 수 있는 LLM 기반 대화형 분석 에이전트를 fNIRS 데이터로 시연하고 범용 코드 샌드박스 에이전트와 비교 평가.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>The Sirens' Song: When Proximal Background Context Overshadows Distant Evidence</strong> (<a href="https://arxiv.org/abs/2609.26718" target="_blank" rel="noopener">2609.26718</a>) — 장문맥 모델이 먼 거리의 증거를 놓치는 이유가 "거리 자체"보다 "가까이 있는 과제 무관 배경과의 경쟁"(Proximity Trap)이라는 관찰에서, t-분포 기반 방향 정합으로 주의 질량을 과제 관련 증거 쪽으로 재분배하는 LYRA를 제안. LongBench-v2·RULER·LongBench에서 일관된 개선, 근접 배경 간섭을 정밀 측정하는 ProxBench도 함께 공개.
+</li><li>
+<strong>CompKV: Compensation-Aware KV Selection for Long-Context LLM Inference</strong> (<a href="https://arxiv.org/abs/2609.26300" target="_blank" rel="noopener">2609.26300</a>) — sparse attention에서 선택 안 된 토큰의 기여를 보정(compensation)할 때, 기존 방법들이 "먼저 attention 질량으로 선택 후 나머지를 보정"하는 분리된 설계라 상호작용을 놓친다는 문제에, 보정 오차가 가장 커질 토큰을 우선 선택하도록 두 단계를 결합. RULER·LongBench-Pro에서 최고 성능과 최대 6.85배 self-attention 가속을 동시 달성.
+</li><li>
+<strong>RAG-NAROK: Retrieval-Aware Knowledge Corpus Poisoning in RAG with Source-specific Refutation</strong> (<a href="https://arxiv.org/abs/2609.25469" target="_blank" rel="noopener">2609.25469</a>) — 기존 RAG 지식베이스 오염 공격이 실제 검색될 문서를 모른 채 사전 계산돼 "정적"이라는 한계에, RAG 파이프라인의 투명성(검색된 출처 식별 가능)을 역이용해 실제 검색된 출처를 지목·반박하는 질의 적응형 문서를 생성하는 공격을 제시. 정적 베이스라인을 크게 능가해 RAG의 투명성과 보안 사이의 근본적 긴장을 드러냄.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>From Decorative to Load-Bearing: Task Difficulty Shapes the Causal Role of Chain-of-Thought</strong> (<a href="https://arxiv.org/abs/2609.25366" target="_blank" rel="noopener">2609.25366</a>) — CoT 모니터링이 의미가 있으려면 서술된 추론이 실제로 답을 인과적으로 제약해야 한다는 문제의식에서, 추론 단계 하나를 교란하고 그 지점부터 이어쓰게 하는 continuation-based causal testing을 제안. 쉬운 과제에서는 모델이 자기 추론을 조용히 무시하고, 어려운 과제에서는 오염된 단계를 그대로 따라가 오류가 전파됨을 확인(GSM8K→BBH 다단계 산술에서 오류 전파 16배 증가) — "읽기 쉬운 흔적일수록 신호가 적고, 신호가 중요한 곳에서는 개입 전에 오류가 전파된다"는 CoT 기반 안전 모니터링의 구조적 딜레마를 제기.
+</li><li>
+<strong>Capable yet Parsimonious: Extracting and Characterizing Hidden Chain-of-Thought in Frontier Models</strong> (<a href="https://arxiv.org/abs/2609.26637" target="_blank" rel="noopener">2609.26637</a>) — 폐쇄형 프런티어 모델의 원본 CoT는 감춰져 검증할 수 없다는 문제에, 표준 API의 커스텀 툴 등록 기능을 이용해 중간 추론을 외부화하도록 유도하는 방법을 제시. 추출된 추론이 오픈소스 모델의 네이티브 CoT와 동등한 성능을 내는지 먼저 검증한 뒤 GPT-6 Astra 등에 적용, Astra가 정답 경로를 일찍 선택하고 사소한 단계는 내부적으로 처리하며 핵심 추론만 외부화하는 토큰 효율적 패턴을 보임을 발견.
+</li><li>
+<strong>Beyond Repeated Sampling: Learning Search Policies for LLM Reasoning</strong> (<a href="https://arxiv.org/abs/2609.26704" target="_blank" rel="noopener">2609.26704</a>) — 어려운 추론 문제에 test-time 연산을 늘리는 표준 전략(단순 반복 샘플링)이 디코딩 노이즈로만 탐색해 유사한 시도만 양산한다는 문제에, 문제별 개념·힌트·전략을 먼저 샘플링하고 그에 조건화해 답을 생성하는 의미론적 탐색을 제안. 소형 개념 생성기를 강화학습으로 훈련해 더 크고 고정된 답변 생성기의 pass@k를 반복 샘플링보다 크게 높이고, 학습에 쓰이지 않은 다른 계열 모델에도 전이됨을 확인.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">1</span></span></span></h3><div class="radar"><p>조회 400건 · 신규 297건 · 채택 2 · 보류 0 · 탈락 1</p>
+<p><strong>커서 버그 발견 및 정정:</strong> 기본 커서(<code>seen.json</code>의 <code>last_run</code> = 2026-09-22T22:44:30Z, 어제 실행이 "색인 정상(오늘/어제 수준)"으로 판단해 wall-clock으로 밀어둔 값)로 <code>--wide</code> 조회하니 신규 0건이 나왔다. 그런데 이번 조회의 <code>newest_fetched</code>는 2026-09-22T17:59:57Z로 그 커서보다 더 과거였다 — 즉 어제 wall-clock 커서를 실제 색인 도달 수위보다 앞질러 밀어둔 탓에, 그 사이 구간(09-22 17:59:57~22:44:30)과 그 이후 색인분이 전부 <code>published &lt;= cutoff</code>에 걸려 조용히 누락되고 있었다. 어제치 관측 커서(2026-09-21T17:59:33Z)로 되돌려 재조회하니 신규 297건이 나와 이 가설을 확인했다.</p>
+<p><strong>커서 조정:</strong> 이번 실행의 <code>--last-run</code>은 wall-clock이 아니라 <strong>이번 재조회에서 실제로 관측된 가장 최신 published인 2026-09-22T17:59:57Z</strong>로 설정한다. KST 기준으로는 "어제"에 해당해 6절 규칙의 문면상 wall-clock 대상이지만, 바로 그 문면 판단이 어제 커서 초과분 누락을 만들었으므로 이번엔 관측치를 우선한다 — 다음 실행이 이 수위부터 안전하게 이어받도록 하기 위함.</p>
+<p>신규 297건 중 <code>radar_match</code> 3건만 Gate A/B로 넘겼다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>AIDE²</strong> — Recursive self-improvement of AI research agents
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2609.26457" target="_blank" rel="noopener">2609.26457</a>
+</li><li>
+통과 근거: Gate B-1/B-3 — 연구 에이전트가 자신의 하네스 코드를 8일간 7차례 연속 개선하고 완전 분포 밖(기상예보)까지 일반화시킨 실증적 재귀적 자기개선 결과, "R&amp;D 지출 대비 수익 체감" 통념에 반하는 지속 개선 사례
+</li><li>
+파일: <code>2026/2026_AIDE2_Recursive-Self-Improvement-Research-Agents_arXiv2609.26457.pdf</code> · 리뷰: <code>2026/2026_AIDE2_Recursive-Self-Improvement-Research-Agents_arXiv2609.26457_리뷰.md</code>
+</li></ul>
+</li><li>
+<strong>Taste-Bench</strong> — The Tasteful Agent: Measuring and Improving Taste in Long-Horizon Tasks
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2609.25804" target="_blank" rel="noopener">2609.25804</a>
+</li><li>
+통과 근거: Gate B-1 — 정적 아이디어 텍스트 비교(코퍼스의 TasteGap)를 넘어, 실제 에이전트 궤적의 의사결정 분기점을 병렬/우회 두 방식으로 자동 채굴해 사후 증거로 채점하는 동적 taste 벤치마크. distillation으로 taste 학습·end-to-end 성공률 전이까지 실증(무조언 14.6%→student 조언 33.7%)
+</li><li>
+파일: <code>2026/2026_TasteBench_Long-Horizon-Decision-Taste-Benchmark_arXiv2609.25804.pdf</code> · 리뷰: <code>2026/2026_TasteBench_Long-Horizon-Decision-Taste-Benchmark_arXiv2609.25804_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<p>없음</p>
+<h3>탈락</h3>
+<ul><li>
+<strong>Beyond Natural Language: An Agent-Native Language for Autonomous Science (Lara)</strong> — <a href="https://arxiv.org/abs/2609.25421" target="_blank" rel="noopener">2609.25421</a> — Gate A 탈락: 핵심 기여가 연구 주장을 기계 검증 가능하게 만드는 형식 언어·프로토콜(Lean 4 메타이론 기계화)이지, 가설 생성·탐색이나 자율연구 실행 파이프라인 자체가 아님 — 자율 과학의 감사(audit) 인프라이지 코어 3토픽에 해당하지 않음.
+</li></ul></div></div>
