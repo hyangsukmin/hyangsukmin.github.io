@@ -1,0 +1,107 @@
+---
+title: "리서치 레이더 — 2026년 9월 25일 (금)"
+date: 2026-09-25T07:30:00+09:00
+draft: false
+issue_label: "2026년 9월 25일 (금)"
+summary: "기관 6 · arXiv 14 · 채택 1 · 보류 0 · 탈락 0"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>Gemini 3.8 Live with Live Avatar</strong> — 기존 Gemini Live가 음성 전용이었던 데서 나아가, 저지연 스트리밍 비디오와 실시간 대화를 결합해 립싱크·표정·턴테이킹을 갖춘 시각적 아바타 에이전트를 도입. 백그라운드에서 데이터를 가져오면서도 대화를 끊지 않는 비동기 툴콜과 97개 언어 다국어 음성 동기화를 지원하고 SynthID 워터마크를 오디오·비디오에 내장. 정량 벤치마크 수치는 공개하지 않았고 현재 Gemini Enterprise 고객에 한정. — <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-8-live-with-live-avatar/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>긴 영상 생성의 일관성 자동화</strong> — 여러 샷에 걸친 장편 영상 생성이 겪는 캐릭터 의상·배경의 미세한 변화(semantic drift)와 상류 오류의 하류 전파 문제에, Co-Director(계층적 멀티에이전트 + 멀티암드 밴딧으로 연출 전략 탐색)·CANVAS(캐릭터·장소·오브젝트 상태의 영속적 시각 메모리)·A²RD(구간별 자기회귀 생성에서 외삽/보간 적응 전환)·VQQA(VLM 기반 폐루프 품질 평가·프롬프트 재최적화) 4개 서브시스템으로 대응. GenAD-Bench에서 Co-Director 81.4점, 10분 연속 영상 생성을 시연했고 HardContinuityBench·VBench·T2V-CompBench에서 캐릭터 지속성·다중샷 일관성 개선을 확인. — <a href="https://research.google/blog/coherent-long-form-video-generation/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Long-context (장기 상태 일관성 유지)
+</li></ul>
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음. RSS의 Research/Publication 카테고리 최신 글은 여전히 2026-09-23 "Introducing MentalHealthBench"(전일 브리핑에서 이미 다룸, 본문 403으로 미확인 상태 유지)이며 그 이전은 09-03 "GPT-6 Astra".
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>Project Swap: 에이전트가 우리 대신 거래하면 무슨 일이 벌어지는가</strong> — 6개 사무실 직원 201명이 책을 들고나와 Claude와 짧은 선호도 인터뷰를 한 뒤, Claude 기반 에이전트가 분산 "트레이딩 플로어"에서 "ruthless"(자기 이익 극대화) 또는 "prosocial"(타인 후생 고려) 지시를 받고 거래하게 한 통제 실험. 참가자가 10권을 직접 순위 매긴 것을 정답으로 삼아 Haiku/Sonnet/Opus/Fable 등급별로 205회 이상 시장 시뮬레이션을 반복. Claude의 선호 예측은 참가자 자신의 순위와 61% 쌍대 일치(협업 필터링 55%, 인기도 기반 53%보다 우수)했지만, 실제 배분 효율은 이론적 최적 0.89 대비 0.55에 그쳤고 이 격차의 85%가 거래 능력이 아니라 불완전한 선호 표상에서 기인함을 확인(Opus 0.88 vs Haiku 0.75). — <a href="https://www.anthropic.com/research/project-swap" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents (선호 표상 vs 협상 능력의 원인 분해)
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음. https://ai.meta.com/blog/ 기준 노출되는 최신 글은 여전히 2026-07-27 "Reimagining Independence..."로 정체.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음. <code>/feed/</code> 최신 글은 여전히 09-23 "Offloaded Inference for Real-World Physical AI Robotics"(전일 브리핑에서 이미 다룸).
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+<strong>차세대 팬데믹 대비를 위한 오픈 단백질 데이터셋 공개</strong> — AlphaFold2를 NVIDIA BioNeMo로 최적화해 2,800종 이상 바이러스의 예측 3D 단백질 구조를 공개. 새로 추가된 단백질 상호작용의 30%가 기존 Protein Data Bank에 기록된 적 없는 완전히 새로운 상호작용 형태로 확인됨. <code>research.nvidia.com/publications</code>는 논문 발행 예정일(2026-12 등 미래 날짜)만 나열해 "신규 여부" 판별에 부적합해 <code>blogs.nvidia.com/feed</code>로 대체 확인. — <a href="https://blogs.nvidia.com/blog/open-protein-dataset/" target="_blank" rel="noopener">링크</a>
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>스트리밍 신경 오디오 인코더의 잠재공간 증류 압축</strong> — 온디바이스 받아쓰기에서 항상 켜져 있는 토크나이저가 언어모델과 메모리를 두고 경쟁하는 문제에, 이산 토큰이나 출력 분포 대신 양자화 이전의 teacher 잠재표현을 squared-error로 직접 회귀시키는(단일 아핀 변환으로 용량 차이 흡수) latent-space distillation을 제안. 2.8배 압축에서 6쌍 중 5쌍이 상대 WER 저하 1.9% 이내를 유지했고 동급 크기의 독립 학습 토크나이저 대비 3.9% 상대 개선. — <a href="https://machinelearning.apple.com/research/latent-space-distillation" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Long-context (제한된 메모리 예산 하 압축)
+</li></ul>
+</li><li>
+<strong>서버 앵커를 갖춘 반지도 연합 ASR 레시피</strong> — 연합학습 환경에서 의사 라벨 오류가 시퀀스와 라운드에 걸쳐 누적돼 발산하는 불안정성 문제에, 클라이언트별 온라인 teacher·전역 고정 teacher·전환형 teacher 세 방식을 비교하고 라운드 사이 서버가 라벨 데이터로 계속 학습하는 "앵커"가 온라인 teacher의 드리프트를 막는 핵심임을 규명. 11개 쌍 중 9개에서 도메인 내 평균 20.8%, 도메인 간 10.0% 성능 개선. — <a href="https://machinelearning.apple.com/research/practical-recipe-federated-asr" target="_blank" rel="noopener">링크</a>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Agent-Editing World Model (AEWM)</strong> (<a href="https://arxiv.org/abs/2609.28416" target="_blank" rel="noopener">2609.28416</a>) — 기존 언어 world model이 실제 피드백이 있는데도 고엔트로피 툴 응답 재구성에 힘을 쏟는 비효율과, 검증되지 않은 가정·낡은 계획이 이력에 남아 판단을 왜곡하는 "task-state contamination" 문제에, 툴 응답 대신 추론·행동이 과제 진행에 미치는 영향 자체를 모델링하고 노이즈 있는 추론-행동 연속체를 직접 수정하는 EditAct를 제안. Action Judge가 F1 70.5%(최강 베이스라인 대비 +10.6점)를 기록했고, 6개 벤치마크·3개 에이전트 백본에서 평균 3.2–6.7점 개선.
+</li><li>
+<strong>ProCredit: 결과 보상에서 진행 크레딧으로</strong> — 장기 에이전틱 RL에서 성공 여부를 최종 상태 하나로만 판정하면 전부 실패한 그룹은 학습 신호가 없고, 과제를 진전시킨 턴과 단순 조회 턴이 같은 크레딧을 받는 문제에, 성공 판정에 쓰는 acceptance check를 매 턴 재실행해 진행량 변화 자체를 턴별 보상으로 삼는 방법을 제안. AppWorld에서 4B 스케일 기준 최강 outcome-reward 베이스라인 대비 +4.1%p, ablation으로 이득이 "턴 단위 크레딧 부여"에서 옴을 확인.
+</li><li>
+<strong>Just-in-Time Memory (JitMem)</strong> (<a href="https://arxiv.org/abs/2609.27334" target="_blank" rel="noopener">2609.27334</a>) — 기존 에이전트 메모리가 미래 질의를 모른 채 작성 시점에 고정 아티팩트로 요약해버려 정보를 비가역적으로 버리는 문제에, 원본 궤적을 그대로 보관하고 질의가 들어온 읽기 시점에 과제 맞춤 페이로드를 즉석 합성하는 방식으로 전환. ALFWorld·WebShop·τ²-bench에서 최강 베이스라인 대비 각각 +16.2, +16.3, +3.9%p 성공률 개선, 학습 없는 curator만으로도 이미 경쟁력 있음을 확인.
+</li><li>
+<strong>CAVEAT: 유인 불일치 환경에서의 강건한 컴퓨터유즈 에이전트</strong> (<a href="https://arxiv.org/abs/2609.27273" target="_blank" rel="noopener">2609.27273</a>) — 온라인 마켓플레이스처럼 환경 자체가 특정 결과를 선호할 때 에이전트가 사용자 목표를 지키는지 테스트하는 기존 벤치마크가 없다는 문제에, 9개 마켓플레이스·8가지 스티어링 기법으로 CAVEAT를 구축. 통제 조건에서 78.6%였던 사용자 최적 구매율이 스티어링이 걸리면 17.3%로 급락하며, 우선순위 왜곡·대안 조기 축소·근거 미확인 상태의 조기 결정 3가지 실패 지점을 진단해 대응 하네스로 55.0%p 회복.
+</li><li>
+<strong>Harness as a Language (JAZ)</strong> (<a href="https://arxiv.org/abs/2609.26891" target="_blank" rel="noopener">2609.26891</a>) — 메모리 시스템·자기개선 시스템처럼 에이전트 루프 바깥의 별도 엔지니어링이 필요하다는 통념에, LLM 호출 자체를 재귀 가능한 코드 실행 프리미티브로 일반화한 단일 <code>invoke</code> 원시 연산 하나로 이런 특화 시스템의 역할을 대체할 수 있는지 검증. 별도 메모리·파일시스템 없이 프롬프트만으로 StuLife의 recall 구간에서 Letta(MemGPT)를 8% 앞서면서 비용은 절반, AppWorld 지속 자기개선에서 ACE를 더 낮은 비용에 4% 상회.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>WhatWorkedBench</strong> (<a href="https://arxiv.org/abs/2609.27490" target="_blank" rel="noopener">2609.27490</a>) — 연구 에이전트가 실험 결과를 보고 "무엇이 효과가 있었는지"를 정확히 추론하는지, 즉 컴포넌트 변경이 성능에 미치는 인과 효과를 예측하는 능력(experimental understanding) 자체를 측정하는 벤치마크. 8개 워크플로 유형·36개 과제에 걸친 전수 CPU 실행으로 얻은 정답 효과와 비교해, 동일 관측치에 가우시안 프로세스를 적합시키면 효과 회복 정확도가 0.632→0.698(원 코호트)·0.621→0.720(추가 코호트)로 상승. Paper Radar 채택.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>Memory Attention</strong> (<a href="https://arxiv.org/abs/2609.28399" target="_blank" rel="noopener">2609.28399</a>) — 문맥 전반에서 재사용 가능한 콘텐츠까지 매번 문맥적 hidden state로부터 attention value를 새로 구성하는 비효율에, 토큰별 메모리 테이블과 문맥 의존적 key를 결합해 value를 구성하고 추론 시 정규화까지 메모리 테이블에 접어 넣어 조회+덧셈만으로 값을 얻는 Memory Attention을 제안. 토큰 인덱스 기반 조회 덕분에 프리페칭을 곁들인 CPU 오프로딩도 가능해 GPU 파라미터 저장량을 줄이면서 동일 학습 토큰 예산에서 언어모델링·다운스트림 성능 개선.
+</li><li>
+<strong>Risk-Controlled KV-Cache Eviction</strong> (<a href="https://arxiv.org/abs/2609.27981" target="_blank" rel="noopener">2609.27981</a>) — KV 캐시 축출을 평균 품질-메모리 트레이드오프로만 평가하면 일부 요청의 심각한 성능 저하가 평균에 묻히는 문제에, "완전 KV 대비 허용 오차 이상 저하가 발생하는 빈도"를 배포 리스크로 재정의하고 유한샘플 보장을 갖춘 사후 인증 절차로 유지율 정책을 선택(미인증 시 완전 KV로 폴백). Llama에서는 LongBench 기준 SnapKV 75% 유지가 인증되지만 RULER-32K에서는 어떤 압축 정책도 인증되지 않아 완전 KV로 폴백되는 등, 같은 리스크 계약이 데이터셋에 따라 전혀 다른 축출 수준을 요구함을 확인.
+</li><li>
+<strong>StateComp</strong> (<a href="https://arxiv.org/abs/2609.27298" target="_blank" rel="noopener">2609.27298</a>) — 장기 에이전트의 이력 압축을 고정 윈도우·주기·현재 관련성으로 결정하는 기존 방식이 "언제 압축해도 안전한가"라는 핵심 질문을 놓치고 있다는 문제에, 에이전트 상태 조건부로 압축 가능 시점을 판단하는 KEEP/READY 라우터를 학습. WorkBuddyBench에서 과제 성능을 유지하면서 전체 토큰을 52.27% 줄이고 표현 추출 속도를 12.67배 높임.
+</li><li>
+<strong>학습된 컨텍스트 플래닝이 강한 검색을 못 이기는 경우</strong> (<a href="https://arxiv.org/abs/2609.26976" target="_blank" rel="noopener">2609.26976</a>) — 답변 전에 증거를 먼저 선별하는 학습된 플래너가 강한 검색·라우팅·리랭킹 대비 실제로 개선을 주는지 LongBench-v2 503문항으로 통제 검증. 18k자 예산에서 앵커 하이브리드 검색 36.18%·BM25 35.98% 대비 최고 플래너 유도 방식은 34.19%에 그쳐, 빡빡한 예산에서만 근소한 우위가 있고(6k에서 +0.40점) 9k에서는 오히려 뒤처지는 등 학습된 플래닝이 강한 검색의 대체재가 아니라 약한 보조 신호에 불과함을 보임.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Diffusion 언어모델을 위한 Causal Shortcut Learning</strong> (<a href="https://arxiv.org/abs/2609.28272" target="_blank" rel="noopener">2609.28272</a>) — 양방향 어텐션의 diffusion 언어모델은 자기회귀 모델보다 지수적으로 큰 탐색 공간을 갖고 있어 무작위 마스킹 하에서 추론을 이끄는 토큰에 집중하기 어렵다는 문제에, 전체 시퀀스를 관통하며 정답 추론 경로로 명시적으로 안내하는 토큰 체인("causal shortcut")을 데이터에서 추출해 학습 중 우선 마스킹하는 프레임워크를 제안. SFT 전용 베이스라인 대비 평균 +1.92%, MATH-500에서 최대 +4.20% 개선.
+</li><li>
+<strong>대형 추론모델의 추론시점 능력·효율 스케일링</strong> (<a href="https://arxiv.org/abs/2609.27166" target="_blank" rel="noopener">2609.27166</a>) — 위계적 베이지안 모형으로 DeepSeek-R1-Distill 계열의 산술·알고리즘 추론 능력과 효율을 분석한 결과, 모델 크기가 커질수록 정답률 감소 속도(난이도에 따른)는 완만해지지만 그 개선폭 자체는 체감하며, 정답에 필요한 출력 길이(효율)의 난이도별 스케일링 파라미터는 모델 크기와 무관하게 거의 일정 — 즉 단순히 모델을 키우는 스케일링은 능력은 체감 개선, 효율은 사실상 개선 없음을 시사.
+</li><li>
+<strong>수학 추론은 주제가 아니라 접근법으로 조직된다</strong> (<a href="https://arxiv.org/abs/2609.27041" target="_blank" rel="noopener">2609.27041</a>) — 수학 벤치마크는 보통 주제(대수, 기하 등)로 구성되지만 LLM 내부 계산은 재사용 가능한 "추론 접근법" 축으로 조직될 수 있다는 가설을, 생성-재생 프로토콜로 8개 모델·5개 데이터소스에서 비지도 클러스터링해 검증. 40개 모델-소스 조합 전체에서 접근법 수준 일관성이 실제 클러스터의 77–82%에서 확인된 반면 대조군은 6–11%에 그쳤고, 요청 접근법을 바꾸면 8개 모델 중 7개에서 클러스터 배정이 바뀜 — 주제 균형 벤치마크·학습 코퍼스가 정작 중요한 접근법 축의 불균형은 놓칠 수 있음을 시사.
+</li><li>
+<strong>서술된 추론 단계는 실제로 인과적 무게를 지니는가?</strong> (<a href="https://arxiv.org/abs/2609.27038" target="_blank" rel="noopener">2609.27038</a>) — CoT 모니터링이 전제하는 "서술된 추론=실제 답을 만드는 계산"이라는 가정을 행동 수준이 아니라 활성화 수준 인과 개입으로 직접 검증. 2–6홉 합성 lookup 과제에서 Qwen3-4B는 서술된 단계의 76.9%가 실제로 인과적 무게를 지녔지만, 같은 항목에 대한 표준 행동 테스트는 88.2%로 인과적 충실도를 11.4%p 과대평가했고(easy 항목에서는 최대 20%p), 더 작은 Qwen3-1.7B는 추론 홉이 늘수록 충실도가 68%(2홉)→30%(6홉)로 급격히 무너짐 — 어제 브리핑의 "From Decorative to Load-Bearing"(2609.25366)이 제기한 CoT 안전 모니터링 딜레마를 활성화 수준에서 재확인.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">1</span></span><span class="chip chip--hold chip--zero"><span class="chip__k">보류</span><span class="chip__v">0</span></span><span class="chip chip--off chip--zero"><span class="chip__k">탈락</span><span class="chip__v">0</span></span></span></h3><div class="radar"><p>조회 400건 · 신규 310건 · 채택 1 · 보류 0 · 탈락 0</p>
+<p>색인 상태: <code>newest_fetched</code> 2026-09-23T17:59:56Z, 커서(2026-09-22T17:59:57Z)보다 정확히 하루 뒤로 진행 — 어제 정정한 관측 커서 방식이 정상 작동해 신규 310건이 잡혔다. <code>newest_fetched</code>가 실행 시각(2026-09-24T22:40Z)보다 여전히 약 29시간 뒤처져 있어, 6절 규칙에 따라 이번에도 wall-clock이 아닌 <strong>이번 조회에서 관측된 가장 최신 published(2026-09-23T17:59:56Z)</strong> 를 다음 <code>--last-run</code> 커서로 쓴다. 이틀 연속 같은 시각대(약 17:59Z)에서 색인이 갱신되는 패턴이 확인되므로, wall-clock 커서는 실제 색인 도달 수위를 계속 앞지를 위험이 있다고 판단.</p>
+<p>신규 310건 중 <code>radar_match</code> 1건만 Gate A/B로 넘겼다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>WhatWorkedBench</strong> — Benchmarking Experimental Understanding in AI Agents
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2609.27490" target="_blank" rel="noopener">2609.27490</a>
+</li><li>
+통과 근거: Gate B-1/B-3 — "정확한 설정 선택"과 "조건부 효과에 대한 정량적 이해"가 논리적으로 독립적 목표임을 반례로 증명하고 실측(15/22 소스가 정확한 선택 + 관용치 초과 오차)으로 확인. 기존 코퍼스(AutoResearchEval, DCP 등)가 다루지 않는 "실험 결과를 사후에 올바르게 해석하는 능력" 축을 열었고, 같은 관측치에 Gaussian Process를 적용하면 회복률이 0.632→0.698로 오른다는 것은 통념(에이전트가 실험을 통해 배운다)에 대한 반증적 데이터.
+</li><li>
+파일: <code>2026/2026_WhatWorkedBench_Experimental-Understanding-Benchmark_arXiv2609.27490.pdf</code> · 리뷰: <code>2026/2026_WhatWorkedBench_Experimental-Understanding-Benchmark_arXiv2609.27490_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<p>없음</p>
+<h3>탈락</h3>
+<p>없음(radar_match 1건이 채택으로 처리됨)</p></div></div>
