@@ -1,0 +1,141 @@
+---
+title: "리서치 레이더 — 2026년 9월 30일 (수)"
+date: 2026-09-30T07:30:00+09:00
+draft: false
+issue_label: "2026년 9월 30일 (수)"
+summary: "기관 5 · arXiv 14 · 채택 2 · 보류 4 · 탈락 7"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음. RSS(<code>deepmind.google/blog/rss.xml</code>) 최신 글은 여전히 09-24 "Introducing Gemini 3.8 Live with Live Avatar"(이미 다룸)이며 그 이전은 09-23 게시물 2건.
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>Diffusion Controller: 텍스트-이미지 생성을 위한 통합 제어 레이어</strong> — 기존 가이던스 기법들이 추론 시점 기법과 파인튜닝을 서로 단절된 도구로 다뤄 "사용자 선호 대 이미지 품질" 균형을 감으로 맞춰야 했던 문제에, 베이스 모델을 건드리지 않고 디노이징 궤적만 동적으로 조정하는 경량 "steering damper" 네트워크를 붙여 정책그래디언트/PPO와 보상가중 손실 두 최적화 경로를 하나의 수학적 언어로 통합했다. 내부 가중치 접근이 없는 폐쇄형(access-restricted) 모델에도 적용 가능한 "그레이박스" 방식이 핵심이며, HPS-v2 승률 기준 업계 표준인 LoRA를 능가했고 완전 접근 가능한 "화이트박스" 버전은 베이스라인 대비 90% 승률을 기록했다. — <a href="https://research.google/blog/how-diffusion-controller-unifies-and-simplifies-ai-image-generation/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: (이미지 생성 제어, 5대 핵심 주제 직접 해당 없음)
+</li></ul>
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음(Research/Publication 카테고리 기준). RSS(<code>openai.com/news/rss.xml</code>) 최신 항목들(09-29 3건, 09-28 다수)은 전부 Product/Company/Safety 카테고리의 제품 출시·고객 사례이며, 이미 다룬 09-23 "Introducing MentalHealthBench" 이후 Research/Publication 카테고리에는 새 글이 없다.
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>GLM-5.3과 고급 사이버 공격 능력의 확산</strong> — 중국 Zhipu AI가 개발한 오픈 다운로드 모델 GLM-5.3의 보안 위험을 분석. ExploitBench에서 Claude Mythos Preview와 비슷한 수준(410회 중 50회, 12%)으로 end-to-end 익스플로잇을 완성했고, 내부 Binary Exploitation 벤치마크에서 완전한 제어 흐름 탈취(full control-flow hijack) 4%를 기록했으며, 연구자 테스트 중 실제 웹브라우저 구성요소에서 미공개 취약점을 발견해 작동하는 익스플로잇으로 연결하기도 했다. CVE-2026-11645에 대한 N-day 익스플로잇을 사람 개입 20분·모델 처리 8시간·비용 약 $20.40로 생성. 기본 거부율은 95%로 준수하지만 기만적 프롬프트(64% 우회), prefilled reasoning(92% 우회), abliteration(가중치 조작, 100% 우회)로 쉽게 뚫린다 — abliteration은 능력을 보존한 채 거부율을 3–12%로 떨어뜨린다. 다른 프런티어 모델과 달리 GLM-5.3은 안전장치나 접근 제한 없이 공개 다운로드가 가능해 위험 능력이 그대로 확산된다는 것이 핵심 경고. — <a href="https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities" target="_blank" rel="noopener">링크</a>
+</li><li>
+<strong>"AI에게 무엇을 원하십니까?" — Claude 사용자 인터뷰 신규 연구 착수</strong> — 2025년 12월 81,000명 설문의 후속으로, "Anthropic Interviewer"라는 AI가 09-29~10-06 사이 Claude 사용자(가입 2주 이상)를 약 15분씩 인터뷰해 (1) AI와의 가장 의미 있었던 경험, (2) AI가 노동·교육·의료·정부 같은 주요 사회 시스템을 바꿀 수 있는지, (3) AI 기업에게 무엇을 기대하는지를 묻는다. 이번엔 참가자가 자신의 인터뷰 전문을 공개 동의하면 Anthropic뿐 아니라 누구나 읽을 수 있게 하는 점이 새롭다. 아직 결과는 발표 전. — <a href="https://www.anthropic.com/research/your-thoughts-on-ai" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: (보안 위험 평가·사용자 연구 방법론, 5대 핵심 주제 직접 해당 없음)
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음. https://ai.meta.com/blog/ 기준 노출되는 최신 글은 여전히 2026-07-27 "Reimagining Independence..."로 두 달 넘게 정체.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+<strong>Quine — 생물학의 복잡성을 다루도록 설계된 AI 연구 시스템</strong> — 유전체·단백질·화학·RNA·세포 상태·바이오이미징 등 여러 생물학적 모달리티에 걸쳐 별도 전문가 모델을 오케스트레이션하는 대신 하나의 공동 멀티모달 학습으로 공유 표현을 학습해, 한 도메인의 증거가 다른 도메인의 예측에 정보를 줄 수 있게 한 "생물학 세계모델"과 이를 문헌·습식실험·연구자와 연결하는 상호작용 하네스를 결합했다. Broad Institute와의 췌관선암(PDAC) 공동연구에서 치료적 세포상태 전환을 겨냥한 화합물 수천 개를 예측·우선순위화했고, 최상위 후보들이 실험 어세이 전반에서 "의도한 전환폭이 가장 큰" 결과를 냈으며 이 전체 과정이 단 한 주말 만에 끝나 수개월의 실험 시간을 절약했을 것으로 추정된다. 일부 결과는 예상 밖의 작용기전을 드러내 약물 재창출(drug repurposing) 가능성도 시사. 정량적 벤치마크 수치는 공개되지 않았다. — <a href="https://www.microsoft.com/en-us/research/blog/introducing-quine-an-ai-research-system-designed-for-the-complexity-of-biology/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Scientist / Automated Research (계산으로 실험 전 후보를 탐색·제안·순위화하는 폐루프)
+</li></ul>
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음(관련 연구 성과 기준). <code>blogs.nvidia.com/feed</code>의 최신 글들(09-21~09-24)은 게임/인물/파트너 행사/전력·냉각 인증 등 기업 뉴스이거나, 이미 다룬 09-24 오픈 단백질 데이터셋 그대로로 5대 핵심 주제와 무관.
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>The Communication Bottleneck: 트리 구조 표현의 자연어 직렬화 왕복 연구</strong> — 언어모델이 산술식 같은 트리 구조 표현을 자연어로 직렬화할 때 정보가 얼마나 보존되는지, "생성 모델이 절차적 산술식을 단어 문제로 바꾸고 추출 모델이 원래 식을 복원하는" 왕복(round-trip) 프로토콜과 기호적 동치 검증으로 16개 모델의 모든 쌍별 조합을 평가했다. 같은 모델을 생성·추출 양쪽에 쓰는 것보다 서로 다른 모델을 쓸 때 최적 성능(92.9%)이 나오는 비대칭적 손실 채널을 확인했고, 실패의 최소 73.6%가 생성 단계에서 기인하며 그 난이도는 모델 계열이 아니라 연산자 개수·깊이·우분기(right-branching) 같은 구조적 요인이 좌우한다. 약 3,600개 예제로 파인튜닝하면 모든 오픈 웨이트 모델이 기준선을 넘어서고, 도메인이 겹치지 않는 새 연산자·어휘로도 전이됨을 확인. — <a href="https://machinelearning.apple.com/research/communication-bottleneck-serialization" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning (계층적 구조 정보가 자연어를 거치며 얼마나 충실히 보존되는가)
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Shockingly Simple Self-retrospection Improves Agentic Models Without RL</strong> (<a href="https://arxiv.org/abs/2609.35741" target="_blank" rel="noopener">2609.35741</a>) — 외부 교사나 보상 기반 정책 갱신 없이, 에이전트가 자기 시도를 사후 설명(retrospection)한 텍스트에만 next-token loss로 파인튜닝하는 ROFT를 제안. Qwen3.5-4B로 SWE-bench Verified/Pro에서 20회 갱신만으로 GRPO의 40회 갱신 결과(48.0%/25.3%)를 근소하게 넘어서는 49.2%/26.8%를 달성했고, 64회 샘플링이 전부 실패했던 과제도 풀어내는 사례를 확인했다.
+</li><li>
+<strong>Audit the Scaffold, Not the Checkpoint: A Stationarity Dichotomy for Recursive Self-Improvement in Agentic Coding</strong> (<a href="https://arxiv.org/abs/2609.34924" target="_blank" rel="noopener">2609.34924</a>) — 가중치가 고정돼 있는지가 아니라 에이전트가 도달 가능한 편집 집합이 고정돼 있는지가 재귀적 자기개선의 수렴 여부를 가른다는 "정상성 이분법"을 제시. 검증기·분해 전략 같은 스캐폴딩을 재작성하는 것만이 가중치를 안 건드리고도 도달 가능 집합을 넓히며, 동일 계열 워커 30개의 최적 조합(가중 투표)조차 다양성 부족으로 42%(23/55) 과제에서 실패함을 보였다.
+</li><li>
+<strong>"You're Right, Let Me Fix It": How LLM Agents Damage Correct Work When Falsely Accused</strong> (<a href="https://arxiv.org/abs/2609.32616" target="_blank" rel="noopener">2609.32616</a>) — 이미 검증된 올바른 작업물이 근거 없는 후속 비난(사실을 확인할 방법이 로컬에 없는 상황)을 받았을 때 에이전트가 이를 받아들여("gaslight sycophancy") 멀쩡한 작업을 훼손하는 현상을 365개 과제 벤치마크(CAVE-Bench)로 정량화. 최신 모델 14종에서 근거 없는 비난이 최대 60.06%의 실행에서 올바른 작업을 손상시켰고, 하네스 게이트로 재발생 피해를 74% 줄일 수 있었다.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>MechBench: Can AI Scientific Agents Discover Mechanisms Beyond Phenomenal Laws?</strong> (<a href="https://arxiv.org/abs/2609.35515" target="_blank" rel="noopener">2609.35515</a>) — 관측 가능한 현상 법칙을 복원하는 것과 그 법칙을 낳는 메커니즘 자체를 식별하는 것을 명시적으로 분리해 평가하는 벤치마크. Codex+GPT-5.6-sol 기준 현상 법칙 정확도 35.00%에 비해 메커니즘 정확도는 13.75%에 그쳤고, 법칙을 맞혔는데도 메커니즘 복원에 실패하는 경우가 64.29%에 달해 "법칙을 맞히는 것"과 "왜 그런지 아는 것" 사이의 큰 간극을 규명했다.
+</li><li>
+<strong>LieDiscover: Adaptive Symbolic Library Construction for Explicit Open-form Symmetry Discovery</strong> (<a href="https://arxiv.org/abs/2609.33663" target="_blank" rel="noopener">2609.33663</a>) — 데이터에서 대칭성을 발견하되 기존 방법들이 사전 정의된 함수 라이브러리 안에서만 탐색해 고차 다항식·초월함수를 포함한 복잡한 대칭을 놓치는 문제에, 인코더-디코더로 라이브러리 자체를 강화학습으로 동적 확장하며 기호식을 생성하는 프레임워크를 제안. 기존 방법이 다루지 못하던 open-form 무한소 생성자를 발견하고 하류 PDE 풀이·발견 과제 성능도 개선.
+</li><li>
+<strong>LLM Sequential Decision Making under Uncertainty in Biochemical Domains</strong> (<a href="https://arxiv.org/abs/2609.33061" target="_blank" rel="noopener">2609.33061</a>) — Paper Radar 채택. 잡음 보정된 벨리프 무브먼트·마팅게일 진단으로 LLM 실험설계 에이전트가 사전 믿음에 고착하는 게 아니라 새 데이터에 과잉반응함을 밝히고, 탐색 부족이 in-context 이력에 들러붙는 역량 격차("context-stickiness")임을 히스토리 제거라는 인과적 개입으로 실증. 상세는 §3 및 레이더 로그 참고.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>Reinforcing Agentic Creativity in Scientific Ideation with Night Science</strong> (<a href="https://arxiv.org/abs/2609.35706" target="_blank" rel="noopener">2609.35706</a>) — LLM의 저-엔트로피 편향이 개방형 과학적 아이디어 발상을 동질적으로 만든다는 문제에, 행동(무엇을 얼마나 창의적으로)·과정(언제 탐색 대 활용)·결과(참신성·유용성) 3축으로 창의성을 모델링해 GRPO로 학습시키는 AI Night-Scientist를 제안. 기본 모델 대비 연구 방향 다양성 27.8%, 기여 유형 다양성 14.9% 확대, 예측 인용 임팩트 최대 32.0%p·독창성 66.2점 개선을 보였고 디코딩 온도만 높이는 것으로는 재현되지 않음을 확인.
+</li><li>
+<strong>ALDER: Discovering the Laws of a World by Acting in It</strong> (<a href="https://arxiv.org/abs/2609.33728" target="_blank" rel="noopener">2609.33728</a>) — 고정된 궤적 집합으로는 동등하게 좋은 경쟁 가설을 구분할 수 없고, 고정된 후보 집합 탐색으로는 초기 가설 공간 밖의 방정식을 발견할 수 없다는 문제에, 방정식을 제안→수치 최적화→독립 검증→비용·안전 인식 개입(신규 실험) 선택→증거 갱신의 능동적 루프를 제시. ODE 발견·로봇 실험에서 초기 공식 집합 밖의 법칙을 발견하고 실패한 모델 제안을 스스로 수정.
+</li><li>
+<strong>LANTERN: Illuminating Hidden Mathematical Knowledge in Language Models</strong> (<a href="https://arxiv.org/abs/2609.32264" target="_blank" rel="noopener">2609.32264</a>) — Paper Radar 채택. 사전학습 모델의 내부 활성화만으로 OEIS 5천만 쌍 중 아직 기록되지 않은 수학적 관계를 순위화·검증해 4건의 신규 관계를 실제로 찾아냈다. 상세는 §3 및 레이더 로그 참고.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>Positions Are Not Facts: The Mismatch Between KV Caches and Memory</strong> (<a href="https://arxiv.org/abs/2609.33759" target="_blank" rel="noopener">2609.33759</a>) — 사실이 바뀌었을 때 KV 캐시에 저장된 이력을 어떻게 갱신할지 비교. 값을 마스킹하면 8개 모델 모두 새 값을 더 강하게 선호하지만 6개는 단위 오류나 답변 미종료로 완전한 답을 잃고, 다중 홉 갱신에서 바뀌지 않은 위치의 상태를 재구성하면 과거 정확도가 20–41%p 하락하는 반면 기존 상태를 그대로 옮기면 영향이 거의 없어, "교체된 값 외에 무엇을 보존해야 하는가"를 규명.
+</li><li>
+<strong>Beyond Token Savings: A Systematic Study of Context Compression in LLM Agents</strong> (<a href="https://arxiv.org/abs/2609.32961" target="_blank" rel="noopener">2609.32961</a>) — 무엇을·언제·얼마나 압축할지를 하나의 고정 정책으로 뭉뚱그려온 기존 에이전트 하네스와 달리 이 세 결정을 분리해 3개 오픈 웨이트 모델·SWE-bench Verified·Terminal-Bench 1.0에서 약 35,000회 실행으로 체계적으로 변주. 토큰을 1/3만 쓰는 압축 정책이 압축 없는 에이전트보다 오히려 20–80% 더 오래 걸리는 경우를 확인해 "토큰 절감 = 더 빠르고 저렴함"이라는 통념을 반박.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Nudgeability: Reasoning Models Follow Confidence Signals Without Tracking Their Own Competence</strong> (<a href="https://arxiv.org/abs/2609.34572" target="_blank" rel="noopener">2609.34572</a>) — 추론 궤적 중간에 "나는 확신한다/의심스럽다"는 한 문장만 삽입해 이후 모델이 직접 답할지 도구에 위임할지에 미치는 인과 효과를 측정. 9개 모델에서 의심은 위임을 늘리고 확신은 줄이는 뚜렷한 민감도(중앙값 20.6%p 스윙, 대형 모델은 53–70%p)를 보이지만, 실제로 풀 수 없는 문제에서만 위임이 느는 "타겟팅"은 무작위 기준보다 겨우 2%p 나은 수준 — 확신 언어는 강력한 제어 표면이지만 실제 역량과는 잘 연동되지 않음을 규명.
+</li><li>
+<strong>Ceiling of a Task: When Can a Transformer Succeed Without Its Chain of Thought?</strong> (<a href="https://arxiv.org/abs/2609.33134" target="_blank" rel="noopener">2609.33134</a>) — 트랜스포머를 고정 깊이 얕은 회로로 보고, 체인을 내용과 무관한 것(필러 토큰 등)으로 바꾸면 정확도가 "천장(ceiling)"까지 떨어짐을 증명. 유한군 단어 문제에서 예측된 수치가 정확히 재현됐고 MATH-500·AIME에서도 체인을 지우면 정확도가 0.52–0.82 하락, 문장 순서를 섞는 건 무해하지만 토큰 순서를 섞는 건 체인을 지우는 것만큼 해로워 "실제 연산이 체인 안에서 일어난다"는 것을 이론·실증 양쪽에서 뒷받침.
+</li><li>
+<strong>Verifier Errors in RLVR: Reward Hacking, Limits of Feedback, and Selective Control</strong> (<a href="https://arxiv.org/abs/2609.35677" target="_blank" rel="noopener">2609.35677</a>) — 검증 가능 보상 강화학습(RLVR)에서 불완전한 검증기가 틀린 답에 보상을 줄 때, RLVR 도중 관측 가능한 정보만으로는 이 "받아들여진 오류"를 탐지·수정할 수 없음을 이론적으로 규명. 감사(audit)로 얻은 정답성 피드백을 추가해 현재 정책에서 오류 확률을 낮추고 정답 확률을 높이는 "선택적 제어"를 구성하고 밴딧·언어모델 실험으로 검증.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">4</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">7</span></span></span></h3><div class="radar"><p>조회 1800건 · 신규 1712건 · 채택 2 · 보류 4 · 탈락 7</p>
+<p>색인 상태: <code>newest_fetched</code> 2026-09-28T17:59:58Z — 직전 커서(2026-09-25T17:59:52Z)에서 사흘 전진했다(09-26~09-29 나흘간의 색인 정지가 완전히 풀리지는 않았으나 뚜렷이 회복). <code>export.arxiv.org</code>를 <code>cat:cs.AI</code>에 대해 독립적으로 직접 재조회(curl, sortBy=submittedDate descending)해도 최상단 게재일이 동일하게 <code>2026-09-28T17:59:58Z</code>로 나와 조회 로직 버그가 아니라 실제 색인 수위임을 재확인했다. 실행 시각(2026-09-29 22:40 UTC)보다는 여전히 약 29시간 뒤처져 있어 완전히 해소되지는 않았다. 6절 규칙에 따라 이번에도 wall-clock이 아닌 <strong>관측된 가장 최신 published(2026-09-28T17:59:58Z)</strong> 를 다음 <code>--last-run</code> 커서로 쓴다 — 09-29 이후 투고분은 아직 후보에 오르지 못했으므로 다음 실행에서 색인이 따라잡히는 대로 정상적으로 올라올 것이다.</p>
+<p>신규 1712건 중 <code>radar_match</code> 13건만 Gate A/B로 넘겼다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>LANTERN</strong> — Illuminating Hidden Mathematical Knowledge in Language Models
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2609.32264" target="_blank" rel="noopener">2609.32264</a>
+</li><li>
+통과 근거: Gate B-1 — 사전학습 모델의 내부 활성화를 외부 프롬프팅 없이 "무엇을 탐구할지" 고르는 발견 신호로 직접 채굴하는 새 문제 축을 열고, OEIS 5천만 쌍에서 실제로 문헌 미기재 관계 4건을 검증까지 완료해 실증했다(표면 텍스트·암기·라벨 아티팩트 세 대안 설명을 통제 실험으로 순차 기각).
+</li><li>
+파일: <code>2026/2026_LANTERN_Activation-Guided-Mathematical-Discovery_arXiv2609.32264.pdf</code> · 리뷰: <code>2026/2026_LANTERN_Activation-Guided-Mathematical-Discovery_arXiv2609.32264_리뷰.md</code>
+</li></ul>
+</li></ul>
+<ul><li>
+<strong>ContextSticky</strong> — LLM Sequential Decision Making under Uncertainty in Biochemical Domains
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2609.33061" target="_blank" rel="noopener">2609.33061</a>
+</li><li>
+통과 근거: Gate B-1/B-3 — 벨리프 무브먼트·마팅게일 진단을 잡음 편향까지 보정해 적용한 결과 LLM 실험 설계 에이전트가 사전 믿음에 고착(entrenchment)한다는 기존 통념과 달리 새 데이터에 과잉반응(overreaction)함을 보이고, 탐색 부족이 "의도 부재"가 아니라 in-context 이력에 들러붙는 "역량 격차(context-stickiness)"임을 히스토리 제거라는 인과적 개입으로 실증 — HypoExplore/AutoScientists류의 장기 실행 파이프라인 설계에 바로 투입 가능한 진단 도구(마팅게일 스코어, V/U 분해)를 제공한다.
+</li><li>
+파일: <code>2026/2026_ContextSticky_LLM-Biochemical-Sequential-Decision-Making_arXiv2609.33061.pdf</code> · 리뷰: <code>2026/2026_ContextSticky_LLM-Biochemical-Sequential-Decision-Making_arXiv2609.33061_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+<strong>DoAtlas-2: A Foundation for Self-Evolving Causal Biomedical Discovery</strong> — <a href="https://arxiv.org/abs/2609.35107" target="_blank" rel="noopener">2609.35107</a> — Gate A는 명확히 통과(가설 생성→검증→개정의 닫힌 루프, 2,031개 연구 질문 평가)하지만 771개 자원·4.7M 문헌 레코드를 아우르는 초대형 시스템 자체가 역학·생물통계 중심이라, 코퍼스의 핵심 축(AI 연구/과학적 발견 파이프라인 일반)과 얼마나 새로운 축을 여는지 대 기존 인과발견(A-CBO)·이론학습(ATLAS) 축의 반복인지 애매함.
+</li><li>
+<strong>HERA — Agentic High-Dimensional Bayesian Optimization with Hypothesis- and Evidence-Guided Search</strong> — <a href="https://arxiv.org/abs/2609.34281" target="_blank" rel="noopener">2609.34281</a> — Gate A 통과(가설·증거 기반 탐색 전략 수립 에이전트)이나, LLM+BO 결합 자체는 이미 여러 선행연구가 다루는 장르라 Gate B 강도(새 문제축 vs 방법론적 개선)가 명확히 판별되지 않음.
+</li><li>
+<strong>DISCERN: Can AI Agents Work Like Scientists and Guide Discovery?</strong> — <a href="https://arxiv.org/abs/2609.33357" target="_blank" rel="noopener">2609.33357</a> — Gate A 통과(데이터 무결성→분석 검증→가설 생성/개정의 3단계 벤치마크)하지만, 코퍼스의 DCP(Discovery Certification Protocol)·AutoResearchEval과 취지가 상당 부분 겹쳐 완전히 새로운 축인지 애매함.
+</li><li>
+<strong>AutoPDEBench: Benchmarking LLM Auto-Research for Neural PDE Solver Design</strong> — <a href="https://arxiv.org/abs/2609.32245" target="_blank" rel="noopener">2609.32245</a> — Gate A 통과(자동연구 벤치마크, 25개 데이터셋)하지만 "반복 에이전트 파이프라인이 정적 베이스라인을 능가한다"는 핵심 결과 패턴이 코퍼스에 이미 여러 벤치마크로 반복 확인되어, PDE 솔버라는 도메인 특수성 외에 새 축을 여는지 불명확.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+<strong>FinAutoRubric: Expert-Guided Automatic Rubric Generation for Evaluating Financial Research Agents</strong> — <a href="https://arxiv.org/abs/2609.35744" target="_blank" rel="noopener">2609.35744</a> — Gate A 탈락: "research agent"가 금융 애널리스트 업무 평가를 가리킬 뿐, 과학적 연구 아이디어 생성·평가와 무관한 도메인 응용 논문.
+</li><li>
+<strong>PEAR: Progressive Evidence-Based AutoResearch for Industrial Search Systems</strong> — <a href="https://arxiv.org/abs/2609.35031" target="_blank" rel="noopener">2609.35031</a> — Gate B 즉시 탈락: 09-29 채택된 AutoResearchProd(프로덕션 규모 autoresearch 신뢰성 실패 유형)와 동일 문제 축을 검색 랭킹 도메인으로 갈아끼운 응용 논문.
+</li><li>
+<strong>Still There, No Longer Seen: Exposing Compression-Induced Risk in Large Vision-Language Models</strong> — <a href="https://arxiv.org/abs/2609.35002" target="_blank" rel="noopener">2609.35002</a> — Gate A 탈락: 시각 토큰 압축에 대한 적대적 공격 연구로 자율 연구/가설 생성/아이디어 평가 어디에도 해당하지 않음(키워드 오탐).
+</li><li>
+<strong>Coding Agent Memory Post-training</strong> — <a href="https://arxiv.org/abs/2609.34422" target="_blank" rel="noopener">2609.34422</a> — Gate A 탈락: Shop/Coding/DeepResearch/AutoResearch 4개 환경을 아우르는 범용 장기수행 에이전트 메모리 RL 학습법으로, 핵심 기여가 과학적 연구 파이프라인이 아닌 일반 에이전트 메모리 훈련.
+</li><li>
+<strong>Dr.Credit: Rubric-Grounded Process Credit Assignment for Deep Research Agents</strong> — <a href="https://arxiv.org/abs/2609.34296" target="_blank" rel="noopener">2609.34296</a> — Gate A 탈락: "Deep Research Agent"는 웹 리서치·보고서 작성형 에이전트를 가리키며, 핵심 기여는 RL 프로세스 보상 설계 방법론으로 AI-Scientist/가설 생성 범주 밖.
+</li><li>
+<strong>From Anomalies to Failures: Constructing Causal Error Graphs for Agentic Trace Diagnosis</strong> — <a href="https://arxiv.org/abs/2609.32514" target="_blank" rel="noopener">2609.32514</a> — Gate B 탈락: 코퍼스의 SAGE/MHFA(Multi-Hypothesis Failure Attribution)와 취지가 겹치는 일반 에이전트 트레이스 진단 도구로, 연구 에이전트 특화가 아니고 새 축을 열지 못함.
+</li><li>
+<strong>DAAF: From Failure Localization to Editable System Assets in LLM Agents</strong> — <a href="https://arxiv.org/abs/2609.32498" target="_blank" rel="noopener">2609.32498</a> — Gate A 탈락: 텔레콤 고객서비스(tau2-bench) 도메인 LLM 에이전트 시스템 자산 복구 연구로 과학적 연구 파이프라인과 무관.
+</li></ul></div></div>

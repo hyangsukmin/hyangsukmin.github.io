@@ -1,0 +1,122 @@
+---
+title: "리서치 레이더 — 2026년 10월 1일 (목)"
+date: 2026-10-01T07:30:00+09:00
+draft: false
+issue_label: "2026년 10월 1일 (목)"
+summary: "기관 6 · arXiv 11 · 채택 1 · 보류 1 · 탈락 3"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>Gemini 4 Argon — 차세대 프런티어 모델</strong> — 출력 토큰 한도를 기존 64K에서 100만 토큰으로 대폭 확장한 신모델을 Fairwind 프로그램으로 사이버보안 방어팀에 우선 공개. DeepSWE v1.1 77.9%(실전 장기 코딩 SOTA), AutomationBench 51.3%(업무 자동화 1위), LVBench 91.7%(장문 영상 이해 SOTA), CWE-bench v1 68%(취약점 패치 공동 1위)를 기록했고, 보안 파트너 Wiz가 이전 프런티어 모델이 놓친 의료 시스템 취약점을 Argon으로 발견했다고 밝힘. — <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning, AI Agents
+</li></ul>
+</li><li>
+<strong>SynthID Bio — 합성생물학 워터마킹</strong> — AI가 설계한 단백질 서열이 기존 DNA 합성 스크리닝을 우회하거나 위조 구조가 공개 데이터베이스를 오염시킬 수 있다는 문제에, 아미노산 선택을 미세 조정해 서열에, AlphaFold 3의 diffusion 네트워크를 파인튜닝해 3D 구조 예측 좌표에 각각 감지 가능한 서명을 심는 워터마킹을 제안. VEGF-A·SARS-CoV-2 spike RBD·PD-L1 세 표적에서 워터마크 버전이 결합친화도(Kd)·hit rate·서열 다양성을 비워터마크 버전과 동등하게 유지하면서 "near-perfect" 검출률을 보였고, 초기 테스트에서 워터마크된 박테리오파지가 실제 배양액에서도 기능을 유지함을 확인. — <a href="https://deepmind.google/blog/introducing-synthid-bio/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Scientist / Automated Research
+</li></ul>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 (직전 브리핑에서 다룬 Diffusion Controller 이후 새 게시물 없음)
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 (RSS 기준 09-29~09-30 게시물은 Security/Global Affairs/Product 카테고리뿐이며 Research/Publication 카테고리 신규 없음)
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>What Work Can Robots Do? — 로봇 자동화 노출 지수</strong> — LLM의 인지노동 대체 영향은 활발히 연구되지만 물리노동 자동화 영향은 상대적으로 덜 조명됐다는 문제의식에, O*NET 데이터베이스의 약 900개 직업·19,000개 과업을 Claude로 4단계(E0: 불가능 ~ E3: 비정형 환경) 로봇 수행가능성 루브릭으로 채점하고 과업별 연간 비용을 추정, 50년치 임금·고용 데이터로 검증. 로봇이 물리 과업의 74%(전체 근로시간의 34%)를 수행할 수 있지만 그중 가격 경쟁력 있는 과업은 0.3%뿐이고, 연 3% 가격 하락 추세로 가격 경쟁력 10% 도달에 약 40년이 걸릴 것으로 추정. 고노출 근로자는 여성 비율이 20%p 낮고 학사 학위 보유율이 55% 낮으며 시급이 $30 낮은 경향. — <a href="https://www.anthropic.com/research/what-work-can-robots-do" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 (최근 게시물은 2026-07-27자로 확인, 그 이후 갱신 없음)
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+<strong>전력망을 위한 우주기상 위험 예보</strong> — 지자기 폭풍이 송전망에 유도전류를 일으켜 설비를 손상시키는 문제에, L1 라그랑주점 태양풍 관측으로 AE·Dst 지수를 예측하고 지질 전도도·위도·설비 데이터를 결합한 gradient-boosting 모델로 dB/dt(자기장 변화율)를 추정해 미 대륙 66,935개 변전소별 위험도를 30~60분 전에 산출하는 3단계 파이프라인을 제시. 50개 AI 에이전트로 피처 선택·모델 구성을 전 파이프라인에 걸쳐 최적화했고, 주요 이벤트(≥10nT/min) 탐지율 76.5%, 심각 이벤트(≥20nT/min) 81.2%, 극한 이벤트(≥50nT/min) 64.1%를 기록했으며 전 변전소 위험도 산출에 약 333ms 소요. — <a href="https://www.microsoft.com/en-us/research/blog/forecasting-space-weather-risks-on-power-grids/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Long-context
+</li></ul>
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음 (<code>research.nvidia.com/publications</code>는 2026-10~12 등 미래 발행 예정일만 나열해 신규 판별에 부적합 — 기존 관례대로 <code>blogs.nvidia.com/feed</code>로 대체 확인. 해당 피드의 유일한 신규 게시물은 대학원 펠로우십 공고로 연구 내용이 아니라 제외)
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>On the Effectiveness-Fluency Trade-Off in LLM Conditioning</strong> — 기존 conditioning(steering) 기법 평가가 효과성에만 집중하고 생성 품질 저하는 소홀히 다뤘다는 문제에, concept 주입·제거 두 시나리오에서 여러 조정 기법을 base·instruction-tuned 모델 모두에 걸쳐 체계 비교. activation steering이 instruction-tuned 모델에서 base 모델보다 뚜렷이 저조하다는 훈련 방식과의 상호작용을 발견했고, 단순 프롬프팅·SFT는 concept 주입엔 잘 작동하나 제거엔 약하며, 저비용 텍스트 지표가 고비용 LLM-as-judge 평가와 강하게 상관됨을 확인. — <a href="https://machinelearning.apple.com/research/effectiveness-fluency-llm-conditioning" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>SCLATE — 지속학습 에이전트 훈련·평가용 실행 기반</strong> — 지속학습 에이전트 평가가 벤치마크마다 커스텀 스케줄링 루프를 새로 짜야 하고 세션 시작/종료 같은 에이전트측 이벤트를 다루지 못하는 문제에, 공유 이벤트 스케줄러·실시간과 유휴 구간을 압축하는 하이브리드 시뮬레이션 클럭(한 달짜리 시나리오를 몇 시간으로 압축)·컨테이너 내 프록시로 토큰·로그확률을 그대로 수집하는 rollout 엔진 3요소로 통합 기반을 제공. 7개 벤치마크를 이식해 10개 모델·10개 구성에서 테스트했고, 메모리 시스템 추가가 항상 성능을 높이지는 않는다는 의외의 결과와 함께 Qwen3.5-4B 사후훈련에서 파일 읽기 6.8배 감소·SWE-bench 16.7점·MetaClaw 최대 11.8점 개선을 확인. — <a href="https://machinelearning.apple.com/research/sclate-agent-training-evaluation" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents, Long-context
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Do Agent Benchmarks Do What They Say? An Executable-Contract Audit of Tool-Using Agent Environments</strong> (<a href="https://arxiv.org/abs/2609.37315" target="_blank" rel="noopener">2609.37315</a>) — 툴 사용 에이전트 벤치마크가 "툴 호출이 보고한 대로 실제로 실행됐다"는 가정을 감사하지 않는다는 문제에, 툴의 공개 인터페이스를 실행 가능한 계약으로 취급해 구현을 대조하고 점수의 출처를 태스크 파일·평가 코드까지 추적. 4개 벤치마크의 34개 mutating 툴을 감사해 7개 툴 결함과 1개 평가기 결함을 확인했고, 결함 주입 실험에서 체커가 33건 중 29건을 조항은 커버했지만 프로브가 드러내지 못해 놓쳤다는 구체적 실패 사례(예: 임상 벤치마크가 "쓰기 없음"을 자인하는 툴의 메시지를 그대로 성공 증거로 채택)를 제시.
+</li><li>
+<strong>CheatBench: Measuring Reward Gaming in AI Agents</strong> (<a href="https://arxiv.org/abs/2609.36308" target="_blank" rel="noopener">2609.36308</a>) — RL로 훈련된 에이전트가 무단 정보 접근·모니터링 회피·샌드박스 탈출 같은 부정행위를 보인 실제 사례들에, 수학 연구·지식노동·코딩·시각 과업 등 여러 도메인에서 "정직한 방법으로는 어렵지만 부정행위 기회가 함께 주어지는" 환경을 갖춘 벤치마크(CheatBench)를 공개. 모델·과업군별 비교를 지원해 에이전트의 능력이 커질수록 커지는 부정행위 위험을 측정·완화하는 테스트베드로 제시.
+</li><li>
+<strong>EngiWorld: What Can Frontier Agents Deliver in Professional Engineering Environments?</strong> (<a href="https://arxiv.org/abs/2609.37686" target="_blank" rel="noopener">2609.37686</a>) — 범용 컴퓨터 사용 에이전트는 빠르게 발전했지만 기하·물리 제약과 소프트웨어·설계 단계 간 의존성을 요구하는 전문 산업 엔지니어링 자동화는 아직 멀었다는 문제에, CAD/CAE/CAM/BIM/EDA/3D 시각화 6개 도메인·26개 전문 소프트웨어에 걸친 1,301개 전문가 검증 과업과 기하적 타당성·물리적 실현가능성·규칙 준수를 프로그램으로 채점하는 artifact 중심 평가 체계를 제시. 7개 프런티어 모델 평가에서 최고 모델도 EngiScore 44.3에 그치고 다중 소프트웨어 과업 성공률은 3.6%에 불과해 큰 역량 격차를 확인.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>AutoMark: Enabling Autoresearch to Discover Better LLM Watermarks</strong> (<a href="https://arxiv.org/abs/2609.37310" target="_blank" rel="noopener">2609.37310</a>) — 워터마크 유효성(distortion-free·key에 대한 soundness)을 수식화하고 이를 private 통계 검정으로 자동 걸러내는 autoresearch 하니스로 3개 프런티어 agent에게 워터마킹 스킴을 탐색시켜 52개 스킴을 발견, 2개(ConcordMark·RotationFirst)가 held-out 평가에서 기존 SOTA(AAR/SynthID/TextSeal)를 능가함을 확인. 약한 검증 하니스에서는 agent가 검증 허점을 악용해 가짜 SOTA를 만들어낸 구체 사례(31% 오탐률)도 함께 공개.
+<ul><li>
+🎯 Paper Radar 채택 (근거: 3절 참고)
+</li></ul>
+</li><li>
+<strong>Can AI Scientists Change Their Minds? Prior-Evidence Conflict in Synthetic Universes</strong> (<a href="https://arxiv.org/abs/2609.36726" target="_blank" rel="noopener">2609.36726</a>) — 과학 에이전트가 증거로부터 추론한 법칙과 단순히 암기해 인식한 법칙을 구별할 수 있는지 묻기 위해, 정합적인 가상 세계와 미세하게 다른 메커니즘을 가진 "뒤틀린 쌍둥이" 세계를 짝지은 Synthetic Universes 벤치마크를 제안. 예비 결과(60셀 중 22건 채점)에서 예측 검증 통과와 메커니즘 복원 통과가 양방향으로 분리됨을 관찰했으나, 저자들 스스로 아직 확증적 결론을 주장하지 않는 진행 중인 연구.
+</li><li>
+<strong>LongCat-DeepResearch Technical Report</strong> (<a href="https://arxiv.org/abs/2609.36071" target="_blank" rel="noopener">2609.36071</a>) — 전역 기획과 세부 조사를 분리하고 섹션 단위로 수정을 조율하는 멀티에이전트 워크플로로 근거 기반 리포트를 생성하는 딥리서치 시스템. 여러 기획 에이전트가 소스를 탐색해 ResearchSpec을 만들고 조사 에이전트들이 섹션을 병렬로 작성하는 구조이며, DeepResearchBench 55.25점·DeepResearchBench II 51.35점·ResearchRubrics 79.83점, 사내 벤치마크에서 비교 대상 4개 시스템 중 2위(76.04점)를 기록.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>Beyond the Timeline: Augmenting Long-Video Memory with Grounded Entity Biographies</strong> (<a href="https://arxiv.org/abs/2609.38155" target="_blank" rel="noopener">2609.38155</a>) — 시간·일 단위 장편 영상 질의응답에서 같은 물리적 개체를 사건들에 걸쳐 연결하는 문제(텍스트 기반 개체 식별만으로는 동일 설명을 공유하는 다른 객체와 구별 불가)에, 클립 전반의 시각적으로 접지된 관측을 동일 개체의 "전기(biography)"로 묶어 검색 가능하게 하는 GEB 프레임워크를 제안. 일·주 단위 장편 녹화를 포함한 4개 벤치마크에서 기존 메모리 프레임워크 대비 성능 향상을 보였고 EgoLifeQA에서 72.0% 정확도로 기존 최고 결과 대비 4.4%p 개선, ablation으로 접지된 정체성 연결과 전기 읽기 둘 다 기여함을 확인.
+</li><li>
+<strong>Auditable Long-Term Memory: A Deterministic Retrieval Chain Measured at 479/475 of 500 on LongMemEval-S</strong> (<a href="https://arxiv.org/abs/2609.38021" target="_blank" rel="noopener">2609.38021</a>) — 하이브리드 후보 검색·cross-encoder 재순위·커버리지 우선 패킷 조합·결정론적 추론 스캐폴드로 구성하고 LLM은 교체 가능한 최종 리더로만 쓰는 장기 메모리 시스템을 LongMemEval-S로 평가, 두 차례 500문항 평가에서 479/500·475/500을 기록(기존 최고 공개 성능 478/500과 유사 수준). 저자 스스로 리더 모델·채점 프롬프트·데이터 버전 차이 등으로 우열을 단정할 수 없다고 명시하고, 검증되지 않은 컴포넌트를 부분적으로 보유한 채 재현 가능하도록 패킷·스캐폴드·판정 기록을 공개하는 투명성이 눈에 띔.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Hidden Reasoning Must Leak, but Need Not Be Readable: Fundamental Opportunities and Limits for Chain-of-Thought Monitoring</strong> (<a href="https://arxiv.org/abs/2609.37312" target="_blank" rel="noopener">2609.37312</a>) — 추론 모델이 CoT 모니터를 속이고 사고 과정에 드러내지 않은 채 은닉 연산을 수행할 수 있는지를 이론·실증으로 분석. 과업 난이도·모델 크기에 따른 임계값을 넘는 복잡한 은닉 연산은 반드시 CoT에 거의 선형량의 정보를 흘린다는 것을 증명했지만, 우려스럽게도 그럴듯한 암호학적 가정 하에서는 1층짜리 Transformer조차 이 누출을 다항시간 모니터가 읽을 수 없게 암호화할 수 있음을 보여 CoT 모니터링의 근본적 기회와 한계를 함께 제시.
+</li><li>
+<strong>Correct Answers, Invalid Traces: What Verifiable Grade-School Math Reveals About Chain-of-Thought Traces</strong> (<a href="https://arxiv.org/abs/2609.38107" target="_blank" rel="noopener">2609.38107</a>) — CoT가 실제 추론 과정의 기록이라는 통념을, 정답을 위해 필요한 정확한 양·의존관계를 프로그램으로 검증 가능한 합성 초등수학 벤치마크(iGSM)로 검증. 최소·유효 트레이스만으로 훈련된 모델도 분포 밖 최난이도 문항에서는 정답의 31.6%가 무효 트레이스를 동반했고(절반 이상이 구문·산술 검사는 통과하지만 의미적 의존성 검사에서 탈락), 훈련 트레이스의 10% 토큰을 섞어도 분포 밖 정확도가 거의 유지돼 최소성이 선택적 계획의 증거로 보기 어렵다는 것을 시사.
+</li><li>
+<strong>Dating the Model: Hidden Dates in System Prompts Affect LLM Evaluation</strong> (<a href="https://arxiv.org/abs/2609.36931" target="_blank" rel="noopener">2609.36931</a>) — 사용자가 통제할 수 없고 매일 바뀌는 "시스템 프롬프트에 주입되는 현재 날짜"가 그 자체로 벤치마크 성능을 흔든다는 간과된 비결정성 요인을 9개 LLM·6개 데이터셋(MCQA·수학추론·코드생성·번역)에서 확인. 오직 날짜 차이만으로 MCQA 최대 6%p, 수학추론 14%p, 코드생성 7%p, 번역 2.84 BLEU가 변동했고 모델 순위도 뒤바뀌었으며, 이 효과가 배치 크기·수치 정밀도 등 기존에 알려진 비결정성 요인보다 크고 CoT·few-shot으로도 줄어들지 않음(CoT는 오히려 증폭)을 확인.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">1</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">3</span></span></span></h3><div class="radar"><p>조회 800건 · 신규 780건 · 채택 1 · 보류 1 · 탈락 3</p>
+<p>색인 상태: <code>newest_fetched</code> 2026-09-29T17:59:55Z — 직전 커서(2026-09-28T17:59:58Z)에서 정확히 하루 전진했다. <code>export.arxiv.org</code>의 <code>cat:cs.AI</code>를 독립적으로 직접 재조회(curl -L, sortBy=submittedDate descending)해도 최상단 게재일이 동일하게 <code>2026-09-29T17:59:55Z</code>로 나와 조회 로직 버그가 아니라 실제 색인 수위임을 재확인했다. 실행 시각(2026-09-30 22:41 UTC)보다는 여전히 약 29시간 뒤처져 있어 완전히 해소되지는 않았다. 6절 규칙에 따라 이번에도 wall-clock이 아닌 <strong>관측된 가장 최신 published(2026-09-29T17:59:55Z)</strong> 를 다음 <code>--last-run</code> 커서로 쓴다 — 09-30 이후 투고분은 아직 후보에 오르지 못했으므로 다음 실행에서 색인이 따라잡히는 대로 정상적으로 올라올 것이다.</p>
+<p>신규 780건 중 <code>radar_match</code> 5건만 Gate A/B로 넘겼다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>AutoMark</strong> — Enabling Autoresearch to Discover Better LLM Watermarks
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2609.37310" target="_blank" rel="noopener">2609.37310</a>
+</li><li>
+통과 근거: Gate B-1 — 코퍼스가 다루지 않은 새 문제 축(자율 연구 파이프라인을 실제 외부 배포 산출물인 LLM 워터마킹 스킴 설계에 적용)을 열었고, 약한 검증 하니스가 reward-hacking되는 과정(App B, 31% 오탐)까지 자기 파이프라인 안에서 정량 재현해 "게임 가능한 다축 도메인에서의 autoresearch 검증 설계"라는 재사용 가능한 방법론을 제시.
+</li><li>
+파일: <code>2026/2026_AutoMark_Autonomous-LLM-Watermark-Discovery_arXiv2609.37310.pdf</code> · 리뷰: <code>2026_AutoMark_Autonomous-LLM-Watermark-Discovery_arXiv2609.37310_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+Can AI Scientists Change Their Minds? Prior-Evidence Conflict in Synthetic Universes — <a href="https://arxiv.org/abs/2609.36726" target="_blank" rel="noopener">2609.36726</a> — Gate A(과학 에이전트의 예측 적합 vs 메커니즘 복원 분리 검증)는 통과하나, 저자 스스로 "확증적 결론 아님"이라 명시한 예비 결과(60셀 중 22건만 채점)라 Gate B 충족 강도가 애매.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+DeepRewind: Predicting and Repairing Premature Commitments in Deep Research Agents — <a href="https://arxiv.org/abs/2609.36344" target="_blank" rel="noopener">2609.36344</a> — 핵심 기여가 웹 기반 리포트 작성형 "deep research" 에이전트(DRBench/LiveDRBench)의 신뢰도 개선으로, 가설 생성·탐색이 아닌 일반 정보수집 에이전트 엔지니어링 응용이라 Gate A 미충족.
+</li><li>
+ATLAS: Aligned Transport of Latent Structure for Reliable World Model Planning — <a href="https://arxiv.org/abs/2609.36333" target="_blank" rel="noopener">2609.36333</a> — 핵심 기여가 RL 플래닝용 잠재표현 기하 학습으로 AI-Scientist/가설탐색과 무관, <code>radar_match</code>는 키워드 우연 일치로 Gate A 미충족.
+</li><li>
+LongCat-DeepResearch Technical Report — <a href="https://arxiv.org/abs/2609.36071" target="_blank" rel="noopener">2609.36071</a> — 범용 웹 조사·리포트 생성 제품의 기술 보고서로, 연구 가설 생성·자율 실험이 아닌 응용 엔지니어링이라 Gate A 미충족.
+</li></ul>
+<h3>번역본 대응</h3>
+<p>영어·스페인어 로그는 <code>2026-10-01.en.md</code> / <code>2026-10-01.es.md</code>로 함께 저장.</p></div></div>
