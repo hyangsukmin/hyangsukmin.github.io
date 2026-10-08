@@ -1,0 +1,136 @@
+---
+title: "리서치 레이더 — 2026년 10월 8일 (목)"
+date: 2026-10-08T07:30:00+09:00
+draft: false
+issue_label: "2026년 10월 8일 (목)"
+summary: "기관 6 · arXiv 14 · 채택 2 · 보류 1 · 탈락 2"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 (RSS 정상 확인, 최신 글은 전일 다룬 EmbeddingGemma 2(2026-10-06)로 변동 없음)
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>Does better work always mean better workers?</strong> — 11개 IP 법률회사 소속 특허 변호사 133명을 대상으로 3개월간 진행한 무작위 현장실험. AI 특허작성 도구를 쓰면 모두의 초안 품질이 올라갔지만, 레드라이닝 과제에서 도구를 뺐을 때 그 이득이 남아있는 쪽은 숙련 변호사뿐이었고, 주니어 변호사의 점수는 매우 낮음과 양호함 양쪽으로 더 퍼졌다. 수개월간 실제 사용·비보조 평가·블라인드 전문가 채점을 결합한 설계가 특징이며, "현재 출력을 개선하는 AI가 조직이 나중에 필요로 할 숙련된 전문가를 만들어내지 못할 수 있다"는 함의를 던진다. — <a href="https://research.google/blog/does-better-work-always-mean-better-workers/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 없음 (AI 보조-숙련도 형성에 대한 현장실험, 5개 주제와 직접 겹치지 않음)
+</li></ul>
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+<strong>Advancing computer use with Ironclad</strong> — OpenAI와 계약관리 업체 Ironclad가 복잡한 계약(contracting) 워크플로에서 AI 에이전트를 훈련·평가해 전문직 업무용 컴퓨터 유즈를 발전시키는 내용. 본문 페이지가 HTTP 403으로 막혀 RSS 요약 설명만 확인했다(본문 미확인). — <a href="https://openai.com/index/advancing-computer-use-with-ironclad" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+신규 없음 (페이지 정상 로드, 최신 글은 전일과 동일한 "Claude-shaped science"(2026-10-01)로 변동 없음)
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 (블로그 인덱스 정상 확인, 최신 글은 2026-07-27로 변동 없음)
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+<strong>Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses</strong> — 에이전트를 재구현하지 않고 LLM 프록시를 통해 모델 호출만 가로채, mini-SWE-agent나 OpenHands 같은 실제 배포용 하니스를 그대로 RL로 훈련시키는 약 3,500줄 규모의 프레임워크. 롤아웃과 모델 업데이트가 GPU를 공유해 동기식 RL 대비 약 2배 빨라지는 Collocated Async RL과, 유료 샌드박스 서비스 없이 쓰는 네이티브 쿠버네티스 실행이 핵심 기여. 코딩 에이전트 예시에서 Qwen3.5-9B의 SWE-bench Verified Pass@1이 약 6,000개 훈련 샘플만으로 41.8%에서 56.4%로 올랐다. — <a href="https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents, Reasoning
+</li></ul>
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+<strong>Mid-Harness: Scaling Actions Between Model and Harness for Terminal Agents</strong> — 터미널 에이전트의 모델에서 여러 후보 행동을 샘플링해 검증한 뒤 하나만 실행으로 넘기는 방식으로, 생성기와 하니스는 그대로 둔다. TerminalBench-Lite에서 GPT-5.6 Sol 검증기를 쓰면 8개 샘플 행동으로 Pass@1이 50.00%에서 68.03%로 오르고, 더 강한 검증기의 응답을 TMAX-9B로 distill하면 추가 개선되며, 행동 스케일링과 궤적 스케일링을 결합하면 궤적만 늘리는 것보다 더 적은 토큰으로 더 높은 성공률에 도달한다. — <a href="https://research.nvidia.com/publication/2026-12_mid-harness-scaling-actions-between-model-and-harness-terminal-agents" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li><li>
+<strong>Gated DeltaNet-2: Decoupling Erase and Write in Linear Attention</strong> — 기존 delta-rule 업데이트가 하나의 스칼라 게이트로 지우기(erase)와 쓰기(write)를 함께 통제하던 것을 채널별 지우기·쓰기 게이트로 분리해 Gated DeltaNet과 Kimi Delta Attention을 일반화한 선형 어텐션 모델. 게이트를 인식하는 역전파를 포함한 청크 단위 학습 알고리즘을 제시하며, 1.3B 파라미터·100B 토큰 학습에서 비교 모델 중 종합 최고 성능을 냈고 RULER의 needle-in-a-haystack 검색에서 가장 큰 향상을 보였다. — <a href="https://research.nvidia.com/publication/2026-12_gated-deltanet-2-decoupling-erase-and-write-linear-attention" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Long-context
+</li><li>
+⚠ 참고: NVIDIA 출판 목록에 "Zone of Proximal Policy Optimization", "Agent Explorative Policy Optimization for Multimodal Agentic Reasoning", "SpatialClaw" 등 5개 주제와 겹칠 수 있는 항목이 추가로 보였으나, 비용상 본문 확인은 위 2건으로 제한했다.
+</li></ul>
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>RISED: Rubrics for Agentic Multi-Environment Selection and Self-Distillation</strong> — 여러 상호작용 환경에 걸쳐 단일 LLM 에이전트를 훈련하는 방법으로, LLM 판정자가 각 롤아웃에 공유 루브릭 어휘로 태그를 붙이고 이 태그가 데이터 선별·긍정 루브릭을 통한 토큰 수준 지도·부정 루브릭을 통한 반복 실패 회피를 모두 이끈다. 여러 모델 백본에 걸쳐 환경별 평균 통과율이 최고이고 각 환경에서도 1~2위를 기록했다고 보고한다. — <a href="https://machinelearning.apple.com/research/rised-multi-environment-selection" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>AdvSim2Real: Training Web Agents Against Adaptive Prompt Injection in a Web World Model</strong> (<a href="https://arxiv.org/abs/2610.08773" target="_blank" rel="noopener">2610.08773</a>) — 웹 에이전트가 처리하는 페이지에 심어진 프롬프트 주입 공격을 막기 위해, 고정된 공격을 미리 학습하는 기존 방어와 달리 과제 커리큘럼·주입 공격자·에이전트를 동결된 웹 월드모델 안에서 함께 진화시킨다. 커리큘럼은 에이전트가 절반 정도 성공하는 과제에, 공격자는 판정을 성공에서 실패로 뒤집는 주입에만 보상을 받아 4B 에이전트가 적응형 공격에도 버티도록 훈련시킨다.
+</li><li>
+<strong>Persistent Memory in Multi-Agent LLM Inference: What It Costs, What It Buys, and When You Can Tell</strong> (<a href="https://arxiv.org/abs/2610.07782" target="_blank" rel="noopener">2610.07782</a>) — 장기컨텍스트 추론을 여러 에이전트로 분해하면 피크 KV 캐시가 단일패스·RAG 대비 크게 줄어드는 것(14.3MiB vs 35.5/35.3MiB)은 확인했지만, 흔히 함께 쓰이는 "추론 흔적 저장용 영속 메모리 계층"은 8개 통제된 데이터셋 쌍(n=100)에서 캐시 비용만 늘리고(+0.368MiB) 정확도 변화는 통계적으로 탐지되지 않았다(+0.015, 95% CI [−0.011, +0.046]) — 단일질문 벤치마크 구조상 이 null 결과가 구조적이라고 주장한다.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>Stateless Language Agents: Scaling Long-Horizon Automated Research</strong> (<a href="https://arxiv.org/abs/2610.07625" target="_blank" rel="noopener">2610.07625</a>) — <em>(오늘 Paper Radar에도 채택 — 3절 참조. 레이더 통과는 이 기사와 별개의 독립 판정이다.)</em> 장기 자율연구에서 연구 상태를 하니스가 소유하고 에이전트는 매 호출마다 새 맥락만 받는 "stateful search with stateless agents" 설계로, 커널 최적화에서 최강 베이스라인 동급 성능을 84~93% 적은 토큰으로 달성하고 전 과제 최종성능 1위를 기록했다.
+</li><li>
+<strong>Fork-and-Flush: Escaping Idea Basins in Autoresearch Agents</strong> (<a href="https://arxiv.org/abs/2610.07447" target="_blank" rel="noopener">2610.07447</a>) — <em>(오늘 Paper Radar에도 채택 — 3절 참조.)</em> 독립 run들이 서로 다른 국소 영역("idea basin")에 갇혀 플래토한다는 것을 t-STE 임베딩으로 가시화하고, 작업공간은 유지한 채 대화 맥락만 주기적으로 비우는 단순한 개입으로 13개 장기과제에서 single-run 대비 66.0%, best-of-4 대비 44.4% 개선을 보였다.
+</li><li>
+<strong>ScienceClaw: Benchmarking Continual Self-Evolution of AI-for-Science Agents Across the Natural and Social Sciences</strong> (<a href="https://arxiv.org/abs/2610.08691" target="_blank" rel="noopener">2610.08691</a>) — 검증된 실행이 프로그램 수준의 영속적 개선으로 이어지는지를 23개 분야 연쇄 과제로 측정하는 벤치마크. 재실행 검증된 실패→성공 전환을 Skill/Operator 후보로 전환하고, 원본 과제 재현과 독립 과학 과제에서의 향상이 모두 확인될 때만 업데이트를 유지하는 엄격한 채택 기준을 둔다.
+</li><li>
+<strong>Explore, Then Commit: Measurement-Efficient Scientific Law Discovery with Language Models</strong> (<a href="https://arxiv.org/abs/2610.07620" target="_blank" rel="noopener">2610.07620</a>) — LLM이 가설을 내고 프로그램적 플래너가 측정을 모은 뒤 별도 프롬프트가 고정된 관측값만으로 법칙을 종합하는 explore-then-commit 프로토콜을 NewtonBench 576회 트라이얼로 평가. 인터프리터를 쓰는 플래너가 측정 수를 8.6~8.9회로 줄이면서(기존 22.5~43.0회) RMSLE를 2.514→0.202, 0.626→0.149로 낮췄다.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>IdeaAnchor: Teaching LLMs to Turn Literature into Research Ideas</strong> (<a href="https://arxiv.org/abs/2610.08781" target="_blank" rel="noopener">2610.08781</a>) — <em>(오늘 Paper Radar에서 보류 — 3절 참조.)</em> 문헌 논문들을 어떻게 종합해야 성공적인 아이디어가 되는지를 구조화된 명세로 인코딩해 LLM을 훈련시키는 패러다임. demonstration·self-distillation·RL과 추론 시 retrieval을 결합해 ideation 품질을 일관되게 개선하고, anchor 훈련은 창의적 종합을 retrieval은 세부 정교화를 담당한다는 기능적 분해를 제시한다.
+</li><li>
+<strong>Learning to Outgrow a Theory: Experimental Discovery Beyond the Initial Hypothesis Space</strong> (<a href="https://arxiv.org/abs/2610.07627" target="_blank" rel="noopener">2610.07627</a>) — 발견 시스템이 고정된 가설 공간 안에서만 실험을 최적화하면, 모든 후보가 같은 메커니즘을 빠뜨려도 "후보 간 불일치"가 사라져 모델 전체가 체계적으로 틀렸다는 것을 감지하지 못하는 실패 모드를 다룬다. 구조적 수정과 그 수정의 필요성을 검증하는 진단 실험을 함께 제안하는 정책으로 400개 동역학 환경에서 32회 실험으로 89.5% 정확 복원(최강 베이스라인 대비 +10.0%p)을 달성했다.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>UNREAL: Unifying Retrieval and Long-Context with a Single Model</strong> (<a href="https://arxiv.org/abs/2610.08463" target="_blank" rel="noopener">2610.08463</a>) — 단일 프롬프트부터 전체 코퍼스까지 서로 다른 스케일의 증거 선택을 하나의 모델 내부 메커니즘으로 처리할 수 있는지를 묻고, 동결된 LLM의 내부 표현에서 직접 검색 질의를 뽑아내는 50만개 미만의 추가 파라미터만으로 3B토큰·2100만 청크 위키피디아 인덱스에서 기존 retriever-reranker들을 능가했다(HotpotQA 재현율 49.1%→73.2%).
+</li><li>
+<strong>Hybrid Latent Attention for Looped Language Models</strong> (<a href="https://arxiv.org/abs/2610.07940" target="_blank" rel="noopener">2610.07940</a>) — 같은 레이어 스택을 토큰마다 T번 반복하는 looped LM은 KV 캐시가 T배로 커지는데, 최근 W개 토큰만 정확한 key/value로 유지하고 더 오래된 토큰은 압축된 latent로 저장해 루프의 질의가 재구성 없이 직접 읽게 하는 방법을 제안한다. 캐시를 10.7배 줄이고 동시 처리 가능한 시퀀스를 4.0~8.8배 늘리며 디코딩 처리량을 1K 토큰 컨텍스트에서 2.5배 향상시켰다.
+</li><li>
+<strong>Recurrent Looped Transformer</strong> (<a href="https://arxiv.org/abs/2610.07591" target="_blank" rel="noopener">2610.07591</a>) — 트랜스포머가 토큰마다 고정된 깊이만 적용해 시퀀스 길이와 무관하다는 한계를 겨냥해, 병렬 인과 인코더와 순환 디코더로 레이어를 나눠 매 토큰마다 계산 경로가 시퀀스 길이에 따라 늘어나게 한다. 40비트까지만 학습해도 패리티를 256비트까지 100% 정확도로 일반화하고(표준 트랜스포머는 우연 수준), S5 순열 추적에서는 학습 길이의 8배에서 97% 대 1% 미만의 격차를 보였다.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Adaptive Power Sampling for LLM Reasoning</strong> (<a href="https://arxiv.org/abs/2610.08563" target="_blank" rel="noopener">2610.08563</a>) — 출력분포를 날카롭게 만들어 추론 성능을 올리는 학습 불필요 기법인 power sampling이 질의 난이도와 무관하게 균일한 샤프닝을 쓴다는 한계를 지적하고, 정답·오답 응답 사이의 self-reward 격차가 추가 샤프닝의 이득을 결정한다는 이론적 근거로 질의별 샤프닝 지수를 테스트 시점에 조정하는 Adaptive Power Sampling(APS)을 제안한다.
+</li><li>
+<strong>Rationale-Guided Policy Optimization: Learning to Reason with Adaptive Rationale Scaffolding</strong> (<a href="https://arxiv.org/abs/2610.07342" target="_blank" rel="noopener">2610.07342</a>) — 어려운 문제에서 모델이 정답 궤적을 전혀 찾지 못하면 온폴리시 RL의 보상 희소성 때문에 학습이 정체되는 문제를 겨냥해, 보조 데이터가 RL 과제 형식에 맞아야 한다는 기존 off-policy demonstration 방식의 제약 없이 모델의 현재 역량에 맞춰 정답 근거(rationale)를 적응적으로 활용하면서 탐색의 자유도는 유지하는 프레임워크를 제시한다.
+</li><li>
+<strong>Illusory Pattern Perception Drives Spurious Inference in Large Language Models</strong> (<a href="https://arxiv.org/abs/2610.07791" target="_blank" rel="noopener">2610.07791</a>) — 실제로는 무작위인 데이터에서 의미 있는 관계를 추론하는 인간의 인지적 경향("없는 점들을 잇기")이 LLM에도 나타나는지를 고전 심리학 패러다임을 적용한 세 과제로 처음 체계적으로 조사한다. LLM이 인간보다 더 강한 착각적 패턴 인식을 보이며, 빈도 높은 긍정적 속성을 다수집단·대형 조직에 과도하게 연관짓고 인과적 서사를 구성하는 경향이 증가한다는 것을 발견했다.
+</li></ul>
+<h4>🤗 HuggingFace Papers 트렌딩</h4>
+<ul><li>
+⚠ 확인 실패 — <code>huggingface.co</code> 도메인이 egress 프록시에 의해 차단되어 API·페이지 모두 접근 불가(7일 연속). WebSearch 우회는 금지 원칙에 따라 시도하지 않음.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">2</span></span></span></h3><div class="radar"><p>조회 600건 · 신규 523건 · 채택 2 · 보류 1 · 탈락 2</p>
+<p>색인 상태: <code>newest_fetched</code> 2026-10-06T17:59:34Z — 직전 커서(2026-10-05T17:59:54Z)에서 약 1일 전진했다. 실행 시각(2026-10-07 22:42 UTC) 대비 지연은 약 28.7시간으로, 전일 로그가 보고한 28.7시간과 거의 동일 — 안정적인 약 29시간 지연 패턴이 계속되고 있다(막히지 않았으나 실시간은 아님). 6절 규칙에 따라 wall-clock이 아닌 <strong>관측된 가장 최신 published(2026-10-06T17:59:34Z)</strong> 를 다음 <code>--last-run</code> 커서로 쓴다.</p>
+<p>신규 523건 중 <code>radar_match</code> 5건만 Gate A/B로 넘겼다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>Stateless Language Agents (SLA)</strong> — Scaling Long-Horizon Automated Research
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2610.07625" target="_blank" rel="noopener">2610.07625</a>
+</li><li>
+통과 근거: Gate B-2/B-4 — 하니스가 연구 상태를 소유하고 매 호출마다 역할별 맥락을 재구성하는 아키텍처가 HypoExplore/AutoScientists류 파이프라인에 바로 투입 가능한 재사용 패턴을 제공하며, 커널 최적화에서 최강 베이스라인 동급 성능을 84%(Claude Code)/93.1%(Codex) 적은 토큰으로 달성하고 전 과제 최종성능 1위를 기록한 강한 베이스라인.
+</li><li>
+파일: <code>2026/2026_SLA_Stateless-Agents-Harness-Owned-Research-State_arXiv2610.07625.pdf</code> · 리뷰: <code>2026_SLA_Stateless-Agents-Harness-Owned-Research-State_arXiv2610.07625_리뷰.md</code>
+</li></ul>
+</li><li>
+<strong>Fork-and-Flush</strong> — Escaping Idea Basins in Autoresearch Agents
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2610.07447" target="_blank" rel="noopener">2610.07447</a>
+</li><li>
+통과 근거: Gate B-1/B-2 — "idea basin"(독립 run들이 서로 다른 국소 영역에 갇혀 플래토)이라는 새 문제 프레이밍을 t-STE 임베딩으로 직접 가시화하고, 작업공간 보존+대화 초기화라는 재현 파이프라인에 즉시 이식 가능한 매우 단순한 개입으로 13개 장기과제에서 single-run 대비 66.0%, best-of-4 대비 44.4% 개선을 실증.
+</li><li>
+파일: <code>2026/2026_ForkAndFlush_Escaping-Idea-Basins-Autoresearch_arXiv2610.07447.pdf</code> · 리뷰: <code>2026_ForkAndFlush_Escaping-Idea-Basins-Autoresearch_arXiv2610.07447_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+IdeaAnchor: Teaching LLMs to Turn Literature into Research Ideas — <a href="https://arxiv.org/abs/2610.08781" target="_blank" rel="noopener">2610.08781</a> — Gate A(문헌 기반 연구 아이디어 생성 훈련)는 통과하나, 코퍼스의 DivAlign·Lit2Test·LigBench·SGHA·IdeaScientist(전일 보류)가 이미 포화시킨 "아이디어 생성 훈련" 축과 겹쳐 독립 신규성 강도가 애매.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+Agentic AutoRAG: RAG Pipeline Optimization through Reasoning-Driven Agents — <a href="https://arxiv.org/abs/2610.08452" target="_blank" rel="noopener">2610.08452</a> — Gate A 미충족, RAG 파이프라인 하이퍼파라미터 최적화에 LLM 에이전트를 도구로 쓴 응용 논문으로 자율 연구/가설 생성/아이디어 평가와 무관.
+</li><li>
+Transect: Retaining Observability for Long-Horizon LLM Agent Evaluations — <a href="https://arxiv.org/abs/2610.08364" target="_blank" rel="noopener">2610.08364</a> — Gate A 미충족, 장기 에이전트 평가 트랜스크립트를 분석하는 범용 관찰성(observability) 툴링으로 핵심 기여가 AI-Scientist 파이프라인이나 가설생성·아이디어평가 벤치마크가 아니라 에이전트 평가 인프라.
+</li></ul></div></div>
