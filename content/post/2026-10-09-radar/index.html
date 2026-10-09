@@ -1,0 +1,150 @@
+---
+title: "리서치 레이더 — 2026년 10월 9일 (금)"
+date: 2026-10-09T07:30:00+09:00
+draft: false
+issue_label: "2026년 10월 9일 (금)"
+summary: "기관 6 · arXiv 15 · 채택 2 · 보류 2 · 탈락 5"
+tags: ["Daily", "Research Radar"]
+layout: radar
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+신규 없음 (RSS 정상 확인, 최신 글은 전일 다룬 EmbeddingGemma 2(2026-10-06)로 변동 없음)
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+신규 없음 (RSS 정상 확인, 최신 글은 전일 다룬 "Does better work always mean better workers?"(2026-10-07)로 변동 없음)
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 (RSS 정상 확인, 최신 Research/Publication 글은 2026-10-06 "Sharing AI progress in mathematics"·"Advancing computer use with Ironclad"로 각각 2026-10-07·2026-10-08 브리핑에서 이미 다룸)
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>The missing map of the sky</strong> — Anthropic 연구자(겸 Johns Hopkins 천체물리학자) Brice Ménard가 Claude Science로 공개 UV(자외선) 서베이들을 조율해 최초의 완전한 전천(全天) 자외선 지도를 만들었다. NASA GALEX가 밝은 별 영역(은하면 포함)을 건너뛰어 남긴 공백의 약 3분의 1을 인페인팅으로 채우되(숨긴 데이터로 검증 시 실측값과 약 10% 이내 일치), 모든 픽셀에 "측정"/"예측" 라벨과 불확도를 남겼고 Claude가 GALEX 38,000회 관측 전체의 원형 아티팩트를 직접 수정했다. — <a href="https://www.anthropic.com/research/the-missing-map-of-the-sky" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 없음 (천문학 데이터 통합/AI 보조 과학 산출물, 5개 주제와 직접 겹치지 않음)
+</li></ul>
+</li><li>
+<strong>Launching an opt-in vulnerability-finding service for open-source software</strong> — Anthropic이 오픈소스 메인테이너 대상 무료 취약점 스캐닝 서비스 "OSS Scanner"를 출시한다. 모델이 생성한 보고서를 사람이 선검토하지 않고 바로 전달해 속도를 높이되, 6개월간 29,000건 이상의 후보 취약점 중 수동 검토를 마친 것은 약 6,000건뿐이라는 병목을 공개했고, 검증에서 48개 프로젝트의 중대/고위험 발견 97건 중 85건(88%)이 공개 기준을 충족했다(CyberGym 벤치마크에서 LLM의 취약점 발견율이 1년 만에 20% 미만에서 85% 이상으로 상승). — <a href="https://www.anthropic.com/research/launching-opt-in-vuln-finding-service-for-open-source" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 없음 (보안 연구/오픈소스 생태계 지원, 5개 주제와 직접 겹치지 않음)
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+신규 없음 (블로그 인덱스 정상 확인, 최신 글은 2026-07-27로 변동 없음)
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 (RSS 정상 확인, 최신 글은 전일 다룬 Agent Lightning v1.0(2026-10-07)로 변동 없음)
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+<strong>Zone of Proximal Policy Optimization (ZPPO)</strong> — 작은 학생 모델이 큰 교사 모델의 로짓을 모방하는 지식증류가 잘 일반화되지 않는 문제를 겨냥해, 교사를 정책 그래디언트가 아니라 프롬프트 안에 남겨두는 방식을 제안한다. 학생의 평균 롤아웃 정확도가 50% 미만인 어려운 문제에서, 교사의 정답과 학생의 오답을 익명 후보로 나란히 비교시키거나(BCQ) 학생의 오답들을 모아 공통 실패 패턴을 드러내게 하고(NCQ), 50% 이상 "졸업"할 때까지 재샘플링 버퍼에 남겨둔다. Qwen3.5 계열 4개 스케일(0.8B~9B)·31개 벤치마크에서 off-policy/on-policy distillation과 GRPO를 모두 능가했고 가장 작은 스케일에서 이득이 가장 컸다(구체적 벤치마크 수치는 초록에 제시되지 않음). — <a href="https://research.nvidia.com/publication/2026-12_zone-proximal-policy-optimization-teacher-prompts-not-gradients" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Reasoning
+</li></ul>
+</li><li>
+<strong>Agent Explorative Policy Optimization (AXPO)</strong> — 멀티모달 에이전트가 내부적으로 "생각"할지 외부 도구를 쓸지 결정할 때 생기는 "Thinking-Acting Gap"을 다룬다. 표준 GRPO 하에서는 도구 사용이 롤아웃의 약 30%에만 나타나고, 도구를 쓰는 질문의 약 40%는 그룹 내 도구 사용 롤아웃 전체가 틀려 학습 신호가 사라지는데, AXPO는 사고 접두사는 고정한 채 도구 호출과 그 이후만 재샘플링해 이 신호를 복원한다. 9개 멀티모달 벤치마크·3개 Qwen3-VL-Thinking 스케일에서 8B 모델이 SFT+GRPO 대비 Pass@1·Pass@4를 각 +1.8%p 높였고, Pass@4 기준으로는 파라미터 4배 적은 8B가 32B 베이스 모델을 넘어섰다. — <a href="https://research.nvidia.com/publication/2026-12_agent-explorative-policy-optimization-multimodal-agentic-reasoning" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents, Reasoning
+</li></ul>
+</li><li>
+<strong>SpatialClaw: Rethinking Action Interface for Agentic Spatial Reasoning</strong> — 공간 추론 에이전트의 성능을 좌우하는 것이 "행동 인터페이스" 자체라는 관점에서, 단일 패스 코드 실행이나 구조화된 도구 호출 대신 입력 프레임과 지각/기하 프리미티브가 미리 로드된 상태형(stateful) Python 커널을 코드로 직접 조작하는 training-free 프레임워크를 제안한다. 정적·동적 3D/4D를 포괄하는 20개 공간추론 벤치마크에서 평균 59.9% 정확도로 최근 공간 에이전트 대비 +11.2점을 기록했고, 두 모델 패밀리의 6개 VLM 백본 전체에서 벤치마크·모델별 조정 없이 일관된 개선을 보였다. — <a href="https://research.nvidia.com/publication/2026-12_spatialclaw-rethinking-action-interface-agentic-spatial-reasoning" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li><li>
+⚠ 참고: NVIDIA 출판 목록에 "Hide to See: Reasoning-prefix Masking for Visual-anchored Thinking in VLM Distillation" 등 5개 주제와 겹칠 수 있는 항목이 1건 더 보였으나, 비용상 본문 확인은 위 3건으로 제한했다.
+</li></ul>
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+<strong>Normalizing Trajectory Models (NTM)</strong> — 디퓨전 모델의 "다수의 작은 가우시안 디노이징 스텝" 가정이 소수 스텝으로 압축된 생성에서는 무너진다는 점을 겨냥해, 역방향 각 스텝을 정확한 likelihood로 학습하는 조건부 normalizing flow로 모델링해 소수-스텝 생성에서도 likelihood 프레임워크를 유지하는 방법을 제안한다. 각 스텝 내부의 얕은 invertible block과 궤적 전체에 걸친 깊은 병렬 예측기를 결합하고, 정확한 궤적 likelihood로부터 유도된 score function으로 경량 디노이저를 self-distillation해 4스텝만에 고품질 샘플을 생성하며, 텍스트-이미지 벤치마크에서 강한 베이스라인과 동등하거나 능가한다고 보고한다(구체적 벤치마크 수치는 페이지에 제시되지 않음). — <a href="https://machinelearning.apple.com/research/normalizing-trajectory-models" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 없음 (이미지 생성/디퓨전 샘플링 효율화, 5개 주제와 직접 겹치지 않음)
+</li></ul>
+</li></ul><h3 class="sub">arXiv 신규</h3><h4>AI Agents</h4>
+<ul><li>
+<strong>Loud Failures, Quiet Failures: Fault Detection and Recovery in Tool-Using Language Model Agents</strong> (<a href="https://arxiv.org/abs/2610.10062" target="_blank" rel="noopener">2610.10062</a>) — 도구를 쓰는 LLM 에이전트에 타임아웃·엔드포인트 소실·파라미터명 변경·조용히 틀린 결과라는 4종 결함을 주입해 6개 모델·24개 멀티턴 과제에서 1,920회 실험을 수행했다. 도구가 명시적 오류를 반환하면 91.3%를 인지하지만 형식은 맞고 값만 틀린 "조용한 실패"에서는 58.8%만 인지했고, 추론 모델이 비추론 모델보다 오히려 덜 알아챘다(-9.3점) — 에이전트가 결과 내용보다 오류 채널 자체에 반응하는 경향을 실증.
+</li><li>
+<strong>How Do Agentic LLMs Decide to Call Tools? A Tool-Call Vector Shaped by Suppression</strong> (<a href="https://arxiv.org/abs/2610.09624" target="_blank" rel="noopener">2610.09624</a>) — 복잡한 에이전트 프롬프트를 "요청 동사 하나만 바꿔도 결정이 바뀌는" 최소 대조쌍 500개로 변환해 도구 호출 결정 메커니즘을 분석했다. 이 결정이 인과적으로 필요충분한 단일 벡터(μΔ)에 의해 매개되며, 분석 동사가 트랜스코더 분해로 드러난 특정 feature를 통해 도구 호출 사전확률을 억제함을 Qwen·Mistral·Granite 등 7개 모델에서 공통으로 재현했다.
+</li><li>
+<strong>Secure-CUA: Controlling Untrusted Influence in Computer-Use Agents</strong> (<a href="https://arxiv.org/abs/2610.09469" target="_blank" rel="noopener">2610.09469</a>) — 컴퓨터 사용 에이전트가 화면 속 신뢰되지 않은 콘텐츠에 의해 행동이 바뀌는 문제를 형식적으로 정의하고, 각 행동 전에 신뢰되지 않은 콘텐츠 질의 범위를 미리 고정하는 "액션 트랜잭션" 개념의 Secure-CUA를 제안했다. WebArena 400과제·3모델·5시드, 총 6,000궤적 평가에서 성공률 53.55%로 방어 없는 Vanilla-CUA(55.12%)와 거의 동등하면서 기존 방어(CaMeL-CUA, 13.17%)보다 훨씬 높은 유용성을 유지했다.
+</li><li>
+<strong>A Society of Researchers: Designing Institutions for Populations of Autonomous Research Agents</strong> (<a href="https://arxiv.org/abs/2610.10468" target="_blank" rel="noopener">2610.10468</a>) — <em>(오늘 Paper Radar에서 보류 — 3절 참조. 레이더 판정은 이 기사와 별개의 독립 판정이다.)</em> 수천 에이전트가 하나의 컴퓨팅 풀을 공유할 때 PI들이 제안서로 자원을 두고 경쟁하고 독립 심사·그랜트를 받는 명시적 "제도"를 갖춘 "연구자 사회" 구조를 제안한다. 1만 명 규모로 실제 운영해 사전학습 품질을 유지하며 컴퓨트를 약 30% 절감하는 방법을 한 "연구실"이 보고했으나 검증한 다른 연구실들은 아직 합의하지 못했다.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>Can AI Agents Make Open-Ended Scientific Discovery? Evidence from Station</strong> (<a href="https://arxiv.org/abs/2610.08927" target="_blank" rel="noopener">2610.08927</a>) — <em>(오늘 Paper Radar에도 채택 — 3절 참조.)</em> 명확한 평가지표 없는 open-ended 과학 발견을 다루기 위해, 여러 에이전트가 과학 생태계를 시뮬레이션하는 개방형 환경 Station을 제안했다. ICLR 구두발표 논문 3편의 연구 질문만 주고 결과·웹 접근을 차단한 뒤 재발견율을 측정한 결과 Station은 평균 62.7%를 재발견한 반면 Codex Multiagent-v2는 15.4%, AI Scientist-v2는 14.4~20.6%에 그쳤다.
+</li><li>
+<strong>From Expert-Guided Proof Search to Automated Open-Problem Solving</strong> (<a href="https://arxiv.org/abs/2610.09769" target="_blank" rel="noopener">2610.09769</a>) — 병렬 증명 에이전트·검증 에이전트·사람이 읽을 수 있는 연구 상태를 유지하는 멀티에이전트 수학 연구 시스템 Bolzano를 소개한다. 전문가가 고른 문제에서 사람이 검증한 8개 결과를 얻은 뒤, 개입 없이 4개 논문 그룹에서 추출한 약 3,800개 미해결 문제에 적용해 약 200개를 풀었고, STOC 2026 논문이 제기한 4개 질문에 저자들이 확인한 답을 내놓았다.
+</li><li>
+<strong>RSI-Forge: From Research Papers to Environments for Recursive Self-Improvement</strong> (<a href="https://arxiv.org/abs/2610.09426" target="_blank" rel="noopener">2610.09426</a>) — 발표된 논문을 실행 가능한 연구 환경으로 자동 변환하는 멀티에이전트 파이프라인으로, 구성·재현·리뷰 담당 세 에이전트가 협력해 18개 분야·210개 환경(90개는 독립 인간 전문가 검토)을 생성했다. 4개 모델을 120개 환경에서 3회 연속 시도시킨 결과 84% 환경에서 적어도 한 모델이 개선됐고 68개 환경에서는 원 논문 재현 베이스라인을 능가했다.
+</li><li>
+<strong>DrugTargetWorld: A Synthetic Biobank for Training and Benchmarking AI Scientists</strong> (<a href="https://arxiv.org/abs/2610.09558" target="_blank" rel="noopener">2610.09558</a>) — <em>(오늘 Paper Radar에서 보류 — 3절 참조.)</em> 실제 바이오뱅크가 인과관계의 정답을 갖지 않는다는 문제를 해결하기 위해, 알려진 인과구조(평가자에게만 공개)를 가진 54,000명 규모의 합성 바이오뱅크를 절차적으로 생성했다. 9개 에이전트를 20개 심혈관계 "세계"·3가지 예산에서 540회 평가한 결과 Opus 5와 GPT-5.6 Sol이 각각 39.98점·35.38점(100점 만점)으로 최고 성능을 보였으나 어떤 에이전트도 오인과성 단백질을 안정적으로 구분하지 못했다.
+</li></ul>
+<h4>Hypothesis Generation</h4>
+<ul><li>
+<strong>CircuitATLAS: Agentic reasoning over a systems neuroscience knowledge graph for target discovery in circuitopathies</strong> (<a href="https://arxiv.org/abs/2610.09643" target="_blank" rel="noopener">2610.09643</a>) — <em>(오늘 Paper Radar에서 탈락 — 3절 참조.)</em> 질병에서 분자적으로 변화된 지점이 반드시 회로 기능을 되돌릴 최적 개입점은 아니라는 관점에서, 383만 노드·766만 엣지 규모의 출처 추적 가능한 시스템신경과학 지식그래프와 에이전트 워크플로우를 제시했다. 에이전트가 ATP1A3를 피질 흥분성 조절점으로 제안했고, 생체 내 실험에서 인터뉴런 특이적 발현이 4-aminopyridine 유발 베타/감마대역 반응을 실제로 없앴음을 확인해 가설 생성→실험 검증 루프를 입증했다.
+</li><li>
+<strong>When Should an In-Context Learner Expand Its Hypothesis Space?</strong> (<a href="https://arxiv.org/abs/2610.09471" target="_blank" rel="noopener">2610.09471</a>) — 관찰된 실패가 노이즈인지 예외인지 구조적 변화인지를 판단해 더 풍부한 가설 공간으로 확장할지를 비용이 드는 순차적 의사결정으로 formal화하고, 정확한 베이지안 계산이 가능한 "구조 수정 환경"을 설계했다. 가설 확장 여부는 고정된 "증거 임계값"이 아니라 비용·남은 기회에 따라 달라지는 "가치 경계"여야 하는데, 사후학습된 LLM들은 실패 신호를 감지하면서도 이를 비용·기회와 비교해 가중하지 않고 확장을 결정한다는 것을 발견했다.
+</li><li>
+<strong>Verify Less, Evolve More: Training Idea-Level Critics for Verification-Efficient ML Evolving Agents</strong> (<a href="https://arxiv.org/abs/2610.08993" target="_blank" rel="noopener">2610.08993</a>) — AI4ML 자기진화 에이전트가 제안한 개선 아이디어를 실제로 학습·평가해 검증하는 비용이 크다는 점에서, Gemini-3.1-Pro가 생성한 비평으로 SFT 후 GRPO로 추가 학습한 "아이디어 수준 비평가" 모델을 제안했다. 이 비평가는 정적 아이디어 평가에서 Gemini-3.1-Pro 자체보다 우수했고, 추론 시 진화·지속학습·정책학습 전반에서 더 유망한 아이디어를 선별해 동일 검증 예산 내 최종 해의 품질을 높였다.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>Mechanics of Long-Context Hybrid Models Part 1.1: From Hybrid Attention to Hybrid Position</strong> (<a href="https://arxiv.org/abs/2610.10114" target="_blank" rel="noopener">2610.10114</a>) — 전체 어텐션과 슬라이딩윈도우(SWA) 혹은 선형 어텐션(LA) 변형을 결합한 하이브리드 모델을 분석해, LA 하이브리드는 지속적 장문맥 사전학습에서, SWA 하이브리드는 길이 외삽에서 각각 유리한 "시소 효과"를 발견했다. SWA 하이브리드의 "짧은 문맥 학습 트랩" 현상을 규명했고, LA 하이브리드용으로 제안한 Sliding-Window Linear Attention은 64k 문맥에서 NIAH-SK1 100% 정확도를 유지하며 추가 학습 없이 16배 길이 외삽을 달성했다.
+</li><li>
+<strong>A Self-Pruning Transformer: Extreme KV-Cache Compression with Universal Attention</strong> (<a href="https://arxiv.org/abs/2610.09051" target="_blank" rel="noopener">2610.09051</a>) — RoPE를 감쇠 기반 메커니즘으로 대체해 KV-캐시를 가지치기하는 기존 방식이 결국 슬라이딩윈도우식 토큰 제거로 수렴한다는 한계를 지적하며, RoPE와 Softmax 어텐션의 표현력을 유지한 채 end-to-end 학습 가능한 "Universal Attention"을 제안했다. 복합 감쇠 메커니즘이 적응형 가지치기 기준으로 작동해 10배 압축과 함께 비압축 베이스라인보다 더 나은 성능을 보였고, 16k 길이에서는 25배 압축까지 일반화됐다.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>Decoupling Exploration from Optimization in RLVR</strong> (<a href="https://arxiv.org/abs/2610.10536" target="_blank" rel="noopener">2610.10536</a>) — 검증 가능한 보상 기반 강화학습(RLVR)에 참신성 보너스를 직접 추가하면 모델 품질이 저하되는 문제를 해결하기 위해, 참신성 보너스로 학습한 별도의 explorer 정책의 궤적을 정확성·품질로 필터링해 별도의 student 정책에 distill하는 "Exploration-Distillation(ExpDis)"을 제안했다. 탐색과 최적화를 분리한 결과 7개 수학 추론 벤치마크·2개 모델군에서 동일 연산 예산 하에 DAPO보다 우수했고 pass@k 스케일링도 개선됐다.
+</li><li>
+<strong>Certified by Abstention: Distribution-Free Guarantees for Chain-of-Thought Verifiers at Small Calibration Budgets</strong> (<a href="https://arxiv.org/abs/2610.09541" target="_blank" rel="noopener">2610.09541</a>) — CoT 정답 여부를 예측하는 verifier 신호들이 보통 AUC로만 비교되지만 실제 배치에는 보장된 threshold가 필요하다는 점에서, 7개 오픈모델·5개 verifier 신호·3.7만 개 채점 trace로 소규모 보정 예산 하의 distribution-free 보장을 분석했다. 인증서가 드물게만 발급될 경우 발급된 인증서의 실패율이 시뮬레이션에서 최대 69%까지 커질 수 있다는 "기각에 의한 타당성" 문제를 보였고, 단조성 가정 없이 유효한 "floor-started fixed-sequence 인증서"를 제시했지만 벤치마크 변화나 best-of-n 선택 하에서는 보장이 쉽게 무너질 수 있다고 경고했다.
+</li></ul>
+<h4>🤗 HuggingFace Papers 트렌딩</h4>
+<ul><li>
+⚠ 확인 실패 — <code>huggingface.co</code> 도메인이 egress 프록시에 의해 차단되어 API·페이지 모두 접근 불가(8일 연속). WebSearch 우회는 금지 원칙에 따라 시도하지 않음.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">2</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">5</span></span></span></h3><div class="radar"><p>조회 600건 · 신규 525건 · 채택 2 · 보류 2 · 탈락 5</p>
+<p>색인 상태: <code>newest_fetched</code> 2026-10-07T17:59:41Z — 직전 커서(2026-10-06T17:59:34Z)에서 약 1일 전진했다. 실행 시각(2026-10-08 22:40 UTC) 대비 지연은 약 28.7시간으로, 직전 두 번의 로그가 보고한 28.7시간과 거의 동일 — 안정적인 약 29시간 지연 패턴이 계속되고 있다(막히지 않았으나 실시간은 아님). 6절 규칙에 따라 wall-clock이 아닌 <strong>관측된 가장 최신 published(2026-10-07T17:59:41Z)</strong> 를 다음 <code>--last-run</code> 커서로 쓴다.</p>
+<p>신규 525건 중 <code>radar_match</code> 9건만 Gate A/B로 넘겼다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>Kernaut</strong> — Kernel Autoresearch for Open-Ended Model Discovery
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2610.10394" target="_blank" rel="noopener">2610.10394</a>
+</li><li>
+통과 근거: Gate B-2 — 에이전트는 커널 구성요소만 제안하고 신뢰된 인터프리터가 PSD 보존 규칙으로 조립해 유효성을 공리적으로 보장하는 "제안-조립 분리" 패턴이 HypoExplore/AutoScientists의 가설 검증 단계에 바로 이식 가능. open-vs-closed ablation으로 탐색공간 확장 자체의 기여를 분리했고(12개 중 11개 승리, test CRPS 8% 개선), 4개 이질적 도메인(BBO·시계열·효소·포도당)에서 일관된 전이 성능을 실증.
+</li><li>
+파일: <code>2026/2026_Kernaut_Kernel-Autoresearch-Open-Ended-Model-Discovery_arXiv2610.10394.pdf</code> · 리뷰: <code>2026_Kernaut_Kernel-Autoresearch-Open-Ended-Model-Discovery_arXiv2610.10394_리뷰.md</code>
+</li></ul>
+</li><li>
+<strong>Station</strong> — Can AI Agents Make Open-Ended Scientific Discovery? Evidence from Station
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2610.08927" target="_blank" rel="noopener">2610.08927</a>
+</li><li>
+통과 근거: Gate B-1/B-4 — 사전 정의된 지표 없는 open-ended 과제에서 "오라클 논문의 발견을 숨기고 사후 세부발견 단위로 재발견율을 측정"하는 새 평가 프레이밍을 도입했고, 분산형 환경+Supervisor+Meta Reflection 조합이 중앙통제 베이스라인 대비 재발견율에서 큰 격차(평균 62.7% vs Codex Multiagent-v2 15.4%, AI Scientist-v2 14.4–20.6%)로 우위를 보여 이 분야의 강한 새 베이스라인이 될 만함.
+</li><li>
+파일: <code>2026/2026_Station_Open-Ended-Scientific-Discovery-Evidence_arXiv2610.08927.pdf</code> · 리뷰: <code>2026_Station_Open-Ended-Scientific-Discovery-Evidence_arXiv2610.08927_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+A Society of Researchers: Designing Institutions for Populations of Autonomous Research Agents — <a href="https://arxiv.org/abs/2610.10468" target="_blank" rel="noopener">2610.10468</a> — Gate A(자율 연구 에이전트 집단 조직화)는 통과하나 핵심 실증(1만 에이전트 사회가 사전학습 컴퓨트를 약 30% 절감)이 "검증한 다른 연구실들이 아직 합의하지 못했다"는 미확정 단일 사례이고, 6개 open problem을 나열하는 구조가 엄밀한 실증보다 설계 제안에 가까워 Gate B 충족 강도가 애매.
+</li><li>
+DrugTargetWorld: A Synthetic Biobank for Training and Benchmarking AI Scientists — <a href="https://arxiv.org/abs/2610.09558" target="_blank" rel="noopener">2610.09558</a> — Gate A(자동연구 벤치마크)는 통과하나 "에이전트가 사전지식 대신 실제 데이터를 썼는가"라는 핵심 질문이 코퍼스에 이미 있는 EvidenceGrounding(arXiv2610.04915)과 같은 문제 축이고, 약물 표적 발견이라는 특정 도메인으로의 적용이 새 축이라기보다 도메인 전환에 가까워 독립 신규성 강도가 애매.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+When Scientific Cognition Is No Longer Scarce — <a href="https://arxiv.org/abs/2610.10241" target="_blank" rel="noopener">2610.10241</a> — Gate A 미충족, 정량 평가나 에이전트 구현이 없는 정책/개념 논의(국가연구소 거버넌스에 대한 position paper)로 자율 연구 파이프라인·가설생성·아이디어평가 어느 것도 핵심 기여가 아님.
+</li><li>
+RewardWeaver: Long-Horizon Interactive Learning for Language Agents via Self-Evolving Reward Adaptation — <a href="https://arxiv.org/abs/2610.10120" target="_blank" rel="noopener">2610.10120</a> — Gate A 미충족, SOTOPIA·협상·영업 벤치마크에 쓰이는 범용 RL 보상 적응 기법으로 핵심 기여가 자율 연구/가설생성/아이디어평가가 아니라 언어 에이전트 일반의 장기 상호작용 학습.
+</li><li>
+AgentTime: Can Agents Estimate and Control Their Own Runtime? — <a href="https://arxiv.org/abs/2610.09944" target="_blank" rel="noopener">2610.09944</a> — Gate A 미충족, 코딩·컴퓨터유즈·자동연구 등 18개 소스를 포괄하는 에이전트의 시간 인식·실행시간 통제 능력 벤치마크로, 연구 아이디어 평가가 아니라 범용 에이전트 능력 벤치마크.
+</li><li>
+CircuitATLAS: Agentic reasoning over a systems neuroscience knowledge graph for target discovery in circuitopathies — <a href="https://arxiv.org/abs/2610.09643" target="_blank" rel="noopener">2610.09643</a> — Gate A 미충족, LLM/에이전트를 신경과학 지식그래프 기반 약물 표적 발견에 도구로 쓴 응용 논문.
+</li><li>
+From Retrieval to Customer Context: Evaluating Frontier-Model Systems for Voice-of-Customer Analysis — <a href="https://arxiv.org/abs/2610.09375" target="_blank" rel="noopener">2610.09375</a> — Gate A 미충족, 고객 피드백 분석을 위한 엔터프라이즈 RAG/에이전트 비교 연구로 자율 연구/가설생성/아이디어평가와 무관.
+</li></ul></div></div>
