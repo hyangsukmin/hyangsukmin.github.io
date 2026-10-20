@@ -1,0 +1,7 @@
+{%- comment -%}
+  Called by al-folio's bib layout. Papers with `cofirst = {true}` in
+  papers.bib get a "Co-first author" badge after the year.
+{%- endcomment -%}
+{%- if entry.cofirst -%}
+  {%- capture entryyear -%}{{ entryyear }}<span class="badge co-first" style="background-color: var(--global-theme-color); color: var(--global-bg-color); font-style: normal; font-weight: 600; font-size: 0.75rem; margin-left: 0.5rem; padding: 0.3em 0.6em; vertical-align: middle;">Co-first author</span>{%- endcapture -%}
+{%- endif -%}
