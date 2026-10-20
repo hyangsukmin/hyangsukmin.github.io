@@ -1,0 +1,26 @@
+"ACL":
+  url: https://aclanthology.org/
+  color: "#b31b1b"
+
+"EMNLP":
+  url: https://aclanthology.org/
+  color: "#1b7a3a"
+
+"ICLR":
+  url: https://iclr.cc/
+  color: "#d9730d"
+
+"COLM":
+  url: https://colmweb.org/
+  color: "#6a3fb5"
+
+"AAAI":
+  url: https://aaai.org/
+  color: "#1f3a93"
+
+"KDD":
+  url: https://kdd.org/
+  color: "#a07a00"
+
+"BigComp":
+  color: "#2c5f8a"

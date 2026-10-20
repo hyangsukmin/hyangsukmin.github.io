@@ -1,0 +1,118 @@
+---
+---
+
+@inproceedings{min2026remember,
+  abbr        = {EMNLP},
+  bibtex_show = {true},
+  title       = {Don't Scroll Back: Missing-Evidence Memory for Streaming Dialogue Summarization},
+  author      = {Min, Hyangsuk and Song*, Hwanjun},
+  booktitle   = {Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  year        = {2026},
+  abstract    = {Users of modern platforms repeatedly need summaries of recent dialogue, but the window rarely contains enough context to be interpreted on its own. We formalize this setting as streaming dialogue summarization, where a system must summarize a current window using selective memory from an unbounded history under a fixed budget. We show that the central challenge is not how much history is accessed, but whether memory recovers the evidence that the current window presupposes. We construct a benchmark and evaluation protocol that separately assesses whether memory contains gap-resolving evidence and whether the generated summary reflects it. We propose ReMEMBER, a missing-evidence memory framework that conditions retrieval on unresolved window dependencies and refines retrieved chunks into evidence-dense memory under a fixed budget. Experiments on dialogues with histories up to 160K tokens show that ReMEMBER improves memory recall and gap-resolution completeness over memory construction baselines under the same budget.},
+  arxiv       = {2608.09043},
+  preview     = {remember.png},
+  annotation  = {* Corresponding author},
+  selected    = {true}
+}
+
+@inproceedings{ban2026dream,
+  abbr        = {ICLR},
+  bibtex_show = {true},
+  title       = {Completing Missing Annotation: Multi-Agent Debate for Accurate and Scalable Relevant Assessment for IR Benchmarks},
+  author      = {Ban†, Minjeong and Choi†, Jeonghwan and Min†, Hyangsuk and Kim, Nicole Hee-Yeon and Kim, Minseok and Lee, Jae-Gil and Song*, Hwanjun},
+  booktitle   = {International Conference on Learning Representations (ICLR)},
+  year        = {2026},
+  abstract    = {Information retrieval (IR) evaluation remains challenging due to incomplete IR benchmark datasets that contain unlabeled relevant chunks. While LLMs and LLM-human hybrid strategies reduce costly human effort, they remain prone to LLM overconfidence and ineffective AI-to-human escalation. To address this, we propose DREAM, a multi-round debate-based relevance assessment framework with LLM agents, built on opposing initial stances and iterative reciprocal critique. Through our agreement-based debate, it yields more accurate labeling for certain cases and more reliable AI-to-human escalation for uncertain ones, achieving 95.2% labeling accuracy with only 3.5% human involvement. Using DREAM, we build BRIDGE, a refined benchmark that mitigates evaluation bias and enables fairer retriever comparison by uncovering 29,824 missing relevant chunks. We then re-benchmark IR systems and extend evaluation to RAG, showing that unaddressed holes not only distort retriever rankings but also drive retrieval-generation misalignment. The relevance assessment framework is available at https: //github.com/DISL-Lab/DREAM-ICLR-26; and the BRIDGE dataset is available at https://github.com/DISL-Lab/BRIDGE-Benchmark.},
+  arxiv       = {2602.06526},
+  pdf         = {https://openreview.net/pdf?id=DD5RNCHuzq},
+  preview     = {dream.png},
+  annotation  = {† Equal contribution · * Corresponding author},
+  selected    = {true}
+}
+
+@inproceedings{lee2025hamlet,
+  abbr        = {EMNLP},
+  bibtex_show = {true},
+  title       = {Towards a Holistic and Automated Evaluation Framework for Multi-Level Comprehension of LLMs in Book-Length Contexts},
+  author      = {Lee†, Yuho and Deng†, Jiaqi and Kim, Nicole Hee-Yeon and Min, Hyangsuk and Yun, Taewon and Ban, Minjeong and Kim, Yul and Song*, Hwanjun},
+  booktitle   = {Conference on Empirical Methods in Natural Language Processing (EMNLP), Main},
+  year        = {2025},
+  abstract    = {We introduce HAMLET, a holistic and automated framework for evaluating the long-context comprehension of large language models (LLMs). HAMLET structures source texts into a three-level key-fact hierarchy at root-, branch-, and leaf-levels, and employs query-focused summarization to evaluate how well models recall and faithfully represent information at each level. To validate the reliability of our fully automated pipeline, we conduct a systematic human study, showing that our automatic evaluation achieves over 90% agreement with expert human judgments, while reducing the cost by up to 25 times. HAMLET reveals that LLMs struggle with fine-grained comprehension, especially at the leaf level, and are sensitive to positional effects like the lost-in-the-middle. Analytical queries pose greater challenges than narrative ones, and consistent performance gaps emerge between open-source and proprietary models, as well as across model scales. Our code and dataset are publicly available at https://github.com/DISL-Lab/HAMLET.},
+  arxiv       = {2508.19578},
+  pdf         = {https://aclanthology.org/2025.emnlp-main.1241.pdf},
+  preview     = {hamlet.png},
+  annotation  = {† Equal contribution · * Corresponding author}
+}
+
+@inproceedings{yun2025refeed,
+  abbr        = {COLM},
+  bibtex_show = {true},
+  title       = {ReFeed: Multi-Dimensional Summarization Refinement with Reflective Reasoning on Feedback},
+  author      = {Yun, Taewon and Oh, Jihwan and Min, Hyangsuk and Lee, Yuho and Bang, Jihwan and Cai, Jason and Song*, Hwanjun},
+  booktitle   = {Conference on Language Modeling (COLM)},
+  year        = {2025},
+  abstract    = {Summarization refinement faces challenges when extending to multi-dimension. In this paper, we introduce ReFeed, a powerful summarization refinement pipeline that enhances multiple dimensions through reflective reasoning on feedback. To achieve this, we release SumFeed-CoT, a large-scale Long-CoT-based dataset optimized for training a lightweight model with reflective reasoning. Our experiments reveal how the number of dimensions, feedback exposure, and reasoning policy influence refinement performance, highlighting reflective reasoning and simultaneously addressing multiple feedback is crucial to mitigate trade-off between dimensions. Furthermore, ReFeed is robust to noisy feedback and feedback order. Lastly, our finding emphasizes that creating data with a proper goal and guideline constitutes a fundamental pillar of effective reasoning. The dataset and model will be released.},
+  arxiv       = {2503.21332},
+  pdf         = {https://openreview.net/pdf?id=6BGDGKZN7q},
+  preview     = {refeed.png},
+  annotation  = {* Corresponding author}
+}
+
+@inproceedings{min2025msumbench,
+  abbr        = {ACL},
+  bibtex_show = {true},
+  title       = {Towards Multi-dimensional Evaluation of LLM Summarization across Domains and Languages},
+  author      = {Min†, Hyangsuk and Lee†, Yuho and Ban, Minjeong and Deng, Jiaqi and Kim, Nicole Hee-Yeon and Yun, Taewon and Su, Hang and Cai, Jason and Song*, Hwanjun},
+  booktitle   = {Annual Meeting of the Association for Computational Linguistics (ACL), Main},
+  year        = {2025},
+  abstract    = {Evaluation frameworks for text summarization have evolved in terms of both domain coverage and metrics. However, existing benchmarks still lack domain-specific assessment criteria, remain predominantly English-centric, and face challenges with human annotation due to the complexity of reasoning. To address these, we introduce MSumBench, which provides a multi-dimensional, multi-domain evaluation of summarization in English and Chinese. It also incorporates specialized assessment criteria for each domain and leverages a multi-agent debate system to enhance annotation quality. By evaluating eight modern summarization models, we discover distinct performance patterns across domains and languages. We further examine large language models as summary evaluators, analyzing the correlation between their evaluation and summarization capabilities, and uncovering systematic bias in their assessment of self-generated summaries. Our benchmark dataset is publicly available at https://github.com/DISL-Lab/MSumBench.},
+  arxiv       = {2506.00549},
+  pdf         = {https://aclanthology.org/2025.acl-long.702.pdf},
+  preview     = {msumbench.png},
+  annotation  = {† Equal contribution · * Corresponding author},
+  selected    = {true}
+}
+
+@inproceedings{min2023tcts,
+  abbr        = {BigComp},
+  bibtex_show = {true},
+  title       = {Temporal Convolutional Network-based Time-Series Segmentation},
+  author      = {Min, Hyangsuk and Lee*, Jae-Gil},
+  booktitle   = {International Conference on Big Data and Smart Computing (BigComp)},
+  year        = {2023},
+  abstract    = {Time-series segmentation is useful to identify the underlying characteristics of time series and summarize time series as a sequence of states. Partitioning time series into the states makes the complex time series easily understandable and interpretable. However, as labels for time points are not normally available, it is challenging to Figure out the accurate segments and their states. Therefore, we propose an unsupervised time-series segmentation using the inherent properties in times series. The states can be characterized by diverse length patterns inherent in time series, and thus capturing diverse patterns is crucial in an unsupervised time-series segmentation. We adopt a temporal convolutional network (TCN) as our key component to learn diverse length patterns since the intermediate layers in TCN contain both short and long patterns hierarchically. In this paper, we propose a novel unsupervised time-series segmentation TCTS, which is featured with the joint optimization of two modules. The TCN-based pattern learning module aims to grasp diverse length patterns that are characterized differently by the states, while the clustering-based classification module improves the separability of the representations between the states. We conduct experiments by comparing several baselines with multiple datasets and demonstrate the superiority of TCTS.},
+  pdf         = {https://www.kaistdmlab.org/_files/ugd/c5ff4f_d8df9700000445cdb0bfcf75e77ac4d5.pdf},
+  doi         = {10.1109/BigComp57234.2023.00050},
+  preview     = {tcts.png},
+  annotation  = {* Corresponding author}
+}
+
+@inproceedings{kim2022coviddeenet,
+  abbr        = {AAAI},
+  bibtex_show = {true},
+  title       = {Covid-EENet: Predicting Fine-Grained Impact of COVID-19 on Local Economies},
+  author      = {Kim, Doyoung and Min, Hyangsuk and Nam, Youngeun and Song, Hwanjun and Yoon, Susik and Kim, Minseok and Lee*, Jae-Gil},
+  booktitle   = {AAAI Conference on Artificial Intelligence (AAAI)},
+  year        = {2022},
+  abstract    = {Assessing the impact of the COVID-19 crisis on economies is fundamental to tailor the responses of the governments to recover from the crisis. In this paper, we present a novel approach to assessing the economic impact with a large-scale credit card transaction dataset at a fine granularity. For this purpose, we develop a fine-grained economic-epidemiological modeling framework COVID-EENet, which is featured with a two-level deep neural network. In support of the fine-grained EEM, COVID-EENet learns the impact of nearby mass infection cases on the changes of local economies in each district. Through the experiments using the nationwide dataset, given a set of active mass infection cases, COVID-EENet is shown to precisely predict the sales changes in two or four weeks for each district and business category. Therefore, policymakers can be informed of the predictive impact to put in the most effective mitigation measures. Overall, we believe that our work opens a new perspective of using financial data to recover from the economic crisis. For public use in this urgent problem, we release the source code at https://github.com/kaist-dmlab/COVID-EENet.},
+  pdf         = {https://ojs.aaai.org/index.php/AAAI/article/view/21455/21204},
+  doi         = {10.1609/aaai.v36i11.21455},
+  preview     = {covid-eenet.png},
+  award_name  = {Oral},
+  award       = {Selected for Oral presentation.},
+  annotation  = {* Corresponding author}
+}
+
+@inproceedings{kim2020hicovidnet,
+  abbr        = {KDD},
+  bibtex_show = {true},
+  title       = {Hi-COVIDNet: Deep Learning Approach to Predict Inbound COVID-19 Patients and Case Study in South Korea},
+  author      = {Kim, Minseok and Kang, Junhyeok and Kim, Doyoung and Song, Hwanjun and Min, Hyangsuk and Nam, Youngeun and Park, Dongmin and Lee*, Jae-Gil},
+  booktitle   = {ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)},
+  year        = {2020},
+  abstract    = {The escalating crisis of COVID-19 has put people all over the world in danger. Owing to the high contagion rate of the virus, COVID-19 cases continue to increase globally. To further suppress the threat of the COVID-19 pandemic and minimize its damage, it is imperative that each country monitors inbound travelers. Moreover, given that resources for quarantine are often limited, they must be carefully allocated. In this paper, to aid in such allocation by predicting the number of inbound COVID-19 cases, we propose Hi-COVIDNet, which takes advantage of the geographic hierarchy. Hi-COVIDNet is based on a neural network with two-level components, namely, country-level and continent-level encoders, which understand the complex relationships among foreign countries and derive their respective contagion risk to the destination country. An in-depth case study in South Korea with real-world COVID-19 datasets confirmed the effectiveness and practicality of Hi-COVIDNet.},
+  html        = {https://dl.acm.org/doi/10.1145/3394486.3412864},
+  doi         = {10.1145/3394486.3412864},
+  preview     = {hi-covidnet.png},
+  annotation  = {* Corresponding author}
+}

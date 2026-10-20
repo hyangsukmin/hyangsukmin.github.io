@@ -1,0 +1,75 @@
+cv:
+  name: Hyangsuk Min
+  label: PhD Student, KAIST
+  email: hyangsuk.min@kaist.ac.kr
+  location: Daejeon, Korea
+  image: ""
+  summary: PhD student at KAIST working on trustworthy AI agents, memory, and AI co-scientist systems.
+
+  social_networks:
+    - network: GitHub
+      username: hmin0503
+    - network: LinkedIn
+      username: hyangsukmin
+
+  sections:
+    Education:
+      - institution: Korea Advanced Institute of Science and Technology (KAIST)
+        location: Daejeon, Korea
+        url: https://www.kaist.ac.kr/en/
+        area: Industrial Engineering
+        studyType: PhD
+        start_date: 2024-09
+        end_date: present
+        highlights:
+          - Advisor: Prof. Hwanjun Song
+
+      - institution: Korea Advanced Institute of Science and Technology (KAIST)
+        location: Daejeon, Korea
+        url: https://www.kaist.ac.kr/en/
+        area: Graduate School of Data Science
+        studyType: MS
+        start_date: 2020-03
+        end_date: 2022-08
+        highlights:
+          - "GPA: 4.12/4.3"
+          - "[Thesis](https://ieeexplore.ieee.org/abstract/document/10066661)"
+
+      - institution: Kookmin University
+        location: Seoul, Korea
+        area: Bigdata Analysis and Statistics
+        studyType: BBA
+        start_date: 2015-03
+        end_date: 2019-08
+        highlights:
+          - "GPA: 4.4/4.5"
+
+    Experience:
+      - company: HL Mando
+        position: AI Research Engineer
+        start_date: 2022-10
+        end_date: 2024-08
+        summary: Designed synthetic data generation techniques to address data scarcity and engineered CI/CD pipelines that deployed deep learning models into smart factory production lines.
+
+      - company: Uniquify
+        position: ASIC Engineering Intern
+        start_date: 2018-08
+        end_date: 2019-06
+        summary: Collaborated with global teams on physical design tasks, including place-and-route (PnR) and engineering change orders (ECO), and automated timing and violation reporting with custom Perl scripts.
+
+    Awards:
+      - title: Merit Scholarship
+        summary: Merit scholarships totaling approximately $16,000 across 7 semesters for academic excellence (2 full, 5 partial).
+
+    Languages:
+      - name: Korean
+        summary: Native
+      - name: English
+        summary: Intermediate–Fluent
+      - name: Spanish
+        summary: Beginner
+
+    Interests:
+      - name: Research
+        icon: fa-solid fa-tag
+        keywords: "Large Language Models, Human-AI Alignment, Data-Centric AI, Summarization and Evaluation, Trustworthy AI"
