@@ -32,7 +32,7 @@ latest_posts:
 </style>
 
 
-Hello. I'm Hyangsuk Min (민향숙), a PhD student at [KAIST](https://www.kaist.ac.kr/en/), advised by Prof. Hwanjun Song.
+Hello. I'm Hyangsuk Min (민향숙), a PhD student in [Industrial & Systems Engineering](https://ie.kaist.ac.kr/) at [KAIST](https://www.kaist.ac.kr/en/), advised by [Prof. Hwanjun Song](https://songhwanjun.github.io/).
 
 My research asks how AI agents stay trustworthy when the information they receive is incomplete, noisy, evolving, or spread across contexts. I have worked on:
 
@@ -40,6 +40,6 @@ My research asks how AI agents stay trustworthy when the information they receiv
 - **Memory-enabled agents** that reuse past interactions without losing faithfulness;
 - **AI co-scientist systems**, testing whether LLMs show researcher-level understanding when reading, comparing, and synthesizing scientific literature.
 
-Before my PhD, I was an AI Research Engineer at HL Mando, and I received my MS from the KAIST Graduate School of Data Science, advised by Prof. Jae-Gil Lee.
+Before my PhD, I was an AI Research Engineer at [HL Mando](https://www.hlmando.com/), building ML pipelines for smart factory and vehicle systems. I received my MS from the [KAIST Graduate School of Data Science](https://gsds.kaist.ac.kr/), advised by [Prof. Jae-Gil Lee](https://dm.kaist.ac.kr/jaegil/).
 
 Please feel free to contact me via email: hyangsuk.min (at) kaist.ac.kr.

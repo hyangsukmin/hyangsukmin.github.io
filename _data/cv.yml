@@ -68,8 +68,38 @@ cv:
           - Developed Perl scripts to summarize timing reports and identify design violations.
 
     Awards:
+      - title: Graduated Cum Laude
+        awarder: Kookmin University
+        date: 2019-08
+        summary: "GPA: 4.4/4.5"
+
       - title: Merit Scholarship
+        awarder: Kookmin University
+        date: 2015-09
         summary: Merit scholarships totaling approximately ₩17M (~$12,000) across 7 semesters for academic excellence (2 full, 5 partial).
+
+    Patents:
+      - bullet: "**Method and Apparatus for Predicting Fine-Grained Impact of COVID-19 on Local Economies** — South Korea, Registration No. 1020220134903 (Oct 19, 2022)"
+
+    Academic Service:
+      - label: Reviewer
+        details: ICML, ACL, EMNLP, NeurIPS, ICLR, Neural Networks
+
+    Teaching:
+      - bullet: "**Programming for Data Science** (IE260), Teaching Assistant, KAIST — Spring 2026"
+      - bullet: "**Data Structures and Analysis** (IE260), Teaching Assistant, KAIST — Spring 2025"
+      - bullet: "**LLM Fine-tuning with HuggingFace**, Assistant Instructor, SK Telecom — Nov 2023"
+
+    Certificates:
+      - name: "ADP: Advanced Data Analytics Professional"
+        date: 2021-07
+      - name: "SQLD: SQL Developer"
+        date: 2018-04
+
+    Skills:
+      - name: Programming
+        icon: fa-solid fa-code
+        keywords: "Python (PyTorch), R, SQL, HTML/CSS"
 
     Languages:
       - name: Korean
