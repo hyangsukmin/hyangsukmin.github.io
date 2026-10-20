@@ -31,3 +31,7 @@
 
 "KSC":
   color: "#5a5a5a"
+
+"KTCP":
+  url: https://doi.org/10.5626/ktcp
+  color: "#3d5a80"
