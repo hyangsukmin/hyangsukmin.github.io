@@ -6,7 +6,7 @@ subtitle: PhD Student at <a href='https://www.kaist.ac.kr/en/'>KAIST</a> · she/
 
 profile:
   align: right
-  image: prof_pic.png
+  image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>hyangsuk.min@kaist.ac.kr</p>
