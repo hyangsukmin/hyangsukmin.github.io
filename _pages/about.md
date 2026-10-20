@@ -34,6 +34,6 @@ My research asks how AI agents stay trustworthy when the information they receiv
 - **Memory-enabled agents** that reuse past interactions without losing faithfulness;
 - **AI co-scientist systems**, testing whether LLMs show researcher-level understanding when reading, comparing, and synthesizing scientific literature.
 
-Before my PhD, I was an AI Research Engineer at HL Mando, and I received my MS from the KAIST Graduate School of Data Science.
+Before my PhD, I was an AI Research Engineer at HL Mando, and I received my MS from the KAIST Graduate School of Data Science, advised by Prof. Jae-Gil Lee.
 
 Please feel free to contact me via email: hyangsuk.min (at) kaist.ac.kr.

@@ -22,7 +22,7 @@ cv:
         start_date: 2024-09
         end_date: present
         highlights:
-          - Advisor: Prof. Hwanjun Song
+          - "Advisor: Prof. Hwanjun Song"
 
       - institution: Korea Advanced Institute of Science and Technology (KAIST)
         location: Daejeon, Korea
@@ -32,6 +32,7 @@ cv:
         start_date: 2020-03
         end_date: 2022-08
         highlights:
+          - "Advisor: Prof. Jae-Gil Lee"
           - "GPA: 4.12/4.3"
           - "[Thesis](https://ieeexplore.ieee.org/abstract/document/10066661)"
 
@@ -46,16 +47,25 @@ cv:
 
     Experience:
       - company: HL Mando
-        position: AI Research Engineer
+        position: AI Research Engineer (M2MCx, SW Campus)
+        location: Pangyo, Korea
         start_date: 2022-10
         end_date: 2024-08
-        summary: Designed synthetic data generation techniques to address data scarcity and engineered CI/CD pipelines that deployed deep learning models into smart factory production lines.
+        highlights:
+          - Built auto-ML training, evaluation, and deployment pipelines for smart factory and vehicle diagnostics systems.
+          - Developed on-premise MLOps infrastructure and CI/CD workflows for deep learning models using sensor and image data in production environments.
+          - Designed synthetic data generation pipelines for vision inspection and uncharted driving scenarios under limited-data and distribution-shift settings.
+          - Applied prompt engineering and domain adaptation to LLM-based OEM requirement classification and mixed-format document analysis.
+          - Worked across the full ML lifecycle, including data analysis, model development, evaluation, deployment, and production monitoring.
 
       - company: Uniquify
-        position: ASIC Engineering Intern
+        position: ASIC Engineering Intern (Physical Design)
+        location: San Jose, CA, USA
         start_date: 2018-08
         end_date: 2019-06
-        summary: Collaborated with global teams on physical design tasks, including place-and-route (PnR) and engineering change orders (ECO), and automated timing and violation reporting with custom Perl scripts.
+        highlights:
+          - Worked with overseas engineering teams on physical design, place-and-route (PnR), and engineering change order (ECO) workflows.
+          - Developed Perl scripts to summarize timing reports and identify design violations.
 
     Awards:
       - title: Merit Scholarship
