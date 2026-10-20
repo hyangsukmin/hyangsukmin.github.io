@@ -6,7 +6,7 @@ subtitle: PhD Student at <a href='https://www.kaist.ac.kr/en/'>KAIST</a> · she/
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: prof_pic.png
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>hyangsuk.min@kaist.ac.kr</p>
@@ -25,6 +25,12 @@ latest_posts:
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
   limit: 3 # leave blank to include all the blog posts
 ---
+
+<!-- the profile picture is a cut-out with a transparent background, so drop the card shadow -->
+<style>
+  .profile img { box-shadow: none !important; border-radius: 0 !important; }
+</style>
+
 
 Hello. I'm Hyangsuk Min (민향숙), a PhD student at [KAIST](https://www.kaist.ac.kr/en/), advised by Prof. Hwanjun Song.
 
