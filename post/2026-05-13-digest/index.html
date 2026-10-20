@@ -1,0 +1,1821 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> 논문 Daily Digest 2026년 05월 13일 (2편) | Hyangsuk Min </title> <meta name="author" content="Hyangsuk Min"> <meta name="description" content="Experience-Based Adaptation 분야 유망 논문 2편 | Haiku 자동 분석"> <meta name="keywords" content="Hyangsuk Min, KAIST, LLM, AI agents, summarization, evaluation"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%98%95%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="canonical" href="https://hyangsukmin.github.io/post/2026-05-13-digest/"> <script src="/assets/js/theme.js?v=5286c3e4c334d0ecb8fc0c40ff4fa7ec"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Hyangsuk</span> Min </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/post/index.html">daily update </a> </li> <li class="nav-item "> <a class="nav-link" href="/notes/">notes </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">논문 Daily Digest 2026년 05월 13일 (2편)</h1> <p class="post-meta"> Created on May 12, 2026 </p> <p class="post-tags"> <i class="fa-solid fa-calendar fa-sm"></i> 2026   ·   <i class="fa-solid fa-hashtag fa-sm"></i> paper-digest   <i class="fa-solid fa-hashtag fa-sm"></i> ai   <i class="fa-solid fa-hashtag fa-sm"></i> research   <i class="fa-solid fa-hashtag fa-sm"></i> agent   <i class="fa-solid fa-hashtag fa-sm"></i> memory   ·   <i class="fa-solid fa-tag fa-sm"></i> daily </p> </header> <article class="post-content"> <div id="markdown-content"> <p><strong>목차</strong></p> <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;"> | # | 분야 | 제목 | |---|------|------| | 1 | Experience-Based Adaptation | [Do Self-Evolving Agents Forget? Capability Degradation and Preservation in Lifelong LLM Agent Adaptation](#paper1) | | 2 | Experience-Based Adaptation | [From Storage to Experience: A Survey on the Evolution of LLM Agent Memory Mechanisms](#paper2) | </div> <hr> <p><strong>Experience-Based Adaptation</strong></p> <blockquote> <p>💡 <strong>오늘의 핵심 인사이트</strong></p> </blockquote> <p>LLM 에이전트가 자기 스스로 학습하고 진화할 수 있게 되면서 새로운 문제가 떠올랐는데, 바로 <strong>과거에 배운 능력을 잊어버린다</strong>는 거야. 새로운 작업에 적응하려고 모델을 계속 업데이트하다 보면 이전에 잘하던 일들의 성능이 떨어지는 현상이 나타나는 거지. 이 문제를 해결하려면 단순히 정보를 저장하는 것을 넘어서, <strong>경험을 어떻게 구조화하고 관리하느냐</strong>가 핵심이 되는데, 이게 바로 에이전트의 메모리 메커니즘을 새롭게 설계해야 하는 이유야. 결국 LLM 에이전트가 지속적으로 성장하면서도 이전 능력을 보존하는 균형을 맞추는 게 곧 <strong>진정한 평생학습 시스템</strong>을 만드는 첫걸음이 될 거야.</p> <p><a id="paper1"></a> <strong>1. Do Self-Evolving Agents Forget? Capability Degradation and Preservation in Lifelong LLM Agent Adaptation</strong></p> <table> <tbody> <tr> <td> <strong>저자</strong>: Ye Yu, Xiaopeng Yuan, Haibo Jin</td> <td> <strong>기관</strong>: 기관미상</td> <td> <strong>날짜</strong>: 2026-05-10</td> <td> <strong>관련성 점수</strong>: 420</td> <td><a href="https://arxiv.org/abs/2605.09315" rel="external nofollow noopener" target="_blank">원문</a></td> <td><a href="https://arxiv.org/pdf/2605.09315" rel="external nofollow noopener" target="_blank">PDF</a></td> </tr> </tbody> </table> <p><strong>한 줄 요약</strong>: 자가진화 에이전트의 기억 붕괴를 식별하고, 능력 보존 제약으로 새로운 학습과 기존 능력 유지를 동시 달성.</p> <hr> <p><strong>[왜 어려운 문제인가]</strong></p> <p>대규모언어모델(LLM) 기반 에이전트(LLM agent: 자율적으로 작업을 수행하고 학습하는 AI 시스템)가 새로운 작업에 적응하는 과정에서 이전에 습득한 능력들을 점진적으로 잃어버리는 현상이 발생합니다. 이는 인간이 한 분야를 깊게 공부할 때 다른 분야의 기초 지식을 잊어버리는 것과 유사하지만, AI 시스템에서는 이 “망각”이 워크플로우 최적화, 스킬 축적, 모델 자가학습, 메모리 관리 등 모든 진화 채널(evolution channel: 에이전트가 자신을 개선하는 경로)에서 동시다발적으로 나타납니다. 기존 방법들은 새로운 능력 획득에만 집중해왔기 때문에 이러한 능력 침식 현상(capability erosion: 지속적 적응 중 기존 능력이 비가역적으로 훼손되는 현상)을 직접 측정하거나 완화하지 못했습니다. 장기간 자율적으로 작동해야 하는 에이전트 시스템이 구축되려면 새로운 작업 학습과 과거 성능 보존이 동시에 이루어져야 하는데, 이 두 목표 간 근본적 긴장 관계를 풀어야 합니다.</p> <hr> <p><strong>[선행 연구와의 관계]</strong></p> <p>본 논문은 연속학습(continual learning: 새로운 데이터가 순차적으로 도착할 때 이전 학습 성능을 유지하면서 학습하는 문제) 분야와 LLM 기반 에이전트 적응 연구의 교점에 위치합니다. 기존 연속학습 연구(Elastic Weight Consolidation, Experience Replay 등)는 주로 신경망 가중치 수준의 망각 문제를 다루어왔고, 최근의 자가진화 에이전트 연구들(workflow optimization, skill learning, in-context learning)은 새로운 분포에 빠르게 적응하는 것에만 초점을 맞추었습니다. 이 논문의 핵심 기여는 <strong>에이전트 시스템 전체에 걸쳐 능력 침식을 처음으로 정량화하고</strong>, 단순한 가중치 정규화를 넘어 <strong>에이전트의 4가지 진화 차원 모두에 적용 가능한 일반화된 보존 원칙</strong>을 제시한 점입니다.</p> <hr> <p><strong>[핵심 기여]</strong></p> <p><strong>직관</strong>: 숙련된 의사가 새로운 질병 진단법을 배울 때, 기존에 능숙하던 질환 진단이 정밀하지 않아지는 것처럼, LLM 에이전트도 새로운 작업군에 최적화되면서 이전 작업의 미묘한 판단 능력을 손상시킵니다. 기존 방법들은 의사를 단순히 새 질병에 대해 훈련만 했다면, 이 연구는 <strong>새 질병을 배우는 동시에 기존 질병 진단 성능 지표를 모니터링하고, 그 지표가 떨어지지 않도록 훈련 과정 자체를 설계</strong>하는 방식으로 근본적으로 다릅니다.</p> <p><strong>기술적 delta</strong>: 기존 방법은 새로운 작업 손실(loss)만 최소화했다면, 능력-보존-진화(Capability-Preserving Evolution, CPE)는 <strong>새 작업 성능과 기존 작업 성능 유지 사이의 명시적 제약 조건(constraint)을 최적화 목표에 추가</strong>하여, 두 목표를 동시에 달성 가능하게 만들었습니다.</p> <hr> <p><strong>[설계 선택과 tradeoff]</strong></p> <p>CPE는 에이전트의 진화 과정에서 <strong>과거 성능 메트릭(과거 작업들의 평가 점수)을 보존하는 방향의 정규화 항</strong>을 손실 함수에 추가함으로써 구현됩니다. 이 방법이 강력한 조건은 새로운 작업 분포와 기존 작업 분포 사이에 명확한 경계가 있고, 과거 성능을 정확히 측정할 수 있는 검증 데이터셋을 충분히 보유했을 때입니다. 반면 이 방법이 실패하는 조건은 <strong>새로운 작업이 기존 작업과 근본적으로 양립 불가능한 능력을 요구할 때</strong>(예: 창의적 글쓰기와 정확한 사실 기억이 상충하는 경우) 또는 <strong>과거 성능 측정 비용이 매우 높아서 지속적 평가가 불가능할 때</strong>입니다. 워크플로우 진화에서는 이 제약이 새로운 최적화 폭을 제한할 수 있으며, 메모리 진화에서는 과거 메모리 접근 비용 증가로 이어질 수 있습니다.</p> <hr> <p><strong>[실험]</strong></p> <p>• <strong>데이터셋 및 작업 설정</strong>: 워크플로우 진화(GPT-5.1 사용 시 간단한 작업 성능 41.8%에서 52.8%로 개선, 동시에 복잡한 작업 적응 유지), 스킬 진화(ReAct, Chain-of-Thought 등 프롬프트 기반 스킬 축적), 모델 진화(파인튜닝), 메모리 진화(장기 맥락 유지) 4가지 차원에서 평가했으며, 각각 서로 다른 벤치마크(예: 추론 작업, QA, 대화 지속성)에서 검증했습니다.</p> <p>• <strong>Baseline 및 비교</strong>: 표준 적응 학습(단순 새 작업 최적화), Experience Replay(과거 샘플 재학습), Elastic Weight Consolidation(중요 가중치 보호)과 비교하여, <strong>CPE가 모든 진화 채널에서 기존 성능 유지와 새 작업 적응을 동시에 달성</strong>함을 보였습니다.</p> <p>• <strong>Ablation 연구</strong>: CPE의 제약 강도(constraint weight)를 변화시켜 어느 수준의 보존 강도가 적응 성능과의 균형을 최적화하는지 검증했으며, 이를 통해 <strong>과거 메트릭 재계산 빈도, 보존 대상 작업군 범위</strong>가 성능 유지에 미치는 영향을 분리했습니다.</p> <p>• <strong>정량적 결과</strong>: 워크플로우 진화에서 CPE 미적용 시 새 작업 학습 후 단순 작업 성능 저하가 38.2%에 달했으나, CPE 적용으로 11%대로 제한; 메모리 진화에서는 정보 보존 정확도(retention accuracy) 기존 대비 22~34% 향상을 달성했습니다.</p> <hr> <p><strong>[이 분야에서의 위치]</strong></p> <p>본 논문은 자가진화 에이전트 연구의 패러다임을 전환시킵니다. 기존 연구들이 “에이전트가 얼마나 빨리 새로운 작업을 배우는가”에만 초점을 맞추었다면, 이 논문은 <strong>“에이전트가 장기적으로 과거와 현재를 모두 능숙하게 처리할 수 있는가”라는 실무적 질문</strong>을 처음으로 체계적으로 제기하고 해결책을 제시했습니다. 워크플로우, 스킬, 모델, 메모리 진화 전 영역에 적용 가능한 <strong>일반화된 능력 보존 원칙</strong>을 수립함으로써, 향후 장기 자율 운영 에이전트 설계의 표준 관례로 확립될 가능성이 높습니다. 후속 연구는 (1) 능력 충돌이 일어나는 근본 원인을 분석하는 방향, (2) 선택적 망각(일부 구식 능력의 의도적 제거)과 보존의 균형을 찾는 방향, (3) 이질적 작업 분포 간의 전이 학습(transfer learning: 한 작업에서 배운 지식을 다른 작업에 활용) 메커니즘 강화로 확장될 수 있으며, 이는 실제 로봇 자율화, 멀티태스크 챗봇, 자가개선 추천 시스템 등의 구축을 가능하게 할 것입니다.</p> <hr> <p><strong>재현성</strong>: 코드 공개: <strong>X</strong> (논문에서 명시되지 않음) 컴퓨팅 자원: GPT-5.1 모델 사용(구체적 하드웨어 명시 없음); 워크플로우/메모리 진화 실험은 중소 규모 GPU 클러스터에서 수행 가능하나, 모델 파인튜닝 차원의 대규모 실험은 고사양 가속기 필요.</p> <p><a id="paper2"></a> <strong>2. From Storage to Experience: A Survey on the Evolution of LLM Agent Memory Mechanisms</strong></p> <table> <tbody> <tr> <td> <strong>저자</strong>: Jinghao Luo, Yuchen Tian, Chuxue Cao</td> <td> <strong>기관</strong>: 기관미상</td> <td> <strong>날짜</strong>: 2026-05-07</td> <td> <strong>관련성 점수</strong>: 415</td> <td><a href="https://arxiv.org/abs/2605.06716" rel="external nofollow noopener" target="_blank">원문</a></td> <td><a href="https://arxiv.org/pdf/2605.06716" rel="external nofollow noopener" target="_blank">PDF</a></td> </tr> </tbody> </table> <p><strong>한 줄 요약</strong>: LLM 에이전트 메모리를 저장→정제→추상화 3단계로 체계화하여 장기 학습 체계 제시.</p> <hr> <p><strong>[왜 어려운 문제인가]</strong></p> <p>LLM 기반 에이전트(LLM agent: 대규모 언어모델이 외부 도구와 계획을 통합하여 복잡한 작업을 자율적으로 수행하는 시스템)는 현재 시점에서 단기 문맥 창(context window) 내에서만 정보를 활용하기 때문에, 수백 개의 상호작용이 누적되면 초기 경험들이 손실되거나 망각(forgetting)된다. 기존 접근은 메모리를 단순히 “저장 문제(storage problem)”로 보거나, 인지과학 개념만 차용하다 보니, 실제 에이전트가 시간이 지남에 따라 (1) 장기간 일관성(long-range consistency) 유지, (2) 환경 변화 적응(dynamic environment adaptation), (3) 경험으로부터 일반화 학습(continual learning)을 동시에 달성할 방법이 없다. 운영체제 캐싱 기법과 인지 심리학 이론이 별개로 발전해온 탓에, 에이전트 메모리의 진화 과정을 통합적으로 이해할 프레임워크가 부재하다.</p> <hr> <p><strong>[선행 연구와의 관계]</strong></p> <p>기존 에이전트 메모리 연구는 크게 두 갈래로 나뉜다: 한쪽은 벡터 데이터베이스(vector database) 기반 검색 증강(RAG: retrieval-augmented generation) 방식으로 궤적(trajectory) 전체를 저장하되 검색 효율만 개선했고(예: MemAgent, PEARL 류), 다른 한쪽은 인지 반성(reflection) 메커니즘을 단편적으로 도입해 특정 실패만 정제했으나 체계적 추상화(abstraction)에는 미달했다(예: Reflexion, Chain-of-Thought 기반 피드백). 이 논문은 Storage→Reflection→Experience라는 계층적 진화 구조를 명시함으로써, 단순 저장을 넘어 경험의 재구성과 일반화까지 아우르는 통합 설계 원리를 제시한다.</p> <hr> <p><strong>[핵심 기여]</strong></p> <p><strong>직관</strong>: 에이전트의 메모리 발전을 “일지 기록(일반 일상 기록) → 일지 검토(패턴 발견) → 인생 수훈(재사용 가능한 교훈 정제)”과 같다고 보면 된다. 초기 단계는 모든 행동을 그대로 저장하므로 스토리지만 큼 느려지고, 반성 단계에서 오류 궤적을 검토해 수정하지만 여전히 개별 사건 중심이다. 하지만 Experience 단계에서 여러 궤적 간의 공통 패턴(cross-trajectory abstraction: 서로 다른 경험 흐름에서 반복되는 일반 원칙 추출)을 뽑으면, 새로운 상황에서 즉시 적용할 수 있는 규칙(rule)이나 스킬(skill) 형태로 지식을 압축할 수 있다는 게 기존 방식의 한계를 넘는다.</p> <p><strong>기술적 delta</strong>: 기존 Reflexion이나 RAG는 “궤적 저장 후 검색” 또는 “오류별 개별 반성”에 머물렀다면, 이 논문은 (1) 다중 궤적 간 추상화를 명시적으로 설계 요소로 인정하고, (2) 능동적 탐색(proactive exploration: 에이전트가 스스로 학습 부족 영역을 인식하고 탐색 시도)을 Experience 단계의 핵심으로 제시하며, (3) 장기 일관성·동적 환경 적응·지속적 학습을 하나의 진화 프레임으로 통합한다.</p> <hr> <p><strong>[설계 선택과 tradeoff]</strong></p> <p>Storage→Reflection→Experience의 3단계 모델은 인지 발달 순서(piaget 발달 단계를 연상)와 정보 압축의 필연성을 바탕으로 했으며, 각 단계가 이전 단계를 기반으로 하므로 복합도가 순차적으로 증가한다. 이 설계는 <strong>강력한 조건</strong>으로 구조화된 과제(structured task)에서 반복 가능한 패턴이 충분할 때 의도한 대로 경험 축약이 이뤄진다. 반면 <strong>실패 조건</strong>은 (1) 환경이 급격히 변할 때 과거 경험의 일반화가 역효과가 되고(negative transfer), (2) 궤적 수가 매우 적으면 cross-trajectory 패턴 추출이 통계적으로 신뢰할 수 없으며, (3) 프롬프트 길이 제약 때문에 추상화의 깊이가 제한된다는 점이다.</p> <hr> <p><strong>[실험]</strong></p> <p>이 논문은 실제 단일 벤치마크 데이터셋이 아니라 개념 프레임워크 설문(survey)이므로, 기존 에이전트 메모리 연구들(WebShop 환경의 MemAgent, ALFWorld 멀티태스크 도메인의 Reflexion, ScienceWorld의 동적 환경 과제 등)을 메타-분석한다. 구체적 수치로는 Reflexion이 HumanEval 문제 해결에서 94.4% 도달한 사례, MemAgent가 웹 쇼핑에서 검색 대기시간 30% 단축 사례 등을 인용하며 현 방법들의 한계를 드러낸다. 논문은 ablation을 제시하지 않지만, 대신 각 단계별 대표 기법들의 기여를 분리 분석한다: Storage 단계의 “궤적 길이 vs. 검색 정확도” 트레이드오프, Reflection의 “오류 패턴 감지 정밀도”, Experience의 “규칙 추상화가 새로운 작업 전이(transfer)에 미치는 영향” 등을 문헌 검토로 비교한다.</p> <hr> <p><strong>[이 분야에서의 위치]</strong></p> <p>이 논문은 메모리 메커니즘의 진화를 역사적·이론적으로 처음 체계화한 메타-프레임워크를 제공함으로써, LLM 에이전트 연구의 산재된 여러 흐름(인지과학, OS 엔지니어링, RL 기반 학습)을 하나의 설계 철학으로 통합한다. 특히 proactive exploration과 cross-trajectory abstraction을 Experience 단계의 핵심으로 명시함으로써, 단순 저장과 검색을 넘어 <strong>에이전트가 스스로 학습 격차를 인식하고 경험을 압축하는 자율적 진화 능력</strong>으로 연구 초점을 이동시킨다. 이는 계속학습(continual learning)의 실제 구현으로, 향후 에이전트가 수년간 상호작용하는 장기 배포 시나리오(robotics, autonomous systems 등)에서 망각 방지와 효율적 지식 축적을 동시에 달성할 초기 설계 원리로 기능할 것으로 예상된다.</p> <hr> <table> <tbody> <tr> <td> <strong>재현성</strong>: 코드 공개: X (설문 논문으로 구현 코드 없음)</td> <td>기존 연구 인용 기반 메타-분석이므로 재현성은 개별 참고 논문의 공개 상황에 따름. GPU 요구사항 없음 (프레임워크 이론 제시).</td> </tr> </tbody> </table> <hr> <p><em>본 리포트의 논문 리뷰는 Anthropic의 <strong>Haiku</strong> 모델을 사용하여 자동 생성되었습니다.</em></p> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Hyangsuk Min. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Last updated: October 20, 2026. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-publications",
+          title: "publications",
+          description: "† equal contribution · * corresponding author",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-daily-update",
+          title: "daily update",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/post/index.html";
+          },
+        },{id: "nav-notes",
+          title: "notes",
+          description: "Short notes on research questions I keep coming back to.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/notes/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-리서치-레이더-2026년-10월-20일-화",
+        
+          title: "리서치 레이더 — 2026년 10월 20일 (화)",
+        
+        description: "기관 1 · arXiv 14 · 채택 2 · 보류 0 · 탈락 1",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-20-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-19일-월",
+        
+          title: "리서치 레이더 — 2026년 10월 19일 (월)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-19-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-18일-일",
+        
+          title: "리서치 레이더 — 2026년 10월 18일 (일)",
+        
+        description: "기관 7 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-18-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-16일-금",
+        
+          title: "리서치 레이더 — 2026년 10월 16일 (금)",
+        
+        description: "기관 8 · arXiv 14 · 채택 1 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-16-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-15일-목",
+        
+          title: "리서치 레이더 — 2026년 10월 15일 (목)",
+        
+        description: "기관 16 · arXiv 14 · 채택 2 · 보류 1 · 탈락 6",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-15-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-14일-수",
+        
+          title: "리서치 레이더 — 2026년 10월 14일 (수)",
+        
+        description: "기관 6 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-14-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-13일-화",
+        
+          title: "리서치 레이더 — 2026년 10월 13일 (화)",
+        
+        description: "기관 4 · arXiv 15 · 채택 0 · 보류 1 · 탈락 4",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-13-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-12일-월",
+        
+          title: "리서치 레이더 — 2026년 10월 12일 (월)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-12-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-11일-일",
+        
+          title: "리서치 레이더 — 2026년 10월 11일 (일)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-11-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-10일-토",
+        
+          title: "리서치 레이더 — 2026년 10월 10일 (토)",
+        
+        description: "기관 1 · arXiv 15 · 채택 2 · 보류 2 · 탈락 6",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-10-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-9일-금",
+        
+          title: "리서치 레이더 — 2026년 10월 9일 (금)",
+        
+        description: "기관 6 · arXiv 15 · 채택 2 · 보류 2 · 탈락 5",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-09-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-8일-목",
+        
+          title: "리서치 레이더 — 2026년 10월 8일 (목)",
+        
+        description: "기관 6 · arXiv 14 · 채택 2 · 보류 1 · 탈락 2",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-08-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-7일-수",
+        
+          title: "리서치 레이더 — 2026년 10월 7일 (수)",
+        
+        description: "기관 3 · arXiv 15 · 채택 2 · 보류 4 · 탈락 5",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-07-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-6일-화",
+        
+          title: "리서치 레이더 — 2026년 10월 6일 (화)",
+        
+        description: "기관 3 · arXiv 15 · 채택 1 · 보류 2 · 탈락 1",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-06-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-5일-월",
+        
+          title: "리서치 레이더 — 2026년 10월 5일 (월)",
+        
+        description: "기관 1 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-05-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-4일-일",
+        
+          title: "리서치 레이더 — 2026년 10월 4일 (일)",
+        
+        description: "기관 1 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-04-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-3일-토",
+        
+          title: "리서치 레이더 — 2026년 10월 3일 (토)",
+        
+        description: "기관 4 · arXiv 12 · 채택 1 · 보류 2 · 탈락 3",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-03-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-2일-금",
+        
+          title: "리서치 레이더 — 2026년 10월 2일 (금)",
+        
+        description: "기관 4 · arXiv 7 · 채택 1 · 보류 3 · 탈락 7",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-02-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-10월-1일-목",
+        
+          title: "리서치 레이더 — 2026년 10월 1일 (목)",
+        
+        description: "기관 6 · arXiv 11 · 채택 1 · 보류 1 · 탈락 3",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-10-01-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-30일-수",
+        
+          title: "리서치 레이더 — 2026년 9월 30일 (수)",
+        
+        description: "기관 5 · arXiv 14 · 채택 2 · 보류 4 · 탈락 7",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-30-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-29일-화",
+        
+          title: "리서치 레이더 — 2026년 9월 29일 (화)",
+        
+        description: "기관 2 · arXiv 13 · 채택 1 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-29-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-28일-월",
+        
+          title: "리서치 레이더 — 2026년 9월 28일 (월)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-28-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-27일-일",
+        
+          title: "리서치 레이더 — 2026년 9월 27일 (일)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-27-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-26일-토",
+        
+          title: "리서치 레이더 — 2026년 9월 26일 (토)",
+        
+        description: "기관 1 · arXiv 12 · 채택 0 · 보류 0 · 탈락 3",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-26-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-25일-금",
+        
+          title: "리서치 레이더 — 2026년 9월 25일 (금)",
+        
+        description: "기관 6 · arXiv 14 · 채택 1 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-25-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-24일-목",
+        
+          title: "리서치 레이더 — 2026년 9월 24일 (목)",
+        
+        description: "기관 5 · arXiv 12 · 채택 2 · 보류 0 · 탈락 1",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-24-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-23일-수",
+        
+          title: "리서치 레이더 — 2026년 9월 23일 (수)",
+        
+        description: "기관 0 · arXiv 12 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-23-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-22일-화",
+        
+          title: "리서치 레이더 — 2026년 9월 22일 (화)",
+        
+        description: "기관 1 · arXiv 14 · 채택 0 · 보류 1 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-22-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-21일-월",
+        
+          title: "리서치 레이더 — 2026년 9월 21일 (월)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-21-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-20일-일",
+        
+          title: "리서치 레이더 — 2026년 9월 20일 (일)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-20-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-19일-토",
+        
+          title: "리서치 레이더 — 2026년 9월 19일 (토)",
+        
+        description: "기관 5 · arXiv 14 · 채택 2 · 보류 0 · 탈락 1",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-19-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-17일-목",
+        
+          title: "리서치 레이더 — 2026년 9월 17일 (목)",
+        
+        description: "기관 4 · arXiv 14 · 채택 0 · 보류 1 · 탈락 1",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-17-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-16일-수",
+        
+          title: "리서치 레이더 — 2026년 9월 16일 (수)",
+        
+        description: "기관 2 · arXiv 12 · 채택 2 · 보류 2 · 탈락 3",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-16-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-15일-화",
+        
+          title: "리서치 레이더 — 2026년 9월 15일 (화)",
+        
+        description: "기관 1 · arXiv 15 · 채택 2 · 보류 3 · 탈락 9",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-15-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-14일-월",
+        
+          title: "리서치 레이더 — 2026년 9월 14일 (월)",
+        
+        description: "기관 11 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-14-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-5일-토",
+        
+          title: "리서치 레이더 — 2026년 9월 5일 (토)",
+        
+        description: "기관 1 · arXiv 10 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-05-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-4일-금",
+        
+          title: "리서치 레이더 — 2026년 9월 4일 (금)",
+        
+        description: "기관 6 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-04-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-3일-목",
+        
+          title: "리서치 레이더 — 2026년 9월 3일 (목)",
+        
+        description: "기관 3 · arXiv 15 · 채택 2 · 보류 1 · 탈락 4",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-03-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-2일-수",
+        
+          title: "리서치 레이더 — 2026년 9월 2일 (수)",
+        
+        description: "기관 3 · arXiv 15 · 채택 2 · 보류 3 · 탈락 4",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-02-radar/";
+          
+        },
+      },{id: "post-maybe-the-llm-answered-too-early",
+        
+          title: "Maybe the LLM Answered Too Early",
+        
+        description: "A note on information sufficiency: before improving an answer, ask whether the model had enough information to answer at all.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/notes/2026-09-01-information-sufficiency/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-9월-1일-화",
+        
+          title: "리서치 레이더 — 2026년 9월 1일 (화)",
+        
+        description: "기관 2 · arXiv 13 · 채택 0 · 보류 1 · 탈락 1",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-09-01-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-31일-월",
+        
+          title: "리서치 레이더 — 2026년 8월 31일 (월)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-31-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-30일-일",
+        
+          title: "리서치 레이더 — 2026년 8월 30일 (일)",
+        
+        description: "기관 1 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-30-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-29일-토",
+        
+          title: "리서치 레이더 — 2026년 8월 29일 (토)",
+        
+        description: "기관 2 · arXiv 14 · 채택 2 · 보류 0 · 탈락 2",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-29-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-28일-금",
+        
+          title: "리서치 레이더 — 2026년 8월 28일 (금)",
+        
+        description: "기관 9 · arXiv 14 · 채택 0 · 보류 0 · 탈락 2",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-28-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-27일-목",
+        
+          title: "리서치 레이더 — 2026년 8월 27일 (목)",
+        
+        description: "기관 8 · arXiv 11 · 채택 0 · 보류 0 · 탈락 2",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-27-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-26일-수",
+        
+          title: "리서치 레이더 — 2026년 8월 26일 (수)",
+        
+        description: "기관 5 · arXiv 10 · 채택 1 · 보류 0 · 탈락 1",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-26-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-25일-화",
+        
+          title: "리서치 레이더 — 2026년 8월 25일 (화)",
+        
+        description: "기관 1 · arXiv 12 · 채택 0 · 보류 0 · 탈락 1",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-25-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-24일-월",
+        
+          title: "리서치 레이더 — 2026년 8월 24일 (월)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-24-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-23일-일",
+        
+          title: "리서치 레이더 — 2026년 8월 23일 (일)",
+        
+        description: "기관 2 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-23-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-22일-토",
+        
+          title: "리서치 레이더 — 2026년 8월 22일 (토)",
+        
+        description: "기관 4 · arXiv 15 · 채택 0 · 보류 0 · 탈락 2",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-22-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-21일-금",
+        
+          title: "리서치 레이더 — 2026년 8월 21일 (금)",
+        
+        description: "기관 5 · arXiv 3 · 채택 0 · 보류 0 · 탈락 4",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-21-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-20일-목",
+        
+          title: "리서치 레이더 — 2026년 8월 20일 (목)",
+        
+        description: "기관 2 · arXiv 9 · 채택 2 · 보류 1 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-20-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-19일-수",
+        
+          title: "리서치 레이더 — 2026년 8월 19일 (수)",
+        
+        description: "기관 2 · arXiv 14 · 채택 1 · 보류 0 · 탈락 3",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-19-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-18일-화",
+        
+          title: "리서치 레이더 — 2026년 8월 18일 (화)",
+        
+        description: "기관 1 · arXiv 15 · 채택 2 · 보류 1 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-18-radar/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-08월-18일-1편",
+        
+          title: "논문 Daily Digest 2026년 08월 18일 (1편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-18-digest/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-17일-월",
+        
+          title: "리서치 레이더 — 2026년 8월 17일 (월)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-17-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-16일-일",
+        
+          title: "리서치 레이더 — 2026년 8월 16일 (일)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-16-radar/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-08월-16일-1편",
+        
+          title: "논문 Daily Digest 2026년 08월 16일 (1편)",
+        
+        description: "VVIP Intelligence (Global Top Labs) 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-16-digest/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-15일-토",
+        
+          title: "리서치 레이더 — 2026년 8월 15일 (토)",
+        
+        description: "기관 1 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-15-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-14일-금",
+        
+          title: "리서치 레이더 — 2026년 8월 14일 (금)",
+        
+        description: "기관 4 · arXiv 14 · 채택 2 · 보류 1 · 탈락 3",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-14-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-13일-목",
+        
+          title: "리서치 레이더 — 2026년 8월 13일 (목)",
+        
+        description: "기관 3 · arXiv 15 · 채택 1 · 보류 1 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-13-radar/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-08월-13일-1편",
+        
+          title: "논문 Daily Digest 2026년 08월 13일 (1편)",
+        
+        description: "Long-Horizon Agents 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-13-digest/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-12일-수",
+        
+          title: "리서치 레이더 — 2026년 8월 12일 (수)",
+        
+        description: "기관 2 · arXiv 11 · 채택 0 · 보류 0 · 탈락 1",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-12-radar/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-08월-12일-1편",
+        
+          title: "논문 Daily Digest 2026년 08월 12일 (1편)",
+        
+        description: "Long-Horizon Agents 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-12-digest/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-11일-화",
+        
+          title: "리서치 레이더 — 2026년 8월 11일 (화)",
+        
+        description: "기관 1 · arXiv 13 · 채택 0 · 보류 0 · 탈락 6",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-11-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-10일-월",
+        
+          title: "리서치 레이더 — 2026년 8월 10일 (월)",
+        
+        description: "기관 0 · arXiv 0 · 채택 10 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-10-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-9일-일",
+        
+          title: "리서치 레이더 — 2026년 8월 9일 (일)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-09-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-8일-토",
+        
+          title: "리서치 레이더 — 2026년 8월 8일 (토)",
+        
+        description: "기관 8 · arXiv 14 · 채택 2 · 보류 1 · 탈락 4",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-08-radar/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-08월-08일-2편",
+        
+          title: "논문 Daily Digest 2026년 08월 08일 (2편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-08-digest/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-7일-금",
+        
+          title: "리서치 레이더 — 2026년 8월 7일 (금)",
+        
+        description: "기관 0 · arXiv 0 · 채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-07-radar/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-6일-목",
+        
+          title: "리서치 레이더 — 2026년 8월 6일 (목)",
+        
+        description: "채택 0 · 보류 0 · 탈락 0",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-06-radar/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-08월-05일-3편",
+        
+          title: "논문 Daily Digest 2026년 08월 05일 (3편)",
+        
+        description: "Agent Reliability and Evaluation · VVIP Intelligence (Global Top Labs) 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-05-digest/";
+          
+        },
+      },{id: "post-리서치-레이더-2026년-8월-4일-화",
+        
+          title: "리서치 레이더 — 2026년 8월 4일 (화)",
+        
+        description: "채택 2 · 보류 3 · 탈락 9",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-04-radar/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-08월-04일-1편",
+        
+          title: "논문 Daily Digest 2026년 08월 04일 (1편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-04-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-08월-03일-3편",
+        
+          title: "논문 Daily Digest 2026년 08월 03일 (3편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-08-03-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-30일-1편",
+        
+          title: "논문 Daily Digest 2026년 07월 30일 (1편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-30-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-29일-3편",
+        
+          title: "논문 Daily Digest 2026년 07월 29일 (3편)",
+        
+        description: "Dynamic Memory Reliability · Agent Reliability and Evaluation 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-29-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-27일-1편",
+        
+          title: "논문 Daily Digest 2026년 07월 27일 (1편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-27-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-25일-1편",
+        
+          title: "논문 Daily Digest 2026년 07월 25일 (1편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-25-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-21일-1편",
+        
+          title: "논문 Daily Digest 2026년 07월 21일 (1편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-21-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-18일-1편",
+        
+          title: "논문 Daily Digest 2026년 07월 18일 (1편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-18-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-17일-2편",
+        
+          title: "논문 Daily Digest 2026년 07월 17일 (2편)",
+        
+        description: "Long-Horizon Agents · Agent Reliability and Evaluation 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-17-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-16일-1편",
+        
+          title: "논문 Daily Digest 2026년 07월 16일 (1편)",
+        
+        description: "Experience-Based Adaptation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-16-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-09일-1편",
+        
+          title: "논문 Daily Digest 2026년 07월 09일 (1편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-09-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-08일-3편",
+        
+          title: "논문 Daily Digest 2026년 07월 08일 (3편)",
+        
+        description: "Agent Reliability and Evaluation · VVIP Intelligence (Global Top Labs) · VIP Authors Track 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-08-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-07월-02일-2편",
+        
+          title: "논문 Daily Digest 2026년 07월 02일 (2편)",
+        
+        description: "VVIP Intelligence (Global Top Labs) · VIP Authors Track 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-07-02-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-06월-25일-1편",
+        
+          title: "논문 Daily Digest 2026년 06월 25일 (1편)",
+        
+        description: "VVIP Intelligence (Global Top Labs) 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-06-25-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-06월-24일-3편",
+        
+          title: "논문 Daily Digest 2026년 06월 24일 (3편)",
+        
+        description: "Agent Reliability and Evaluation · Experience-Based Adaptation 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-06-24-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-06월-19일-1편",
+        
+          title: "논문 Daily Digest 2026년 06월 19일 (1편)",
+        
+        description: "Embodied Agent Memory 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-06-19-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-06월-17일-1편",
+        
+          title: "논문 Daily Digest 2026년 06월 17일 (1편)",
+        
+        description: "VVIP Intelligence (Global Top Labs) 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-06-17-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-06월-13일-1편",
+        
+          title: "논문 Daily Digest 2026년 06월 13일 (1편)",
+        
+        description: "VVIP Intelligence (Global Top Labs) 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-06-13-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-06월-11일-1편",
+        
+          title: "논문 Daily Digest 2026년 06월 11일 (1편)",
+        
+        description: "Long-Horizon Agents 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-06-11-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-06월-09일-1편",
+        
+          title: "논문 Daily Digest 2026년 06월 09일 (1편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-06-09-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-06월-08일-3편",
+        
+          title: "논문 Daily Digest 2026년 06월 08일 (3편)",
+        
+        description: "Dynamic Memory Reliability · Long-Horizon Agents 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-06-08-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-06월-04일-4편",
+        
+          title: "논문 Daily Digest 2026년 06월 04일 (4편)",
+        
+        description: "Long-Horizon Agents · Embodied Agent Memory · VVIP Intelligence (Global Top Labs) 분야 유망 논문 4편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-06-04-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-31일-4편",
+        
+          title: "논문 Daily Digest 2026년 05월 31일 (4편)",
+        
+        description: "Long-Horizon Agents · Embodied Agent Memory · VVIP Intelligence (Global Top Labs) 분야 유망 논문 4편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-31-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-28일-1편",
+        
+          title: "논문 Daily Digest 2026년 05월 28일 (1편)",
+        
+        description: "Dynamic Memory Reliability 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-28-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-28일-4편",
+        
+          title: "논문 Daily Digest 2026년 05월 28일 (4편)",
+        
+        description: "Experience-Based Adaptation 분야 유망 논문 4편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-28-digest_1/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-27일-5편",
+        
+          title: "논문 Daily Digest 2026년 05월 27일 (5편)",
+        
+        description: "Long-Horizon Agents 분야 유망 논문 5편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-27-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-23일-1편",
+        
+          title: "논문 Daily Digest 2026년 05월 23일 (1편)",
+        
+        description: "Long-Horizon Agents 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-23-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-21일-2편",
+        
+          title: "논문 Daily Digest 2026년 05월 21일 (2편)",
+        
+        description: "Experience-Based Adaptation · Embodied Agent Memory 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-21-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-17일-1편",
+        
+          title: "논문 Daily Digest 2026년 05월 17일 (1편)",
+        
+        description: "Agent Reliability and Evaluation 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-17-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-16일-2편",
+        
+          title: "논문 Daily Digest 2026년 05월 16일 (2편)",
+        
+        description: "Dynamic Memory Reliability · VVIP Intelligence (Global Top Labs) 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-16-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-14일-6편",
+        
+          title: "논문 Daily Digest 2026년 05월 14일 (6편)",
+        
+        description: "Dynamic Memory Reliability · Long-Horizon Agents · Agent Reliability and Evaluation · VVIP Intelligence (Global Top Labs) · VIP Authors Track 분야 유망 논문 6편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-14-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-13일-2편",
+        
+          title: "논문 Daily Digest 2026년 05월 13일 (2편)",
+        
+        description: "Experience-Based Adaptation 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-13-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-07일-2편",
+        
+          title: "논문 Daily Digest 2026년 05월 07일 (2편)",
+        
+        description: "Agent Reliability and Evaluation · Embodied Agent Memory 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-07-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-06일-1편",
+        
+          title: "논문 Daily Digest 2026년 05월 06일 (1편)",
+        
+        description: "Dynamic Memory Reliability 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-06-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-05일-1편",
+        
+          title: "논문 Daily Digest 2026년 05월 05일 (1편)",
+        
+        description: "Long-Horizon Agents 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-05-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-02일-2편",
+        
+          title: "논문 Daily Digest 2026년 05월 02일 (2편)",
+        
+        description: "Dynamic Memory Reliability · VVIP Intelligence (Global Top Labs) 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-02-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-05월-01일-18편",
+        
+          title: "논문 Daily Digest 2026년 05월 01일 (18편)",
+        
+        description: "Agent Reliability and Evaluation · Experience-Based Adaptation · Embodied Agent Memory · VVIP Intelligence (Global Top Labs) · VIP Authors Track 분야 유망 논문 18편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-05-01-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-30일-1편",
+        
+          title: "논문 Daily Digest 2026년 04월 30일 (1편)",
+        
+        description: "Long-horizon 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-30-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-30일-13편",
+        
+          title: "논문 Daily Digest 2026년 04월 30일 (13편)",
+        
+        description: "Dynamic Memory Reliability · Long-Horizon Agents · Embodied Agent Memory 분야 유망 논문 13편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-30-digest_2/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-30일-11편",
+        
+          title: "논문 Daily Digest 2026년 04월 30일 (11편)",
+        
+        description: "Reliability · Agents · Evaluation · Adaptation · Memory 분야 유망 논문 11편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-30-digest_1/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-29일-5편",
+        
+          title: "논문 Daily Digest 2026년 04월 29일 (5편)",
+        
+        description: "Summarization · Long-horizon · Labs) 분야 유망 논문 5편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-29-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-27일-3편",
+        
+          title: "논문 Daily Digest 2026년 04월 27일 (3편)",
+        
+        description: "Summarization · Long-horizon · Memory 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-27-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-25일-2편",
+        
+          title: "논문 Daily Digest 2026년 04월 25일 (2편)",
+        
+        description: "Summarization 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-25-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-24일-6편",
+        
+          title: "논문 Daily Digest 2026년 04월 24일 (6편)",
+        
+        description: "Summarization · Long-horizon · Memory 분야 유망 논문 6편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-24-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-22일-6편",
+        
+          title: "논문 Daily Digest 2026년 04월 22일 (6편)",
+        
+        description: "Summarization · Long-horizon 분야 유망 논문 6편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-22-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-21일-3편",
+        
+          title: "논문 Daily Digest 2026년 04월 21일 (3편)",
+        
+        description: "Summarization · Long-horizon 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-21-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-18일-4편",
+        
+          title: "논문 Daily Digest 2026년 04월 18일 (4편)",
+        
+        description: "Summarization · Long-horizon 분야 유망 논문 4편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-18-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-17일-2편",
+        
+          title: "논문 Daily Digest 2026년 04월 17일 (2편)",
+        
+        description: "Summarization 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-17-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-16일-3편",
+        
+          title: "논문 Daily Digest 2026년 04월 16일 (3편)",
+        
+        description: "Summarization · Long-horizon 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-16-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-15일-6편",
+        
+          title: "논문 Daily Digest 2026년 04월 15일 (6편)",
+        
+        description: "Summarization · Long-horizon · Memory 분야 유망 논문 6편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-15-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-14일-4편",
+        
+          title: "논문 Daily Digest 2026년 04월 14일 (4편)",
+        
+        description: "Summarization · Long-horizon · AI 분야 유망 논문 4편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-14-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-11일-5편",
+        
+          title: "논문 Daily Digest 2026년 04월 11일 (5편)",
+        
+        description: "Summarization · Long-horizon · Memory · AI 분야 유망 논문 5편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-11-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-10일-5편",
+        
+          title: "논문 Daily Digest 2026년 04월 10일 (5편)",
+        
+        description: "Summarization · Long-horizon · Memory 분야 유망 논문 5편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-10-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-09일-5편",
+        
+          title: "논문 Daily Digest 2026년 04월 09일 (5편)",
+        
+        description: "Summarization · Long-horizon · AI 분야 유망 논문 5편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-09-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-08일-5편",
+        
+          title: "논문 Daily Digest 2026년 04월 08일 (5편)",
+        
+        description: "Summarization · Long-horizon · Memory 분야 유망 논문 5편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-08-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-07일-2편",
+        
+          title: "논문 Daily Digest 2026년 04월 07일 (2편)",
+        
+        description: "Summarization · Labs) 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-07-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-03일-3편",
+        
+          title: "논문 Daily Digest 2026년 04월 03일 (3편)",
+        
+        description: "Summarization · Long-horizon 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-03-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-03일-7편",
+        
+          title: "논문 Daily Digest 2026년 04월 03일 (7편)",
+        
+        description: "Summarization · Memory · Labs) 분야 유망 논문 7편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-03-digest_1/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-04월-02일-6편",
+        
+          title: "논문 Daily Digest 2026년 04월 02일 (6편)",
+        
+        description: "Summarization · Long-horizon · Memory · AI 분야 유망 논문 6편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-04-02-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-31일-3편",
+        
+          title: "논문 Daily Digest 2026년 03월 31일 (3편)",
+        
+        description: "Summarization · Long-horizon · Memory 분야 유망 논문 3편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-31-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-30일-2편",
+        
+          title: "논문 Daily Digest 2026년 03월 30일 (2편)",
+        
+        description: "Summarization 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-30-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-28일-2편",
+        
+          title: "논문 Daily Digest 2026년 03월 28일 (2편)",
+        
+        description: "Long-horizon 분야 유망 논문 2편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-28-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-27일-4편",
+        
+          title: "논문 Daily Digest 2026년 03월 27일 (4편)",
+        
+        description: "Summarization · Long-horizon · AI 분야 유망 논문 4편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-27-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-25일-6편",
+        
+          title: "논문 Daily Digest 2026년 03월 25일 (6편)",
+        
+        description: "Summarization · Long-horizon · AI · Labs) 분야 유망 논문 6편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-25-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-25일-1편",
+        
+          title: "논문 Daily Digest 2026년 03월 25일 (1편)",
+        
+        description: "Long-horizon 분야 유망 논문 1편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-25-digest_1/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-24일-9편",
+        
+          title: "논문 Daily Digest 2026년 03월 24일 (9편)",
+        
+        description: "Summarization · Long-horizon · Memory · Labs) 분야 유망 논문 9편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-24-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-24일-9편",
+        
+          title: "논문 Daily Digest 2026년 03월 24일 (9편)",
+        
+        description: "Summarization · Long-horizon · Memory · AI · Labs) 분야 유망 논문 9편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-24-digest_1/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-21일-12편",
+        
+          title: "논문 Daily Digest 2026년 03월 21일 (12편)",
+        
+        description: "Summarization · Long-horizon · Memory · AI · Labs) 분야 유망 논문 12편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-21-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-19일-9편",
+        
+          title: "논문 Daily Digest 2026년 03월 19일 (9편)",
+        
+        description: "Summarization · Agents · Memory · AI 분야 유망 논문 9편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-19-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-19일-4편",
+        
+          title: "논문 Daily Digest 2026년 03월 19일 (4편)",
+        
+        description: "Summarization · Long-horizon · Memory 분야 유망 논문 4편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-19-digest_2/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-19일-9편",
+        
+          title: "논문 Daily Digest 2026년 03월 19일 (9편)",
+        
+        description: "Summarization · Long-horizon · Memory · AI 분야 유망 논문 9편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-19-digest_1/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-17일-12편",
+        
+          title: "논문 Daily Digest 2026년 03월 17일 (12편)",
+        
+        description: "Summarization · Agents · Memory · AI 분야 유망 논문 12편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-17-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-17일-4편",
+        
+          title: "논문 Daily Digest 2026년 03월 17일 (4편)",
+        
+        description: "Summarization · Memory 분야 유망 논문 4편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-17-digest_2/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-17일-8편",
+        
+          title: "논문 Daily Digest 2026년 03월 17일 (8편)",
+        
+        description: "Summarization · Agents · Memory · AI 분야 유망 논문 8편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-17-digest_1/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-16일-7편",
+        
+          title: "논문 Daily Digest 2026년 03월 16일 (7편)",
+        
+        description: "Summarization · Agents · AI 분야 유망 논문 7편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-16-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-13일-9편",
+        
+          title: "논문 Daily Digest 2026년 03월 13일 (9편)",
+        
+        description: "Summarization · Agents · Memory · AI 분야 유망 논문 9편 | Haiku 자동 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-13-digest/";
+          
+        },
+      },{id: "post-논문-daily-digest-2026년-03월-12일-4편",
+        
+          title: "논문 Daily Digest 2026년 03월 12일 (4편)",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-12-digest/";
+          
+        },
+      },{id: "post-2026년-03월-11일-논문-daily-digest-8편",
+        
+          title: "📚 2026년 03월 11일 논문 Daily Digest (8편)",
+        
+        description: "Self-Evolving · Memory · Robotics · Reasoning 분야 유망 논문 8편",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-11-digest/";
+          
+        },
+      },{id: "post-2026년-03월-11일-논문-daily-digest-6편",
+        
+          title: "📚 2026년 03월 11일 논문 Daily Digest (6편)",
+        
+        description: "Robotics · AI/LLM · NLP 최신 논문 6편 | 기술 심층 분석",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/post/2026-03-11-daily-digest/";
+          
+        },
+      },{id: "news-started-my-phd-in-industrial-engineering-at-kaist-advised-by-prof-hwanjun-song",
+          title: 'Started my PhD in Industrial Engineering at KAIST, advised by Prof. Hwanjun Song...',
+          description: "",
+          section: "News",},{id: "news-our-paper-on-multi-dimensional-evaluation-of-llm-summarization-across-domains-and-languages-msumbench-https-arxiv-org-abs-2506-00549-will-appear-at-acl-2025-main",
+          title: 'Our paper on multi-dimensional evaluation of LLM summarization across domains and languages ([MSumBench](https://arxiv.org/abs/2506.00549))...',
+          description: "",
+          section: "News",},{id: "news-hamlet-https-arxiv-org-abs-2508-19578-a-holistic-evaluation-framework-for-book-length-comprehension-of-llms-will-appear-at-emnlp-2025-main",
+          title: '[HAMLET](https://arxiv.org/abs/2508.19578), a holistic evaluation framework for book-length comprehension of LLMs, will appear at...',
+          description: "",
+          section: "News",},{id: "news-our-multi-agent-debate-framework-for-completing-missing-relevance-judgments-dream-https-arxiv-org-abs-2602-06526-will-appear-at-iclr-2026",
+          title: 'Our multi-agent debate framework for completing missing relevance judgments ([DREAM](https://arxiv.org/abs/2602.06526)) will appear at...',
+          description: "",
+          section: "News",},{id: "news-new-paper-don-39-t-scroll-back-https-arxiv-org-abs-2608-09043-missing-evidence-memory-for-streaming-dialogue-summarization-to-appear-at-emnlp-2026",
+          title: 'New paper: [Don&amp;#39;t Scroll Back](https://arxiv.org/abs/2608.09043) — missing-evidence memory for streaming dialogue summarization, to...',
+          description: "",
+          section: "News",},{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/assets/pdf/cv.pdf", "_blank");
+        },
+      },{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%68%79%61%6E%67%73%75%6B.%6D%69%6E@%6B%61%69%73%74.%61%63.%6B%72", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=U24LXHAAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-semanticscholar',
+        title: 'Semantic Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.semanticscholar.org/author/1891408783", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/hmin0503", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/hyangsukmin", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
