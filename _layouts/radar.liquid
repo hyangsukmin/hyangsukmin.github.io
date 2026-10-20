@@ -1,0 +1,13 @@
+---
+layout: post
+---
+{% comment %}
+  One Research Radar issue. The body is the radar artifact's own issue markup,
+  kept verbatim; assets/css/radar.css styles it under #daily-radar.
+{% endcomment %}
+<link rel="stylesheet" href="{{ '/assets/css/radar.css' | relative_url }}">
+<div id="daily-radar">
+  <article class="issue" style="margin-bottom:2rem">
+    <div class="issue__body">{{ content }}</div>
+  </article>
+</div>

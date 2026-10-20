@@ -1,14 +1,15 @@
 ---
 layout: default
-permalink: /blog/
-title: blog
-nav: false
-nav_order: 1
+permalink: /post/
+title: daily update
+nav: true
+nav_order: 3
 pagination:
   enabled: true
   collection: posts
+  category: daily
   permalink: /page/:num/
-  per_page: 5
+  per_page: 10
   sort_field: date
   sort_reverse: true
   trail:
