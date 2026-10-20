@@ -8,19 +8,23 @@ missing. The artifact usually finishes updating before 09:00 KST.
 0. Sync first: `git pull --ff-only` (issues may also be pushed from other
    machines, so local main may be behind).
 
-1. Fetch the artifact with the Artifact tool's read action (not WebFetch or
-   curl -- the artifact is behind a claude.ai login; WebFetch refuses
-   claude.ai artifact links and curl only gets the SPA shell):
+1. Fetch the artifact. The artifact is behind a claude.ai login, so curl only
+   gets the SPA shell. Use whichever of these tools the session has:
 
-   Artifact
-     action: read
-     url: https://claude.ai/code/artifact/02db3738-fa2d-4b2f-b840-6ad1efe76d95
-     prompt: List the issue dates present, newest first.
+   - Locally (Claude Code CLI): the Artifact tool's read action. WebFetch
+     refuses claude.ai artifact links here.
 
-   The tool result names a local path where it saved the full HTML
-   ("full HTML saved to ..."). Use that path in the next step. If the read
-   fails or returns something other than the radar markup, stop and report
-   it -- do not publish a partial or stale issue.
+       Artifact
+         action: read
+         url: https://claude.ai/code/artifact/02db3738-fa2d-4b2f-b840-6ad1efe76d95
+         prompt: List the issue dates present, newest first.
+
+   - In the cloud routine: WebFetch on the same url with the same prompt.
+
+   The tool result names a local path where it saved the full HTML. Use that
+   path in the next step. If the fetch fails, or the saved file has no
+   'class="issue"' markup, stop and report it -- do not publish a partial or
+   stale issue.
 
 2. Import it:
 
@@ -31,9 +35,10 @@ missing. The artifact usually finishes updating before 09:00 KST.
    alone. If it prints "written: none", there is nothing new -- stop here and
    say so.
 
-3. Verify the build if Ruby gems are installed (`bundle exec jekyll build`).
-   If they aren't, skip this; the Deploy workflow builds on push, so check
-   that run with `gh run list -L 1` after pushing.
+3. Verify the build only if Ruby gems are already installed
+   (`bundle exec jekyll build`). Don't install them just for this -- the
+   Deploy workflow builds on push. Where `gh` is available, check that run
+   with `gh run list -L 1` after pushing.
 
 4. Commit only _posts/*-radar.html and push to main. Pushing is what
    deploys: .github/workflows/deploy.yml builds the site and publishes it to
