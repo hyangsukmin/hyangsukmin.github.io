@@ -1,0 +1,124 @@
+---
+layout: radar
+title: "리서치 레이더 — 2026년 10월 28일 (수)"
+date: 2026-10-28 07:30:00 +0900
+description: "기관 4 · arXiv 13 · 채택 2 · 보류 1 · 탈락 3"
+categories: [daily]
+tags: [research-radar]
+permalink: /post/2026-10-28-radar/
+render_with_liquid: false
+related_posts: false
+---
+<h3 class="sub">기관 리서치</h3><h4>Google DeepMind</h4>
+<ul><li>
+<strong>Genie 4: A new generation of world simulation</strong> (2026-10-27) — 실시간으로 탐색·조작 가능한 상호작용형 시뮬레이션 환경을 생성하는 차세대 월드 모델. Genie 3 대비 "강화된 포토리얼리즘·유연한 움직임·네이티브 오디오"를 내세우며, 실시간 월드 모델 중 처음으로 환경음·음악·대화를 네이티브로 함께 생성한다고 설명. 자연어로 날씨를 바꾸거나 카메라를 옮기거나 사물·인물을 추가하는 실시간 스티어링을 지원하고, Gemini Omni가 장면의 실제 모습·행동을 고정하는 동안 다른 Gemini 모델이 추론·일관성을 담당하는 "하이브리드 월드 모델" 구조를 취함. Gemini 4 Argon과 결합해 인간형 로봇이 체커를 두는 로보틱스 실험도 공개했으나, 벤치마크 수치는 전혀 제시되지 않았고 장시간 세션에서 시각적 디테일·물체 항상성이 흐트러지는 한계를 명시. — <a href="https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: 기타(월드 모델·멀티모달 생성 — 5개 주제 밖이지만 비중 있는 신규 발표로 기록)
+</li></ul>
+</li></ul>
+<h4>Google Research</h4>
+<ul><li>
+<strong>The sleep framework: A new way for LLMs to retain knowledge in continual learning</strong> (2026-10-27) — 배포된 LLM이 파라미터를 계속 갱신하면 기존 능력을 잃는 "치명적 망각(catastrophic forgetting)", in-context learning만 쓰면 세션이 끝나는 순간 정보가 사라지는 두 한계를 겨냥. 능동(wake) 단계에서 빠른 단기 메모리에 정보를 쌓고, 수면(sleep) 단계에서 입력을 멈춘 채 ① 저랭크 MoE 유닛을 새로 열어 기존 파라미터를 덮어쓰지 않고 통합하는 memory consolidation(지식 증류+RL 기반 모방학습으로 단기 기억을 장기 파라미터에 이식 후 임시 파라미터는 가지치기)과 ② MoE 라우터로 비표준 전문가를 활성화해 합성 데이터를 만들고 그래디언트 기반으로 선별해 자기개선하는 dreaming 두 단계를 거침. 미지 언어(만주어·칼라마크어) 연속 번역 학습에서 ICL·Cartridges·SFT는 심하게 망각한 반면 이 프레임워크는 성능 저하가 거의 없었고, BABILong 장문맥 과제에서 1000만 토큰까지 GPT-4·Titans를 능가하는 거의 완벽한 스케일링을 보였으며, SQuAD/지속사전학습에서 48.9%/46.2%로 베이스 모델·SFT·SEAL을 앞섰고, 수학 추론에서도 AIME 24 79.2%·AIME 25 69.0%·HMMT 25 46.1%로 SFT·GRPO·on-policy self-distillation을 능가. — <a href="https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: Long-context, Reasoning
+</li></ul>
+</li></ul>
+<h4>OpenAI</h4>
+<ul><li>
+신규 없음 (RSS 정상 확인, 10-27 신규 게시물 2건은 각각 Company("OpenAI expands partnership with Oracle")·무카테고리("Check Point vulnerability research")로 Research/Publication 카테고리가 아님. 10-26에 올라온 Research 카테고리 2건("ChatGPT's expanding world of work", "Working with academic communities")은 2026-10-27 브리핑에서 이미 다룸 — 그 이후 Research/Publication 신규 없음)
+</li></ul>
+<h4>Anthropic</h4>
+<ul><li>
+<strong>Early progress on accelerating drug development with Claude</strong> (2026-10-27) — 신약 개발의 병목이 분자 설계 단계만이 아니라 타깃 발굴·제조 최적화·규제 서류·임상시험 설계 전반에 있다는 문제의식으로, BigHat Biosciences·Bristol Myers Squibb·Divergence Labs·Enveda·Generate Biomedicines·The Column Group 6개 기관과의 협업 및 자체 희귀 소아 근디스트로피 프로그램(Mithril Medicine 인수 포함)을 공개. Generate에서는 Claude Code가 설계한 CAR T세포 치료 일부가 표준 대비 약 70% 짧아지면서 수용체 발현이 약 10배 늘고 종양 사멸·면역세포 활성 지속이 개선됐고, Divergence Labs에서는 Claude가 거의 자율적으로 한 달간 약 3만5천 개 항체 설계를 생성해 결합 설계 3건·IgE 치환 설계 20건(이 중 3건은 표준 치료제보다 IgE 치환 효과 우위)을 찾음. BigHat에서는 약 1,010개 변이체를 10주간 제작·시험해 최고 리드가 10배 이상 강하게 결합하고 용해도 한계온도가 18°C 높아짐. Enveda에서는 1,061쪽 제조 문서 검토에서 사람 검토자가 찾은 11건 전부를 포착하고 7건을 추가 발견해 검토 시간이 25시간에서 3시간 미만(89% 감소)으로 줄었고, 희귀 근디스트로피 프로그램은 아이디어에서 유망한 생쥐 결과까지 18개월이 안 걸려 2028년 말 임상시험 진입을 목표로 함. — <a href="https://www.anthropic.com/research/early-progress-drug-development" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Scientist / Automated Research
+</li></ul>
+</li><li>
+<strong>How AI agents shape experts' judgment calls</strong> (2026-10-27) — 전문가가 AI 에이전트에게 분석을 맡겨도 측정 방법·모호한 증거 해석·다음 행동 같은 핵심 판단은 여전히 자신이 내린다고 믿는다는 통념을, 그 믿음이 사실인지 검증. 61명의 인과추론 경험 있는 전문 분석가(11명은 에이전트 사용 거부로 제외, 최종 50명)에게 가상의 농업협동조합 자문 프로그램 확장 여부를 Claude Code(Claude Opus 4.8, High effort)로 분석하게 하고, 결과측정·비교방법·분석대상·가중치 4개 분석 선택지마다 동전던지기로 에이전트가 은밀히 특정 옵션을 선호하도록 조작. 분석가들은 네 가지 선택 전반에서 에이전트의 편향과 86% 일치했고(무작위 기대치는 약 50%), 사전 선호가 있던 38개 사례에서는 에이전트가 반대 의견을 내면 60%가 입장을 바꾼 반면 동의하면 6%만 바뀜(Table 참고 수치, 95% CI 24–82%p). 응답자의 77%가 에이전트의 논거를 때로는 그대로 반복했지만 15%만 에이전트 공로를 인정했고, 절반은 결론이 에이전트보다 자신의 것이라고 평가. AI 없이 작업한 11명 중 6명(55%)이 심각한 방법론적 오류를 낸 반면 AI 사용 50명 중 3명(6%)만 그랬다(단, AI 미사용군이 상대적으로 경험이 적어 교란 가능성 명시). — <a href="https://www.anthropic.com/research/agents-judgment-calls" target="_blank" rel="noopener">링크</a>
+<ul><li>
+관련 주제: AI Agents
+</li></ul>
+</li></ul>
+<h4>Meta FAIR / Meta AI</h4>
+<ul><li>
+⚠ 확인 실패 — RSS가 없어 <code>ai.meta.com/blog/</code>를 WebFetch했으나 여전히 2026-07-09 "Introducing Muse Spark 1.1"까지만 보이고 그 이후 갱신이 반영되지 않는다(캐시·렌더링 문제로 추정). 2026-10-14부터 매 확인마다 동일 증상이 이어지고 있으며(오늘로 15일째), 원칙상 재시도 없이 여기서 멈춤.
+</li></ul>
+<h4>Microsoft Research</h4>
+<ul><li>
+신규 없음 (RSS 정상 확인, 최신 항목은 2026-10-22 "Flint-interactive"로 2026-10-23 브리핑에서 이미 다룸 — 그 이후 갱신 없음)
+</li></ul>
+<h4>NVIDIA Research</h4>
+<ul><li>
+신규 없음 (<code>research.nvidia.com/publications</code> 목록이 이전과 유사한 32개 항목으로, 날짜가 전부 학회 게재월(2026-07~2026-12)로만 표시돼 실제 공개 시점을 알 수 없다는 한계가 계속됨 — 초록 미확인.)
+</li></ul>
+<h4>Apple ML Research</h4>
+<ul><li>
+신규 없음 (RSS 정상 확인, 최신 항목은 2026-10-26 "GHARP: Real-Time Gaussian Head Animation"로 2026-10-27 브리핑에서 이미 다룸 — 그 이후 갱신 없음)
+</li></ul><h3 class="sub">arXiv 신규</h3><blockquote>색인 상태: <code>--wide</code> 조회의 <code>newest_fetched</code>가 2026-10-26T17:59:44Z로, 실행 시각(2026-10-27T22:33:24Z) 대비 지연 약 28.6시간 — 정상 기준선(~28~29시간) 안으로, 전날(10-27) 기록했던 76.5시간 지연이 이번 조회에서 완전히 해소됐다(상세는 3절 Paper Radar 로그 참고). 769건의 신규 후보 중 13건을 5개 주제로 선별했다.</blockquote>
+<h4>AI Agents</h4>
+<ul><li>
+<strong>Memory Tax: Dissecting the Net Value of Agent Memory</strong> (<a href="https://arxiv.org/abs/2610.34073" target="_blank" rel="noopener">2610.34073</a>) — 장기 실행 에이전트에 전용 메모리 시스템을 붙이는 것이 원시 히스토리에서 직접 검색하는 것(RAG)보다 실제로 이득인지 불분명하다는 문제의식으로, 다수 벤치마크·모델 백본에 걸친 대규모 평가를 수행. 많은 전용 메모리 시스템이 naive RAG보다 오히려 성능이 떨어지는("음의 순가치") 경우가 많음을 발견하고, 이를 memory benefit(이득)과 memory tax(손실 — 정보 재구성 과정에서 증거가 누락·은폐되는 비용)로 분해해 분석하는 새 렌즈를 제시.
+</li><li>
+<strong>SlowLab: Benchmarking Autonomous AI Agents on a Year of Experiments They Cannot Undo</strong> (<a href="https://arxiv.org/abs/2610.34644" target="_blank" rel="noopener">2610.34644</a>) — 기존 에이전트 벤치마크는 즉시 답이 나오는 값싼 실험만 다루지만, 실제 물리 실험은 수개월이 걸리고 되돌릴 수 없다는 점에 착안해 작물·설비·가격이 가려진 온실 4개 구획에서 1년짜리 캠페인을 수행하는 벤치마크 SlowLab을 제시. 48개 미공개 사이트에 대한 사전등록 연구에서 저비용 LLM 에이전트 3종 모두 표준 재배 설정 근처에 머물며 베이지안 최적화 베이스라인보다 뚜렷이 낮은 성과를 냈고, 계절 중 측정값이 실제로는 어떤 정책 선택도 바꾸지 못했다는("측정이 개선에 기여하지 않음") 반직관적 결과를 보임.
+</li><li>
+<strong>Free to Look, Free to Reason: Simple LLM Harnesses Outdiagnose Hand-Crafted Root Cause Analysis Agents</strong> (<a href="https://arxiv.org/abs/2610.35767" target="_blank" rel="noopener">2610.35767</a>) — 마이크로서비스 장애의 근본원인분석(RCA)에 몰린 다수의 손수 설계된(표준 운영절차·고정 단계·역할 에이전트) LLM 에이전트들이 실제로 "모델이 자유롭게 조사하게 두는 것"보다 나은지 검증. 사전 규정이 전혀 없는 단순 하니스 3종이 8개 공개 데이터셋 90개 사례(RCAtlas)·6개 모델·3단계 추론 노력에서 공개된 RCA 에이전트(PR@1 16–53%)와 비LLM 방법(6–39%)을 크게 앞섰고(PR@1 65–77%), 공개 에이전트들이 모델 호출의 최대 전부를 프로그램으로 고정해 결정적 증거를 건너뛰는 사례를 분석.
+</li></ul>
+<h4>AI Scientist / Automated Research</h4>
+<ul><li>
+<strong>PACE: Research Proving Agent for Adaptive Conjecture Exploration</strong> (<a href="https://arxiv.org/abs/2610.33690" target="_blank" rel="noopener">2610.33690</a>) — 응용수학 추측 연구에서 후보 명제 수정과 증명 개발을 결합한 research-proof 에이전트. 51개 기존결과 재구성 과제에서 Proof Score 75.16으로 QED·Iteris 등 비교 시스템 중 최고, 6개 미해결 공개문제에서도 전부 최고 점수. <strong>(→ 레이더 채택, 3절 참조)</strong>
+</li><li>
+<strong>AlphaIdeaBench: Benchmarking Automated Research Idea Generation under Feasibility Constraints with Peer Review Alignment</strong> (<a href="https://arxiv.org/abs/2610.33644" target="_blank" rel="noopener">2610.33644</a>) — 연구 아이디어 생성 에이전트의 LLM judge를 600편 실제 동료평가 코멘트로 검증하고 자원예산(컴퓨트·API·시간)을 평가에 명시적으로 도입한 벤치마크. 8개 하니스·8개 백본의 팩토리얼 비교로 "하니스는 문제 설정을, 백본은 실행력을 좌우한다"는 결과를 제시. <strong>(→ 레이더 채택, 3절 참조)</strong>
+</li><li>
+<strong>Build, Don't Play: Self-Improving LLM Research Agents Develop a Hearthstone Battlegrounds AI That Rivals Top Players</strong> (<a href="https://arxiv.org/abs/2610.33845" target="_blank" rel="noopener">2610.33845</a>) — 특화 연구 메모리·검증 게이트·실전 대국 피드백을 공유하는 자가개선 연구 시스템 AutoTavern이 20일 만에 실제 게임의 첫 충실한 전체 콘텐츠 재현 시뮬레이터(TavernGym)와 PPO로 학습한 23개 버전의 정책(TavernAgent)을 만들어, 레이팅이 6,000에서 약 15,000으로 올라 공개 리더보드 상위 10명의 모든 지표를 앞섬 — "LLM 에이전트는 직접 플레이하는 것보다 훨씬 더 잘 빌드한다"는 결론. <strong>(→ 레이더 보류, 3절 참조 — 핵심 도메인이 과학적 발견이 아니라는 이유로 Gate A 판정이 애매함)</strong>
+</li><li>
+<strong>LegoSR: A Unified Framework for Self-improving Agent-Guided Scientific Discovery</strong> (<a href="https://arxiv.org/abs/2610.33465" target="_blank" rel="noopener">2610.33465</a>) — 방정식 발견 솔버들이 제각각 다른 데이터 인터페이스·표현·평가 기준을 써서 비교가 어렵다는 문제를, 7개 솔버를 공통 표현으로 통합하고 부분적으로 알려진 방정식 제약 탐색을 지원하는 LegoSR로 해결. LegoSR Agent는 솔버 지식·중간 결과·이전 과제의 교훈을 바탕으로 솔버를 선택·적응시켜, 잡음 섞인 상미분/편미분방정식 벤치마크에서 7개 전문가 튜닝 솔버 합집합에 거의 맞먹는 복원률을 내고 동일 모델·도구·예산의 범용 에이전트보다 최대 29%p 앞섬.
+</li></ul>
+<h4>Long-context</h4>
+<ul><li>
+<strong>The Price of Scale in Proactive Memory Recall</strong> (<a href="https://arxiv.org/abs/2610.34507" target="_blank" rel="noopener">2610.34507</a>) — 요청 없이 기억을 꺼내는 비서가 저장소 크기 N이 커질수록 다중검정 문제로 변한다는 점을 수학적으로 증명: N=8에서 거짓경보율 5%로 맞춘 유사도 임계값이 N=2048에서는 87–100%까지 치솟음을 LongMemEval·LoCoMo 스트리밍 재연으로 확인. 거짓경보율 α인 게이트의 항목당 거짓양성률이 약 −ln(1−α)/N임을 증명해 임계값이 N에 따라 ln N·√(ln N)으로 커져야 한다는 처방과, 사용자의 다른 단서와 비교하는 라벨 불필요 conformal gate로 LongMemEval에서 거짓경보 5%를 유지하면서 라벨 튜닝 임계값과 동등한 적중률을 보임.
+</li><li>
+<strong>Memory or a Clock? Auditing a Memory Advantage in XLand-MiniGrid with Seeds, Maps and Evaluation Noise Apart</strong> (<a href="https://arxiv.org/abs/2610.33816" target="_blank" rel="noopener">2610.33816</a>) — 부분관측 환경에서 LSTM 에이전트가 메모리 없는 MLP보다 25%p 앞서는, 흔히 "메모리 효과"로 해석되는 현상을 훈련 시드·맵·평가 잡음을 분리해 감사. 60회 실행·각 3회 재평가에서 이진 "과제 습득" 판정이 76%가 평가 잡음이었고, 시간 스텝 정보만 추가로 주면 메모리 없는 MLP가 LSTM과 3.3%p 차이로 좁혀져, 관측된 "메모리 우위"의 대부분이 실제로는 "시간을 아는 우위"였음을 보임 — 메모리 벤치마크 설계에 대한 방법론적 경고.
+</li><li>
+<strong>Rethinking Retrieval in the Long-Context Era: Training-Free Semantic Trees for Adaptive Context Construction</strong> (<a href="https://arxiv.org/abs/2610.34146" target="_blank" rel="noopener">2610.34146</a>) — 모델이 문서 전체를 다 받을 수 있게 됐어도 "무엇이 질의에 가장 도움되는 정보인가"는 여전히 다른 문제라는 점에서, 전체 문서에서 재사용 가능한 의미 계층을 한 번에 구축하고 질의마다 구조-의미 스코어링으로 공유 노드를 선별하는 학습 불필요 프레임워크를 제안. 4개 프런티어 모델 평균에서 LongBench 3개 과제 기준 전체-컨텍스트 프롬프팅 대비 QA-F1 1.72점 향상과 컨텍스트 길이 58.55% 절감을 동시에 달성.
+</li></ul>
+<h4>Reasoning</h4>
+<ul><li>
+<strong>A Sign Law for Entropy Drift under Sampler Mismatch in RLVR</strong> (<a href="https://arxiv.org/abs/2610.34044" target="_blank" rel="noopener">2610.34044</a>) — RLVR에서 엔트로피가 오르내리는 원인을, 롤아웃을 뽑을 때의 샘플러(top-k/top-p 등)와 학습기가 가정하는 분포가 어긋나는 "샘플러 불일치"로 규명하고, 어느 방향으로 엔트로피가 흐를지 결정하는 부호 법칙을 수학적으로 증명. 2B 모델에서 엔트로피 기울기가 이론과 정확히 일치했고, 9B 추론 모델 10스텝 학습에서 net advantage를 0으로 맞추거나 재정규화하면 엔트로피 폭주를 막아 held-out 정확도를 각각 8.2점·8.8점 끌어올림.
+</li><li>
+<strong>Beyond the Opening: Tracing the First Token's Persistent Influence on Reasoning Length</strong> (<a href="https://arxiv.org/abs/2610.34350" target="_blank" rel="noopener">2610.34350</a>) — 추론 모델의 첫 토큰 하나를 바꾸면 추론 길이가 크게 달라진다는 선행 관찰을 더 파고들어, 이미 생성된 추론 접두사의 첫 토큰만 바꾸고 나머지는 그대로 둔 채 생성을 재개해도 남은 추론 길이가 크게 바뀜을 보임. 소수의 특정 생성 위치에서 첫 토큰에 대한 attention을 차단하면 길이 격차가 줄어들어, 국소적인 초기 토큰 선택이 몇몇 민감한 위치에 대한 지속적 attention을 통해 시퀀스 전체의 결과를 좌우한다는 메커니즘을 제시.
+</li><li>
+<strong>Higher Reasoning Effort Improves Reference Verifiability and Changes Reasoning Summaries in GPT-5.5</strong> (<a href="https://arxiv.org/abs/2610.34212" target="_blank" rel="noopener">2610.34212</a>) — GPT-5.5가 1,000편 논문에 대해 낮은/높은 추론 노력 설정으로 학술 참고문헌을 생성하게 하고 외부 서지 데이터베이스로 검증한 결과, 높은 추론 노력이 논문당 평균 검증된 인용 비율을 78.3%→84.8%로 높이고 추론 요약도 더 길어짐을 확인. 다만 모델이 스스로 발견한 요약 특징들은 추론 노력에 따라 일관되게 늘지 않았고, 각 추론 노력 조건 안에서는 특정 특징 점수가 높다고 검증률이 꾸준히 오르지도 않아, "더 생각하면 인용이 더 좋아진다"는 결론이 단순하지 않음을 보임.
+</li></ul><h3 class="sub">Paper Radar <span class="sub__chips"><span class="chip chip--ok"><span class="chip__k">채택</span><span class="chip__v">2</span></span><span class="chip chip--hold"><span class="chip__k">보류</span><span class="chip__v">1</span></span><span class="chip chip--off"><span class="chip__k">탈락</span><span class="chip__v">3</span></span></span></h3><div class="radar"><p>조회 800건 · 신규 769건 · 채택 2 · 보류 1 · 탈락 3</p>
+<p>색인 상태: <code>--wide</code> 조회(800건, 커서 2026-10-23T17:59:56Z부터)의 <code>newest_fetched</code>는 2026-10-26T17:59:44Z로, 실행 시각(2026-10-27T22:33:24Z) 대비 지연 약 28.6시간 — 최근 정상 기준선(~28~29시간)에 정확히 들어온다. 전날(10-27) 기록했던 76.5시간 지연이 이번 실행에서 완전히 해소되며 색인이 사흘치(10-23→10-26) 전진했다. 지연이 정상 범위로 복귀했으므로 커서는 이번 실행 시각(2026-10-27T22:33:24Z)으로 전진시킨다.</p>
+<h3>채택</h3>
+<ul><li>
+<strong>PACE</strong> — Research Proving Agent for Adaptive Conjecture Exploration
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2610.33690" target="_blank" rel="noopener">2610.33690</a>
+</li><li>
+통과 근거: Gate A-1(수학 추측 연구를 위한 자율 연구-증명 에이전트) + Gate B-2 — evidence-tracking memory의 버전별 적용가능성 재검증 메커니즘(Table 4 ablation에서 이 모듈만 제거 시 점수 7/6→3/2로 최대 낙폭)이 HypoExplore류 재현 파이프라인에서 가설 개정 시 안전한 증거 재사용에 바로 투입 가능.
+</li><li>
+파일: <code>미분류/202610_PACE_Adaptive-Conjecture-Exploration-Proving-Agent_arXiv2610.33690.pdf</code> · 리뷰: <code>202610_PACE_Adaptive-Conjecture-Exploration-Proving-Agent_arXiv2610.33690_리뷰.md</code>
+</li></ul>
+</li><li>
+<strong>AlphaIdeaBench</strong> — Benchmarking Automated Research Idea Generation under Feasibility Constraints with Peer Review Alignment
+<ul><li>
+arXiv: <a href="https://arxiv.org/abs/2610.33644" target="_blank" rel="noopener">2610.33644</a>
+</li><li>
+통과 근거: Gate A-3(연구 아이디어 평가·벤치마크) + Gate B-1/B-4 — 600편 실제 동료평가 코멘트로 LLM judge의 4축 novelty 점수를 검증(Table 2)하고 자원예산을 1급 변수로 도입(Figure 7)해 기존 코퍼스(TasteGap/LigBench)가 다루지 않은 새 평가 축을 열었고, harness-vs-backbone 분리 비교(Table 3/4)로 이 분야의 표준 벤치마크가 될 만한 설계.
+</li><li>
+파일: <code>미분류/202610_AlphaIdeaBench_Feasibility-Constrained-Ideation-Benchmark_arXiv2610.33644.pdf</code> · 리뷰: <code>202610_AlphaIdeaBench_Feasibility-Constrained-Ideation-Benchmark_arXiv2610.33644_리뷰.md</code>
+</li></ul>
+</li></ul>
+<h3>보류</h3>
+<ul><li>
+Build, Don't Play: Self-Improving LLM Research Agents Develop a Hearthstone Battlegrounds AI That Rivals Top Players (<a href="https://arxiv.org/abs/2610.33845" target="_blank" rel="noopener">2610.33845</a>) — 자율 연구 에이전트 프레이밍(research memory, verification gates, closed loop)은 Gate A-1에 근접하나 핵심 도메인이 과학적 발견이 아닌 경쟁 게임 AI 구축이라 Gate A 충족 여부가 애매함.
+</li></ul>
+<h3>탈락</h3>
+<ul><li>
+Quantifying Claim Smoothing by LLM Research Agents (<a href="https://arxiv.org/abs/2610.35793" target="_blank" rel="noopener">2610.35793</a>) — 핵심 기여가 범용 딥리서치 도구의 서술 신뢰성(과잉주장/스무딩) 측정이며 과학적 아이디어 평가로 정식화되지 않음 — Gate A 불충족.
+</li><li>
+Novel or Not? PatEx-Gym: Agentic Prior-Art Search for Novelty Assessment in Patent Examination (<a href="https://arxiv.org/abs/2610.33503" target="_blank" rel="noopener">2610.33503</a>) — 핵심 기여가 특허 심사 선행기술 검색 에이전트라는 도메인 응용이며 자율연구/가설생성/연구아이디어평가 어디에도 해당하지 않음 — Gate A 불충족.
+</li><li>
+Distill, Debate, Discover: Grounding Multi-Agent Research Ideation in Graph-Distilled Insights (<a href="https://arxiv.org/abs/2610.33366" target="_blank" rel="noopener">2610.33366</a>) — 멀티에이전트 토론 + 문헌그래프 증류의 조합형 소폭 변형이고 LLM judge pairwise 비교만으로 검증되어 새 문제축이나 표준 벤치마크를 열지 못함 — Gate B 불충족(소폭 변형으로 즉시 탈락).
+</li></ul></div>
