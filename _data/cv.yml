@@ -4,7 +4,7 @@ cv:
   email: hyangsuk.min@kaist.ac.kr
   location: Daejeon, Korea
   image: ""
-  summary: PhD student at KAIST working on trustworthy AI agents, memory, and AI co-scientist systems.
+  summary: PhD student at KAIST working toward reliable and trustworthy agentic AI — LLM evaluation, agentic memory, and autonomous research agents.
 
   social_networks:
     - network: GitHub
@@ -17,7 +17,7 @@ cv:
       - institution: Korea Advanced Institute of Science and Technology (KAIST)
         location: Daejeon, Korea
         url: https://www.kaist.ac.kr/en/
-        area: Industrial Engineering
+        area: Industrial and Systems Engineering
         studyType: PhD
         start_date: 2024-09
         end_date: present
@@ -39,7 +39,7 @@ cv:
       - institution: Kookmin University
         location: Seoul, Korea
         area: Bigdata Analysis and Statistics
-        studyType: BBA
+        studyType: BS
         start_date: 2015-03
         end_date: 2019-08
         highlights:
@@ -86,7 +86,8 @@ cv:
         details: ICML, ACL, EMNLP, NeurIPS, ICLR, Neural Networks
 
     Teaching:
-      - bullet: "**Programming for Data Science** (IE260), Teaching Assistant, KAIST — Spring 2026"
+      - bullet: "**Information Technology for IE** (IE261), Teaching Assistant, KAIST — Fall 2026"
+      - bullet: "**Programming for Data Science** (DS801), Teaching Assistant, KAIST — Spring 2026"
       - bullet: "**Data Structures and Analysis** (IE260), Teaching Assistant, KAIST — Spring 2025"
       - bullet: "**LLM Fine-tuning with HuggingFace**, Assistant Instructor, SK Telecom — Nov 2023"
 
@@ -105,11 +106,11 @@ cv:
       - name: Korean
         summary: Native
       - name: English
-        summary: Intermediate–Fluent
+        summary: Fluent
       - name: Spanish
         summary: Beginner
 
     Interests:
       - name: Research
         icon: fa-solid fa-tag
-        keywords: "Large Language Models, Human-AI Alignment, Data-Centric AI, Summarization and Evaluation, Trustworthy AI"
+        keywords: "Agentic AI, LLM Evaluation, Multi-Agent Systems, Agentic Memory, Autonomous Research Agents, Trustworthy AI"
